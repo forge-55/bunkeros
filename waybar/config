@@ -2,11 +2,11 @@
     "layer": "top",
     "position": "top",
     "height": 32,
-    "spacing": 8,
+    "spacing": 4,
     
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["clock"],
-    "modules-right": ["network", "cpu", "memory", "pulseaudio", "battery"],
+    "modules-right": ["network", "pulseaudio", "battery", "custom/power"],
     
     "sway/workspaces": {
         "disable-scroll": false,
@@ -50,13 +50,13 @@
     },
     
     "cpu": {
-        "format": "CPU {usage}%",
+        "format": "󰘚 {usage}%",
         "tooltip": true,
         "interval": 2
     },
     
     "memory": {
-        "format": "MEM {}%",
+        "format": "󰍛 {}%",
         "tooltip-format": "{used:0.1f}G / {total:0.1f}G used"
     },
     
@@ -66,29 +66,36 @@
             "warning": 30,
             "critical": 15
         },
-        "format": "BAT {capacity}%",
-        "format-charging": "CHG {capacity}%",
-        "format-plugged": "PWR {capacity}%",
+        "format": "{icon} {capacity}%",
+        "format-charging": "󰂄 {capacity}%",
+        "format-plugged": "󰚥 {capacity}%",
+        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
         "format-alt": "{time}",
         "interval": 30
     },
     
     "network": {
-        "format-wifi": "NET {signalStrength}%",
-        "format-ethernet": "ETH Connected",
-        "format-linked": "NET (No IP)",
-        "format-disconnected": "NET Disconnected",
+        "format-wifi": "󰖩 {signalStrength}%",
+        "format-ethernet": "󰈀 Connected",
+        "format-linked": "󰖪 No IP",
+        "format-disconnected": "󰖪 Down",
         "format-alt": "{essid} {ipaddr}/{cidr}",
         "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
         "interval": 5
     },
     
     "pulseaudio": {
-        "format": "VOL {volume}%",
-        "format-muted": "VOL MUTE",
+        "format": "󰕾 {volume}%",
+        "format-muted": "󰖁 Mute",
         "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
         "on-click-right": "pavucontrol",
         "tooltip-format": "{desc}"
+    },
+    
+    "custom/power": {
+        "format": "󰐥",
+        "on-click": "/home/ryan/Projects/sway-config/waybar/scripts/power-menu.sh",
+        "tooltip": false
     }
 }
 
