@@ -4,15 +4,15 @@ A clean, minimal Sway setup with a tactical color palette inspired by military a
 
 ## Features
 
-- **Waybar** status bar with enhanced depth effects and tactical styling
-- **Numbered workspaces** (1-7) with ArchCraft-inspired boxed design
-- **Wofi** application launcher with command center aesthetic
+- **Waybar** status bar with flat, tactical styling
+- **Numbered workspaces** (1-7) with ArchCraft-inspired circular indicators
+- **Wofi** application launcher with minimal design aesthetic
 - **Dynamic wallpaper** management via swaybg
 - **Window gaps** for a modern tiled layout
 - **Subtle transparency** on windows (95% opacity)
 - **Custom color scheme** with olive drab, tactical gray, and tan accents
-- **CSS box shadows** for visual depth without GPU compositor effects
-- **Zero performance overhead** - all effects are pure CSS
+- **Flat design philosophy** - function over decoration
+- **Zero performance overhead** - pure CSS styling
 
 ## Color Palette
 
@@ -28,7 +28,7 @@ The configuration uses a carefully crafted military-inspired palette that balanc
 
 ### Design Philosophy
 
-The palette prioritizes readability and focus while maintaining a cohesive tactical aesthetic. Box shadows and border accents create visual hierarchy without requiring GPU-intensive compositor effects, making it ideal for older hardware like the ThinkPad T480.
+The palette prioritizes readability and focus while maintaining a cohesive tactical aesthetic. The design follows a flat, understated approach with minimal shadows and clean borders - emphasizing function over decoration, perfect for performance-conscious setups like the ThinkPad T480.
 
 ## Requirements
 
@@ -88,23 +88,22 @@ default_border pixel 3    # Border thickness
 
 ### Visual Effects
 
-All depth effects are achieved through CSS box shadows, which are GPU-accelerated and have zero CPU overhead. This approach provides visual polish without the performance cost of compositor-level effects like blur or animations.
+The design embraces a flat, minimal aesthetic with restrained use of visual effects. All styling is pure CSS with zero performance overhead.
 
 **Waybar enhancements:**
-- Drop shadow for panel separation
-- Inset shadows on modules for recessed tactical display
 - Circular workspace indicators (ArchCraft-inspired)
 - 7 persistent workspaces with clear visual hierarchy
-- Active workspace: filled khaki circle with glow
+- Active workspace: filled khaki circle
 - Inactive workspace: hollow circle with olive border
 - Hover workspace: semi-transparent fill
 - Urgent workspace: filled amber circle with pulsing glow animation
+- Clean module separation through subtle backgrounds
 
 **Wofi enhancements:**
-- Command center aesthetic with strong window shadow
-- Dual-tone border treatment
-- Inset shadows on input fields
-- Left accent bar on selections
+- Minimal border treatment for clean appearance
+- Subtle left accent bar on selections
+- Flat input field styling
+- Focus on content over decoration
 
 ### Colors
 

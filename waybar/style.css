@@ -11,7 +11,6 @@ window#waybar {
     color: #D4D4D4;
     transition-property: background-color;
     transition-duration: 0.5s;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
 window#waybar.hidden {
@@ -42,7 +41,6 @@ window#waybar.hidden {
     background-color: #C3B091;
     color: #1C1C1C;
     border: 2px solid #C3B091;
-    box-shadow: 0 0 10px rgba(195, 176, 145, 0.5);
 }
 
 #workspaces button.urgent {
@@ -68,8 +66,6 @@ window#waybar.hidden {
     padding: 0 14px;
     margin-left: 8px;
     font-weight: bold;
-    border-left: 3px solid #1C1C1C;
-    box-shadow: 0 2px 6px rgba(204, 120, 50, 0.4), inset 2px 0 4px rgba(0, 0, 0, 0.3);
 }
 
 #clock,
@@ -82,16 +78,12 @@ window#waybar.hidden {
     padding: 0 12px;
     background-color: rgba(43, 45, 46, 0.8);
     color: #D4D4D4;
-    border-left: 1px solid rgba(60, 74, 47, 0.4);
-    box-shadow: inset 2px 0 4px rgba(0, 0, 0, 0.3);
 }
 
 #clock {
     font-weight: bold;
     color: #C3B091;
     background-color: rgba(60, 74, 47, 0.6);
-    border-left: 2px solid #4A5240;
-    box-shadow: inset 2px 0 6px rgba(0, 0, 0, 0.4);
 }
 
 #battery {
@@ -107,7 +99,6 @@ window#waybar.hidden {
 #battery.warning:not(.charging) {
     background-color: #CC7832;
     color: #1C1C1C;
-    border-left: 2px solid #1C1C1C;
     animation: blink 0.5s linear infinite alternate;
 }
 
@@ -115,7 +106,6 @@ window#waybar.hidden {
     background-color: #CC7832;
     color: #1C1C1C;
     font-weight: bold;
-    border-left: 3px solid #1C1C1C;
     animation: blink 0.3s linear infinite alternate;
 }
 
@@ -141,7 +131,6 @@ window#waybar.hidden {
 #network.disconnected {
     background-color: rgba(204, 120, 50, 0.3);
     color: #CC7832;
-    border-left: 2px solid #CC7832;
     font-weight: bold;
 }
 
