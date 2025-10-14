@@ -6,7 +6,7 @@
     
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["clock"],
-    "modules-right": ["network", "cpu", "memory", "pulseaudio", "battery", "tray"],
+    "modules-right": ["network", "cpu", "memory", "pulseaudio", "battery"],
     
     "sway/workspaces": {
         "disable-scroll": false,
@@ -89,10 +89,6 @@
         "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
         "on-click-right": "pavucontrol",
         "tooltip-format": "{desc}"
-    },
-    
-    "tray": {
-        "spacing": 8
     }
 }
 

@@ -91,8 +91,7 @@ window#waybar.hidden {
 #cpu,
 #memory,
 #network,
-#pulseaudio,
-#tray {
+#pulseaudio {
     padding: 0 10px;
     background-color: transparent;
     color: #D4D4D4;
@@ -134,17 +133,3 @@ window#waybar.hidden {
     background-color: rgba(43, 45, 46, 0.5);
     color: #2B2D2E;
 }
-
-#tray {
-    background-color: rgba(43, 45, 46, 0.6);
-}
-
-#tray > .passive {
-    -gtk-icon-effect: dim;
-}
-
-#tray > .needs-attention {
-    -gtk-icon-effect: highlight;
-    background-color: #CC7832;
-}
-
