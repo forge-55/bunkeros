@@ -36,8 +36,8 @@ exec_always "killall swaybg 2>/dev/null; swaybg -i ~/Pictures/space1.jpg -m fill
 ### Appearance
 #
 # Window gaps (always visible like Hyprland/COSMIC)
-gaps inner 7
-gaps outer 7
+gaps inner 8
+gaps outer 8
 smart_gaps off
 
 # Window borders with military color scheme
