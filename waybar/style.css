@@ -88,6 +88,7 @@ window#waybar.hidden {
 
 #clock,
 #battery,
+#backlight,
 #cpu,
 #memory,
 #network,
@@ -105,6 +106,10 @@ window#waybar.hidden {
 }
 
 #battery {
+    color: #4A5240;
+}
+
+#backlight {
     color: #4A5240;
 }
 
