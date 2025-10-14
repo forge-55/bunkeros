@@ -29,7 +29,7 @@ window#waybar.hidden {
     background-color: transparent;
     color: #6B7657;
     border: 1px solid rgba(60, 74, 47, 0.6);
-    border-radius: 2px;
+    border-radius: 4px;
     font-size: 11px;
     min-width: 20px;
 }
@@ -45,6 +45,7 @@ window#waybar.hidden {
     background-color: rgba(195, 176, 145, 0.4);
     color: #C3B091;
     border: 2px solid #C3B091;
+    border-radius: 4px;
     font-weight: bold;
     font-size: 14px;
     padding: 3px 10px;
