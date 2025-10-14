@@ -17,37 +17,54 @@ window#waybar.hidden {
     opacity: 0.2;
 }
 
-#workspaces button {
-    padding: 0px;
-    margin: 0 6px;
+#workspaces {
     background-color: transparent;
-    color: #4A5240;
-    border: 2px solid #4A5240;
-    border-radius: 50%;
-    min-width: 28px;
-    min-height: 28px;
-    font-weight: bold;
+    padding: 0;
+    margin: 0 0 0 12px;
+}
+
+#workspaces button {
+    padding: 2px 8px;
+    margin: 0 2px;
+    background-color: transparent;
+    color: #6B7657;
+    border: 1px solid rgba(60, 74, 47, 0.6);
+    border-radius: 2px;
     font-size: 11px;
-    transition: all 0.3s ease;
+    min-width: 20px;
 }
 
 #workspaces button:hover {
-    background-color: rgba(74, 82, 64, 0.3);
+    background-color: rgba(60, 74, 47, 0.3);
     color: #C3B091;
-    border: 2px solid #C3B091;
+    border-color: rgba(195, 176, 145, 0.4);
 }
 
+#workspaces button.active,
 #workspaces button.focused {
-    background-color: #C3B091;
-    color: #1C1C1C;
+    background-color: rgba(195, 176, 145, 0.4);
+    color: #C3B091;
     border: 2px solid #C3B091;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 3px 10px;
+}
+
+#workspaces button.active label,
+#workspaces button.focused label {
+    color: #C3B091;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#workspaces button.visible {
+    background-color: rgba(74, 82, 64, 0.3);
+    color: #4A5240;
 }
 
 #workspaces button.urgent {
     background-color: #CC7832;
-    color: #1C1C1C;
     border: 2px solid #CC7832;
-    box-shadow: 0 0 12px rgba(204, 120, 50, 0.6);
     animation: urgent-pulse 1s ease-in-out infinite alternate;
 }
 
@@ -61,11 +78,11 @@ window#waybar.hidden {
 }
 
 #mode {
-    background-color: #CC7832;
-    color: #1C1C1C;
-    padding: 0 14px;
-    margin-left: 8px;
-    font-weight: bold;
+    background-color: rgba(204, 120, 50, 0.2);
+    color: #CC7832;
+    padding: 0 10px;
+    margin-left: 10px;
+    font-weight: normal;
 }
 
 #clock,
@@ -75,45 +92,19 @@ window#waybar.hidden {
 #network,
 #pulseaudio,
 #tray {
-    padding: 0 12px;
-    background-color: rgba(43, 45, 46, 0.8);
+    padding: 0 10px;
+    background-color: transparent;
     color: #D4D4D4;
 }
 
 #clock {
-    font-weight: bold;
+    font-weight: normal;
     color: #C3B091;
-    background-color: rgba(60, 74, 47, 0.6);
+    background-color: transparent;
 }
 
 #battery {
     color: #4A5240;
-}
-
-#battery.charging,
-#battery.plugged {
-    color: #4A5240;
-    background-color: rgba(74, 82, 64, 0.3);
-}
-
-#battery.warning:not(.charging) {
-    background-color: #CC7832;
-    color: #1C1C1C;
-    animation: blink 0.5s linear infinite alternate;
-}
-
-#battery.critical:not(.charging) {
-    background-color: #CC7832;
-    color: #1C1C1C;
-    font-weight: bold;
-    animation: blink 0.3s linear infinite alternate;
-}
-
-@keyframes blink {
-    to {
-        background-color: #1C1C1C;
-        color: #CC7832;
-    }
 }
 
 #cpu {
@@ -135,7 +126,7 @@ window#waybar.hidden {
 }
 
 #pulseaudio {
-    color: #C3B091;
+    color: #4A5240;
 }
 
 #pulseaudio.muted {

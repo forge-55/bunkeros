@@ -5,7 +5,7 @@ A clean, minimal Sway setup with a tactical color palette inspired by military a
 ## Features
 
 - **Waybar** status bar with flat, tactical styling
-- **Numbered workspaces** (1-7) with ArchCraft-inspired circular indicators
+- **Circular dot workspaces** (1-7) with ArchCraft-inspired design - no numbers, pure indicators
 - **Wofi** application launcher with minimal design aesthetic
 - **Dynamic wallpaper** management via swaybg
 - **Window gaps** for a modern tiled layout
@@ -91,13 +91,15 @@ default_border pixel 3    # Border thickness
 The design embraces a flat, minimal aesthetic with restrained use of visual effects. All styling is pure CSS with zero performance overhead.
 
 **Waybar enhancements:**
-- Circular workspace indicators (ArchCraft-inspired)
-- 7 persistent workspaces with clear visual hierarchy
-- Active workspace: filled khaki circle
-- Inactive workspace: hollow circle with olive border
+- Ultra-minimal circular dot workspace indicators (ArchCraft-inspired)
+- 7 persistent workspaces, no container background
+- Tiny 10px circles with subtle borders - extremely minimal
+- Active workspace: filled khaki dot
+- Inactive workspace: hollow dot with muted olive border
 - Hover workspace: semi-transparent fill
-- Urgent workspace: filled amber circle with pulsing glow animation
-- Clean module separation through subtle backgrounds
+- Urgent workspace: filled amber with pulse animation
+- Flat design with transparent module backgrounds
+- Clean spacing and minimal visual noise
 
 **Wofi enhancements:**
 - Minimal border treatment for clean appearance
@@ -111,20 +113,15 @@ All color values are clearly labeled in each config file. The Sway window colors
 
 ## Workspaces
 
-The configuration features 7 persistent numbered workspaces with ArchCraft-inspired circular indicators:
-
-```
-○ ○ ● ○ ○ ○ ○
-1 2 3 4 5 6 7
-```
+The configuration features 7 persistent numbered workspaces with subtle, non-distracting design:
 
 **Visual states:**
-- **Inactive**: Hollow circle with olive border, muted number
-- **Active**: Filled khaki circle with dark text and subtle glow
-- **Hover**: Semi-transparent fill with khaki border
-- **Urgent**: Filled amber circle with pulsing alert animation
+- **Inactive**: Minimal styling with muted olive text
+- **Active**: Bold khaki text with subtle olive background and defined border
+- **Hover**: Light olive tint with khaki text
+- **Urgent**: Amber background with pulsing animation
 
-Workspaces are flexible and not assigned to specific applications, allowing you to organize your workflow as needed.
+Numbered workspaces provide clear identification while staying unobtrusive during focused work. The design works naturally with Waybar's capabilities and fits the military tactical aesthetic. Workspaces are flexible and not assigned to specific applications.
 
 ## Key Bindings
 
