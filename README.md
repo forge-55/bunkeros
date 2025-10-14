@@ -5,6 +5,7 @@ A clean, minimal Sway setup with a tactical color palette inspired by military a
 ## Features
 
 - **Waybar** status bar with enhanced depth effects and tactical styling
+- **Numbered workspaces** (1-7) with ArchCraft-inspired boxed design
 - **Wofi** application launcher with command center aesthetic
 - **Dynamic wallpaper** management via swaybg
 - **Window gaps** for a modern tiled layout
@@ -42,14 +43,14 @@ Your system should have a monospace Nerd Font installed for the best experience.
 Clone this repo and symlink the configs:
 
 ```bash
-git clone https://github.com/yourusername/sway-military-config.git
-cd sway-military-config
+git clone https://github.com/forge-55/sway.git
+cd sway
 
 # Backup existing configs if you have any
 mkdir -p ~/.config/backup
 cp -r ~/.config/sway ~/.config/backup/ 2>/dev/null || true
 cp -r ~/.config/waybar ~/.config/backup/ 2>/dev/null || true
-cp -r ~/.config/wofi ~/.config/backup/ 2>/dev/null || true
+cp -r ~/.config/wofi ~/.config/backup/ 2>/dev/null ￼|| true
 
 # Create config directories
 mkdir -p ~/.config/sway ~/.config/waybar ~/.config/wofi
@@ -92,8 +93,12 @@ All depth effects are achieved through CSS box shadows, which are GPU-accelerate
 **Waybar enhancements:**
 - Drop shadow for panel separation
 - Inset shadows on modules for recessed tactical display
-- Left border accents (stencil effect)
-- Enhanced focus states on workspaces
+- Circular workspace indicators (ArchCraft-inspired)
+- 7 persistent workspaces with clear visual hierarchy
+- Active workspace: filled khaki circle with glow
+- Inactive workspace: hollow circle with olive border
+- Hover workspace: semi-transparent fill
+- Urgent workspace: filled amber circle with pulsing glow animation
 
 **Wofi enhancements:**
 - Command center aesthetic with strong window shadow
@@ -105,6 +110,23 @@ All depth effects are achieved through CSS box shadows, which are GPU-accelerate
 
 All color values are clearly labeled in each config file. The Sway window colors are in `sway/config` starting at line 47.
 
+## Workspaces
+
+The configuration features 7 persistent numbered workspaces with ArchCraft-inspired circular indicators:
+
+```
+○ ○ ● ○ ○ ○ ○
+1 2 3 4 5 6 7
+```
+
+**Visual states:**
+- **Inactive**: Hollow circle with olive border, muted number
+- **Active**: Filled khaki circle with dark text and subtle glow
+- **Hover**: Semi-transparent fill with khaki border
+- **Urgent**: Filled amber circle with pulsing alert animation
+
+Workspaces are flexible and not assigned to specific applications, allowing you to organize your workflow as needed.
+
 ## Key Bindings
 
 Uses standard Sway bindings with Mod4 (Super/Windows key):
@@ -113,7 +135,8 @@ Uses standard Sway bindings with Mod4 (Super/Windows key):
 - **Mod+d** - Launch Wofi
 - **Mod+Shift+q** - Close window
 - **Mod+h/j/k/l** - Navigate windows (vim keys)
-- **Mod+1-9** - Switch workspaces
+- **Mod+1-7** - Switch workspaces
+- **Mod+Shift+1-7** - Move window to workspace
 - **Mod+r** - Resize mode
 
 See `sway/config` for all keybindings.
