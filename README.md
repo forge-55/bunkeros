@@ -83,6 +83,7 @@ ln -sf $(pwd)/wofi/config ~/.config/wofi/config
 ln -sf $(pwd)/wofi/style.css ~/.config/wofi/style.css
 ln -sf $(pwd)/foot/foot.ini ~/.config/foot/foot.ini
 ln -sf $(pwd)/bashrc ~/.bashrc
+ln -sf $(pwd)/dircolors ~/.dircolors
 
 # Make scripts executable
 chmod +x waybar/scripts/*.sh
