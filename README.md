@@ -36,7 +36,26 @@ The palette prioritizes readability and focus while maintaining a cohesive tacti
 sudo pacman -S sway waybar wofi swaybg brightnessctl
 ```
 
-Your system should have a monospace Nerd Font installed for the best experience. The config uses MesloLGL Nerd Font by default.
+### Fonts
+
+This configuration requires a **Nerd Font** to display icons properly in Waybar. Nerd Fonts are patched fonts that include thousands of glyphs (icons) from popular icon collections like Font Awesome and Material Design Icons.
+
+**Install MesloLGL Nerd Font (recommended):**
+```bash
+sudo pacman -S ttf-meslo-nerd
+```
+
+**Alternative - Install all Nerd Font symbols:**
+```bash
+sudo pacman -S ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono
+```
+
+After installing the font, restart Waybar to see the icons:
+```bash
+pkill waybar && waybar &
+```
+
+The configuration uses MesloLGL Nerd Font by default, but you can change this in `waybar/style.css` if you prefer a different Nerd Font.
 
 ## Installation
 

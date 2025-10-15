@@ -40,6 +40,9 @@ gaps inner 8
 gaps outer 8
 smart_gaps off
 
+exec_always swaymsg gaps inner all set 8
+exec_always swaymsg gaps outer all set 8
+
 # Window borders with military color scheme
 default_border pixel 3
 default_floating_border pixel 3
@@ -63,6 +66,9 @@ font pango:monospace 10
 set $opacity 0.95
 for_window [class=".*"] opacity $opacity
 for_window [app_id=".*"] opacity $opacity
+
+exec_always swaymsg '[app_id=".*"]' opacity 0.95
+exec_always swaymsg '[class=".*"]' opacity 0.95
 
 ### Idle configuration
 #

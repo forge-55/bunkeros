@@ -108,7 +108,7 @@
     
     "custom/power": {
         "format": "󰐥",
-        "on-click": "/home/ryan/Projects/sway-config/waybar/scripts/power-menu.sh",
+        "on-click": "/home/ryan/Projects/sway/waybar/scripts/power-menu.sh",
         "tooltip": false
     }
 }
