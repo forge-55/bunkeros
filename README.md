@@ -1,13 +1,14 @@
 # Sway Configuration
 
-A clean, minimal Sway setup with a tactical color palette inspired by military aesthetics. Features muted olive and tan tones with a focus on functionality and visual clarity.
+A clean, minimal Sway setup with a tactical color palette. Features muted olive and tan tones with a focus on functionality and visual clarity.
 
 ## Features
 
 - **Waybar** status bar with flat, tactical styling
 - **Numbered workspace indicators** (1-7) with ArchCraft-inspired design and refined box styling
 - **Wofi** application launcher with minimal design aesthetic
-- **Custom terminal** with military-inspired prompt design and tactical color scheme
+- **Custom terminal** with tactical prompt design and color scheme
+- **btop** system monitor with custom tactical theme
 - **Dynamic wallpaper** management via swaybg
 - **Window gaps** for a modern tiled layout
 - **Subtle transparency** on windows (95% opacity)
@@ -17,7 +18,7 @@ A clean, minimal Sway setup with a tactical color palette inspired by military a
 
 ## Color Palette
 
-The configuration uses a carefully crafted military-inspired palette that balances functionality with aesthetics:
+The configuration uses a carefully crafted tactical palette that balances functionality with aesthetics:
 
 - **Primary (Khaki/Tan)** `#C3B091` - Focus indicators, highlights, active workspace markers
 - **Secondary (Olive)** `#4A5240` - Accents, borders, workspace hover states
@@ -73,7 +74,7 @@ cp -r ~/.config/waybar ~/.config/backup/ 2>/dev/null || true
 cp -r ~/.config/wofi ~/.config/backup/ 2>/dev/null ￼|| true
 
 # Create config directories
-mkdir -p ~/.config/sway ~/.config/waybar ~/.config/wofi ~/.config/foot
+mkdir -p ~/.config/sway ~/.config/waybar ~/.config/wofi ~/.config/foot ~/.config/btop/themes
 
 # Symlink configs
 ln -sf $(pwd)/sway/config ~/.config/sway/config
@@ -82,6 +83,8 @@ ln -sf $(pwd)/waybar/style.css ~/.config/waybar/style.css
 ln -sf $(pwd)/wofi/config ~/.config/wofi/config
 ln -sf $(pwd)/wofi/style.css ~/.config/wofi/style.css
 ln -sf $(pwd)/foot/foot.ini ~/.config/foot/foot.ini
+ln -sf $(pwd)/btop/btop.conf ~/.config/btop/btop.conf
+ln -sf $(pwd)/btop/themes/tactical.theme ~/.config/btop/themes/tactical.theme
 ln -sf $(pwd)/bashrc ~/.bashrc
 ln -sf $(pwd)/dircolors ~/.dircolors
 
@@ -137,10 +140,18 @@ The design embraces a flat, minimal aesthetic with restrained use of visual effe
 - Two-line prompt with tactical separators
 - Current directory in khaki with git branch integration
 - Status indicator (olive for success, amber for errors)
-- Military color palette throughout
+- Tactical color palette throughout
 - Beam cursor with blink
 - Custom color scheme for man pages and less
 - Font size optimized for 1920x1080 displays
+- Custom directory colors for better visibility
+
+**btop system monitor:**
+- Custom tactical theme with color gradients
+- Khaki highlights and olive accents
+- Charcoal background matching overall aesthetic
+- Gradient meters transitioning from olive to khaki to amber
+- Minimal borders and clean presentation
 
 ### Colors
 
@@ -156,7 +167,7 @@ The configuration features 7 persistent numbered workspaces with subtle, non-dis
 - **Hover**: Light olive tint with khaki text
 - **Urgent**: Amber background with pulsing animation
 
-Numbered workspaces provide clear identification while staying unobtrusive during focused work. The design works naturally with Waybar's capabilities and fits the military tactical aesthetic. Workspaces are flexible and not assigned to specific applications.
+Numbered workspaces provide clear identification while staying unobtrusive during focused work. The design works naturally with Waybar's capabilities and fits the tactical aesthetic. Workspaces are flexible and not assigned to specific applications.
 
 ## Key Bindings
 

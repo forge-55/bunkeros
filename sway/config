@@ -43,7 +43,7 @@ smart_gaps off
 exec_always swaymsg gaps inner all set 8
 exec_always swaymsg gaps outer all set 8
 
-# Window borders with military color scheme
+# Window borders with tactical color scheme
 default_border pixel 3
 default_floating_border pixel 3
 
