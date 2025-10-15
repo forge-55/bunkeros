@@ -23,21 +23,21 @@ C_GRAY='\[\033[38;2;212;212;212m\]'
 C_DIM='\[\033[38;2;74;82;64m\]'
 C_AMBER='\[\033[38;2;204;120;50m\]'
 
-__prompt_git() {
-    local branch
-    branch=$(git symbolic-ref --short HEAD 2>/dev/null)
-    if [ -n "$branch" ]; then
-        echo " ${C_DIM}[${C_OLIVE}${branch}${C_DIM}]${C_RESET}"
-    fi
-}
-
 PROMPT_COMMAND='__prompt_update'
 __prompt_update() {
     local status=$?
+    local branch
+    branch=$(git symbolic-ref --short HEAD 2>/dev/null)
+    
+    local git_info=""
+    if [ -n "$branch" ]; then
+        git_info=" ${C_DIM}[${C_OLIVE}${branch}${C_DIM}]${C_RESET}"
+    fi
+    
     if [ $status -ne 0 ]; then
-        PS1="${C_DIM}┌─${C_RESET} ${C_TAN}\w${C_RESET}\$(__prompt_git)\n${C_DIM}└─${C_RESET} ${C_AMBER}▸${C_RESET} "
+        PS1="${C_DIM}┌─${C_RESET} ${C_TAN}\w${C_RESET}${git_info}\n${C_DIM}└─${C_RESET} ${C_AMBER}▸${C_RESET} "
     else
-        PS1="${C_DIM}┌─${C_RESET} ${C_TAN}\w${C_RESET}\$(__prompt_git)\n${C_DIM}└─${C_RESET} ${C_OLIVE}▸${C_RESET} "
+        PS1="${C_DIM}┌─${C_RESET} ${C_TAN}\w${C_RESET}${git_info}\n${C_DIM}└─${C_RESET} ${C_OLIVE}▸${C_RESET} "
     fi
 }
 
@@ -100,8 +100,8 @@ backup() {
     cp "$1"{,.bak-$(date +%Y%m%d-%H%M%S)}
 }
 
-export EDITOR=nano
-export VISUAL=nano
+export EDITOR=micro
+export VISUAL=micro
 export PAGER=less
 
 export LESS_TERMCAP_mb=$'\e[1;32m'
