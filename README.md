@@ -5,8 +5,9 @@ A clean, minimal Sway setup with a tactical color palette inspired by military a
 ## Features
 
 - **Waybar** status bar with flat, tactical styling
-- **Circular dot workspaces** (1-7) with ArchCraft-inspired design - no numbers, pure indicators
+- **Numbered workspace indicators** (1-7) with ArchCraft-inspired design and refined box styling
 - **Wofi** application launcher with minimal design aesthetic
+- **Custom terminal** with military-inspired prompt design and tactical color scheme
 - **Dynamic wallpaper** management via swaybg
 - **Window gaps** for a modern tiled layout
 - **Subtle transparency** on windows (95% opacity)
@@ -53,7 +54,7 @@ cp -r ~/.config/waybar ~/.config/backup/ 2>/dev/null || true
 cp -r ~/.config/wofi ~/.config/backup/ 2>/dev/null ￼|| true
 
 # Create config directories
-mkdir -p ~/.config/sway ~/.config/waybar ~/.config/wofi
+mkdir -p ~/.config/sway ~/.config/waybar ~/.config/wofi ~/.config/foot
 
 # Symlink configs
 ln -sf $(pwd)/sway/config ~/.config/sway/config
@@ -61,6 +62,11 @@ ln -sf $(pwd)/waybar/config ~/.config/waybar/config
 ln -sf $(pwd)/waybar/style.css ~/.config/waybar/style.css
 ln -sf $(pwd)/wofi/config ~/.config/wofi/config
 ln -sf $(pwd)/wofi/style.css ~/.config/wofi/style.css
+ln -sf $(pwd)/foot/foot.ini ~/.config/foot/foot.ini
+ln -sf $(pwd)/bashrc ~/.bashrc
+
+# Make scripts executable
+chmod +x waybar/scripts/*.sh
 
 # Reload Sway
 swaymsg reload
@@ -91,21 +97,30 @@ default_border pixel 3    # Border thickness
 The design embraces a flat, minimal aesthetic with restrained use of visual effects. All styling is pure CSS with zero performance overhead.
 
 **Waybar enhancements:**
-- Ultra-minimal circular dot workspace indicators (ArchCraft-inspired)
-- 7 persistent workspaces, no container background
-- Tiny 10px circles with subtle borders - extremely minimal
-- Active workspace: filled khaki dot
-- Inactive workspace: hollow dot with muted olive border
-- Hover workspace: semi-transparent fill
-- Urgent workspace: filled amber with pulse animation
-- Flat design with transparent module backgrounds
-- Clean spacing and minimal visual noise
+- Numbered workspace indicators with refined box styling (ArchCraft-inspired)
+- 7 persistent workspaces with tactical spacing
+- Minimal borders with rounded corners
+- Active workspace: khaki border and text, enhanced padding
+- Inactive workspace: subtle olive border with muted text
+- Hover workspace: semi-transparent background
+- Icon-based status modules with dynamic states
+- Power menu, network manager, and battery info on click
+- Clean spacing and uniform icon distribution
 
 **Wofi enhancements:**
 - Minimal border treatment for clean appearance
 - Subtle left accent bar on selections
 - Flat input field styling
 - Focus on content over decoration
+
+**Terminal styling:**
+- Two-line prompt with tactical separators
+- Current directory in khaki with git branch integration
+- Status indicator (olive for success, amber for errors)
+- Military color palette throughout
+- Beam cursor with blink
+- Custom color scheme for man pages and less
+- Font size optimized for 1920x1080 displays
 
 ### Colors
 

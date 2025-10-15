@@ -1,0 +1,118 @@
+if [[ $- != *i* ]]; then
+    return
+fi
+
+HISTCONTROL=ignoreboth
+HISTSIZE=10000
+HISTFILESIZE=20000
+shopt -s histappend
+shopt -s checkwinsize
+
+if ! shopt -oq posix; then
+    if [ -f /usr/share/bash-completion/bash_completion ]; then
+        . /usr/share/bash-completion/bash_completion
+    elif [ -f /etc/bash_completion ]; then
+        . /etc/bash_completion
+    fi
+fi
+
+C_RESET='\[\033[0m\]'
+C_TAN='\[\033[38;2;195;176;145m\]'
+C_OLIVE='\[\033[38;2;107;118;87m\]'
+C_GRAY='\[\033[38;2;212;212;212m\]'
+C_DIM='\[\033[38;2;74;82;64m\]'
+C_AMBER='\[\033[38;2;204;120;50m\]'
+
+__prompt_git() {
+    local branch
+    branch=$(git symbolic-ref --short HEAD 2>/dev/null)
+    if [ -n "$branch" ]; then
+        echo " ${C_DIM}[${C_OLIVE}${branch}${C_DIM}]${C_RESET}"
+    fi
+}
+
+PROMPT_COMMAND='__prompt_update'
+__prompt_update() {
+    local status=$?
+    if [ $status -ne 0 ]; then
+        PS1="${C_DIM}┌─${C_RESET} ${C_TAN}\w${C_RESET}\$(__prompt_git)\n${C_DIM}└─${C_RESET} ${C_AMBER}▸${C_RESET} "
+    else
+        PS1="${C_DIM}┌─${C_RESET} ${C_TAN}\w${C_RESET}\$(__prompt_git)\n${C_DIM}└─${C_RESET} ${C_OLIVE}▸${C_RESET} "
+    fi
+}
+
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+alias ll='ls -alFh'
+alias la='ls -A'
+alias l='ls -CF'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+
+alias gs='git status'
+alias ga='git add'
+alias gc='git commit'
+alias gp='git push'
+alias gl='git log --oneline --graph --all --decorate'
+alias gd='git diff'
+
+alias grep='grep --color=auto'
+alias df='df -h'
+alias du='du -h'
+alias free='free -h'
+
+alias sway-reload='swaymsg reload'
+alias waybar-reload='pkill waybar && swaymsg exec waybar'
+
+mkcd() {
+    mkdir -p "$1" && cd "$1"
+}
+
+extract() {
+    if [ -f "$1" ]; then
+        case "$1" in
+            *.tar.bz2)   tar xjf "$1"     ;;
+            *.tar.gz)    tar xzf "$1"     ;;
+            *.bz2)       bunzip2 "$1"     ;;
+            *.rar)       unrar x "$1"     ;;
+            *.gz)        gunzip "$1"      ;;
+            *.tar)       tar xf "$1"      ;;
+            *.tbz2)      tar xjf "$1"     ;;
+            *.tgz)       tar xzf "$1"     ;;
+            *.zip)       unzip "$1"       ;;
+            *.Z)         uncompress "$1"  ;;
+            *.7z)        7z x "$1"        ;;
+            *)           echo "'$1' cannot be extracted" ;;
+        esac
+    else
+        echo "'$1' is not a valid file"
+    fi
+}
+
+backup() {
+    cp "$1"{,.bak-$(date +%Y%m%d-%H%M%S)}
+}
+
+export EDITOR=nano
+export VISUAL=nano
+export PAGER=less
+
+export LESS_TERMCAP_mb=$'\e[1;32m'
+export LESS_TERMCAP_md=$'\e[1;38;2;195;176;145m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[01;38;2;74;82;64m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[1;4;38;2;107;118;87m'
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
