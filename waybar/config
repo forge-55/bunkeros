@@ -6,7 +6,7 @@
     
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["clock"],
-    "modules-right": ["network", "pulseaudio", "battery", "backlight", "custom/power"],
+    "modules-right": ["network", "pulseaudio", "battery", "custom/power"],
     
     "sway/workspaces": {
         "disable-scroll": false,
@@ -66,38 +66,44 @@
             "warning": 30,
             "critical": 15
         },
-        "format": "{icon} {capacity}%",
-        "format-charging": "󰂄 {capacity}%",
-        "format-plugged": "󰚥 {capacity}%",
+        "format": "{icon}",
+        "format-charging": "󰂄",
+        "format-plugged": "󰚥",
         "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
-        "format-alt": "{time}",
+        "format-alt": "{icon} {capacity}%",
+        "tooltip-format": "{capacity}% - {time}",
+        "on-click": "notify-send 'Battery' '$(cat /sys/class/power_supply/BAT*/capacity)% - $(cat /sys/class/power_supply/BAT*/status)'",
         "interval": 30
     },
     
     "backlight": {
-        "format": "{icon} {percent}%",
+        "format": "{icon}",
         "format-icons": ["󰃞", "󰃟", "󰃠"],
         "on-scroll-up": "brightnessctl set +5%",
         "on-scroll-down": "brightnessctl set 5%-",
-        "tooltip": false
+        "tooltip-format": "Brightness: {percent}%"
     },
     
     "network": {
-        "format-wifi": "󰖩 {signalStrength}%",
-        "format-ethernet": "󰈀 Connected",
-        "format-linked": "󰖪 No IP",
-        "format-disconnected": "󰖪 Down",
-        "format-alt": "{essid} {ipaddr}/{cidr}",
-        "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
+        "format-wifi": "󰖩",
+        "format-ethernet": "󰈀",
+        "format-linked": "󰖪",
+        "format-disconnected": "󰖪",
+        "format-alt-wifi": "󰖩 {essid}",
+        "format-alt-ethernet": "󰈀 {ipaddr}",
+        "tooltip-format-wifi": "{essid} ({signalStrength}%)",
+        "tooltip-format-ethernet": "{ifname}: {ipaddr}",
+        "tooltip-format-disconnected": "Disconnected",
+        "on-click": "foot nmtui",
         "interval": 5
     },
     
     "pulseaudio": {
-        "format": "󰕾 {volume}%",
-        "format-muted": "󰖁 Mute",
+        "format": "󰕾",
+        "format-muted": "󰖁",
         "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
         "on-click-right": "pavucontrol",
-        "tooltip-format": "{desc}"
+        "tooltip-format": "Volume: {volume}%"
     },
     
     "custom/power": {
