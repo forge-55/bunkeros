@@ -35,12 +35,12 @@ set $filemanager thunar
 # Using swaybg for dynamic wallpaper management
 # Change wallpaper: killall swaybg && swaybg -i /path/to/new-wallpaper.jpg -m fill &
 # Modes: fill, fit, stretch, center, tile
-exec_always "killall swaybg 2>/dev/null; swaybg -i ~/Pictures/wallpaper/desert.jpg -m fill"
+exec_always "killall swaybg 2>/dev/null; swaybg -i ~/Pictures/wallpaper/tactical.jpg -m fill"
 
 ### Status Bar
 #
-# Start waybar once at login (theme switcher handles restarts)
-exec waybar
+# Start waybar (kill all instances to prevent duplicates)
+exec_always "killall -9 waybar 2>/dev/null; sleep 0.5; waybar -b bar-0 >/dev/null 2>&1 &"
 
 ### Notifications
 #
@@ -278,9 +278,10 @@ mode "resize" {
 #
 # Using Waybar for a modern, customizable status bar
 # Install with: sudo pacman -S waybar (or your distro's package manager)
-bar {
-    swaybar_command waybar
-}
+# Started via exec_always at the top of this config
+# bar {
+#     swaybar_command waybar
+# }
 
 include /etc/sway/config.d/*
 
