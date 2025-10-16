@@ -12,6 +12,7 @@ A clean, minimal Sway setup with a tactical color palette. Features muted olive 
 - **Mako** notification daemon with themed notifications
 - **Interactive screenshot system** with GNOME/COSMIC-style workflow
 - **Night mode toggle** with one-click color temperature adjustment
+- **SwayOSD** on-screen display for volume and brightness with elegant overlays
 - **Dynamic wallpaper** management via swaybg
 - **Window gaps** for a modern tiled layout
 - **Subtle transparency** on windows (95% opacity)
@@ -115,10 +116,59 @@ Two custom scripts work together:
 
 The state persists across Waybar restarts using a cache file at `~/.cache/night-mode-state`.
 
+## On-Screen Display (OSD)
+
+This configuration includes SwayOSD for elegant visual feedback when adjusting volume and brightness levels.
+
+### Overview
+
+SwayOSD provides centered, beautiful overlays that appear when volume or brightness is changed. This replicates the native OSD experience found in GNOME, KDE, and other desktop environments, providing visual confirmation of the current level.
+
+### Features
+
+- **Centered display** - OSD appears in the middle of the screen for maximum visibility
+- **Tactical styling** - Matches the tactical color palette with khaki/tan accents
+- **Auto-dismiss** - Fades after 2 seconds of inactivity
+- **Smooth animations** - Clean transitions and progress bar updates
+- **Automatic icons** - Shows appropriate icons for volume (speaker/mute) and brightness
+- **Progress bars** - Visual representation of current level (0-100%)
+
+### Usage
+
+SwayOSD activates automatically when using volume or brightness controls:
+
+**Volume controls:**
+- **Volume Up** - XF86AudioRaiseVolume (usually Fn+F3 on ThinkPad)
+- **Volume Down** - XF86AudioLowerVolume (usually Fn+F2 on ThinkPad)
+- **Mute** - XF86AudioMute (usually Fn+F1 on ThinkPad)
+- **Mic Mute** - XF86AudioMicMute (usually Fn+F4 on ThinkPad)
+
+**Brightness controls:**
+- **Brightness Up** - XF86MonBrightnessUp (usually Fn+F6 on ThinkPad)
+- **Brightness Down** - XF86MonBrightnessDown (usually Fn+F5 on ThinkPad)
+
+### Styling
+
+The OSD appearance is configured in `swayosd/style.css` with:
+- **Background**: Charcoal (`#1C1C1C`) with transparency
+- **Border**: Tactical tan (`#C3B091`) with 4px width and 12px rounded corners
+- **Progress bar**: Tactical tan fill on tactical gray (`#2B2D2E`) background with 24px height
+- **Text**: Tactical tan (`#C3B091`) in monospace font
+- **Icons**: Tactical tan colored icons
+- **Position**: Perfectly centered on screen (top-margin: 0.5)
+
+### Implementation
+
+SwayOSD consists of two components:
+- **swayosd-server** - Background daemon that displays the OSD (auto-started by Sway)
+- **swayosd-client** - Command-line tool that triggers OSD displays
+
+All volume and brightness keybindings in the Sway config use `swayosd-client` instead of direct `pactl` or `brightnessctl` commands, ensuring every adjustment shows visual feedback.
+
 ## Requirements
 
 ```bash
-sudo pacman -S sway waybar wofi foot swaybg brightnessctl sway-contrib grim slurp wl-clipboard mako wlsunset
+sudo pacman -S sway waybar wofi foot swaybg brightnessctl sway-contrib grim slurp wl-clipboard mako wlsunset swayosd
 ```
 
 - `sway-contrib` includes grimshot for screenshots
@@ -127,6 +177,7 @@ sudo pacman -S sway waybar wofi foot swaybg brightnessctl sway-contrib grim slur
 - `foot` is the terminal emulator used for the screenshot dialog and general use
 - `mako` is the notification daemon for screenshot confirmations and other alerts
 - `wlsunset` provides color temperature adjustment for night mode
+- `swayosd` provides on-screen display overlays for volume and brightness
 
 ### Fonts
 
@@ -164,7 +215,7 @@ cp -r ~/.config/waybar ~/.config/backup/ 2>/dev/null || true
 cp -r ~/.config/wofi ~/.config/backup/ 2>/dev/null || true
 
 # Create config directories
-mkdir -p ~/.config/sway ~/.config/waybar ~/.config/wofi ~/.config/foot ~/.config/btop/themes ~/.config/mako
+mkdir -p ~/.config/sway ~/.config/waybar ~/.config/wofi ~/.config/foot ~/.config/btop/themes ~/.config/mako ~/.config/swayosd
 
 # Symlink configs
 ln -sf $(pwd)/sway/config ~/.config/sway/config
@@ -177,6 +228,7 @@ ln -sf $(pwd)/foot/foot.ini ~/.config/foot/foot.ini
 ln -sf $(pwd)/mako/config ~/.config/mako/config
 ln -sf $(pwd)/btop/btop.conf ~/.config/btop/btop.conf
 ln -sf $(pwd)/btop/themes/tactical.theme ~/.config/btop/themes/tactical.theme
+ln -sf $(pwd)/swayosd/style.css ~/.config/swayosd/style.css
 ln -sf $(pwd)/bashrc ~/.bashrc
 ln -sf $(pwd)/dircolors ~/.dircolors
 
