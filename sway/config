@@ -39,7 +39,7 @@ exec_always "killall swaybg 2>/dev/null; swaybg -i ~/Pictures/space1.jpg -m fill
 
 ### Status Bar
 #
-# Start waybar once at login (themes use hot-reload, no restart needed)
+# Start waybar once at login (theme switcher handles restarts)
 exec waybar
 
 ### Notifications
@@ -62,22 +62,8 @@ smart_gaps off
 exec_always swaymsg gaps inner all set 8
 exec_always swaymsg gaps outer all set 8
 
-# Window borders with tactical color scheme
-# NOTE: Rounded borders require SwayFX (not standard Sway)
-default_border pixel 2
-default_floating_border pixel 2
-
-# Client color scheme (border, background, text, indicator, child_border)
-# Focused window - bright tan/khaki for visibility
-client.focused          #C3B091 #2B2D2E #D4D4D4 #C3B091 #C3B091
-# Unfocused window - subtle gray
-client.unfocused        #2B2D2E #1C1C1C #D4D4D4 #2B2D2E #2B2D2E
-# Focused inactive - muted olive
-client.focused_inactive #3C4A2F #1C1C1C #D4D4D4 #3C4A2F #3C4A2F
-# Urgent window - amber alert
-client.urgent           #CC7832 #CC7832 #1C1C1C #CC7832 #CC7832
-client.placeholder      #2B2D2E #1C1C1C #D4D4D4 #2B2D2E #2B2D2E
-client.background       #1C1C1C
+# Window border colors are managed by the theme system
+# See the THEME COLORS section at the end of this file
 
 # Font for window titles
 font pango:monospace 10
@@ -339,19 +325,31 @@ include /etc/sway/config.d/*
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 # THEME COLORS START
-# Gruvbox Dark Theme - Sway Window Border Colors
-# Warm browns and earth tones
+# Tactical Theme - Sway Window Border Colors
+# Khaki/Olive/Charcoal military aesthetic
 
 default_border pixel 2
 default_floating_border pixel 2
 
 # Client color scheme (border, background, text, indicator, child_border)
-client.focused          #D79921 #3C3836 #EBDBB2 #D79921 #D79921
-client.unfocused        #3C3836 #282828 #EBDBB2 #3C3836 #3C3836
-client.focused_inactive #504945 #282828 #EBDBB2 #504945 #504945
-client.urgent           #FB4934 #FB4934 #282828 #FB4934 #FB4934
-client.placeholder      #3C3836 #282828 #EBDBB2 #3C3836 #3C3836
-client.background       #282828
+client.focused          #C3B091 #2B2D2E #D4D4D4 #C3B091 #C3B091
+client.unfocused        #2B2D2E #1C1C1C #D4D4D4 #2B2D2E #2B2D2E
+client.focused_inactive #3C4A2F #1C1C1C #D4D4D4 #3C4A2F #3C4A2F
+client.urgent           #CC7832 #CC7832 #1C1C1C #CC7832 #CC7832
+client.placeholder      #2B2D2E #1C1C1C #D4D4D4 #2B2D2E #2B2D2E
+client.background       #1C1C1C
 
 # THEME COLORS END

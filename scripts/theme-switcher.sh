@@ -101,11 +101,26 @@ apply_theme() {
     sleep 0.2
     swaymsg exec "swayosd-server --style ~/.config/swayosd/style.css --top-margin 0.5"
     
+    # Apply window border colors dynamically (no sway reload needed!)
+    local focused=$(grep "^client.focused " "$theme_dir/sway-colors.conf" | awk '{print $2,$3,$4,$5,$6}')
+    local unfocused=$(grep "^client.unfocused " "$theme_dir/sway-colors.conf" | awk '{print $2,$3,$4,$5,$6}')
+    local focused_inactive=$(grep "^client.focused_inactive " "$theme_dir/sway-colors.conf" | awk '{print $2,$3,$4,$5,$6}')
+    local urgent=$(grep "^client.urgent " "$theme_dir/sway-colors.conf" | awk '{print $2,$3,$4,$5,$6}')
+    local placeholder=$(grep "^client.placeholder " "$theme_dir/sway-colors.conf" | awk '{print $2,$3,$4,$5,$6}')
+    local background=$(grep "^client.background " "$theme_dir/sway-colors.conf" | awk '{print $2}')
+    
+    swaymsg client.focused $focused
+    swaymsg client.unfocused $unfocused
+    swaymsg client.focused_inactive $focused_inactive
+    swaymsg client.urgent $urgent
+    swaymsg client.placeholder $placeholder
+    swaymsg client.background $background
+    
     if [ -f ~/.dircolors ]; then
         eval "$(dircolors -b ~/.dircolors)"
     fi
     
-    notify-send "Theme Applied" "Now using $theme theme. Run 'swaymsg reload' to apply window border colors."
+    notify-send "Theme Applied" "Now using $theme theme"
 }
 
 show_theme_menu() {

@@ -58,16 +58,28 @@ fi
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 # THEME PROMPT START
-# Gruvbox Dark Theme - Bash Prompt Colors
+# Tactical Theme - Bash Prompt Colors
 # Used by bashrc for terminal prompt styling
 
 C_RESET='\[\033[0m\]'
-C_TAN='\[\033[38;2;215;153;33m\]'       # Gruvbox Yellow
-C_OLIVE='\[\033[38;2;152;151;26m\]'     # Gruvbox Green
-C_GRAY='\[\033[38;2;235;219;178m\]'     # Gruvbox Foreground
-C_DIM='\[\033[38;2;102;92;84m\]'        # Gruvbox Gray
-C_AMBER='\[\033[38;2;251;73;52m\]'      # Gruvbox Bright Red
+C_TAN='\[\033[38;2;195;176;145m\]'
+C_OLIVE='\[\033[38;2;107;118;87m\]'
+C_GRAY='\[\033[38;2;212;212;212m\]'
+C_DIM='\[\033[38;2;74;82;64m\]'
+C_AMBER='\[\033[38;2;204;120;50m\]'
 
 # THEME PROMPT END
 
