@@ -130,8 +130,8 @@ exec_always swaymsg '[class=".*"]' opacity 0.95
     # Application launcher
     bindsym $mod+space exec $menu
 
-    # Quick actions menu (reserved for future menu feature)
-    # bindsym $mod+Mod1+space exec ~/.config/waybar/scripts/quick-menu.sh
+    # Quick actions menu
+    bindsym $mod+Mod1+space exec ~/.config/waybar/scripts/quick-menu.sh
 
     # Toggle floating mode
     bindsym $mod+t floating toggle
