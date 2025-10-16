@@ -1,0 +1,16 @@
+#!/bin/bash
+
+APPS_DIR="$HOME/.local/share/applications"
+
+webapps=$(ls "$APPS_DIR"/webapp-*.desktop 2>/dev/null | while read desktop_file; do
+    app_name=$(grep "^Name=" "$desktop_file" | cut -d'=' -f2)
+    app_url=$(grep "^Exec=" "$desktop_file" | grep -o 'https\?://[^"]*')
+    echo "📱 $app_name - $app_url"
+done)
+
+if [[ -z "$webapps" ]]; then
+    echo "No web apps installed" | wofi --dmenu --prompt "Installed Web Apps" --width 600 --height 200
+else
+    echo -e "$webapps" | wofi --dmenu --prompt "Installed Web Apps" --width 600 --height 400
+fi
+

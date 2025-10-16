@@ -8,6 +8,7 @@ A clean, minimal Sway setup with a tactical color palette. Features muted olive 
 - **Waybar** status bar with flat, tactical styling
 - **Numbered workspace indicators** (1-7) with ArchCraft-inspired design and refined box styling
 - **Wofi** application launcher with minimal design aesthetic
+- **Web App Manager** - Install any website as a containerized desktop app (Omarchy-style)
 - **Custom terminal** with tactical prompt design and color scheme
 - **btop** system monitor with custom tactical theme
 - **Mako** notification daemon with themed notifications
@@ -304,10 +305,72 @@ esac
 
 The modular design makes it easy to extend with additional sub-menus or modify existing options to match your workflow.
 
+## Web App Manager
+
+This configuration includes a powerful web app installation system inspired by Omarchy. Install any website as a containerized desktop application with custom icons in just a few steps.
+
+### Overview
+
+The Web App Manager automatically detects your default browser (Chrome, Chromium, Brave, or Firefox) and creates isolated app instances with custom icons. Each app runs in its own browser profile, providing full data isolation while integrating seamlessly with Sway's tiling system.
+
+### Quick Start
+
+1. Open Quick Menu: `Super+Alt+Space`
+2. Select **📱 Web Apps** → **󰐖 Install Web App**
+3. Enter app details:
+   - **App Name**: e.g., "GitHub"
+   - **URL**: e.g., "https://github.com"
+   - **Icon**: Paste URL from [Dashboard Icons](https://github.com/walkxcode/dashboard-icons) or use local path
+
+The app appears in your Wofi launcher immediately and can be launched like any native application!
+
+### Features
+
+- **Browser-Agnostic** - Works with Chrome, Chromium, Brave, and Firefox
+- **Seamless Logins** - Uses your main browser's sessions (Omarchy-style)
+- **Instant Access** - Already signed in if you're signed in to your browser
+- **Custom Icons** - Use icons from dashboardicons.com or local files
+- **App Mode** - Chrome-less windows that tile perfectly in Sway
+- **Easy Management** - Install, remove, and list apps through the quick menu
+- **Wofi Integration** - Consistent tactical theme styling
+
+### Common Web Apps
+
+**GitHub:**
+- URL: `https://github.com`
+- Icon: `https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/github.png`
+
+**Gmail:**
+- URL: `https://mail.google.com`
+- Icon: `https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/gmail.png`
+
+**Calendar:**
+- URL: `https://calendar.google.com`
+- Icon: `https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/google-calendar.png`
+
+**Slack:**
+- URL: `https://app.slack.com`
+- Icon: `https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/slack.png`
+
+### Technical Details
+
+Each web app:
+- Creates a `.desktop` file in `~/.local/share/applications/`
+- Uses browser's app mode (`--app` flag for Chromium-based, `--new-window` for Firefox)
+- Uses your main browser's profile for seamless login sharing
+- Downloads/stores icon in `~/.local/share/sway-webapp/icons/`
+
+**Login Behavior:**
+- Already signed in if you're logged into your main browser
+- All web apps share the same login sessions as your main browser
+- No need to re-authenticate - instant access to your accounts!
+
+For detailed documentation, see [`webapp/README.md`](webapp/README.md).
+
 ## Requirements
 
 ```bash
-sudo pacman -S sway waybar wofi foot swaybg brightnessctl sway-contrib grim slurp wl-clipboard mako wlsunset swayosd
+sudo pacman -S sway waybar wofi foot swaybg brightnessctl sway-contrib grim slurp wl-clipboard mako wlsunset swayosd xdg-utils
 ```
 
 - `sway-contrib` includes grimshot for screenshots
@@ -529,7 +592,34 @@ This configuration is optimized for lightweight performance on older hardware. A
 - Zero CPU overhead from visual styling
 - Tested and optimized for ThinkPad T480 (Intel UHD 620)
 
-## Credits
+## Credits & Acknowledgments
 
-Built with inspiration from popular tiling window manager configurations including Hyprland and COSMIC. Visual polish achieved through smart CSS styling rather than compositor effects.
+This configuration draws inspiration from excellent projects in the Linux desktop ecosystem:
+
+### Major Influences
+
+**[Omarchy](https://github.com/basecamp/omarchy)** by Basecamp
+- Web App Manager - The entire web app installation system, including browser-agnostic installation, seamless login sharing, and interactive workflow design
+- Quick Actions Menu - The Super+Alt+Space hierarchical menu system
+- Design philosophy - Balancing power-user features with approachable UX
+
+**[Omakub](https://github.com/basecamp/omakub)** by Basecamp  
+- Keybinding convention - The Super+Space (launcher) and Super+Alt+Space (actions) pattern
+- Minimalist aesthetic principles
+
+### Components & Tools
+
+**[Dashboard Icons](https://github.com/walkxcode/dashboard-icons)** by @walkxcode
+- High-quality, consistent icon library for web apps
+
+**Sway Community**
+- Tiling window manager best practices and configuration patterns
+
+### Design Philosophy
+
+This configuration combines power-user efficiency with modern desktop polish:
+- **Minimal by default** - Only essential features, room for customization
+- **Zero performance overhead** - Pure CSS styling, no compositor effects
+- **Web-first approach** - Seamless integration of web apps as native applications
+- **Tactical aesthetics** - Muted, functional color palette with excellent readability
 

@@ -1,8 +1,8 @@
 #!/bin/bash
 
-options="󰐥 Power\n󰃟 Theme\n󰒓 System\n󰖔 Night Mode\n󰄀 Screenshot\n󰍃 File Manager\n 󰊶 Terminal"
+options="󰐥 Power\n󰃟 Theme\n󰒓 System\n󰖔 Night Mode\n󰄀 Screenshot\n📱 Web Apps\n󰍃 File Manager\n 󰊶 Terminal"
 
-selected=$(echo -e "$options" | wofi --dmenu --prompt "Quick Actions" --width 400 --height 450)
+selected=$(echo -e "$options" | wofi --dmenu --prompt "Quick Actions" --width 400 --height 500)
 
 case $selected in
     "󰐥 Power")
@@ -19,6 +19,9 @@ case $selected in
         ;;
     "󰄀 Screenshot")
         ~/.config/waybar/scripts/screenshot-area.sh
+        ;;
+    "📱 Web Apps")
+        ~/.config/waybar/scripts/webapp-menu.sh
         ;;
     "󰍃 File Manager")
         thunar &

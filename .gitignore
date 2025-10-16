@@ -4,3 +4,7 @@
 *~
 .DS_Store
 
+
+# Web app user data (stored in ~/.local/share/sway-webapp/)
+webapp/icons/
+webapp/data/

@@ -1,0 +1,36 @@
+#!/bin/bash
+
+WEBAPP_DATA="$HOME/.local/share/sway-webapp"
+APPS_DIR="$HOME/.local/share/applications"
+ICONS_DIR="$WEBAPP_DATA/icons"
+DATA_DIR="$WEBAPP_DATA/data"
+
+webapps=$(ls "$APPS_DIR"/webapp-*.desktop 2>/dev/null | while read desktop_file; do
+    app_name=$(grep "^Name=" "$desktop_file" | cut -d'=' -f2)
+    app_id=$(basename "$desktop_file" .desktop | sed 's/^webapp-//')
+    echo "$app_name ($app_id)"
+done)
+
+if [[ -z "$webapps" ]]; then
+    notify-send "Web Apps" "No web apps installed"
+    exit 0
+fi
+
+selected=$(echo -e "$webapps" | wofi --dmenu --prompt "Remove Web App" --width 500)
+
+if [[ -z "$selected" ]]; then
+    notify-send "Web Apps" "Removal cancelled"
+    exit 0
+fi
+
+app_id=$(echo "$selected" | sed 's/.*(\(.*\))/\1/')
+app_name=$(echo "$selected" | sed 's/ (.*)//')
+
+rm -f "$APPS_DIR/webapp-$app_id.desktop"
+rm -f "$ICONS_DIR/$app_id.png"
+rm -rf "$DATA_DIR/$app_id"
+
+update-desktop-database "$APPS_DIR" 2>/dev/null
+
+notify-send "Web App Removed" "$app_name has been uninstalled"
+
