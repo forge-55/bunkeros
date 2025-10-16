@@ -263,6 +263,8 @@ bindsym $mod+r mode "resize"
     bindsym Shift+Print exec $grimshot --notify save screen
     bindsym Ctrl+Print exec $grimshot --notify copy area
     bindsym Ctrl+Shift+Print exec $grimshot --notify save active
+    # Night mode toggle
+    bindsym $mod+n exec ~/.config/waybar/scripts/night-mode-toggle.sh
 
 #
 # Status Bar:

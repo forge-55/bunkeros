@@ -11,6 +11,7 @@ A clean, minimal Sway setup with a tactical color palette. Features muted olive 
 - **btop** system monitor with custom tactical theme
 - **Mako** notification daemon with themed notifications
 - **Interactive screenshot system** with GNOME/COSMIC-style workflow
+- **Night mode toggle** with one-click color temperature adjustment
 - **Dynamic wallpaper** management via swaybg
 - **Window gaps** for a modern tiled layout
 - **Subtle transparency** on windows (95% opacity)
@@ -78,10 +79,46 @@ The screenshot system uses a custom script in `waybar/scripts/`:
 
 The script launches a centered, floating terminal window that captures a single keypress (C or S) without requiring Enter. The dialog uses the Foot terminal configured to float and center automatically via Sway window rules. All confirmations use mako notifications themed to match the tactical aesthetic.
 
+## Night Mode
+
+This configuration includes a GNOME-style night mode toggle accessible directly from the Waybar.
+
+### Overview
+
+Night mode reduces blue light emission by adjusting the color temperature of your display, making it easier on the eyes during evening/night use. The feature is implemented using `wlsunset`, the Wayland equivalent of redshift.
+
+### Usage
+
+Toggle night mode using either method:
+- **Click** the moon icon (󰖔) in the Waybar
+- **Press** `Mod+N` keyboard shortcut
+
+When toggled:
+- **Active**: Icon displays in amber/orange color, screen has warm color temperature
+- **Inactive**: Icon displays in muted olive color, screen has normal color temperature
+- Hover for tooltip showing current state
+- Notification confirms each state change
+
+### Configuration
+
+The night mode uses the following color temperature settings:
+- **Day temperature**: 4500K (slightly warm)
+- **Night temperature**: 3400K (warm, reduces blue light)
+
+These values can be adjusted in `waybar/scripts/night-mode-toggle.sh` by modifying the `-T` (day) and `-t` (night) parameters for `wlsunset`.
+
+### Implementation
+
+Two custom scripts work together:
+- `night-mode-toggle.sh` - Starts/stops wlsunset and updates state
+- `night-mode-status.sh` - Reports current state to Waybar (icon and tooltip)
+
+The state persists across Waybar restarts using a cache file at `~/.cache/night-mode-state`.
+
 ## Requirements
 
 ```bash
-sudo pacman -S sway waybar wofi foot swaybg brightnessctl sway-contrib grim slurp wl-clipboard mako
+sudo pacman -S sway waybar wofi foot swaybg brightnessctl sway-contrib grim slurp wl-clipboard mako wlsunset
 ```
 
 - `sway-contrib` includes grimshot for screenshots
@@ -89,6 +126,7 @@ sudo pacman -S sway waybar wofi foot swaybg brightnessctl sway-contrib grim slur
 - `wl-clipboard` enables copying screenshots to clipboard
 - `foot` is the terminal emulator used for the screenshot dialog and general use
 - `mako` is the notification daemon for screenshot confirmations and other alerts
+- `wlsunset` provides color temperature adjustment for night mode
 
 ### Fonts
 
@@ -162,7 +200,9 @@ sway-config/
 │   ├── style.css                 → ~/.config/waybar/style.css
 │   └── scripts/                  → ~/.config/waybar/scripts/
 │       ├── power-menu.sh         (Power menu for Waybar)
-│       └── screenshot-area.sh    (Interactive screenshot with keyboard dialog)
+│       ├── screenshot-area.sh    (Interactive screenshot with keyboard dialog)
+│       ├── night-mode-toggle.sh  (Toggle night mode on/off)
+│       └── night-mode-status.sh  (Report night mode state to Waybar)
 ├── wofi/
 │   ├── config                    → ~/.config/wofi/config
 │   └── style.css                 → ~/.config/wofi/style.css
@@ -217,6 +257,7 @@ The design embraces a flat, minimal aesthetic with restrained use of visual effe
 - Inactive workspace: subtle olive border with muted text
 - Hover workspace: semi-transparent background
 - Icon-based status modules with dynamic states
+- Night mode toggle with color temperature adjustment (GNOME-style)
 - Power menu, network manager, and battery info on click
 - Clean spacing and uniform icon distribution
 
@@ -278,6 +319,9 @@ Uses standard Sway bindings with Mod4 (Super/Windows key):
 - **Ctrl+Shift+Print** - Quick capture active window and save
 
 See the [Screenshot System](#screenshot-system) section above for detailed workflow and technical implementation.
+
+**Utilities:**
+- **Mod+N** - Toggle night mode (color temperature adjustment)
 
 **Additional Keybindings:**
 

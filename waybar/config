@@ -6,7 +6,7 @@
     
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["clock"],
-    "modules-right": ["network", "pulseaudio", "battery", "custom/power"],
+    "modules-right": ["network", "pulseaudio", "battery", "custom/night-mode", "custom/power"],
     
     "sway/workspaces": {
         "disable-scroll": false,
@@ -104,6 +104,13 @@
         "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
         "on-click-right": "pavucontrol",
         "tooltip-format": "Volume: {volume}%"
+    },
+    
+    "custom/night-mode": {
+        "exec": "~/.config/waybar/scripts/night-mode-status.sh",
+        "on-click": "~/.config/waybar/scripts/night-mode-toggle.sh",
+        "return-type": "json",
+        "interval": 5
     },
     
     "custom/power": {

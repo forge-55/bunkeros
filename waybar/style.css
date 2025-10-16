@@ -140,6 +140,25 @@ window#waybar.hidden {
     color: #2B2D2E;
 }
 
+#custom-night-mode {
+    color: #4A5240;
+    font-size: 16px;
+    padding: 0 8px;
+}
+
+#custom-night-mode.active {
+    color: #CC7832;
+}
+
+#custom-night-mode.inactive {
+    color: #4A5240;
+}
+
+#custom-night-mode:hover {
+    color: #C3B091;
+    background-color: rgba(60, 74, 47, 0.2);
+}
+
 #custom-power {
     color: #4A5240;
     font-size: 16px;
