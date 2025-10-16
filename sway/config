@@ -35,7 +35,7 @@ set $filemanager thunar
 # Using swaybg for dynamic wallpaper management
 # Change wallpaper: killall swaybg && swaybg -i /path/to/new-wallpaper.jpg -m fill &
 # Modes: fill, fit, stretch, center, tile
-exec_always "killall swaybg 2>/dev/null; swaybg -i ~/Pictures/space1.jpg -m fill"
+exec_always "killall swaybg 2>/dev/null; swaybg -i ~/Pictures/wallpaper/desert.jpg -m fill"
 
 ### Status Bar
 #
@@ -283,6 +283,21 @@ bar {
 }
 
 include /etc/sway/config.d/*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,0 +1,154 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "MesloLGL Nerd Font", "DejaVu Sans Mono", monospace;
+    font-size: 13px;
+    min-height: 0;
+}
+
+window#waybar {
+    background-color: rgba(45, 53, 59, 0.95);
+    color: #D3C6AA;
+    transition-property: background-color;
+    transition-duration: 0.5s;
+}
+
+button {
+    box-shadow: inset 0 -3px transparent;
+    border: none;
+    border-radius: 0;
+}
+
+#workspaces {
+    background-color: transparent;
+    padding: 0;
+    margin: 0 0 0 12px;
+}
+
+#workspaces button {
+    padding: 2px 8px;
+    margin: 0 4px;
+    background-color: transparent;
+    color: #D3C6AA;
+    border: 1px solid rgba(79, 88, 94, 0.6);
+    border-radius: 4px;
+    font-size: 11px;
+    min-width: 20px;
+}
+
+#workspaces button:hover {
+    background-color: rgba(79, 88, 94, 0.3);
+    color: #A7C080;
+    border-color: rgba(167, 192, 128, 0.4);
+}
+
+#workspaces button.active,
+#workspaces button.focused {
+    background-color: rgba(167, 192, 128, 0.4);
+    color: #A7C080;
+    border: 2px solid #A7C080;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 3px 10px;
+}
+
+#workspaces button.active label,
+#workspaces button.focused label {
+    font-weight: bold;
+}
+
+#workspaces button.urgent {
+    background-color: #E67E80;
+    color: #2D353B;
+}
+
+#custom-power,
+#custom-quick_menu,
+#clock,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#battery,
+#tray,
+#mode,
+#custom-night_mode,
+#idle_inhibitor {
+    padding: 0 10px;
+    color: #A7C080;
+}
+
+#battery {
+    color: #A7C080;
+}
+
+#battery.charging, #battery.plugged {
+    color: #83C092;
+}
+
+@keyframes blink {
+    to {
+        background-color: #E67E80;
+        color: #2D353B;
+    }
+}
+
+#battery.critical:not(.charging) {
+    background-color: #E67E80;
+    color: #2D353B;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#custom-night_mode {
+    color: #DBBC7F;
+}
+
+#custom-quick_menu {
+    color: #A7C080;
+}
+
+#custom-power {
+    color: #E67E80;
+}
+
+#cpu {
+    color: #7FBBB3;
+}
+
+#memory {
+    color: #D699B6;
+}
+
+#disk {
+    color: #83C092;
+}
+
+#temperature {
+    color: #E69875;
+}
+
+#network {
+    color: #83C092;
+}
+
+#pulseaudio {
+    color: #DBBC7F;
+}
+
+#tray {
+    color: #D3C6AA;
+}
+
+#clock {
+    color: #A7C080;
+    font-weight: bold;
+}
+

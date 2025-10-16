@@ -13,11 +13,16 @@ get_current_theme() {
 }
 
 list_themes() {
+    # Tactical first (default), then alphabetical
+    echo "tactical"
     for theme_dir in "$THEMES_DIR"/*; do
         if [ -d "$theme_dir" ] && [ -f "$theme_dir/theme.conf" ]; then
-            basename "$theme_dir"
+            theme_name=$(basename "$theme_dir")
+            if [ "$theme_name" != "tactical" ]; then
+                echo "$theme_name"
+            fi
         fi
-    done
+    done | sort
 }
 
 get_theme_info() {
@@ -29,8 +34,8 @@ get_theme_info() {
         return 1
     fi
     
-    source "$theme_conf"
-    echo "$NAME - $DESCRIPTION"
+    # Extract just the description
+    grep "^DESCRIPTION=" "$theme_conf" | cut -d'=' -f2- | tr -d '"'
 }
 
 apply_theme() {
@@ -128,26 +133,33 @@ show_theme_menu() {
     local theme_list=""
     
     while IFS= read -r theme; do
-        local info=$(get_theme_info "$theme")
         local marker=""
+        
         if [ "$theme" = "$current_theme" ]; then
-            marker=" ▸"
+            marker="●"
+        else
+            marker=" "
         fi
-        theme_list+="$theme - $info$marker\n"
+        
+        # Simple format: ● THEME-NAME
+        theme_list+="$marker ${theme^}\n"
     done < <(list_themes)
     
     selected=$(echo -e "$theme_list" | wofi \
         --dmenu \
-        --prompt "Select Theme" \
-        --width 700 \
-        --height 400 \
+        --prompt "Theme" \
+        --width 200 \
+        --height 220 \
         --cache-file=/dev/null \
         --insensitive \
-        --columns 1)
+        --lines 5)
     
     if [ -n "$selected" ]; then
-        theme_name=$(echo "$selected" | awk '{print $1}')
-        apply_theme "$theme_name"
+        # Extract theme name from "● Tactical" or "  Gruvbox" format
+        theme_name=$(echo "$selected" | sed 's/^[● ] //' | awk '{print tolower($1)}')
+        if [ -n "$theme_name" ] && [ "$theme_name" != "" ]; then
+            apply_theme "$theme_name"
+        fi
     fi
 }
 

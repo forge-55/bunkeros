@@ -1,0 +1,10 @@
+# Everforest Theme - Bash Prompt Colors
+# Warm forest greens and browns
+
+C_RESET='\[\033[0m\]'
+C_TAN='\[\033[38;2;167;192;128m\]'     # Everforest Green
+C_OLIVE='\[\033[38;2;131;192;146m\]'   # Everforest Aqua
+C_GRAY='\[\033[38;2;211;198;170m\]'    # Everforest Foreground
+C_DIM='\[\033[38;2;79;88;94m\]'        # Everforest Gray
+C_AMBER='\[\033[38;2;230;126;128m\]'   # Everforest Red
+

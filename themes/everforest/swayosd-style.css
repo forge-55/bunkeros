@@ -1,0 +1,34 @@
+window {
+    background-color: rgba(45, 53, 59, 0.95);
+    border: 2px solid #a7c080;
+    border-radius: 0;
+}
+
+#container {
+    padding: 20px;
+}
+
+image {
+    color: #a7c080;
+}
+
+label {
+    color: #d3c6aa;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+progressbar {
+    background-color: #3d484d;
+    border: none;
+}
+
+progress {
+    background-color: #a7c080;
+    border: none;
+}
+
+trough {
+    background-color: #3d484d;
+}
+
