@@ -4,6 +4,7 @@ A clean, minimal Sway setup with a tactical color palette. Features muted olive 
 
 ## Features
 
+- **Minimal, intuitive keybindings** - Essential bindings that work across major tiling WMs
 - **Waybar** status bar with flat, tactical styling
 - **Numbered workspace indicators** (1-7) with ArchCraft-inspired design and refined box styling
 - **Wofi** application launcher with minimal design aesthetic
@@ -35,6 +36,64 @@ The configuration uses a carefully crafted tactical palette that balances functi
 ### Design Philosophy
 
 The palette prioritizes readability and focus while maintaining a cohesive tactical aesthetic. The design follows a flat, understated approach with minimal shadows and clean borders - emphasizing function over decoration, perfect for performance-conscious setups like the ThinkPad T480.
+
+## Keybindings
+
+This configuration uses minimal, intuitive keybindings that are consistent across major tiling window managers. The philosophy is to provide only the essential bindings, leaving room for users to customize with their favorite applications and scripts.
+
+### Design Philosophy
+
+- **Minimal by default** - Only essential keybindings included
+- **Intuitive across WMs** - Works similarly to i3, Hyprland, and other tiling WMs
+- **Easy to remember** - Logical key choices without excessive Shift modifiers
+- **Customization-friendly** - Clear space for users to add personal bindings
+
+### Essential Keybindings
+
+**Basic Actions:**
+- `Super+Return` - Launch terminal
+- `Super+Space` - Application launcher (Wofi)
+- `Super+q` - Close window
+- `Super+t` - Toggle floating mode
+- `Super+Shift+r` - Reload Sway configuration
+
+**Window Focus (Vim-style or Arrow keys):**
+- `Super+h/j/k/l` or `Super+←/↓/↑/→` - Move focus between windows
+
+**Window Movement:**
+- `Super+Shift+h/j/k/l` or `Super+Shift+←/↓/↑/→` - Move windows
+
+**Workspaces:**
+- `Super+1-9` - Switch to workspace 1-9
+- `Super+Shift+1-9` - Move window to workspace 1-9
+- `PgUp/PgDn` - Cycle to previous/next workspace
+
+**Window Layout:**
+- `Super+e` - Toggle split layout
+- `Super+f` - Fullscreen
+- `Super+r` - Enter resize mode (use h/j/k/l or arrows, then Esc)
+
+**System Controls:**
+- `Print` - Interactive screenshot (select area, then choose copy/save)
+- `Shift+Print` - Screenshot entire screen (save)
+- `Ctrl+Print` - Screenshot area (copy to clipboard)
+- `Ctrl+Shift+Print` - Screenshot active window (save)
+- `Super+n` - Toggle night mode
+- `Fn+F1-F6` - Volume/brightness controls (hardware keys with OSD)
+
+**Reserved for Future Features:**
+- `Super+Alt+Space` - Quick actions menu (power, styling, system controls)
+
+### Customization
+
+The configuration includes a dedicated customization area at the end of the keybindings section. Add your own bindings for favorite applications:
+
+```
+# Examples:
+bindsym $mod+b exec firefox
+bindsym $mod+c exec code
+bindsym $mod+m exec spotify
+```
 
 ## Screenshot System
 

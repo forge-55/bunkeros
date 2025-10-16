@@ -116,49 +116,57 @@ exec_always swaymsg '[class=".*"]' opacity 0.95
 
 ### Key bindings
 #
-# Basics:
+# This configuration uses minimal, intuitive keybindings that work across major tiling WMs.
+# Feel free to add your own keybindings for favorite apps and custom scripts below.
 #
-    # Start a terminal
+# Essential Basics:
+#
+    # Launch terminal
     bindsym $mod+Return exec $term
 
-    # Kill focused window
-    bindsym $mod+Shift+q kill
+    # Close focused window
+    bindsym $mod+q kill
 
-    # Start your launcher
-    bindsym $mod+d exec $menu
+    # Application launcher
+    bindsym $mod+space exec $menu
 
-    # Drag floating windows by holding down $mod and left mouse button.
-    # Resize them with right mouse button + $mod.
-    # Despite the name, also works for non-floating windows.
-    # Change normal to inverse to use left mouse button for resizing and right
-    # mouse button for dragging.
+    # Quick actions menu (reserved for future menu feature)
+    # bindsym $mod+Mod1+space exec ~/.config/waybar/scripts/quick-menu.sh
+
+    # Toggle floating mode
+    bindsym $mod+t floating toggle
+
+    # Drag floating windows by holding $mod and left mouse button
+    # Resize them with right mouse button + $mod
     floating_modifier $mod normal
 
-    # Reload the configuration file
-    bindsym $mod+Shift+c reload
+    # Reload Sway configuration
+    bindsym $mod+Shift+r reload
 
-    # Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+    # Exit Sway (uncomment if desired - disabled by default to prevent accidental logout)
+    # bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit Sway?' -B 'Yes' 'swaymsg exit'
 #
-# Moving around:
+# Window Focus & Movement:
 #
-    # Move your focus around
+    # Focus windows (Vim-style)
     bindsym $mod+$left focus left
     bindsym $mod+$down focus down
     bindsym $mod+$up focus up
     bindsym $mod+$right focus right
-    # Or use $mod+[up|down|left|right]
+
+    # Focus windows (Arrow keys)
     bindsym $mod+Left focus left
     bindsym $mod+Down focus down
     bindsym $mod+Up focus up
     bindsym $mod+Right focus right
 
-    # Move the focused window with the same, but add Shift
+    # Move windows (Vim-style)
     bindsym $mod+Shift+$left move left
     bindsym $mod+Shift+$down move down
     bindsym $mod+Shift+$up move up
     bindsym $mod+Shift+$right move right
-    # Ditto, with arrow keys
+
+    # Move windows (Arrow keys)
     bindsym $mod+Shift+Left move left
     bindsym $mod+Shift+Down move down
     bindsym $mod+Shift+Up move up
@@ -177,7 +185,8 @@ exec_always swaymsg '[class=".*"]' opacity 0.95
     bindsym $mod+8 workspace number 8
     bindsym $mod+9 workspace number 9
     bindsym $mod+0 workspace number 10
-    # Move focused container to workspace
+
+    # Move window to workspace
     bindsym $mod+Shift+1 move container to workspace number 1
     bindsym $mod+Shift+2 move container to workspace number 2
     bindsym $mod+Shift+3 move container to workspace number 3
@@ -188,91 +197,70 @@ exec_always swaymsg '[class=".*"]' opacity 0.95
     bindsym $mod+Shift+8 move container to workspace number 8
     bindsym $mod+Shift+9 move container to workspace number 9
     bindsym $mod+Shift+0 move container to workspace number 10
-    # Note: workspaces can have any name you want, not just numbers.
-    # We just use 1-10 as the default.
-#
-# Layout stuff:
-#
-    # You can "split" the current object of your focus with
-    # $mod+b or $mod+v, for horizontal and vertical splits
-    # respectively.
-    bindsym $mod+b splith
-    bindsym $mod+v splitv
 
-    # Switch the current container between different layout styles
-    bindsym $mod+s layout stacking
-    bindsym $mod+w layout tabbed
+    # Cycle through workspaces
+    bindsym --no-repeat Prior workspace prev
+    bindsym --no-repeat Next workspace next
+#
+# Window Layout:
+#
+    # Toggle split layout
     bindsym $mod+e layout toggle split
 
-    # Make the current focus fullscreen
+    # Fullscreen
     bindsym $mod+f fullscreen
 
-    # Toggle the current focus between tiling and floating mode
-    bindsym $mod+Shift+space floating toggle
-
-    # Swap focus between the tiling area and the floating area
-    bindsym $mod+space focus mode_toggle
-
-    # Move focus to the parent container
-    bindsym $mod+a focus parent
+    # Enter resize mode
+    bindsym $mod+r mode "resize"
 #
-# Scratchpad:
-#
-    # Sway has a "scratchpad", which is a bag of holding for windows.
-    # You can send windows there and get them back later.
-
-    # Move the currently focused window to the scratchpad
-    bindsym $mod+Shift+minus move scratchpad
-
-    # Show the next scratchpad window or hide the focused scratchpad window.
-    # If there are multiple scratchpad windows, this command cycles through them.
-    bindsym $mod+minus scratchpad show
-#
-# Resizing containers:
+# Resize Mode:
 #
 mode "resize" {
-    # left will shrink the containers width
-    # right will grow the containers width
-    # up will shrink the containers height
-    # down will grow the containers height
     bindsym $left resize shrink width 10px
     bindsym $down resize grow height 10px
     bindsym $up resize shrink height 10px
     bindsym $right resize grow width 10px
 
-    # Ditto, with arrow keys
     bindsym Left resize shrink width 10px
     bindsym Down resize grow height 10px
     bindsym Up resize shrink height 10px
     bindsym Right resize grow width 10px
 
-    # Return to default mode
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+r mode "resize"
 #
-# Utilities:
+# System Controls:
 #
-    # Special keys to adjust volume via swayosd
+    # Volume controls (hardware keys)
     bindsym --locked XF86AudioMute exec swayosd-client --output-volume mute-toggle
     bindsym --locked XF86AudioLowerVolume exec swayosd-client --output-volume lower
     bindsym --locked XF86AudioRaiseVolume exec swayosd-client --output-volume raise
     bindsym --locked XF86AudioMicMute exec swayosd-client --input-volume mute-toggle
-    # Special keys to adjust brightness via swayosd
+
+    # Brightness controls (hardware keys)
     bindsym --locked XF86MonBrightnessDown exec swayosd-client --brightness lower
     bindsym --locked XF86MonBrightnessUp exec swayosd-client --brightness raise
-    # Screenshot tools using grimshot (GNOME/COSMIC style)
+
+    # Screenshot tools (GNOME/COSMIC style workflow)
     set $grimshot /usr/sbin/grimshot
     bindsym Print exec ~/.config/waybar/scripts/screenshot-area.sh
     bindsym Shift+Print exec $grimshot --notify save screen
     bindsym Ctrl+Print exec $grimshot --notify copy area
     bindsym Ctrl+Shift+Print exec $grimshot --notify save active
+
     # Night mode toggle
     bindsym $mod+n exec ~/.config/waybar/scripts/night-mode-toggle.sh
-    # Workspace navigation with Page Up/Down
-    bindsym --no-repeat Prior workspace prev
-    bindsym --no-repeat Next workspace next
+
+#
+# User Customization Area:
+#
+# Add your own keybindings below for favorite applications and custom scripts
+# Examples:
+#   bindsym $mod+b exec firefox
+#   bindsym $mod+c exec code
+#   bindsym $mod+m exec spotify
+#
 
 #
 # Status Bar:
