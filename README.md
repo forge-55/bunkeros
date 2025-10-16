@@ -45,18 +45,22 @@ This configuration uses minimal, intuitive keybindings that are consistent acros
 ### Design Philosophy
 
 - **Minimal by default** - Only essential keybindings included
-- **Intuitive across WMs** - Works similarly to i3, Hyprland, and other tiling WMs
-- **Easy to remember** - Logical key choices without excessive Shift modifiers
+- **Mnemonic system** - Keys match their function (a=apps, b=browser, e=editor, f=files, m=menu, t=terminal)
+- **No Shift modifiers** - Essential actions use single keys for speed
+- **User-configurable** - Default apps set via variables at top of config
 - **Customization-friendly** - Clear space for users to add personal bindings
 
 ### Essential Keybindings
 
 **Basic Actions:**
-- `Super+Return` - Launch terminal
-- `Super+Space` - Application launcher (Wofi)
+- `Super+a` - Application launcher (Wofi)
 - `Super+b` - Open default web browser
+- `Super+e` - Text editor
+- `Super+Escape` - Lock screen
+- `Super+f` - File manager
+- `Super+m` - Quick actions menu
 - `Super+q` - Close window
-- `Super+t` - Toggle floating mode
+- `Super+t` - Launch terminal
 - `Super+Shift+r` - Reload Sway configuration
 
 **Window Focus (Vim-style or Arrow keys):**
@@ -71,8 +75,8 @@ This configuration uses minimal, intuitive keybindings that are consistent acros
 - `PgUp/PgDn` - Cycle to previous/next workspace
 
 **Window Layout:**
-- `Super+e` - Toggle split layout
-- `Super+f` - Fullscreen
+- `Super+v` - Toggle split layout
+- `F11` - Fullscreen
 - `Super+r` - Enter resize mode (use h/j/k/l or arrows, then Esc)
 
 **System Controls:**
@@ -83,8 +87,6 @@ This configuration uses minimal, intuitive keybindings that are consistent acros
 - `Super+n` - Toggle night mode
 - `Fn+F1-F6` - Volume/brightness controls (hardware keys with OSD)
 
-**Quick Actions Menu:**
-- `Super+Alt+Space` - Quick actions menu with icon-based navigation
 
 ### Customization
 
@@ -92,9 +94,18 @@ The configuration includes a dedicated customization area at the end of the keyb
 
 ```
 # Examples:
-bindsym $mod+b exec firefox
-bindsym $mod+c exec code
-bindsym $mod+m exec spotify
+bindsym $mod+c exec Discord
+bindsym $mod+s exec spotify
+bindsym $mod+d exec steam
+```
+
+**Configuring Default Applications:**
+
+Edit the variables section at the top of `sway/config`:
+```bash
+set $editor cursor        # Change to: code, micro, vim, etc.
+set $filemanager thunar   # Change to: nautilus, dolphin, pcmanfm-qt, etc.
+set $term foot            # Change to: alacritty, kitty, etc.
 ```
 
 ## Screenshot System
@@ -370,17 +381,50 @@ For detailed documentation, see [`webapp/README.md`](webapp/README.md).
 
 ## Requirements
 
+### Core Packages (Required)
+
+Install all required packages:
+
 ```bash
-sudo pacman -S sway waybar wofi foot swaybg brightnessctl sway-contrib grim slurp wl-clipboard mako wlsunset swayosd xdg-utils
+sudo pacman -S sway waybar wofi foot swaybg brightnessctl sway-contrib grim slurp wl-clipboard mako wlsunset swayosd xdg-utils swaylock thunar btop
 ```
 
-- `sway-contrib` includes grimshot for screenshots
-- `grim` and `slurp` are the underlying screenshot tools
-- `wl-clipboard` enables copying screenshots to clipboard
-- `foot` is the terminal emulator used for the screenshot dialog and general use
-- `mako` is the notification daemon for screenshot confirmations and other alerts
-- `wlsunset` provides color temperature adjustment for night mode
-- `swayosd` provides on-screen display overlays for volume and brightness
+**What each package does:**
+- `sway` - Tiling window manager (Wayland compositor)
+- `waybar` - Status bar with tactical theme
+- `wofi` - Application launcher and menu system
+- `foot` - Terminal emulator
+- `swaybg` - Wallpaper manager
+- `brightnessctl` - Brightness control for laptops
+- `sway-contrib` - Includes grimshot for screenshots
+- `grim` + `slurp` - Screenshot tools (capture + area selection)
+- `wl-clipboard` - Clipboard utilities for Wayland
+- `mako` - Notification daemon
+- `wlsunset` - Night mode (color temperature adjustment)
+- `swayosd` - On-screen display for volume/brightness
+- `xdg-utils` - Desktop integration (needed for web apps)
+- `swaylock` - Screen locker (Super+Escape)
+- `thunar` - File manager (Super+f)
+- `btop` - System monitor (accessible from System menu)
+
+### User-Configurable Applications
+
+You'll also need to install your preferred applications for the keybindings:
+
+**Web Browser** (Super+b):
+```bash
+sudo pacman -S chromium  # or: firefox, brave-bin (AUR)
+```
+Set your default browser: `xdg-settings set default-web-browser chromium.desktop`
+
+**Text Editor** (Super+e):
+```bash
+# Choose one based on your preference:
+sudo pacman -S code           # VS Code
+# or cursor from AUR
+# or: micro, vim, neovim, etc.
+```
+Update the variable in `sway/config`: `set $editor cursor`
 
 ### Fonts
 

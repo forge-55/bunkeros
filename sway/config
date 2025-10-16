@@ -17,6 +17,10 @@ set $right l
 set $term foot
 # Your preferred application launcher
 set $menu wofi --show drun
+# Your preferred text editor (change to: code, cursor, micro, vim, etc.)
+set $editor cursor
+# Your preferred file manager (change to: nautilus, dolphin, pcmanfm-qt, etc.)
+set $filemanager thunar
 
 ### Output configuration
 #
@@ -121,20 +125,29 @@ exec_always swaymsg '[class=".*"]' opacity 0.95
 #
 # Essential Basics:
 #
+    # Application launcher
+    bindsym $mod+a exec $menu
+
+    # Open default web browser
+    bindsym $mod+b exec xdg-open http://
+
+    # Text editor
+    bindsym $mod+e exec $editor
+
+    # File manager
+    bindsym $mod+f exec $filemanager
+
+    # Lock screen (uses Super+Escape to avoid conflict with Vim keys)
+    bindsym $mod+Escape exec swaylock -f -c 000000
+
+    # Quick actions menu
+    bindsym $mod+m exec ~/.config/waybar/scripts/quick-menu.sh
+
     # Launch terminal
-    bindsym $mod+Return exec $term
+    bindsym $mod+t exec $term
 
     # Close focused window
     bindsym $mod+q kill
-
-    # Application launcher
-    bindsym $mod+space exec $menu
-
-    # Quick actions menu
-    bindsym $mod+Mod1+space exec ~/.config/waybar/scripts/quick-menu.sh
-
-    # Toggle floating mode
-    bindsym $mod+t floating toggle
 
     # Drag floating windows by holding $mod and left mouse button
     # Resize them with right mouse button + $mod
@@ -205,10 +218,10 @@ exec_always swaymsg '[class=".*"]' opacity 0.95
 # Window Layout:
 #
     # Toggle split layout
-    bindsym $mod+e layout toggle split
+    bindsym $mod+v layout toggle split
 
     # Fullscreen
-    bindsym $mod+f fullscreen
+    bindsym F11 fullscreen
 
     # Enter resize mode
     bindsym $mod+r mode "resize"
@@ -252,11 +265,6 @@ mode "resize" {
     # Night mode toggle
     bindsym $mod+n exec ~/.config/waybar/scripts/night-mode-toggle.sh
 
-#
-# Quick Launch:
-#
-    # Open default web browser
-    bindsym $mod+b exec xdg-open http://
 
 #
 # User Customization Area:
