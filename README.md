@@ -64,7 +64,7 @@ This configuration uses minimal, intuitive keybindings that are consistent acros
 - `Super+e` - Text editor
 - `Super+Escape` - Lock screen
 - `Super+f` - File manager
-- `Super+m` - Quick actions menu
+- `Super+m` or `Super+Alt+Space` - Quick actions menu
 - `Super+q` - Close window
 - `Super+t` or `Super+Enter` - Launch terminal
 - `Super+w` - Workspace overview (see all workspaces and windows)

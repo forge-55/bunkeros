@@ -109,7 +109,7 @@ fi
 # Display with clean format
 selected=$(sed 's/^[^|]*|//' "$temp_file" | wofi \
     --dmenu \
-    --prompt "🔍 Type number to jump  •  Use ↑↓ to browse" \
+    --prompt "━━━━━  WORKSPACE OVERVIEW  ━━━━━  Type number or use ↑↓ arrows" \
     --width 1400 \
     --height 450 \
     --cache-file=/dev/null \

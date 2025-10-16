@@ -13,15 +13,18 @@ window {
 #input {
     margin: 8px;
     padding: 10px 14px;
-    border: 1px solid #3C4A2F;
+    border: 2px solid #C3B091;
     background-color: #2B2D2E;
-    color: #D4D4D4;
+    color: #C3B091;
     border-radius: 0px;
+    font-weight: bold;
+    font-size: 15px;
 }
 
 #input:focus {
-    border: 1px solid #C3B091;
+    border: 2px solid #C3B091;
     outline: none;
+    background-color: #3C4A2F;
 }
 
 #inner-box {

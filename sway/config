@@ -143,6 +143,7 @@ exec_always swaymsg '[class=".*"]' opacity 0.95
 
     # Quick actions menu
     bindsym $mod+m exec ~/.config/waybar/scripts/quick-menu.sh
+    bindsym $mod+Mod1+space exec ~/.config/waybar/scripts/quick-menu.sh  # Alternative (Omarchy-style)
 
     # Launch terminal
     bindsym $mod+t exec $term
