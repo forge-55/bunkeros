@@ -4,6 +4,7 @@ A clean, minimal Sway setup with a tactical color palette. Features muted olive 
 
 ## Features
 
+- **Multi-theme system** - Switch between 5 curated themes instantly (Tactical, Gruvbox, Nord, Everforest, Tokyo Night)
 - **Minimal, intuitive keybindings** - Essential bindings that work across major tiling WMs
 - **Custom SDDM login theme** - Tactical-styled login screen with centered design
 - **GTK theming** - Custom dark theme with tactical colors for all GTK applications
@@ -42,6 +43,95 @@ The configuration uses a carefully crafted tactical palette that balances functi
 ### Design Philosophy
 
 The palette prioritizes readability and focus while maintaining a cohesive tactical aesthetic. The design follows a flat, understated approach with minimal shadows and clean borders - emphasizing function over decoration, perfect for performance-conscious setups like the ThinkPad T480.
+
+## Theme System
+
+This setup includes a powerful theme system that lets you switch between multiple curated color schemes instantly. All themes maintain the military-inspired aesthetic while offering different moods and color temperatures.
+
+### Available Themes
+
+1. **Tactical** (Default) - Khaki/olive/charcoal desert operations aesthetic
+2. **Gruvbox Dark** - Warm browns and earthy tones, vintage field gear
+3. **Nord** - Cool grays and arctic blues, naval/tech operations *(coming soon)*
+4. **Everforest** - Muted greens and forest tones, woodland camo *(coming soon)*
+5. **Tokyo Night** - Deep blues and purples, night operations *(coming soon)*
+
+### What Gets Themed
+
+When you switch themes, the following components update automatically:
+- Waybar (status bar colors and styling)
+- Wofi (application launcher)
+- Sway (window borders and focus indicators)
+- Bash prompt (terminal colors)
+- btop (system monitor)
+- Mako (notifications)
+- SwayOSD (volume/brightness overlays)
+- Foot terminal (colors and cursor)
+- File listing colors (dircolors)
+- GTK applications (via custom CSS)
+
+### Switching Themes
+
+**Via Quick Menu:**
+1. Press `Super+m` to open Quick Actions Menu
+2. Select "Theme" option
+3. Choose "Change Theme"
+4. Select your desired theme from the list
+
+**Via Script:**
+```bash
+# Show theme menu
+~/.config/sway-config/scripts/theme-switcher.sh menu
+
+# Switch directly to a theme
+~/.config/sway-config/scripts/theme-switcher.sh gruvbox
+
+# List available themes
+~/.config/sway-config/scripts/theme-switcher.sh list
+
+# Show current theme
+~/.config/sway-config/scripts/theme-switcher.sh current
+```
+
+**What Happens:**
+1. Theme files are copied to active config locations
+2. Sway configuration is updated with new colors
+3. Waybar, Mako, and SwayOSD are restarted
+4. Bash prompt colors are updated (reload terminal to see changes)
+5. Your theme preference is saved
+
+### Theme Structure
+
+Each theme is self-contained in `themes/THEME_NAME/` with all necessary config files:
+```
+themes/tactical/
+├── theme.conf          # Metadata and color palette
+├── waybar-style.css    # Waybar styling
+├── wofi-style.css      # Wofi launcher styling
+├── sway-colors.conf    # Window border colors
+├── bashrc-colors       # Terminal prompt colors
+├── btop.theme          # System monitor theme
+├── mako-config         # Notification styling
+├── swayosd-style.css   # OSD overlay styling
+├── foot.ini            # Terminal colors
+└── dircolors           # File listing colors
+```
+
+### Creating Custom Themes
+
+To create your own theme:
+1. Copy an existing theme directory: `cp -r themes/tactical themes/mytheme`
+2. Edit `themes/mytheme/theme.conf` with your metadata
+3. Update all CSS and config files with your color palette
+4. Test it: `~/.config/sway-config/scripts/theme-switcher.sh mytheme`
+5. Submit a PR to share with the community!
+
+**Contributing Themes:**
+We welcome community-contributed themes! Please ensure your theme:
+- Maintains the military/tactical aesthetic
+- Provides good contrast for readability
+- Includes all required config files
+- Has complete metadata in theme.conf
 
 ## Keybindings
 
@@ -660,7 +750,7 @@ ln -sf $(pwd)/wofi/style.css ~/.config/wofi/style.css
 ln -sf $(pwd)/foot/foot.ini ~/.config/foot/foot.ini
 ln -sf $(pwd)/mako/config ~/.config/mako/config
 ln -sf $(pwd)/btop/btop.conf ~/.config/btop/btop.conf
-ln -sf $(pwd)/btop/themes/tactical.theme ~/.config/btop/themes/tactical.theme
+ln -sf $(pwd)/btop/themes/active.theme ~/.config/btop/themes/active.theme
 ln -sf $(pwd)/swayosd/style.css ~/.config/swayosd/style.css
 ln -sf $(pwd)/bashrc ~/.bashrc
 ln -sf $(pwd)/dircolors ~/.dircolors
@@ -680,6 +770,24 @@ All configuration files are stored in this repository and symlinked to their app
 sway-config/
 ├── sway/
 │   └── config                    → ~/.config/sway/config
+├── themes/                       (Theme system - all themes stored here)
+│   ├── tactical/                 (Default tactical theme)
+│   │   ├── theme.conf            (Theme metadata and color palette)
+│   │   ├── waybar-style.css      (Waybar colors)
+│   │   ├── wofi-style.css        (Wofi launcher colors)
+│   │   ├── sway-colors.conf      (Window border colors)
+│   │   ├── bashrc-colors         (Terminal prompt colors)
+│   │   ├── btop.theme            (System monitor theme)
+│   │   ├── mako-config           (Notification styling)
+│   │   ├── swayosd-style.css     (OSD styling)
+│   │   ├── foot.ini              (Terminal colors)
+│   │   └── dircolors             (File listing colors)
+│   ├── gruvbox/                  (Gruvbox Dark theme)
+│   ├── nord/                     (Nord theme - coming soon)
+│   ├── everforest/               (Everforest theme - coming soon)
+│   └── tokyo-night/              (Tokyo Night theme - coming soon)
+├── scripts/
+│   └── theme-switcher.sh         (Theme switching utility)
 ├── waybar/
 │   ├── config                    → ~/.config/waybar/config
 │   ├── style.css                 → ~/.config/waybar/style.css
@@ -729,6 +837,7 @@ sway-config/
 │   └── README.md                 (Web app manager documentation)
 ├── bashrc                        → ~/.bashrc
 ├── dircolors                     → ~/.dircolors
+├── .current-theme                (Tracks active theme - user-specific, not in git)
 ├── .gitignore
 └── README.md
 ```
@@ -738,6 +847,7 @@ sway-config/
 - Easy to backup and restore
 - Changes to project files immediately reflect in system
 - Simple to share and replicate across machines
+- Theme system allows instant visual changes without losing customizations
 
 ## Customization
 

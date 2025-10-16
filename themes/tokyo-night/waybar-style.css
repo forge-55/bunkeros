@@ -7,8 +7,8 @@
 }
 
 window#waybar {
-    background-color: rgba(40, 40, 40, 0.95);
-    color: #EBDBB2;
+    background-color: rgba(26, 27, 38, 0.95);
+    color: #C0CAF5;
     transition-property: background-color;
     transition-duration: 0.5s;
 }
@@ -27,24 +27,24 @@ window#waybar.hidden {
     padding: 2px 8px;
     margin: 0 4px;
     background-color: transparent;
-    color: #665C54;
-    border: 1px solid rgba(80, 73, 69, 0.6);
+    color: #565F89;
+    border: 1px solid rgba(65, 72, 104, 0.6);
     border-radius: 4px;
     font-size: 11px;
     min-width: 20px;
 }
 
 #workspaces button:hover {
-    background-color: rgba(80, 73, 69, 0.3);
-    color: #D79921;
-    border-color: rgba(215, 153, 33, 0.4);
+    background-color: rgba(65, 72, 104, 0.3);
+    color: #7AA2F7;
+    border-color: rgba(122, 162, 247, 0.4);
 }
 
 #workspaces button.active,
 #workspaces button.focused {
-    background-color: rgba(215, 153, 33, 0.4);
-    color: #D79921;
-    border: 2px solid #D79921;
+    background-color: rgba(122, 162, 247, 0.4);
+    color: #7AA2F7;
+    border: 2px solid #7AA2F7;
     border-radius: 4px;
     font-weight: bold;
     font-size: 14px;
@@ -53,34 +53,34 @@ window#waybar.hidden {
 
 #workspaces button.active label,
 #workspaces button.focused label {
-    color: #D79921;
+    color: #7AA2F7;
     font-weight: bold;
     font-size: 14px;
 }
 
 #workspaces button.visible {
-    background-color: rgba(102, 92, 84, 0.3);
-    color: #7C6F64;
+    background-color: rgba(86, 95, 137, 0.3);
+    color: #565F89;
 }
 
 #workspaces button.urgent {
-    background-color: #FB4934;
-    border: 2px solid #FB4934;
+    background-color: #F7768E;
+    border: 2px solid #F7768E;
     animation: urgent-pulse 1s ease-in-out infinite alternate;
 }
 
 @keyframes urgent-pulse {
     from {
-        box-shadow: 0 0 8px rgba(251, 73, 52, 0.4);
+        box-shadow: 0 0 8px rgba(247, 118, 142, 0.4);
     }
     to {
-        box-shadow: 0 0 16px rgba(251, 73, 52, 0.8);
+        box-shadow: 0 0 16px rgba(247, 118, 142, 0.8);
     }
 }
 
 #mode {
-    background-color: rgba(251, 73, 52, 0.2);
-    color: #FB4934;
+    background-color: rgba(247, 118, 142, 0.2);
+    color: #F7768E;
     padding: 0 10px;
     margin-left: 10px;
     font-weight: normal;
@@ -96,77 +96,77 @@ window#waybar.hidden {
 #custom-power {
     padding: 0 12px;
     background-color: transparent;
-    color: #EBDBB2;
+    color: #C0CAF5;
 }
 
 #clock {
     font-weight: normal;
-    color: #D79921;
+    color: #7AA2F7;
     background-color: transparent;
 }
 
 #battery {
-    color: #98971A;
+    color: #9ECE6A;
 }
 
 #backlight {
-    color: #98971A;
+    color: #9ECE6A;
 }
 
 #cpu {
-    color: #98971A;
+    color: #9ECE6A;
 }
 
 #memory {
-    color: #689D6A;
+    color: #2AC3DE;
 }
 
 #network {
-    color: #98971A;
+    color: #9ECE6A;
 }
 
 #network.disconnected {
-    background-color: rgba(251, 73, 52, 0.3);
-    color: #FB4934;
+    background-color: rgba(247, 118, 142, 0.3);
+    color: #F7768E;
     font-weight: bold;
 }
 
 #pulseaudio {
-    color: #98971A;
+    color: #9ECE6A;
 }
 
 #pulseaudio.muted {
-    background-color: rgba(60, 56, 54, 0.5);
-    color: #3C3836;
+    background-color: rgba(36, 40, 59, 0.5);
+    color: #24283B;
 }
 
 #custom-night-mode {
-    color: #98971A;
+    color: #9ECE6A;
     font-size: 16px;
     padding: 0 8px;
 }
 
 #custom-night-mode.active {
-    color: #D79921;
+    color: #7AA2F7;
 }
 
 #custom-night-mode.inactive {
-    color: #98971A;
+    color: #9ECE6A;
 }
 
 #custom-night-mode:hover {
-    color: #D79921;
-    background-color: rgba(80, 73, 69, 0.2);
+    color: #7AA2F7;
+    background-color: rgba(65, 72, 104, 0.2);
 }
 
 #custom-power {
-    color: #98971A;
+    color: #9ECE6A;
     font-size: 16px;
     margin-right: 12px;
 }
 
 #custom-power:hover {
-    color: #D79921;
-    background-color: rgba(80, 73, 69, 0.2);
+    color: #7AA2F7;
+    background-color: rgba(65, 72, 104, 0.2);
 }
 

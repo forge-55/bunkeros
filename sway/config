@@ -37,6 +37,11 @@ set $filemanager thunar
 # Modes: fill, fit, stretch, center, tile
 exec_always "killall swaybg 2>/dev/null; swaybg -i ~/Pictures/space1.jpg -m fill"
 
+### Status Bar
+#
+# Start waybar once at login (themes use hot-reload, no restart needed)
+exec waybar
+
 ### Notifications
 #
 # Start mako notification daemon
@@ -292,3 +297,61 @@ bar {
 }
 
 include /etc/sway/config.d/*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# THEME COLORS START
+# Gruvbox Dark Theme - Sway Window Border Colors
+# Warm browns and earth tones
+
+default_border pixel 2
+default_floating_border pixel 2
+
+# Client color scheme (border, background, text, indicator, child_border)
+client.focused          #D79921 #3C3836 #EBDBB2 #D79921 #D79921
+client.unfocused        #3C3836 #282828 #EBDBB2 #3C3836 #3C3836
+client.focused_inactive #504945 #282828 #EBDBB2 #504945 #504945
+client.urgent           #FB4934 #FB4934 #282828 #FB4934 #FB4934
+client.placeholder      #3C3836 #282828 #EBDBB2 #3C3836 #3C3836
+client.background       #282828
+
+# THEME COLORS END

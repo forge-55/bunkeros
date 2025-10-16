@@ -1,10 +1,13 @@
 #!/bin/bash
 
-options="󰹑 Toggle Gaps\n󰙵 Increase Gaps\n󰙴 Decrease Gaps\n󰂚 Increase Opacity\n󰂙 Decrease Opacity\n󰸉 Wallpaper\n󰆊 Reload Config"
+options="󰏘 Change Theme\n󰹑 Toggle Gaps\n󰙵 Increase Gaps\n󰙴 Decrease Gaps\n󰂚 Increase Opacity\n󰂙 Decrease Opacity\n󰸉 Wallpaper\n󰆊 Reload Config"
 
-selected=$(echo -e "$options" | wofi --dmenu --prompt "Theme Options" --width 400 --height 450)
+selected=$(echo -e "$options" | wofi --dmenu --prompt "Theme Options" --width 400 --height 500)
 
 case $selected in
+    "󰏘 Change Theme")
+        /home/ryan/Projects/sway-config/scripts/theme-switcher.sh menu
+        ;;
     "󰹑 Toggle Gaps")
         current=$(swaymsg -t get_tree | grep -o '"gaps":{"inner":[0-9]*' | head -1 | grep -o '[0-9]*$')
         if [ "$current" -eq 0 ]; then
