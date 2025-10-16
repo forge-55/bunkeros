@@ -322,6 +322,8 @@ See the [Screenshot System](#screenshot-system) section above for detailed workf
 
 **Utilities:**
 - **Mod+N** - Toggle night mode (color temperature adjustment)
+- **Page Up** - Switch to previous workspace
+- **Page Down** - Switch to next workspace
 
 **Additional Keybindings:**
 

@@ -265,6 +265,9 @@ bindsym $mod+r mode "resize"
     bindsym Ctrl+Shift+Print exec $grimshot --notify save active
     # Night mode toggle
     bindsym $mod+n exec ~/.config/waybar/scripts/night-mode-toggle.sh
+    # Workspace navigation with Page Up/Down
+    bindsym --no-repeat Prior workspace prev
+    bindsym --no-repeat Next workspace next
 
 #
 # Status Bar:
