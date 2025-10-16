@@ -253,11 +253,16 @@ mode "resize" {
     bindsym $mod+n exec ~/.config/waybar/scripts/night-mode-toggle.sh
 
 #
+# Quick Launch:
+#
+    # Open default web browser
+    bindsym $mod+b exec xdg-open http://
+
+#
 # User Customization Area:
 #
 # Add your own keybindings below for favorite applications and custom scripts
 # Examples:
-#   bindsym $mod+b exec firefox
 #   bindsym $mod+c exec code
 #   bindsym $mod+m exec spotify
 #

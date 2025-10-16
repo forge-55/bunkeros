@@ -54,6 +54,7 @@ This configuration uses minimal, intuitive keybindings that are consistent acros
 **Basic Actions:**
 - `Super+Return` - Launch terminal
 - `Super+Space` - Application launcher (Wofi)
+- `Super+b` - Open default web browser
 - `Super+q` - Close window
 - `Super+t` - Toggle floating mode
 - `Super+Shift+r` - Reload Sway configuration
