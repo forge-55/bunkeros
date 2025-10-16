@@ -9,6 +9,7 @@ A clean, minimal Sway setup with a tactical color palette. Features muted olive 
 - **GTK theming** - Custom dark theme with tactical colors for all GTK applications
 - **Waybar** status bar with flat, tactical styling
 - **Numbered workspace indicators** (1-7) with ArchCraft-inspired design and refined box styling
+- **Workspace overview** - See all workspaces and windows at a glance (Super+W)
 - **Wofi** application launcher with minimal design aesthetic
 - **Quick Actions Menu** - Hierarchical icon-based menu for power, theme, and system controls
 - **Web App Manager** - Install any website as a containerized desktop app (Omarchy-style)
@@ -66,6 +67,7 @@ This configuration uses minimal, intuitive keybindings that are consistent acros
 - `Super+m` - Quick actions menu
 - `Super+q` - Close window
 - `Super+t` or `Super+Enter` - Launch terminal
+- `Super+w` - Workspace overview (see all workspaces and windows)
 - `Super+Shift+r` - Reload Sway configuration
 
 **Window Focus (Vim-style or Arrow keys):**
@@ -156,6 +158,46 @@ The screenshot system uses a custom script in `waybar/scripts/`:
 - `screenshot-area.sh` - Interactive workflow with visual area selector and floating terminal dialog
 
 The script launches a centered, floating terminal window that captures a single keypress (C or S) without requiring Enter. The dialog uses the Foot terminal configured to float and center automatically via Sway window rules. All confirmations use mako notifications themed to match the tactical aesthetic.
+
+## Workspace Overview
+
+Get a birds-eye view of all your workspaces and open windows with a single keypress. This feature provides a quick way to see what's running across all workspaces and jump directly to any window or workspace.
+
+### Usage
+
+Press `Super+W` to open the workspace overview.
+
+The overview displays:
+- **󰝥 Current workspace** - The workspace you're currently on
+- **󰍺 Visible workspaces** - Workspaces visible on other monitors (multi-monitor setups)
+- **󰖲 Active workspaces** - Workspaces with open windows
+- **Window list** - All open windows under each workspace with their titles
+- **󰣐 Window icons** - Each window prefixed with an icon for easy scanning
+
+### Navigation
+
+- **Type to filter** - Start typing to narrow down workspaces or windows
+- **Click or Enter** - Select a workspace to switch to it
+- **Click window** - Select a window name to focus that specific window
+- **Esc** - Close the overview without switching
+
+### When to Use
+
+The workspace overview is most useful when:
+- You have multiple workspaces with various applications
+- You can't remember which workspace has a specific window
+- You want to quickly scan what's open without cycling through workspaces
+- You need to jump to a specific window across workspaces
+
+This is **much faster** than manually cycling through workspaces (`PgUp/PgDn` or `Super+1-9`) when you're looking for something specific.
+
+### Implementation
+
+The overview is implemented as a custom script (`workspace-windows.sh`) that:
+1. Queries Sway's IPC for all workspaces and their windows
+2. Formats the data with icons and clear labeling
+3. Displays in Wofi with tactical theme styling
+4. Handles workspace switching and window focusing
 
 ## Night Mode
 
@@ -647,6 +689,7 @@ sway-config/
 │       ├── theme-menu.sh         (Theme controls sub-menu)
 │       ├── system-menu.sh        (System settings sub-menu)
 │       ├── webapp-menu.sh        (Web app manager sub-menu)
+│       ├── workspace-windows.sh  (Workspace overview with window list)
 │       ├── screenshot-area.sh    (Interactive screenshot with keyboard dialog)
 │       ├── night-mode-toggle.sh  (Toggle night mode on/off)
 │       └── night-mode-status.sh  (Report night mode state to Waybar)

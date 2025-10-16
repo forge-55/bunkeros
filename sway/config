@@ -151,6 +151,9 @@ exec_always swaymsg '[class=".*"]' opacity 0.95
     # Close focused window
     bindsym $mod+q kill
 
+    # Workspace overview - see all workspaces and windows at a glance
+    bindsym $mod+w exec ~/.config/waybar/scripts/workspace-windows.sh
+
     # Drag floating windows by holding $mod and left mouse button
     # Resize them with right mouse button + $mod
     floating_modifier $mod normal

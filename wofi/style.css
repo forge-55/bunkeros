@@ -57,8 +57,8 @@ window {
 }
 
 #entry:selected {
-    background-color: rgba(74, 82, 64, 0.6);
-    border-left: 2px solid #C3B091;
+    background-color: rgba(195, 176, 145, 0.15);
+    border-left: 3px solid #C3B091;
     outline: none;
 }
 
@@ -70,6 +70,22 @@ window {
 #entry:selected #text {
     color: #C3B091;
     font-weight: bold;
+}
+
+/* Highlight current workspace (▸) */
+#text:contains("▸") {
+    color: #C3B091;
+    font-weight: bold;
+}
+
+/* Visible workspace (●) */
+#text:contains("●") {
+    color: #6B7A54;
+}
+
+/* Inactive workspace (○) */
+#text:contains("○") {
+    color: #888888;
 }
 
 #img {
