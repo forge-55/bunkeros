@@ -1,0 +1,15 @@
+[SddmGreeterTheme]
+Name=Tactical
+Description=Minimalist tactical-themed SDDM login
+Author=Tactical Sway Config
+Copyright=(CC BY-SA 4.0) https://creativecommons.org/licenses/by-sa/4.0/
+License=CC-BY-SA-4.0
+Type=sddm-theme
+Version=1.0
+Website=https://github.com/forge-55/sway
+MainScript=Main.qml
+ConfigFile=theme.conf
+Screenshot=preview.png
+Theme-Id=tactical
+Theme-API=2.0
+

@@ -5,10 +5,14 @@ A clean, minimal Sway setup with a tactical color palette. Features muted olive 
 ## Features
 
 - **Minimal, intuitive keybindings** - Essential bindings that work across major tiling WMs
+- **Custom SDDM login theme** - Tactical-styled login screen with centered design
+- **GTK theming** - Custom dark theme with tactical colors for all GTK applications
 - **Waybar** status bar with flat, tactical styling
 - **Numbered workspace indicators** (1-7) with ArchCraft-inspired design and refined box styling
 - **Wofi** application launcher with minimal design aesthetic
+- **Quick Actions Menu** - Hierarchical icon-based menu for power, theme, and system controls
 - **Web App Manager** - Install any website as a containerized desktop app (Omarchy-style)
+- **Styled file manager** - Thunar with tactical theming that matches the setup
 - **Custom terminal** with tactical prompt design and color scheme
 - **btop** system monitor with custom tactical theme
 - **Mako** notification daemon with themed notifications
@@ -46,6 +50,7 @@ This configuration uses minimal, intuitive keybindings that are consistent acros
 
 - **Minimal by default** - Only essential keybindings included
 - **Mnemonic system** - Keys match their function (a=apps, b=browser, e=editor, f=files, m=menu, t=terminal)
+- **Alternative bindings** - Common actions have alternatives for users from different WMs (Super+Space, Super+Enter)
 - **No Shift modifiers** - Essential actions use single keys for speed
 - **User-configurable** - Default apps set via variables at top of config
 - **Customization-friendly** - Clear space for users to add personal bindings
@@ -53,14 +58,14 @@ This configuration uses minimal, intuitive keybindings that are consistent acros
 ### Essential Keybindings
 
 **Basic Actions:**
-- `Super+a` - Application launcher (Wofi)
+- `Super+a` or `Super+Space` - Application launcher (Wofi)
 - `Super+b` - Open default web browser
 - `Super+e` - Text editor
 - `Super+Escape` - Lock screen
 - `Super+f` - File manager
 - `Super+m` - Quick actions menu
 - `Super+q` - Close window
-- `Super+t` - Launch terminal
+- `Super+t` or `Super+Enter` - Launch terminal
 - `Super+Shift+r` - Reload Sway configuration
 
 **Window Focus (Vim-style or Arrow keys):**
@@ -236,6 +241,124 @@ SwayOSD consists of two components:
 - **swayosd-client** - Command-line tool that triggers OSD displays
 
 All volume and brightness keybindings in the Sway config use `swayosd-client` instead of direct `pactl` or `brightnessctl` commands, ensuring every adjustment shows visual feedback.
+
+## Login Screen (SDDM)
+
+This configuration includes a custom SDDM theme that matches the tactical aesthetic. The login screen features a minimal, centered design with the same color palette as the rest of the setup.
+
+### Features
+
+- **Tactical color scheme** - Uses the same khaki/tan, olive, and charcoal palette
+- **Minimal design** - Centered login box with clean fields for username and password
+- **Session selector** - Choose between available desktop sessions (Sway, X11, etc.)
+- **Power controls** - Shutdown, reboot, and suspend buttons
+- **Date and time display** - Shows current date/time in the bottom left
+- **Monospace typography** - Consistent with terminal and Waybar styling
+- **Smooth animations** - Subtle hover effects and focus indicators
+
+### Installation
+
+The SDDM theme files are located in `sddm/tactical/` and need to be installed to the system:
+
+```bash
+cd /home/ryan/Projects/sway-config/sddm
+./install-theme.sh
+```
+
+This script will:
+1. Copy the theme to `/usr/share/sddm/themes/tactical`
+2. Configure SDDM to use the tactical theme in `/etc/sddm.conf`
+
+To enable SDDM as your display manager:
+
+```bash
+sudo systemctl enable sddm.service
+```
+
+To test the theme without logging out:
+
+```bash
+sddm-greeter --test-mode --theme /usr/share/sddm/themes/tactical
+```
+
+### Theme Files
+
+- `Main.qml` - Main theme interface (QML markup)
+- `theme.conf` - Theme configuration
+- `metadata.desktop` - Theme metadata
+- `install-theme.sh` - Installation script
+
+The theme uses Qt Quick/QML for rendering and follows SDDM's theme API 2.0. All UI elements are styled to match the tactical aesthetic with proper focus indicators and hover states.
+
+## GTK Theme (Dark Mode & Application Styling)
+
+This configuration includes custom GTK 3.0 and GTK 4.0 themes that apply the tactical color scheme to all GTK applications, including Thunar file manager, system dialogs, and most desktop applications.
+
+### Features
+
+- **Dark mode by default** - All GTK apps use dark theme
+- **Tactical color palette** - Matches the rest of the setup (khaki/tan, olive, charcoal)
+- **Custom styling** - Overrides for buttons, inputs, sidebars, headers, menus
+- **Consistent experience** - Thunar and other GTK apps blend seamlessly
+- **Focus indicators** - Clear visual feedback using tactical tan (#C3B091)
+- **Smooth transitions** - Subtle hover and active states
+
+### Installation
+
+The GTK theme files are in `gtk-3.0/` and `gtk-4.0/` directories. Install them:
+
+```bash
+cd /home/ryan/Projects/sway-config/gtk-3.0
+./install.sh
+
+cd /home/ryan/Projects/sway-config/gtk-4.0
+./install.sh
+```
+
+This will:
+1. Create backups of existing GTK configs (if any)
+2. Symlink the tactical theme files to `~/.config/gtk-3.0/` and `~/.config/gtk-4.0/`
+
+### What Gets Styled
+
+- **File Manager (Thunar)** - Sidebar, toolbar, path bar, file view
+- **System Dialogs** - File pickers, color pickers, print dialogs
+- **Applications** - Any GTK-based app (GIMP, Inkscape, etc.)
+- **UI Elements** - Buttons, inputs, menus, scrollbars, tooltips, tabs
+
+### Files
+
+**GTK 3.0:**
+- `settings.ini` - Enables dark theme and sets preferences
+- `gtk.css` - Custom CSS with tactical color overrides
+
+**GTK 4.0:**
+- `settings.ini` - Enables dark theme for newer apps
+- `gtk.css` - Custom CSS for GTK 4 applications
+
+### Applying Changes
+
+After installation, restart any running GTK applications:
+
+```bash
+killall thunar
+thunar &
+```
+
+Or simply log out and back in for system-wide changes.
+
+### Customization
+
+To adjust colors, edit `gtk-3.0/gtk.css` or `gtk-4.0/gtk.css`. The main colors used:
+
+- **Background**: `#1C1C1C` (Charcoal)
+- **Surface**: `#2B2D2E` (Tactical Gray)
+- **Primary**: `#C3B091` (Tactical Tan)
+- **Secondary**: `#6B7A54` (Olive)
+- **Tertiary**: `#3C4A2F` (Muted Olive)
+- **Text**: `#D4D4D4` (Off-White)
+
+After making changes, the updates apply immediately to newly opened applications (existing apps need restart).
 
 ## Quick Actions Menu
 
@@ -426,6 +549,27 @@ sudo pacman -S code           # VS Code
 ```
 Update the variable in `sway/config`: `set $editor cursor`
 
+### Login Manager (Optional)
+
+For a themed login screen that matches the tactical aesthetic:
+
+```bash
+sudo pacman -S sddm qt6-svg qt6-declarative
+```
+
+After installing, run the installation script:
+```bash
+cd /home/ryan/Projects/sway-config/sddm
+./install-theme.sh
+```
+
+Then enable SDDM:
+```bash
+sudo systemctl enable sddm.service
+```
+
+See the [Login Screen (SDDM)](#login-screen-sddm) section for details.
+
 ### Fonts
 
 This configuration requires a **Nerd Font** to display icons properly in Waybar. Nerd Fonts are patched fonts that include thousands of glyphs (icons) from popular icon collections like Font Awesome and Material Design Icons.
@@ -499,6 +643,10 @@ sway-config/
 │   ├── style.css                 → ~/.config/waybar/style.css
 │   └── scripts/                  → ~/.config/waybar/scripts/
 │       ├── power-menu.sh         (Power menu for Waybar)
+│       ├── quick-menu.sh         (Main quick actions menu)
+│       ├── theme-menu.sh         (Theme controls sub-menu)
+│       ├── system-menu.sh        (System settings sub-menu)
+│       ├── webapp-menu.sh        (Web app manager sub-menu)
 │       ├── screenshot-area.sh    (Interactive screenshot with keyboard dialog)
 │       ├── night-mode-toggle.sh  (Toggle night mode on/off)
 │       └── night-mode-status.sh  (Report night mode state to Waybar)
@@ -513,8 +661,32 @@ sway-config/
 │   ├── btop.conf                 → ~/.config/btop/btop.conf
 │   └── themes/
 │       └── tactical.theme        → ~/.config/btop/themes/tactical.theme
+├── swayosd/
+│   └── style.css                 → ~/.config/swayosd/style.css
+├── gtk-3.0/
+│   ├── settings.ini              → ~/.config/gtk-3.0/settings.ini
+│   ├── gtk.css                   → ~/.config/gtk-3.0/gtk.css
+│   └── install.sh                (GTK 3.0 theme installation script)
+├── gtk-4.0/
+│   ├── settings.ini              → ~/.config/gtk-4.0/settings.ini
+│   ├── gtk.css                   → ~/.config/gtk-4.0/gtk.css
+│   └── install.sh                (GTK 4.0 theme installation script)
+├── sddm/
+│   ├── tactical/
+│   │   ├── Main.qml              (SDDM theme interface)
+│   │   ├── theme.conf            (Theme configuration)
+│   │   └── metadata.desktop      (Theme metadata)
+│   ├── install-theme.sh          (Theme installation script)
+│   └── README.md                 (SDDM theme documentation)
+├── webapp/
+│   ├── bin/
+│   │   ├── webapp-install        (Install web apps)
+│   │   ├── webapp-remove         (Remove web apps)
+│   │   └── webapp-list           (List installed web apps)
+│   └── README.md                 (Web app manager documentation)
 ├── bashrc                        → ~/.bashrc
 ├── dircolors                     → ~/.dircolors
+├── .gitignore
 └── README.md
 ```
 

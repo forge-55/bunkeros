@@ -1,0 +1,382 @@
+/* Tactical Theme GTK 3.0 Overrides */
+
+* {
+    outline-color: #C3B091;
+    outline-width: 2px;
+    outline-offset: -2px;
+}
+
+window {
+    background-color: #1C1C1C;
+    color: #D4D4D4;
+}
+
+.background {
+    background-color: #1C1C1C;
+    color: #D4D4D4;
+}
+
+headerbar,
+.titlebar {
+    background: #2B2D2E;
+    color: #C3B091;
+    border-bottom: 2px solid #6B7A54;
+    min-height: 42px;
+}
+
+headerbar:backdrop,
+.titlebar:backdrop {
+    background: #1C1C1C;
+    color: #6B7A54;
+}
+
+headerbar button,
+.titlebar button {
+    background: #2B2D2E;
+    color: #C3B091;
+    border: 1px solid #6B7A54;
+    border-radius: 4px;
+    padding: 6px 12px;
+}
+
+headerbar button:hover,
+.titlebar button:hover {
+    background: #3C4A2F;
+    border-color: #C3B091;
+}
+
+headerbar button:active,
+.titlebar button:active {
+    background: #6B7A54;
+    color: #1C1C1C;
+}
+
+sidebar,
+.sidebar {
+    background-color: #2B2D2E;
+    border-right: 1px solid #3C4A2F;
+}
+
+sidebar row {
+    color: #C3B091;
+}
+
+sidebar row:selected {
+    background-color: #3C4A2F;
+    color: #D4D4D4;
+}
+
+sidebar row:hover {
+    background-color: #3C4A2F;
+}
+
+.view,
+textview text {
+    background-color: #1C1C1C;
+    color: #D4D4D4;
+}
+
+.view:selected,
+.view:selected:focus {
+    background-color: #6B7A54;
+    color: #FFFFFF;
+}
+
+entry {
+    background-color: #2B2D2E;
+    color: #D4D4D4;
+    border: 1px solid #3C4A2F;
+    border-radius: 4px;
+    padding: 6px;
+}
+
+entry:focus {
+    border-color: #C3B091;
+    box-shadow: 0 0 0 1px #C3B091;
+}
+
+button {
+    background: #2B2D2E;
+    color: #C3B091;
+    border: 1px solid #6B7A54;
+    border-radius: 4px;
+    padding: 6px 12px;
+}
+
+button:hover {
+    background: #3C4A2F;
+    border-color: #C3B091;
+}
+
+button:active,
+button:checked {
+    background: #6B7A54;
+    color: #1C1C1C;
+}
+
+button:disabled {
+    background: #2B2D2E;
+    color: #555555;
+    border-color: #3C4A2F;
+}
+
+scrollbar {
+    background: #1C1C1C;
+}
+
+scrollbar slider {
+    background: #3C4A2F;
+    border-radius: 4px;
+    min-width: 10px;
+    min-height: 10px;
+}
+
+scrollbar slider:hover {
+    background: #6B7A54;
+}
+
+scrollbar slider:active {
+    background: #C3B091;
+}
+
+menubar {
+    background-color: #2B2D2E;
+    color: #C3B091;
+    border-bottom: 1px solid #3C4A2F;
+}
+
+menubar > menuitem {
+    color: #C3B091;
+    padding: 4px 8px;
+}
+
+menubar > menuitem:hover {
+    background-color: #3C4A2F;
+    color: #D4D4D4;
+}
+
+menu {
+    background-color: #2B2D2E;
+    color: #D4D4D4;
+    border: 1px solid #6B7A54;
+    padding: 4px;
+}
+
+menu menuitem {
+    padding: 6px 12px;
+}
+
+menu menuitem:hover {
+    background-color: #3C4A2F;
+}
+
+menu separator {
+    background-color: #3C4A2F;
+    min-height: 1px;
+    margin: 4px 0;
+}
+
+toolbar {
+    background-color: #2B2D2E;
+    border-bottom: 1px solid #3C4A2F;
+    padding: 4px;
+}
+
+.path-bar button {
+    background: transparent;
+    border: 1px solid transparent;
+}
+
+.path-bar button:hover {
+    background: #3C4A2F;
+    border-color: #6B7A54;
+}
+
+.path-bar button:checked {
+    background: #6B7A54;
+    color: #1C1C1C;
+}
+
+notebook {
+    background-color: #1C1C1C;
+}
+
+notebook header {
+    background-color: #2B2D2E;
+    border-bottom: 1px solid #3C4A2F;
+}
+
+notebook tab {
+    background-color: #2B2D2E;
+    color: #C3B091;
+    border: 1px solid #3C4A2F;
+    border-bottom: none;
+    padding: 6px 12px;
+}
+
+notebook tab:checked {
+    background-color: #1C1C1C;
+    color: #D4D4D4;
+    border-bottom: 2px solid #C3B091;
+}
+
+notebook tab:hover {
+    background-color: #3C4A2F;
+}
+
+.thunar .standard-view {
+    background-color: #1C1C1C;
+}
+
+.thunar .sidebar {
+    background-color: #2B2D2E;
+}
+
+.thunar toolbar {
+    background-color: #2B2D2E;
+}
+
+.thunar .standard-view.frame {
+    border: none;
+}
+
+.thunar iconview {
+    -gtk-icon-style: requested;
+}
+
+.thunar iconview.view {
+    background-color: #1C1C1C;
+}
+
+.thunar iconview.view:selected {
+    background-color: #6B7A54;
+}
+
+.thunar .view text,
+.thunar iconview text {
+    background-color: transparent;
+}
+
+window.thunar grid > paned > scrolledwindow iconview {
+    font-size: 10px;
+    padding: 4px;
+}
+
+window.thunar grid > paned > scrolledwindow iconview:dir(ltr) {
+    padding-right: 6px;
+}
+
+window.thunar grid > paned > scrolledwindow iconview:dir(rtl) {
+    padding-left: 6px;
+}
+
+window.thunar iconview {
+    -gtk-icon-size: 48px;
+}
+
+window.thunar treeview.view {
+    font-size: 10px;
+}
+
+window.thunar treeview.view:selected {
+    background-color: #6B7A54;
+}
+
+window.thunar grid paned > scrolledwindow treeview.view {
+    border-left: none;
+    border-right: none;
+}
+
+window.thunar paned > scrolledwindow {
+    border: none;
+}
+
+window.thunar statusbar {
+    font-size: 9px;
+    padding: 2px 8px;
+}
+
+window.thunar toolbar {
+    padding: 3px;
+    min-height: 32px;
+}
+
+window.thunar toolbar button {
+    padding: 3px 6px;
+    margin: 0 2px;
+    min-width: 24px;
+    min-height: 24px;
+}
+
+window.thunar toolbar button image {
+    min-width: 14px;
+    min-height: 14px;
+}
+
+window.thunar toolbar .image-button {
+    padding: 3px;
+}
+
+window.thunar .path-bar button {
+    padding: 3px 6px;
+    margin: 0 1px;
+    font-size: 9px;
+    min-height: 24px;
+}
+
+window.thunar .path-bar button image {
+    min-width: 12px;
+    min-height: 12px;
+}
+
+window.thunar .sidebar {
+    font-size: 10px;
+    padding: 4px;
+}
+
+window.thunar .sidebar row {
+    padding: 6px 8px;
+    min-height: 28px;
+}
+
+window.thunar headerbar {
+    min-height: 36px;
+}
+
+window.thunar headerbar button {
+    min-width: 24px;
+    min-height: 24px;
+    padding: 3px;
+}
+
+window.thunar headerbar button image {
+    min-width: 14px;
+    min-height: 14px;
+}
+
+window.thunar entry {
+    font-size: 10px;
+    min-height: 26px;
+}
+
+statusbar {
+    background-color: #2B2D2E;
+    color: #C3B091;
+    border-top: 1px solid #3C4A2F;
+    padding: 4px 8px;
+}
+
+tooltip {
+    background-color: #2B2D2E;
+    color: #D4D4D4;
+    border: 1px solid #C3B091;
+    border-radius: 4px;
+}
+
+popover {
+    background-color: #2B2D2E;
+    color: #D4D4D4;
+    border: 1px solid #6B7A54;
+    border-radius: 4px;
+}
+
