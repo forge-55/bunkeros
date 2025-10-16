@@ -81,8 +81,8 @@ This configuration uses minimal, intuitive keybindings that are consistent acros
 - `Super+n` - Toggle night mode
 - `Fn+F1-F6` - Volume/brightness controls (hardware keys with OSD)
 
-**Reserved for Future Features:**
-- `Super+Alt+Space` - Quick actions menu (power, styling, system controls)
+**Quick Actions Menu:**
+- `Super+Alt+Space` - Quick actions menu with icon-based navigation
 
 ### Customization
 
@@ -223,6 +223,86 @@ SwayOSD consists of two components:
 - **swayosd-client** - Command-line tool that triggers OSD displays
 
 All volume and brightness keybindings in the Sway config use `swayosd-client` instead of direct `pactl` or `brightnessctl` commands, ensuring every adjustment shows visual feedback.
+
+## Quick Actions Menu
+
+This configuration includes an Omarchy-style quick actions menu accessible via `Super+Alt+Space`. The menu provides centralized access to power options, theme controls, and system settings through a hierarchical, icon-based interface.
+
+### Overview
+
+The quick actions menu follows a modular architecture with a main menu that navigates to specialized sub-menus. All menus use Wofi with the tactical theme styling for visual consistency.
+
+### Main Menu Categories
+
+Press `Super+Alt+Space` to access:
+
+- **󰐥 Power** - System power options (shutdown, reboot, suspend, logout)
+- **󰃟 Theme** - Appearance and styling controls
+- **󰒓 System** - System settings and utilities
+- **󰖔 Night Mode** - Toggle night mode on/off
+- **󰄀 Screenshot** - Launch interactive screenshot tool
+- **󰍃 File Manager** - Open file browser (Thunar)
+- **󰊶 Terminal** - Launch new terminal window
+
+### Sub-Menus
+
+**Power Menu (󰐥):**
+- **󰐥 Shutdown** - Power off the system
+- **󰜉 Reboot** - Restart the system
+- **󰒲 Suspend** - Suspend to RAM
+- **󰍃 Logout** - Exit Sway session
+
+**Theme Menu (󰃟):**
+- **󰹑 Toggle Gaps** - Enable/disable window gaps
+- **󰙵 Increase Gaps** - Expand gap size by 2px
+- **󰙴 Decrease Gaps** - Reduce gap size by 2px
+- **󰂚 Increase Opacity** - Make windows more opaque
+- **󰂙 Decrease Opacity** - Make windows more transparent
+- **󰸉 Wallpaper** - Select new wallpaper from Pictures folder
+- **󰆊 Reload Config** - Reload Sway configuration
+
+**System Menu (󰒓):**
+- **󰖩 Network Settings** - Configure WiFi/Ethernet (nmtui)
+- **󰂯 Bluetooth** - Manage Bluetooth connections
+- **󰕾 Audio Settings** - Audio device configuration (pulsemixer)
+- **󰍹 Display Settings** - Monitor configuration (wdisplays)
+- **󰍛 System Monitor** - Launch btop resource monitor
+- **󰘘 Processes** - View running processes (htop)
+
+### Architecture
+
+The menu system uses a modular script architecture:
+
+```
+waybar/scripts/
+├── quick-menu.sh       # Main menu entry point
+├── power-menu.sh       # Power options sub-menu
+├── theme-menu.sh       # Theme/styling sub-menu
+└── system-menu.sh      # System controls sub-menu
+```
+
+Each menu:
+- Uses Wofi with tactical styling
+- Displays Nerd Font icons for visual clarity
+- Provides instant feedback via mako notifications
+- Supports keyboard navigation
+
+### Customization
+
+Add custom menu options by editing the respective script files. For example, to add a new option to the main menu:
+
+```bash
+# In quick-menu.sh
+options="󰐥 Power\n󰃟 Theme\n󰒓 System\n 󰌽 Your Custom Option"
+
+case $selected in
+    " 󰌽 Your Custom Option")
+        your-custom-command
+        ;;
+esac
+```
+
+The modular design makes it easy to extend with additional sub-menus or modify existing options to match your workflow.
 
 ## Requirements
 
