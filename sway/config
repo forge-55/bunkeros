@@ -58,8 +58,9 @@ exec_always swaymsg gaps inner all set 8
 exec_always swaymsg gaps outer all set 8
 
 # Window borders with tactical color scheme
-default_border pixel 3
-default_floating_border pixel 3
+# NOTE: Rounded borders require SwayFX (not standard Sway)
+default_border pixel 2
+default_floating_border pixel 2
 
 # Client color scheme (border, background, text, indicator, child_border)
 # Focused window - bright tan/khaki for visibility
