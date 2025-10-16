@@ -9,6 +9,8 @@ A clean, minimal Sway setup with a tactical color palette. Features muted olive 
 - **Wofi** application launcher with minimal design aesthetic
 - **Custom terminal** with tactical prompt design and color scheme
 - **btop** system monitor with custom tactical theme
+- **Mako** notification daemon with themed notifications
+- **Interactive screenshot system** with GNOME/COSMIC-style workflow
 - **Dynamic wallpaper** management via swaybg
 - **Window gaps** for a modern tiled layout
 - **Subtle transparency** on windows (95% opacity)
@@ -32,11 +34,61 @@ The configuration uses a carefully crafted tactical palette that balances functi
 
 The palette prioritizes readability and focus while maintaining a cohesive tactical aesthetic. The design follows a flat, understated approach with minimal shadows and clean borders - emphasizing function over decoration, perfect for performance-conscious setups like the ThinkPad T480.
 
+## Screenshot System
+
+This configuration features an interactive screenshot system designed to replicate the intuitive GNOME/COSMIC screenshot experience on Sway.
+
+### Design Philosophy
+
+The screenshot workflow prioritizes user choice, clarity, and speed. Rather than immediately saving or copying screenshots, the system presents users with a visual selector followed by a prominent keyboard-driven dialog. Simply press C or S - no Enter key required, no mouse needed. The dialog is impossible to miss and optimized for rapid keyboard workflow.
+
+### Technical Stack
+
+The screenshot system is built using lightweight Wayland-native tools:
+
+- **grim** - Screenshot utility for Wayland compositors (captures pixels)
+- **slurp** - Region selection tool for Wayland (provides the visual area picker)
+- **wl-clipboard** - Command-line clipboard utilities for Wayland (handles copy operations)
+- **grimshot** - Helper script that orchestrates grim, slurp, and wl-copy (used for power shortcuts)
+- **foot** - Terminal emulator used to display the keyboard-driven dialog
+- **mako** - Notification daemon that confirms screenshot actions
+
+### Workflow
+
+**Primary workflow (Print Screen):**
+1. Press Print Screen
+2. Visual crosshair selector appears (slurp)
+3. Click and drag to select the screenshot area
+4. Dialog window appears in center of screen displaying:
+   - "Press [C] to Copy to Clipboard"
+   - "Press [S] to Save to Pictures"
+5. Press **C** or **S** (no Enter required)
+6. Dialog closes and confirmation notification appears
+
+**Power user shortcuts:**
+- **Shift+Print** - Instantly capture entire screen and save (no prompts)
+- **Ctrl+Print** - Select area and copy to clipboard (skips save option)
+- **Ctrl+Shift+Print** - Capture active window and save (no prompts)
+
+### Implementation
+
+The screenshot system uses a custom script in `waybar/scripts/`:
+
+- `screenshot-area.sh` - Interactive workflow with visual area selector and floating terminal dialog
+
+The script launches a centered, floating terminal window that captures a single keypress (C or S) without requiring Enter. The dialog uses the Foot terminal configured to float and center automatically via Sway window rules. All confirmations use mako notifications themed to match the tactical aesthetic.
+
 ## Requirements
 
 ```bash
-sudo pacman -S sway waybar wofi swaybg brightnessctl
+sudo pacman -S sway waybar wofi foot swaybg brightnessctl sway-contrib grim slurp wl-clipboard mako
 ```
+
+- `sway-contrib` includes grimshot for screenshots
+- `grim` and `slurp` are the underlying screenshot tools
+- `wl-clipboard` enables copying screenshots to clipboard
+- `foot` is the terminal emulator used for the screenshot dialog and general use
+- `mako` is the notification daemon for screenshot confirmations and other alerts
 
 ### Fonts
 
@@ -57,7 +109,7 @@ After installing the font, restart Waybar to see the icons:
 pkill waybar && waybar &
 ```
 
-The configuration uses MesloLGL Nerd Font by default, but you can change this in `waybar/style.css` if you prefer a different Nerd Font.
+The configuration uses MesloLGL Nerd Font by default. This can be changed in `waybar/style.css` to use a different Nerd Font if desired.
 
 ## Installation
 
@@ -67,42 +119,80 @@ Clone this repo and symlink the configs:
 git clone https://github.com/forge-55/sway.git
 cd sway
 
-# Backup existing configs if you have any
+# Backup existing configs (if any)
 mkdir -p ~/.config/backup
 cp -r ~/.config/sway ~/.config/backup/ 2>/dev/null || true
 cp -r ~/.config/waybar ~/.config/backup/ 2>/dev/null || true
-cp -r ~/.config/wofi ~/.config/backup/ 2>/dev/null ￼|| true
+cp -r ~/.config/wofi ~/.config/backup/ 2>/dev/null || true
 
 # Create config directories
-mkdir -p ~/.config/sway ~/.config/waybar ~/.config/wofi ~/.config/foot ~/.config/btop/themes
+mkdir -p ~/.config/sway ~/.config/waybar ~/.config/wofi ~/.config/foot ~/.config/btop/themes ~/.config/mako
 
 # Symlink configs
 ln -sf $(pwd)/sway/config ~/.config/sway/config
 ln -sf $(pwd)/waybar/config ~/.config/waybar/config
 ln -sf $(pwd)/waybar/style.css ~/.config/waybar/style.css
+ln -sf $(pwd)/waybar/scripts ~/.config/waybar/scripts
 ln -sf $(pwd)/wofi/config ~/.config/wofi/config
 ln -sf $(pwd)/wofi/style.css ~/.config/wofi/style.css
 ln -sf $(pwd)/foot/foot.ini ~/.config/foot/foot.ini
+ln -sf $(pwd)/mako/config ~/.config/mako/config
 ln -sf $(pwd)/btop/btop.conf ~/.config/btop/btop.conf
 ln -sf $(pwd)/btop/themes/tactical.theme ~/.config/btop/themes/tactical.theme
 ln -sf $(pwd)/bashrc ~/.bashrc
 ln -sf $(pwd)/dircolors ~/.dircolors
 
-# Make scripts executable
+# Make scripts executable (screenshot tools, power menu, etc.)
 chmod +x waybar/scripts/*.sh
 
 # Reload Sway
 swaymsg reload
 ```
 
+## Project Structure
+
+All configuration files are stored in this repository and symlinked to their appropriate locations:
+
+```
+sway-config/
+├── sway/
+│   └── config                    → ~/.config/sway/config
+├── waybar/
+│   ├── config                    → ~/.config/waybar/config
+│   ├── style.css                 → ~/.config/waybar/style.css
+│   └── scripts/                  → ~/.config/waybar/scripts/
+│       ├── power-menu.sh         (Power menu for Waybar)
+│       └── screenshot-area.sh    (Interactive screenshot with keyboard dialog)
+├── wofi/
+│   ├── config                    → ~/.config/wofi/config
+│   └── style.css                 → ~/.config/wofi/style.css
+├── foot/
+│   └── foot.ini                  → ~/.config/foot/foot.ini
+├── mako/
+│   └── config                    → ~/.config/mako/config
+├── btop/
+│   ├── btop.conf                 → ~/.config/btop/btop.conf
+│   └── themes/
+│       └── tactical.theme        → ~/.config/btop/themes/tactical.theme
+├── bashrc                        → ~/.bashrc
+├── dircolors                     → ~/.dircolors
+└── README.md
+```
+
+**Benefits of this structure:**
+- All configs version-controlled in one place
+- Easy to backup and restore
+- Changes to project files immediately reflect in system
+- Simple to share and replicate across machines
+
 ## Customization
 
 ### Wallpaper
 
-Edit `sway/config` line 34 to set your wallpaper:
+Edit `sway/config` line 34 to set a custom wallpaper:
 
 ```
-exec_always "killall swaybg 2>/dev/null; swaybg -i ~/Pictures/your-wallpaper.jpg -m fill"
+exec_always "killall swaybg 2>/dev/null; swaybg -i ~/Pictures/wallpaper.jpg -m fill"
 ```
 
 ### Gaps and Borders
@@ -181,7 +271,17 @@ Uses standard Sway bindings with Mod4 (Super/Windows key):
 - **Mod+Shift+1-7** - Move window to workspace
 - **Mod+r** - Resize mode
 
-See `sway/config` for all keybindings.
+**Screenshots:**
+- **Print** - Interactive area selector, then choose Copy or Save
+- **Shift+Print** - Quick capture full screen and save
+- **Ctrl+Print** - Quick capture area and copy to clipboard
+- **Ctrl+Shift+Print** - Quick capture active window and save
+
+See the [Screenshot System](#screenshot-system) section above for detailed workflow and technical implementation.
+
+**Additional Keybindings:**
+
+See `sway/config` for complete keybinding reference.
 
 ## Performance Notes
 

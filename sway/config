@@ -33,6 +33,11 @@ set $menu wofi --show drun
 # Modes: fill, fit, stretch, center, tile
 exec_always "killall swaybg 2>/dev/null; swaybg -i ~/Pictures/space1.jpg -m fill"
 
+### Notifications
+#
+# Start mako notification daemon
+exec_always "killall mako 2>/dev/null; mako"
+
 ### Appearance
 #
 # Window gaps (always visible like Hyprland/COSMIC)
@@ -66,6 +71,9 @@ font pango:monospace 10
 set $opacity 0.95
 for_window [class=".*"] opacity $opacity
 for_window [app_id=".*"] opacity $opacity
+
+# Screenshot dialog - floating and centered
+for_window [app_id="screenshot-dialog"] floating enable, resize set 600 300, move position center, opacity 1
 
 exec_always swaymsg '[app_id=".*"]' opacity 0.95
 exec_always swaymsg '[class=".*"]' opacity 0.95
@@ -249,10 +257,12 @@ bindsym $mod+r mode "resize"
     # Special keys to adjust brightness via brightnessctl
     bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
     bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
-    # Screenshot tools using grimshot
-    bindsym Print exec grimshot save output
-    bindsym Shift+Print exec grimshot save active
-    bindsym Ctrl+Print exec grimshot save area
+    # Screenshot tools using grimshot (GNOME/COSMIC style)
+    set $grimshot /usr/sbin/grimshot
+    bindsym Print exec ~/.config/waybar/scripts/screenshot-area.sh
+    bindsym Shift+Print exec $grimshot --notify save screen
+    bindsym Ctrl+Print exec $grimshot --notify copy area
+    bindsym Ctrl+Shift+Print exec $grimshot --notify save active
 
 #
 # Status Bar:
