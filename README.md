@@ -13,26 +13,33 @@ BunkerOS is designed around operational discipline and efficiency:
 
 ## Editions
 
+BunkerOS provides **two first-class editions** designed for different hardware profiles. See [EDITION_STRATEGY.md](EDITION_STRATEGY.md) for detailed philosophy and hardware guidelines.
+
 ### Standard Edition
-Lightweight, rock-solid stability for maximum performance. Perfect for:
-- Older hardware (ThinkPad T480, Intel integrated graphics)
-- Users who prioritize speed and reliability
-- Minimalist computing philosophy
+Designed for **older hardware and maximum performance**. Perfect for:
+- Older hardware (ThinkPad T480, Intel UHD 620, 2012-2019 systems)
+- Users who prioritize speed and zero visual flutter
 - Production environments where stability is critical
+- Battery-focused laptop use
 
-**Performance**: ~332 MB RAM, minimal GPU overhead, instantaneous window operations
+**Performance**: ~332 MB RAM, minimal GPU overhead (~5-10%), instantaneous window operations, zero stutter
 
-### Enhanced Edition
-Modern visual aesthetics while maintaining excellent performance. Features:
-- Rounded corners (14px radius)
-- Subtle window shadows
-- Blur effects on bars and floating windows
-- Fade animations
-- Still significantly lighter than Hyprland
+**Visual**: Clean, professional, flat design with tactical color scheme and excellent contrast
 
-**Performance**: ~360-380 MB RAM, moderate GPU usage, smooth on modern hardware
+### Enhanced Edition  
+Designed for **modern hardware and visual polish**. Perfect for:
+- Modern hardware (2020+ systems, Intel Xe, AMD Vega+, NVIDIA GTX 1050+)
+- Users who want Hyprland-competitive visuals
+- Systems where eye candy enhances the experience
+- Showcasing SwayFX capabilities
 
-**Key Advantage**: Both editions use SwayFX compositor with effects enabled/disabled. They share identical configuration, keybindings, and workflow. Switch between them at login with zero relearning curve.
+**Performance**: ~360-380 MB RAM, moderate GPU usage (~15-25%), smooth on capable hardware
+
+**Visual**: Rounded corners (8px), window shadows, blur effects, fade animations, modern polished aesthetic
+
+**Key Advantage**: Both editions use SwayFX compositor with effects toggled on/off. They share identical configuration, keybindings, themes, and workflow. Switch between them at login with zero relearning curve.
+
+**Strategy**: We do NOT compromise Enhanced Edition for older hardware. If you experience flutter on Enhanced, use Standard Edition - it's designed for your hardware. Both are first-class experiences optimized for their target audience.
 
 ## Why SwayFX (Not Hyprland)?
 

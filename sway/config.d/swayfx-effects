@@ -22,10 +22,10 @@ layer_effects "waybar" blur on; shadows on; corner_radius 0
 layer_effects "notifications" blur on; shadows on; corner_radius 10
 layer_effects "wofi" blur on; shadows on; corner_radius 8
 
-# Fade animations and window effects
+# Fade animations (Hyprland-like smooth transitions)
 default_dim_inactive 0.05
 
-# Scratchpad minimize animation
+# Scratchpad minimize animation (smooth minimize/restore)
 scratchpad_minimize enable
 
 # Blur for all windows
