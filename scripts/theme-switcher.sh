@@ -51,6 +51,14 @@ apply_theme() {
     
     notify-send "BunkerOS" "Applying $theme theme..."
     
+    # Get wallpaper path from theme config
+    local wallpaper_path=""
+    if [ -f "$theme_dir/theme.conf" ]; then
+        wallpaper_path=$(grep "^WALLPAPER=" "$theme_dir/theme.conf" | cut -d'=' -f2- | tr -d '"')
+        # Expand $HOME variable
+        wallpaper_path=$(eval echo "$wallpaper_path")
+    fi
+    
     cp "$theme_dir/waybar-style.css" "$PROJECT_DIR/waybar/style.css"
     cp "$theme_dir/wofi-style.css" "$PROJECT_DIR/wofi/style.css"
     cp "$theme_dir/mako-config" "$PROJECT_DIR/mako/config"
@@ -125,6 +133,13 @@ apply_theme() {
     
     if [ -f ~/.dircolors ]; then
         eval "$(dircolors -b ~/.dircolors)"
+    fi
+    
+    # Update wallpaper if specified in theme
+    if [ -n "$wallpaper_path" ] && [ -f "$wallpaper_path" ]; then
+        killall swaybg 2>/dev/null
+        sleep 0.2
+        swaymsg exec "swaybg -i $wallpaper_path -m fill" &
     fi
     
     notify-send "BunkerOS Theme Applied" "Now using $theme theme"

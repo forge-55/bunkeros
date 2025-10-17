@@ -102,7 +102,15 @@ chmod +x "$PROJECT_DIR/scripts/theme-switcher.sh"
 echo "  ✓ Theme system symlinked"
 echo ""
 
-echo "Step 10: Installing Web App Manager..."
+echo "Step 10: Installing wallpapers..."
+mkdir -p "$HOME/.local/share/bunkeros"
+backup_if_exists "$HOME/.local/share/bunkeros/wallpapers"
+rm -f "$HOME/.local/share/bunkeros/wallpapers"
+ln -sf "$PROJECT_DIR/wallpapers" "$HOME/.local/share/bunkeros/wallpapers"
+echo "  ✓ Wallpapers symlinked (5 theme wallpapers included)"
+echo ""
+
+echo "Step 11: Installing Web App Manager..."
 for webapp_script in "$PROJECT_DIR/webapp/bin"/*; do
     script_name=$(basename "$webapp_script")
     backup_if_exists "$LOCAL_BIN/$script_name"
@@ -148,7 +156,7 @@ else
     echo ""
 fi
 
-echo "Step 14: Applying default BunkerOS theme..."
+echo "Step 15: Applying default BunkerOS theme..."
 cd "$PROJECT_DIR"
 "$LOCAL_BIN/theme-switcher.sh" tactical 2>/dev/null || echo "  ℹ Theme will be applied on first Sway launch"
 echo ""

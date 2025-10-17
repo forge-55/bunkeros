@@ -33,10 +33,10 @@ set $filemanager thunar
 
 ### Wallpaper
 #
-# Using swaybg for dynamic wallpaper management
-# Change wallpaper: killall swaybg && swaybg -i /path/to/new-wallpaper.jpg -m fill &
-# Modes: fill, fit, stretch, center, tile
-exec_always "killall swaybg 2>/dev/null; swaybg -i ~/Pictures/wallpaper/tactical.jpg -m fill"
+# Wallpapers are automatically managed by the theme system
+# When you switch themes (Super+m → Theme → Change Theme), the wallpaper updates automatically
+# Default wallpaper (used on first launch before theme is applied)
+exec_always "killall swaybg 2>/dev/null; swaybg -i ~/.local/share/bunkeros/wallpapers/tactical.jpg -m fill"
 
 ### Status Bar
 #
@@ -367,6 +367,14 @@ include /etc/sway/config.d/*
 # This file contains SwayFX-specific commands that will error in vanilla Sway
 # The launcher scripts below will handle enabling/disabling this file
 include ~/.config/sway/config.d/swayfx-effects.conf
+
+
+
+
+
+
+
+
 
 
 
