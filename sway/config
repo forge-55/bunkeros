@@ -141,6 +141,9 @@ exec_always swaymsg '[class=".*"]' opacity 0.95
     bindsym $mod+t exec $term
     bindsym $mod+Return exec $term  # Alternative for users coming from i3/Hyprland
 
+    # Launch calculator
+    bindsym $mod+c exec mate-calc
+
     # Close focused window
     bindsym $mod+q kill
 
@@ -284,6 +287,11 @@ mode "resize" {
 # }
 
 include /etc/sway/config.d/*
+
+
+
+
+
 
 
 

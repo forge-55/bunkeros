@@ -1,6 +1,6 @@
 #!/bin/bash
 
-options="󰐥 Power\n󰏘 Change Theme\n󰃟 Theme\n󰒓 System\n󰖔 Night Mode\n󰄀 Screenshot\n📱 Web Apps\n󰍃 File Manager\n 󰊶 Terminal"
+options="󰐥 Power\n󰏘 Change Theme\n󰃟 Theme\n󰒓 System\n󰖔 Night Mode\n󰄀 Screenshot\n📱 Web Apps\n󰍃 File Manager\n󰃬 Calculator\n 󰊶 Terminal"
 
 selected=$(echo -e "$options" | wofi --dmenu --prompt "Quick Actions" --width 400 --height 550)
 
@@ -28,6 +28,9 @@ case $selected in
         ;;
     "󰍃 File Manager")
         thunar &
+        ;;
+    "󰃬 Calculator")
+        mate-calc &
         ;;
     " 󰊶 Terminal")
         foot &

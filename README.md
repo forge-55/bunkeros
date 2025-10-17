@@ -15,6 +15,7 @@ A clean, minimal Sway setup with a tactical color palette. Features muted olive 
 - **Quick Actions Menu** - Hierarchical icon-based menu for power, theme, and system controls
 - **Web App Manager** - Install any website as a containerized desktop app (Omarchy-style)
 - **Styled file manager** - Thunar with tactical theming that matches the setup
+- **MATE Calculator** - Simple, GTK3-based calculator with full tactical theming
 - **Custom terminal** with tactical prompt design and color scheme
 - **btop** system monitor with custom tactical theme
 - **Mako** notification daemon with themed notifications
@@ -157,6 +158,7 @@ This configuration uses minimal, intuitive keybindings that are consistent acros
 - `Super+m` or `Super+Alt+Space` - Quick actions menu
 - `Super+q` - Close window
 - `Super+t` or `Super+Enter` - Launch terminal
+- `Super+c` - Launch calculator (MATE Calculator)
 - `Super+w` - Workspace overview (see all workspaces and windows)
 - `Super+Shift+r` - Reload Sway configuration
 
@@ -680,6 +682,12 @@ sudo pacman -S code           # VS Code
 # or: micro, vim, neovim, etc.
 ```
 Update the variable in `sway/config`: `set $editor cursor`
+
+**Calculator** (Super+c):
+```bash
+sudo pacman -S mate-calc
+```
+MATE Calculator is a simple, GTK3-based calculator that integrates perfectly with the tactical theme. It provides essential calculation features without the complexity of scientific calculators, and fully supports custom CSS theming.
 
 ### Login Manager (Optional)
 
