@@ -1,9 +1,9 @@
 #!/bin/bash
 # BunkerOS Quick Actions Menu
 
-options="󰐥 Power\n󰏘 Change Theme\n󰃟 Theme\n󰒓 System\n󰖔 Night Mode\n󰄀 Screenshot\n📱 Web Apps\n󰍃 File Manager\n󰃬 Calculator\n 󰊶 Terminal"
+options="󰐥 Power\n󰏘 Change Theme\n󰃟 Theme\n󰒓 System\n⌨️ Keybindings\n󰖔 Night Mode\n󰄀 Screenshot\n📱 Web Apps\n󰍃 File Manager\n󰃬 Calculator\n 󰊶 Terminal"
 
-selected=$(echo -e "$options" | wofi --dmenu --prompt "BunkerOS Quick Actions" --width 400 --height 550)
+selected=$(echo -e "$options" | wofi --dmenu --prompt "BunkerOS Quick Actions" --width 400 --height 600)
 
 case $selected in
     "󰐥 Power")
@@ -17,6 +17,9 @@ case $selected in
         ;;
     "󰒓 System")
         ~/.config/waybar/scripts/system-menu.sh
+        ;;
+    "⌨️ Keybindings")
+        ~/.config/waybar/scripts/keybinding-manager.sh
         ;;
     "󰖔 Night Mode")
         ~/.config/waybar/scripts/night-mode-toggle.sh

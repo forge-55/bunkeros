@@ -1,8 +1,9 @@
 #!/bin/bash
 
-options="󰏘 Change Theme\n󰹑 Toggle Gaps\n󰙵 Increase Gaps\n󰙴 Decrease Gaps\n󰂚 Increase Opacity\n󰂙 Decrease Opacity\n󰸉 Wallpaper\n󰆊 Reload Config"
+show_menu() {
+    options="󰏘 Change Theme\n󰹑 Toggle Gaps\n󰙵 Increase Gaps\n󰙴 Decrease Gaps\n󰂚 Increase Opacity\n󰂙 Decrease Opacity\n󰸉 Wallpaper\n󰆊 Reload Config\n⬅️  Back"
 
-selected=$(echo -e "$options" | wofi --dmenu --prompt "Theme Options" --width 400 --height 500)
+    selected=$(echo -e "$options" | wofi --dmenu --prompt "Theme Options" --width 400 --height 550)
 
 case $selected in
     "󰏘 Change Theme")
@@ -51,6 +52,19 @@ case $selected in
     "󰆊 Reload Config")
         swaymsg reload
         notify-send "Config Reloaded" "Sway configuration reloaded"
+        show_menu
+        ;;
+    "⬅️  Back")
+        ~/.config/waybar/scripts/quick-menu.sh
+        ;;
+    *)
+        # User pressed Esc - go back to main menu
+        if [ -n "$selected" ]; then
+            show_menu
+        fi
         ;;
 esac
+}
+
+show_menu
 

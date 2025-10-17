@@ -2,9 +2,9 @@
 
 WEBAPP_BIN="/home/ryan/Projects/bunkeros/webapp/bin"
 
-options="󰐖 Install Web App\n󰆴 Remove Web App\n󰋗 List Web Apps"
+options="󰐖 Install Web App\n󰆴 Remove Web App\n󰋗 List Web Apps\n⬅️  Back"
 
-selected=$(echo -e "$options" | wofi --dmenu --prompt "Web Apps" --width 400 --height 250)
+selected=$(echo -e "$options" | wofi --dmenu --prompt "Web Apps" --width 400 --height 280)
 
 case $selected in
     "󰐖 Install Web App")
@@ -15,6 +15,9 @@ case $selected in
         ;;
     "󰋗 List Web Apps")
         "$WEBAPP_BIN/webapp-list"
+        ;;
+    "⬅️  Back")
+        ~/.config/waybar/scripts/quick-menu.sh
         ;;
 esac
 

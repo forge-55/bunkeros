@@ -59,6 +59,7 @@ BunkerOS uses SwayFX for both editions with effects toggled on/off:
 
 - **Dual edition support** - Choose Standard (effects off) or Enhanced (effects on) at login
 - **Intelligent autotiling** - COSMIC-like smart window placement that automatically balances layouts
+- **Interactive keybinding manager** - View, search, edit, and add keybindings via GUI (Super+m → Keybindings)
 - **Multi-theme system** - Switch between 5 curated themes instantly (Tactical, Gruvbox, Nord, Everforest, Tokyo Night)
 - **Automatic wallpaper switching** - Each theme has its own wallpaper that changes automatically
 - **Minimal, intuitive keybindings** - Essential bindings that work across major tiling WMs
@@ -243,13 +244,30 @@ This configuration uses minimal, intuitive keybindings that are consistent acros
 - `Fn+F1-F6` - Volume/brightness controls (hardware keys with OSD)
 
 
-### Customization
+### Keybinding Manager
 
-The configuration includes a dedicated customization area at the end of the keybindings section. Add your own bindings for favorite applications:
+BunkerOS includes an **interactive keybinding manager** that makes discovering and customizing keybindings easy, even for users new to tiling window managers.
+
+**Access**: `Super+m` → **Keybindings**
+
+**Features**:
+- **View All Keybindings** - Browse every keybinding in a searchable list
+- **Search Keybindings** - Find specific keybindings by key combo or action
+- **Add New Keybindings** - Create custom keybindings via GUI (no config editing needed)
+- **Edit Keybindings** - Select a keybinding to open the config at that exact line
+- **Keybinding Cheatsheet** - Quick reference of essential keybindings organized by category
+- **Backup Keybindings** - Save your current keybindings to a timestamped file
+- **Open Config File** - Direct access to the Sway config for advanced editing
+
+The keybinding manager uses Wofi for all interactions, maintaining the keyboard-first workflow while making customization accessible to everyone. All custom keybindings are added to a dedicated section at the end of the config file, keeping your customizations organized and separate from the defaults.
+
+### Manual Customization
+
+You can also edit keybindings directly in the config. There's a dedicated customization section at the end of the keybindings area:
 
 ```
 # Examples:
-bindsym $mod+c exec Discord
+bindsym $mod+Shift+d exec Discord
 bindsym $mod+s exec spotify
 bindsym $mod+d exec steam
 ```

@@ -1,8 +1,8 @@
 #!/bin/bash
 
-options="󰖩 Network Settings\n󰂯 Bluetooth\n󰕾 Audio Settings\n󰍹 Display Settings\n󰍛 System Monitor\n󰘘 Processes"
+options="󰖩 Network Settings\n󰂯 Bluetooth\n󰕾 Audio Settings\n󰍹 Display Settings\n󰍛 System Monitor\n󰘘 Processes\n⬅️  Back"
 
-selected=$(echo -e "$options" | wofi --dmenu --prompt "System Controls" --width 400 --height 400)
+selected=$(echo -e "$options" | wofi --dmenu --prompt "System Controls" --width 400 --height 450)
 
 case $selected in
     "󰖩 Network Settings")
@@ -22,6 +22,9 @@ case $selected in
         ;;
     "󰘘 Processes")
         foot -e htop &
+        ;;
+    "⬅️  Back")
+        ~/.config/waybar/scripts/quick-menu.sh
         ;;
 esac
 

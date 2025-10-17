@@ -2,9 +2,9 @@
 
 # Power menu using wofi
 
-options="󰐥 Shutdown\n󰜉 Reboot\n󰤄 Suspend\n󰍃 Logout"
+options="󰐥 Shutdown\n󰜉 Reboot\n󰤄 Suspend\n󰍃 Logout\n⬅️  Back"
 
-chosen=$(echo -e "$options" | wofi --dmenu --prompt "Power" --width 200 --height 180)
+chosen=$(echo -e "$options" | wofi --dmenu --prompt "Power Options" --width 220 --height 220)
 
 case $chosen in
     "󰐥 Shutdown")
@@ -18,6 +18,9 @@ case $chosen in
         ;;
     "󰍃 Logout")
         swaymsg exit
+        ;;
+    "⬅️  Back")
+        ~/.config/waybar/scripts/quick-menu.sh
         ;;
 esac
 
