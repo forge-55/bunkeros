@@ -8,7 +8,7 @@ BunkerOS is built around three core principles:
 
 1. **Performance First** - Optimized for hardware ranging from 2018 ThinkPads to modern workstations
 2. **Configuration Compatibility** - Single codebase that works across both compositor editions
-3. **Operational Efficiency** - Keyboard-driven, distraction-free interface inspired by military discipline
+3. **Operational Efficiency** - Keyboard-driven, distraction-free interface with professional discipline
 
 ## Compositor Architecture
 
@@ -118,7 +118,7 @@ All files must be present for a theme to work correctly.
 ### SDDM Theme
 
 Custom QML theme providing:
-- Military-inspired login interface
+- Professional login interface
 - Centered design with tactical color palette
 - Session selector for Standard/Enhanced editions
 - Power management buttons
@@ -288,7 +288,7 @@ Scripts are organized by function:
 ### Adding Themes
 
 1. Include all 10 required config files
-2. Maintain military/tactical aesthetic
+2. Maintain tactical aesthetic
 3. Ensure good contrast (WCAG AA minimum)
 4. Test with all components (Waybar, Wofi, terminal, etc.)
 5. Document color palette in `theme.conf`
@@ -313,7 +313,7 @@ Key insight: The performance delta between Sway and SwayFX is marginal (~30 MB, 
 
 ## Contact and Support
 
-- GitHub: https://github.com/YOUR_USERNAME/bunkeros
-- Issues: https://github.com/YOUR_USERNAME/bunkeros/issues
-- Discussions: https://github.com/YOUR_USERNAME/bunkeros/discussions
+- GitHub: https://github.com/forge-55/bunkeros
+- Issues: https://github.com/forge-55/bunkeros/issues
+- Discussions: https://github.com/forge-55/bunkeros/discussions
 

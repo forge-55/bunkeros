@@ -372,7 +372,7 @@ include ~/.config/sway/config.d/swayfx-effects.conf
 
 # THEME COLORS START
 # Tactical Theme - Sway Window Border Colors
-# Khaki/Olive/Charcoal military aesthetic
+# Khaki/Olive/Charcoal tactical aesthetic
 
 default_border pixel 2
 default_floating_border pixel 2

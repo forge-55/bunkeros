@@ -1,15 +1,15 @@
 # BunkerOS
 
-A tactical, military-inspired Arch Linux environment built for professionals, power users, and anyone seeking a distraction-free, mission-driven computing experience. BunkerOS combines the stability and performance of Sway with the visual polish of SwayFX, offering two editions optimized for different hardware profiles.
+A tactical, professional Arch Linux environment built for power users and anyone seeking a distraction-free, mission-driven computing experience. BunkerOS combines the stability and performance of Sway with the visual polish of SwayFX, offering two editions optimized for different hardware profiles.
 
 ## Philosophy
 
-BunkerOS is designed around military discipline and operational efficiency:
+BunkerOS is designed around operational discipline and efficiency:
 - Distraction-free interface focused on productivity
 - Performance-first architecture for old ThinkPads to modern workstations
 - Minimal, functional design over flashy animations
 - Keyboard-driven workflow for maximum efficiency
-- Tactical color palette inspired by military field gear
+- Tactical color palette inspired by professional field gear
 
 ## Editions
 
@@ -94,7 +94,7 @@ The palette prioritizes readability and focus while maintaining a cohesive tacti
 
 ## Theme System
 
-This setup includes a powerful theme system that lets you switch between multiple curated color schemes instantly. All themes maintain the military-inspired aesthetic while offering different moods and color temperatures.
+This setup includes a powerful theme system that lets you switch between multiple curated color schemes instantly. All themes maintain the tactical aesthetic while offering different moods and color temperatures.
 
 ### Available Themes
 
@@ -176,7 +176,7 @@ To create your own theme:
 
 **Contributing Themes:**
 We welcome community-contributed themes! Please ensure your theme:
-- Maintains the military/tactical aesthetic
+- Maintains the tactical aesthetic
 - Provides good contrast for readability
 - Includes all required config files
 - Has complete metadata in theme.conf
@@ -799,7 +799,7 @@ yay -S swayosd-git
 
 ```bash
 cd ~/Projects
-git clone https://github.com/YOUR_USERNAME/bunkeros.git
+git clone https://github.com/forge-55/bunkeros.git
 cd bunkeros
 
 # Install configurations
