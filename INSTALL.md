@@ -34,6 +34,9 @@ sudo pacman -Syu
 # Install SwayFX compositor (provides both Standard and Enhanced editions)
 sudo pacman -S swayfx
 
+# Install autotiling for intelligent window placement (COSMIC-like behavior)
+sudo pacman -S autotiling-rs
+
 # Install essential utilities
 sudo pacman -S waybar wofi mako foot thunar btop \
                grim slurp wl-clipboard brightnessctl \

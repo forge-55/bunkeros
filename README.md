@@ -51,7 +51,9 @@ BunkerOS uses SwayFX for both editions with effects toggled on/off:
 ## Features
 
 - **Dual edition support** - Choose Standard (effects off) or Enhanced (effects on) at login
+- **Intelligent autotiling** - COSMIC-like smart window placement that automatically balances layouts
 - **Multi-theme system** - Switch between 5 curated themes instantly (Tactical, Gruvbox, Nord, Everforest, Tokyo Night)
+- **Automatic wallpaper switching** - Each theme has its own wallpaper that changes automatically
 - **Minimal, intuitive keybindings** - Essential bindings that work across major tiling WMs
 - **Custom SDDM login theme** - BunkerOS-styled login screen with centered design
 - **GTK theming** - Custom dark theme with tactical colors for all GTK applications
@@ -786,7 +788,7 @@ BunkerOS is currently a manual installation on Arch Linux. Full ISO distribution
 
 ```bash
 # Install base packages
-sudo pacman -S swayfx waybar wofi mako foot thunar \
+sudo pacman -S swayfx autotiling-rs waybar wofi mako foot thunar \
                btop grim slurp wl-clipboard brightnessctl \
                playerctl pavucontrol network-manager-applet \
                blueman sddm mate-calc qt5-declarative qt5-quickcontrols2

@@ -53,6 +53,11 @@ exec_always "killall mako 2>/dev/null; mako"
 # Start swayosd server for volume/brightness overlays (centered at 0.5)
 exec_always "killall swayosd-server 2>/dev/null; swayosd-server --style ~/.config/swayosd/style.css --top-margin 0.5"
 
+### Autotiling
+#
+# Automatically adjusts split direction based on window dimensions (COSMIC-like behavior)
+exec_always autotiling-rs
+
 ### Appearance
 #
 # Window gaps (always visible like Hyprland/COSMIC)
