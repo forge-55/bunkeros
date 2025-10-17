@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=BunkerOS (Enhanced)
-Comment=Wayland compositor with visual effects - Modern hardware
+Comment=Wayland compositor with visual effects enabled
 Exec=/home/ryan/Projects/bunkeros/scripts/launch-bunkeros-enhanced.sh
 Type=Application
 DesktopNames=BunkerOS

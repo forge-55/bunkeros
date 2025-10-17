@@ -148,7 +148,7 @@ else
     echo ""
 fi
 
-echo "Step 14: Applying default tactical theme..."
+echo "Step 14: Applying default BunkerOS theme..."
 cd "$PROJECT_DIR"
 "$LOCAL_BIN/theme-switcher.sh" tactical 2>/dev/null || echo "  ℹ Theme will be applied on first Sway launch"
 echo ""

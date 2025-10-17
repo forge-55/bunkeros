@@ -1,6 +1,6 @@
-import QtQuick
-import QtQuick.Controls
-import QtQuick.Layouts
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
 
 Rectangle {
     id: root
@@ -17,7 +17,7 @@ Rectangle {
     Rectangle {
         anchors.fill: parent
         color: tacticalbg
-
+ 
         Image {
             anchors.fill: parent
             source: "background.jpg"
@@ -43,7 +43,7 @@ Rectangle {
             spacing: 25
 
             Text {
-                text: "TACTICAL SWAY"
+                text: "BunkerOS"
                 font.family: "monospace"
                 font.pixelSize: 32
                 font.bold: true
@@ -106,7 +106,7 @@ Rectangle {
                     }
                 }
                 Component.onCompleted: forceActiveFocus()
-            }
+            } 
 
             ComboBox {
                 id: sessionSelect
@@ -146,7 +146,7 @@ Rectangle {
                     }
                     highlighted: sessionSelect.highlightedIndex === index
                 }
-            }
+            } 
 
             Button {
                 id: loginButton

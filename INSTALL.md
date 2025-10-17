@@ -31,8 +31,8 @@ This guide assumes you have:
 # Update system
 sudo pacman -Syu
 
-# Install core Wayland compositors
-sudo pacman -S sway swayfx
+# Install SwayFX compositor (provides both Standard and Enhanced editions)
+sudo pacman -S swayfx
 
 # Install essential utilities
 sudo pacman -S waybar wofi mako foot thunar btop \
@@ -51,7 +51,7 @@ yay -S swayosd-git
 
 ```bash
 cd ~/Projects
-git clone https://github.com/YOUR_USERNAME/bunkeros.git
+git clone https://github.com/forge-55/bunkeros.git
 cd bunkeros
 ```
 
@@ -116,7 +116,7 @@ mkdir -p ~/.local/bin
 cp scripts/theme-switcher.sh ~/.local/bin/
 chmod +x ~/.local/bin/theme-switcher.sh
 
-# Apply default tactical theme
+# Apply default BunkerOS theme
 ~/.local/bin/theme-switcher.sh tactical
 ```
 
@@ -174,10 +174,10 @@ At the SDDM login screen:
 1. Enter your username and password
 2. Click the session selector (usually top-right corner)
 3. Choose:
-   - **BunkerOS (Standard)** - Lightweight Sway
-   - **BunkerOS (Enhanced)** - SwayFX with visual effects
+   - **BunkerOS (Standard)** - SwayFX with effects disabled (maximum performance)
+   - **BunkerOS (Enhanced)** - SwayFX with visual effects enabled
 
-Your selection is remembered for future logins.
+Your selection is remembered for future logins. Both use the same SwayFX compositor.
 
 ### First Launch Configuration
 
@@ -323,7 +323,7 @@ rm -rf ~/.config/themes
 
 ## Getting Help
 
-- GitHub Issues: https://github.com/YOUR_USERNAME/bunkeros/issues
+- GitHub Issues: https://github.com/forge-55/bunkeros/issues
 - Documentation: See README.md
 - Architecture: See ARCHITECTURE.md
 

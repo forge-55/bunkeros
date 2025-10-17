@@ -12,47 +12,57 @@ BunkerOS is built around three core principles:
 
 ## Compositor Architecture
 
-### Why Dual Compositor Strategy?
+### Single Compositor, Two Editions
 
-BunkerOS offers two compositor editions that share identical configuration:
+BunkerOS uses **SwayFX for both editions** with visual effects toggled via configuration:
 
-#### Standard Edition (Sway)
-- **Base**: Sway 1.9+
+#### Standard Edition
+- **Base**: SwayFX with effects disabled
 - **Memory**: ~332 MB RAM at idle
 - **GPU**: Minimal overhead (~5-10% during rendering)
 - **Target**: Production environments, older hardware, stability-focused users
+- **Behavior**: Identical to vanilla Sway
 
-#### Enhanced Edition (SwayFX)
-- **Base**: SwayFX (Sway fork with visual effects)
+#### Enhanced Edition
+- **Base**: SwayFX with effects enabled
 - **Memory**: ~360-380 MB RAM at idle
 - **GPU**: Moderate overhead (~15-25% with all effects enabled)
 - **Target**: Modern hardware, users wanting visual polish without Hyprland's overhead
+- **Features**: Rounded corners, shadows, blur, fade animations
 
-### Configuration Compatibility
+### How It Works
 
-SwayFX maintains 100% configuration compatibility with Sway. Visual effects are added via an optional include file:
+Visual effects are controlled via an optional config file:
 
 ```
-~/.config/sway/config.d/swayfx-effects
+~/.config/sway/config.d/swayfx-effects.conf
 ```
 
-When running vanilla Sway, this file is loaded but directives like `corner_radius`, `blur`, and `shadows` are ignored. This architectural decision provides:
+- **Standard Edition**: Launcher creates empty file (effects disabled)
+- **Enhanced Edition**: Launcher symlinks actual effects config (effects enabled)
 
-- **Single Configuration Paradigm**: No parallel configs to maintain
-- **Seamless Switching**: Users can switch at login with zero workflow change
+This architectural decision provides:
+
+- **Single Binary**: Only SwayFX needs to be installed
+- **Single Configuration**: No parallel configs to maintain
+- **Seamless Switching**: Users can switch editions at login with zero workflow change
 - **Maintenance Simplicity**: Bug fixes and features apply to both editions
+
+### Why SwayFX Over Vanilla Sway?
+
+SwayFX is a fork of Sway 1.11.0 that adds visual effects as optional features. With effects disabled, it performs identically to vanilla Sway while providing the flexibility to enable effects when desired.
 
 ### Why Not Hyprland?
 
 Extensive research led to excluding Hyprland:
 
-| Criterion | Sway/SwayFX | Hyprland |
-|-----------|-------------|----------|
-| Config Compatibility | 100% shared | Incompatible syntax |
+| Criterion | SwayFX | Hyprland |
+|-----------|--------|----------|
+| Config Compatibility | Sway-compatible | Incompatible syntax |
 | RAM Usage | 332-380 MB | ~532 MB |
 | Stability | Production-ready | Breaking changes common |
 | Hardware Range | T480 to modern | Modern hardware only |
-| Maintenance | Single codebase | Parallel configs needed |
+| Flexibility | Effects on/off | Always-on effects |
 
 Hyprland prioritizes flashy animations over operational efficiency, contradicting BunkerOS's mission-focused philosophy.
 
@@ -129,15 +139,19 @@ Two `.desktop` files in `/usr/share/wayland-sessions/`:
 
 **bunkeros-standard.desktop**:
 ```
-Exec=sway
+Exec=/home/ryan/Projects/bunkeros/scripts/launch-bunkeros-standard.sh
 ```
+- Creates empty effects config
+- Runs SwayFX with no visual effects
 
 **bunkeros-enhanced.desktop**:
 ```
-Exec=swayfx
+Exec=/home/ryan/Projects/bunkeros/scripts/launch-bunkeros-enhanced.sh
 ```
+- Symlinks effects config
+- Runs SwayFX with visual effects enabled
 
-SDDM remembers user's session choice across reboots.
+Both launchers execute the same `sway` binary (SwayFX). SDDM remembers user's session choice across reboots.
 
 ## Performance Benchmarks
 
