@@ -14,8 +14,8 @@ if [ -f ~/.config/gtk-4.0/gtk.css ] && [ ! -L ~/.config/gtk-4.0/gtk.css ]; then
     mv ~/.config/gtk-4.0/gtk.css ~/.config/gtk-4.0/gtk.css.backup
 fi
 
-ln -sf /home/ryan/Projects/sway-config/gtk-4.0/settings.ini ~/.config/gtk-4.0/settings.ini
-ln -sf /home/ryan/Projects/sway-config/gtk-4.0/gtk.css ~/.config/gtk-4.0/gtk.css
+ln -sf /home/ryan/Projects/bunkeros/gtk-4.0/settings.ini ~/.config/gtk-4.0/settings.ini
+ln -sf /home/ryan/Projects/bunkeros/gtk-4.0/gtk.css ~/.config/gtk-4.0/gtk.css
 
 echo "GTK 4.0 tactical theme installed!"
 echo ""

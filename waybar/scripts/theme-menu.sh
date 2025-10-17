@@ -6,7 +6,7 @@ selected=$(echo -e "$options" | wofi --dmenu --prompt "Theme Options" --width 40
 
 case $selected in
     "󰏘 Change Theme")
-        /home/ryan/Projects/sway-config/scripts/theme-switcher.sh menu
+        /home/ryan/Projects/bunkeros/scripts/theme-switcher.sh menu
         ;;
     "󰹑 Toggle Gaps")
         current=$(swaymsg -t get_tree | grep -o '"gaps":{"inner":[0-9]*' | head -1 | grep -o '[0-9]*$')

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-WEBAPP_BIN="/home/ryan/Projects/sway-config/webapp/bin"
+WEBAPP_BIN="/home/ryan/Projects/bunkeros/webapp/bin"
 
 options="󰐖 Install Web App\n󰆴 Remove Web App\n󰋗 List Web Apps"
 

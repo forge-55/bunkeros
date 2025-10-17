@@ -1,12 +1,31 @@
 #!/usr/bin/env bash
 
 THEME_DIR="/usr/share/sddm/themes/tactical"
-SOURCE_DIR="/home/ryan/Projects/sway-config/sddm/tactical"
+SOURCE_DIR="/home/ryan/Projects/bunkeros/sddm/tactical"
+SESSION_DIR="/usr/share/wayland-sessions"
+SESSION_SOURCE="/home/ryan/Projects/bunkeros/sddm/sessions"
 
-echo "Installing Tactical SDDM theme..."
+echo "=== BunkerOS SDDM Installation ==="
+echo ""
 
+echo "Checking compositor installations..."
+if ! command -v sway &> /dev/null; then
+    echo "WARNING: sway not found. Install with: sudo pacman -S sway"
+fi
+
+if ! command -v swayfx &> /dev/null; then
+    echo "WARNING: swayfx not found. Install with: sudo pacman -S swayfx"
+fi
+
+echo ""
+echo "Installing BunkerOS SDDM theme..."
 sudo mkdir -p "$THEME_DIR"
 sudo cp -r "$SOURCE_DIR"/* "$THEME_DIR/"
+
+echo "Installing BunkerOS session files..."
+sudo mkdir -p "$SESSION_DIR"
+sudo cp "$SESSION_SOURCE/bunkeros-standard.desktop" "$SESSION_DIR/"
+sudo cp "$SESSION_SOURCE/bunkeros-enhanced.desktop" "$SESSION_DIR/"
 
 if [ ! -f /etc/sddm.conf ]; then
     echo "Creating /etc/sddm.conf..."
@@ -24,7 +43,11 @@ else
 fi
 
 echo ""
-echo "Tactical SDDM theme installed successfully!"
+echo "=== BunkerOS SDDM Installation Complete! ==="
+echo ""
+echo "Available sessions at login:"
+echo "  - BunkerOS (Standard)  - Lightweight Sway"
+echo "  - BunkerOS (Enhanced)  - SwayFX with visual effects"
 echo ""
 echo "To enable SDDM as your display manager:"
 echo "  sudo systemctl enable sddm.service"

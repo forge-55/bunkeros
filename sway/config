@@ -1,6 +1,7 @@
-# Default config for sway
+# BunkerOS Configuration - Compatible with Sway and SwayFX
 #
-# Copy this to ~/.config/sway/config and edit it to your liking.
+# This config works with both vanilla Sway and SwayFX.
+# SwayFX users get additional visual effects loaded from config.d/swayfx-effects
 #
 # Read `man 5 sway` for a complete reference.
 
@@ -377,3 +378,6 @@ client.placeholder      #2B2D2E #1C1C1C #D4D4D4 #2B2D2E #2B2D2E
 client.background       #1C1C1C
 
 # THEME COLORS END
+
+# Include SwayFX effects (ignored by vanilla Sway)
+include ~/.config/sway/config.d/*

@@ -1,0 +1,29 @@
+# BunkerOS Enhanced - SwayFX Visual Effects
+# These directives are ignored by vanilla Sway
+
+# Rounded corners (maximum aesthetic)
+corner_radius 14
+
+# Shadows for depth and dimension
+shadows on
+shadows_on_csd off
+shadow_blur_radius 30
+shadow_color #000000AA
+shadow_offset 0 8
+
+# Blur effects for modern aesthetic
+blur on
+blur_xray off
+blur_passes 3
+blur_radius 7
+
+# Blur specific window types
+layer_effects "waybar" blur on; shadows on; corner_radius 0
+layer_effects "notifications" blur on; shadows on; corner_radius 10
+layer_effects "wofi" blur on; shadows on; corner_radius 8
+
+# Fade animations
+default_dim_inactive 0.05
+for_window [class=".*"] blur enable
+for_window [app_id=".*"] blur enable
+

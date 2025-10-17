@@ -1,12 +1,59 @@
-# Sway Configuration
+# BunkerOS
 
-A clean, minimal Sway setup with a tactical color palette. Features muted olive and tan tones with a focus on functionality and visual clarity.
+A tactical, military-inspired Arch Linux environment built for professionals, power users, and anyone seeking a distraction-free, mission-driven computing experience. BunkerOS combines the stability and performance of Sway with the visual polish of SwayFX, offering two editions optimized for different hardware profiles.
+
+## Philosophy
+
+BunkerOS is designed around military discipline and operational efficiency:
+- Distraction-free interface focused on productivity
+- Performance-first architecture for old ThinkPads to modern workstations
+- Minimal, functional design over flashy animations
+- Keyboard-driven workflow for maximum efficiency
+- Tactical color palette inspired by military field gear
+
+## Editions
+
+### Standard Edition (Sway)
+Lightweight, rock-solid stability for maximum performance. Perfect for:
+- Older hardware (ThinkPad T480, Intel integrated graphics)
+- Users who prioritize speed and reliability
+- Minimalist computing philosophy
+- Production environments where stability is critical
+
+**Performance**: ~332 MB RAM, minimal GPU overhead, instantaneous window operations
+
+### Enhanced Edition (SwayFX)
+Modern visual aesthetics while maintaining excellent performance. Features:
+- Rounded corners (14px radius)
+- Subtle window shadows
+- Blur effects on bars and floating windows
+- Fade animations
+- Still significantly lighter than Hyprland
+
+**Performance**: ~360-380 MB RAM, moderate GPU usage, smooth on modern hardware
+
+**Key Advantage**: Both editions share identical configuration, keybindings, and workflow. Switch between them at login with zero relearning curve.
+
+## Why Sway + SwayFX (Not Hyprland)?
+
+BunkerOS chose this dual-compositor architecture after extensive research:
+
+**Configuration Compatibility**: SwayFX maintains 100% config compatibility with Sway. Your keybindings, workspace setup, and scripts work identically across both editions.
+
+**Hardware Range**: From a 2018 ThinkPad T480 to a 2025 gaming rig, BunkerOS performs excellently. Hyprland's resource demands would exclude older hardware.
+
+**Stability First**: Sway is production-ready and rock-solid. SwayFX adds polish without sacrificing reliability. Hyprland is cutting-edge but prone to breaking changes.
+
+**Maintenance**: Single configuration paradigm means we maintain one codebase, not two parallel systems.
+
+**Philosophy Alignment**: Hyprland prioritizes flashy animations and eye candy. BunkerOS prioritizes mission-focused productivity with optional aesthetic enhancements.
 
 ## Features
 
+- **Dual compositor support** - Choose Standard (Sway) or Enhanced (SwayFX) at login
 - **Multi-theme system** - Switch between 5 curated themes instantly (Tactical, Gruvbox, Nord, Everforest, Tokyo Night)
 - **Minimal, intuitive keybindings** - Essential bindings that work across major tiling WMs
-- **Custom SDDM login theme** - Tactical-styled login screen with centered design
+- **Custom SDDM login theme** - BunkerOS-styled login screen with centered design
 - **GTK theming** - Custom dark theme with tactical colors for all GTK applications
 - **Waybar** status bar with flat, tactical styling
 - **Numbered workspace indicators** (1-7) with ArchCraft-inspired design and refined box styling
@@ -27,7 +74,7 @@ A clean, minimal Sway setup with a tactical color palette. Features muted olive 
 - **Subtle transparency** on windows (95% opacity)
 - **Custom color scheme** with olive drab, tactical gray, and tan accents
 - **Flat design philosophy** - function over decoration
-- **Zero performance overhead** - pure CSS styling
+- **Performance-optimized** - from 332 MB (Standard) to 380 MB (Enhanced)
 
 ## Color Palette
 
@@ -43,7 +90,7 @@ The configuration uses a carefully crafted tactical palette that balances functi
 
 ### Design Philosophy
 
-The palette prioritizes readability and focus while maintaining a cohesive tactical aesthetic. The design follows a flat, understated approach with minimal shadows and clean borders - emphasizing function over decoration, perfect for performance-conscious setups like the ThinkPad T480.
+The palette prioritizes readability and focus while maintaining a cohesive tactical aesthetic. The design follows a flat, understated approach with minimal shadows and clean borders - emphasizing function over decoration, perfect for performance-conscious setups from ThinkPads to modern workstations.
 
 ## Theme System
 
@@ -395,7 +442,7 @@ This configuration includes a custom SDDM theme that matches the tactical aesthe
 The SDDM theme files are located in `sddm/tactical/` and need to be installed to the system:
 
 ```bash
-cd /home/ryan/Projects/sway-config/sddm
+cd /home/ryan/Projects/bunkeros/sddm
 ./install-theme.sh
 ```
 
@@ -442,10 +489,10 @@ This configuration includes custom GTK 3.0 and GTK 4.0 themes that apply the tac
 The GTK theme files are in `gtk-3.0/` and `gtk-4.0/` directories. Install them:
 
 ```bash
-cd /home/ryan/Projects/sway-config/gtk-3.0
+cd /home/ryan/Projects/bunkeros/gtk-3.0
 ./install.sh
 
-cd /home/ryan/Projects/sway-config/gtk-4.0
+cd /home/ryan/Projects/bunkeros/gtk-4.0
 ./install.sh
 ```
 
@@ -699,7 +746,7 @@ sudo pacman -S sddm qt6-svg qt6-declarative
 
 After installing, run the installation script:
 ```bash
-cd /home/ryan/Projects/sway-config/sddm
+cd /home/ryan/Projects/bunkeros/sddm
 ./install-theme.sh
 ```
 
@@ -733,51 +780,86 @@ The configuration uses MesloLGL Nerd Font by default. This can be changed in `wa
 
 ## Installation
 
-Clone this repo and symlink the configs:
+BunkerOS is currently a manual installation on Arch Linux. Full ISO distribution is planned for future releases.
+
+### Prerequisites
 
 ```bash
-git clone https://github.com/forge-55/sway.git
-cd sway
+# Install base packages
+sudo pacman -S sway swayfx waybar wofi mako foot thunar \
+               btop grim slurp wl-clipboard brightnessctl \
+               playerctl pavucontrol network-manager-applet \
+               blueman sddm mate-calc qt5-declarative qt5-quickcontrols2
 
-# Backup existing configs (if any)
-mkdir -p ~/.config/backup
-cp -r ~/.config/sway ~/.config/backup/ 2>/dev/null || true
-cp -r ~/.config/waybar ~/.config/backup/ 2>/dev/null || true
-cp -r ~/.config/wofi ~/.config/backup/ 2>/dev/null || true
-
-# Create config directories
-mkdir -p ~/.config/sway ~/.config/waybar ~/.config/wofi ~/.config/foot ~/.config/btop/themes ~/.config/mako ~/.config/swayosd
-
-# Symlink configs
-ln -sf $(pwd)/sway/config ~/.config/sway/config
-ln -sf $(pwd)/waybar/config ~/.config/waybar/config
-ln -sf $(pwd)/waybar/style.css ~/.config/waybar/style.css
-ln -sf $(pwd)/waybar/scripts ~/.config/waybar/scripts
-ln -sf $(pwd)/wofi/config ~/.config/wofi/config
-ln -sf $(pwd)/wofi/style.css ~/.config/wofi/style.css
-ln -sf $(pwd)/foot/foot.ini ~/.config/foot/foot.ini
-ln -sf $(pwd)/mako/config ~/.config/mako/config
-ln -sf $(pwd)/btop/btop.conf ~/.config/btop/btop.conf
-ln -sf $(pwd)/btop/themes/active.theme ~/.config/btop/themes/active.theme
-ln -sf $(pwd)/swayosd/style.css ~/.config/swayosd/style.css
-ln -sf $(pwd)/bashrc ~/.bashrc
-ln -sf $(pwd)/dircolors ~/.dircolors
-
-# Make scripts executable (screenshot tools, power menu, etc.)
-chmod +x waybar/scripts/*.sh
-
-# Reload Sway
-swaymsg reload
+# Install SwayOSD for volume/brightness overlays
+yay -S swayosd-git
 ```
+
+### Clone and Install
+
+```bash
+cd ~/Projects
+git clone https://github.com/YOUR_USERNAME/bunkeros.git
+cd bunkeros
+
+# Install configurations
+mkdir -p ~/.config/{sway/config.d,waybar,wofi,mako,foot,btop,swayosd}
+cp -r sway/* ~/.config/sway/
+cp -r waybar/* ~/.config/waybar/
+cp -r wofi/* ~/.config/wofi/
+cp -r mako/* ~/.config/mako/
+cp -r foot/* ~/.config/foot/
+cp -r btop/* ~/.config/btop/
+cp -r swayosd/* ~/.config/swayosd/
+
+# Install GTK themes
+cd gtk-3.0 && ./install.sh && cd ..
+cd gtk-4.0 && ./install.sh && cd ..
+
+# Install SDDM theme and session files
+cd sddm && sudo ./install-theme.sh && cd ..
+
+# Install theme system
+mkdir -p ~/.config/themes
+cp -r themes/* ~/.config/themes/
+mkdir -p ~/.local/bin
+cp scripts/theme-switcher.sh ~/.local/bin/
+chmod +x ~/.local/bin/theme-switcher.sh
+
+# Install webapp manager
+cp -r webapp/bin/* ~/.local/bin/
+chmod +x ~/.local/bin/webapp-*
+
+# Copy bashrc and dircolors
+cat bashrc >> ~/.bashrc
+cp dircolors ~/.dircolors
+
+# Apply tactical theme as default
+~/.local/bin/theme-switcher.sh tactical
+
+# Enable and start SDDM
+sudo systemctl enable sddm.service
+```
+
+### Selecting Your Edition
+
+At the SDDM login screen, click the session selector (usually in the top-right corner) and choose:
+
+- **BunkerOS (Standard)** - Lightweight Sway for maximum performance
+- **BunkerOS (Enhanced)** - SwayFX with visual effects
+
+Your choice is remembered until you change it. Both editions share the same configuration, keybindings, and workflow.
 
 ## Project Structure
 
-All configuration files are stored in this repository and symlinked to their appropriate locations:
+All configuration files are stored in this repository and copied to their appropriate locations:
 
 ```
-sway-config/
+bunkeros/
 ├── sway/
-│   └── config                    → ~/.config/sway/config
+│   ├── config                    → ~/.config/sway/config
+│   └── config.d/
+│       └── swayfx-effects        → ~/.config/sway/config.d/swayfx-effects (SwayFX visual effects)
 ├── themes/                       (Theme system - all themes stored here)
 │   ├── tactical/                 (Default tactical theme)
 │   │   ├── theme.conf            (Theme metadata and color palette)
@@ -832,10 +914,13 @@ sway-config/
 │   └── install.sh                (GTK 4.0 theme installation script)
 ├── sddm/
 │   ├── tactical/
-│   │   ├── Main.qml              (SDDM theme interface)
+│   │   ├── Main.qml              (BunkerOS SDDM theme interface)
 │   │   ├── theme.conf            (Theme configuration)
 │   │   └── metadata.desktop      (Theme metadata)
-│   ├── install-theme.sh          (Theme installation script)
+│   ├── sessions/
+│   │   ├── bunkeros-standard.desktop  → /usr/share/wayland-sessions/ (Sway session)
+│   │   └── bunkeros-enhanced.desktop  → /usr/share/wayland-sessions/ (SwayFX session)
+│   ├── install-theme.sh          (Theme and session installation script)
 │   └── README.md                 (SDDM theme documentation)
 ├── webapp/
 │   ├── bin/

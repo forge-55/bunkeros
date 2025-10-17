@@ -25,7 +25,7 @@ sudo pacman -S sddm qt6-svg qt6-declarative
 ### 2. Install the theme
 
 ```bash
-cd /home/ryan/Projects/sway-config/sddm
+cd /home/ryan/Projects/bunkeros/sddm
 ./install-theme.sh
 ```
 

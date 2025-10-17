@@ -1,6 +1,8 @@
 #!/bin/bash
+# BunkerOS Theme Switcher
+# Manages and applies themes across all BunkerOS components
 
-PROJECT_DIR="/home/ryan/Projects/sway-config"
+PROJECT_DIR="/home/ryan/Projects/bunkeros"
 THEMES_DIR="$PROJECT_DIR/themes"
 CURRENT_THEME_FILE="$PROJECT_DIR/.current-theme"
 
@@ -47,7 +49,7 @@ apply_theme() {
         return 1
     fi
     
-    notify-send "Applying Theme" "Switching to $theme..."
+    notify-send "BunkerOS" "Applying $theme theme..."
     
     cp "$theme_dir/waybar-style.css" "$PROJECT_DIR/waybar/style.css"
     cp "$theme_dir/wofi-style.css" "$PROJECT_DIR/wofi/style.css"
@@ -125,7 +127,7 @@ apply_theme() {
         eval "$(dircolors -b ~/.dircolors)"
     fi
     
-    notify-send "Theme Applied" "Now using $theme theme"
+    notify-send "BunkerOS Theme Applied" "Now using $theme theme"
 }
 
 show_theme_menu() {

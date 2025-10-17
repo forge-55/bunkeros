@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=BunkerOS (Standard)
+Comment=Lightweight Wayland compositor - Maximum performance
+Exec=sway
+Type=Application
+DesktopNames=BunkerOS
+
