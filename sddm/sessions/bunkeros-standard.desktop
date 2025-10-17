@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=BunkerOS (Standard)
 Comment=Lightweight Wayland compositor - Maximum performance
-Exec=sway
+Exec=/home/ryan/Projects/bunkeros/scripts/launch-bunkeros-standard.sh
 Type=Application
 DesktopNames=BunkerOS
 

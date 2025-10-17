@@ -362,6 +362,12 @@ include /etc/sway/config.d/*
 
 
 
+
+# Include SwayFX effects (only load if using SwayFX)
+# This file contains SwayFX-specific commands that will error in vanilla Sway
+# The launcher scripts below will handle enabling/disabling this file
+include ~/.config/sway/config.d/swayfx-effects.conf
+
 # THEME COLORS START
 # Tactical Theme - Sway Window Border Colors
 # Khaki/Olive/Charcoal military aesthetic
@@ -378,6 +384,3 @@ client.placeholder      #2B2D2E #1C1C1C #D4D4D4 #2B2D2E #2B2D2E
 client.background       #1C1C1C
 
 # THEME COLORS END
-
-# Include SwayFX effects (ignored by vanilla Sway)
-include ~/.config/sway/config.d/*
