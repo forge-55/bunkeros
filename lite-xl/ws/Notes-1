@@ -1,1 +1,2 @@
-return { path = "/home/ryan/Documents/Notes", documents = {["type"]="leaf",["views"]={[1]={["type"]="view",["scroll"]={["to"]={["y"]=0,["x"]=0},["x"]=0,["y"]=0},["module"]="core.emptyview",["active"]=true}},["active_view"]=1}, directories = {} }
+return { path = "/home/ryan/Documents/Notes", documents = {["type"]="leaf",["views"]={[1]={["scroll"]={["y"]=0,["x"]=0},["selection"]={[1]=2,[2]=1,[3]=2,[4]=1},["type"]="doc",["text"]="Let's take a note......\
+",["active"]=false}},["active_view"]=1}, directories = {} }
