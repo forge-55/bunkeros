@@ -38,10 +38,13 @@ sudo pacman -S swayfx
 sudo pacman -S autotiling-rs
 
 # Install essential utilities
-sudo pacman -S waybar wofi mako foot thunar btop \
+sudo pacman -S waybar wofi mako foot nautilus btop \
                grim slurp wl-clipboard brightnessctl \
                playerctl pavucontrol network-manager-applet \
                blueman mate-calc
+
+# Install file manager ecosystem (preview, image viewer, PDF viewer)
+sudo pacman -S sushi eog evince
 
 # Install display manager
 sudo pacman -S sddm qt5-declarative qt5-quickcontrols2

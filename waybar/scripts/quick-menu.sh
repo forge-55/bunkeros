@@ -31,7 +31,7 @@ case $selected in
         ~/.config/waybar/scripts/webapp-menu.sh
         ;;
     "󰍃 File Manager")
-        thunar &
+        nautilus &
         ;;
     "󰃬 Calculator")
         mate-calc &

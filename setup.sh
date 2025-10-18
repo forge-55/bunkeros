@@ -120,7 +120,7 @@ done
 echo "  ✓ Web app manager scripts symlinked"
 echo ""
 
-echo "Step 11: Setting up shell configuration..."
+echo "Step 12: Setting up shell configuration..."
 backup_if_exists "$HOME/.dircolors"
 ln -sf "$PROJECT_DIR/dircolors" "$HOME/.dircolors"
 
@@ -141,6 +141,31 @@ cd "$PROJECT_DIR/gtk-3.0"
 echo ""
 cd "$PROJECT_DIR/gtk-4.0"
 ./install.sh
+echo ""
+
+echo "Step 12.5: Configuring dark theme for Nautilus..."
+# Set dark color scheme for libadwaita applications
+if command -v gsettings &> /dev/null; then
+    gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark' 2>/dev/null || true
+    echo "  ✓ Dark theme preference set"
+else
+    echo "  ℹ gsettings not available, skipping theme preference"
+fi
+echo ""
+
+echo "Step 12.6: Configuring default applications..."
+# Set default image viewer to Eye of GNOME
+xdg-mime default org.gnome.eog.desktop image/png 2>/dev/null || true
+xdg-mime default org.gnome.eog.desktop image/jpeg 2>/dev/null || true
+xdg-mime default org.gnome.eog.desktop image/jpg 2>/dev/null || true
+xdg-mime default org.gnome.eog.desktop image/gif 2>/dev/null || true
+xdg-mime default org.gnome.eog.desktop image/webp 2>/dev/null || true
+xdg-mime default org.gnome.eog.desktop image/svg+xml 2>/dev/null || true
+
+# Set default PDF viewer to Evince
+xdg-mime default org.gnome.Evince.desktop application/pdf 2>/dev/null || true
+
+echo "  ✓ Default applications configured (eog for images, evince for PDFs)"
 echo ""
 
 echo "Step 13: Installing SDDM theme..."
@@ -166,8 +191,9 @@ echo ""
 echo "Next steps:"
 echo ""
 echo "1. Ensure all required packages are installed:"
-echo "   sudo pacman -S sway swayfx waybar wofi mako foot thunar btop \\"
-echo "                  grim slurp wl-clipboard brightnessctl playerctl \\"
+echo "   sudo pacman -S swayfx autotiling-rs waybar wofi mako foot \\"
+echo "                  nautilus sushi eog evince btop grim slurp \\"
+echo "                  wl-clipboard brightnessctl playerctl \\"
 echo "                  pavucontrol network-manager-applet blueman \\"
 echo "                  mate-calc sddm wlsunset swaylock"
 echo ""

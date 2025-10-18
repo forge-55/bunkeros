@@ -53,7 +53,7 @@ for ws_num in $(seq 1 9); do
                 icon="󰆍"
                 title="Terminal"
                 ;;
-            *Thunar*|*thunar*|*Files*)
+            *nautilus*|*Nautilus*|*Files*)
                 icon="󰉋"
                 title=$(echo "$window_title" | sed 's/ - File Manager.*//' | cut -c1-30)
                 ;;

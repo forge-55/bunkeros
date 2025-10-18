@@ -71,7 +71,7 @@ BunkerOS uses SwayFX for both editions with effects toggled on/off:
 - **Wofi** application launcher with minimal design aesthetic
 - **Quick Actions Menu** - Hierarchical icon-based menu for power, theme, and system controls
 - **Web App Manager** - Install any website as a containerized desktop app (Omarchy-style)
-- **Styled file manager** - Thunar with tactical theming that matches the setup
+- **Nautilus file manager** - Modern, polished GNOME file manager with GTK4 and libadwaita
 - **MATE Calculator** - Simple, GTK3-based calculator with full tactical theming
 - **Custom terminal** with tactical prompt design and color scheme
 - **btop** system monitor with custom tactical theme
@@ -277,7 +277,7 @@ bindsym $mod+d exec steam
 Edit the variables section at the top of `sway/config`:
 ```bash
 set $editor cursor        # Change to: code, micro, vim, etc.
-set $filemanager thunar   # Change to: nautilus, dolphin, pcmanfm-qt, etc.
+set $filemanager nautilus   # Modern GNOME file manager
 set $term foot            # Change to: alacritty, kitty, etc.
 ```
 
@@ -500,14 +500,14 @@ The theme uses Qt Quick/QML for rendering and follows SDDM's theme API 2.0. All 
 
 ## GTK Theme (Dark Mode & Application Styling)
 
-This configuration includes custom GTK 3.0 and GTK 4.0 themes that apply the tactical color scheme to all GTK applications, including Thunar file manager, system dialogs, and most desktop applications.
+This configuration includes custom GTK 3.0 and GTK 4.0 themes that apply the tactical color scheme to all GTK applications, system dialogs, and most desktop applications.
 
 ### Features
 
 - **Dark mode by default** - All GTK apps use dark theme
 - **Tactical color palette** - Matches the rest of the setup (khaki/tan, olive, charcoal)
 - **Custom styling** - Overrides for buttons, inputs, sidebars, headers, menus
-- **Consistent experience** - Thunar and other GTK apps blend seamlessly
+- **Consistent experience** - All applications blend seamlessly with the theme
 - **Focus indicators** - Clear visual feedback using tactical tan (#C3B091)
 - **Smooth transitions** - Subtle hover and active states
 
@@ -529,7 +529,7 @@ This will:
 
 ### What Gets Styled
 
-- **File Manager (Thunar)** - Sidebar, toolbar, path bar, file view
+- **File Manager (Nautilus)** - File browser, thumbnails, search, and network locations
 - **System Dialogs** - File pickers, color pickers, print dialogs
 - **Applications** - Any GTK-based app (GIMP, Inkscape, etc.)
 - **UI Elements** - Buttons, inputs, menus, scrollbars, tooltips, tabs
@@ -549,8 +549,8 @@ This will:
 After installation, restart any running GTK applications:
 
 ```bash
-killall thunar
-thunar &
+pkill nautilus
+nautilus &
 ```
 
 Or simply log out and back in for system-wide changes.
@@ -585,7 +585,7 @@ Press `Super+Alt+Space` to access:
 - **󰒓 System** - System settings and utilities
 - **󰖔 Night Mode** - Toggle night mode on/off
 - **󰄀 Screenshot** - Launch interactive screenshot tool
-- **󰍃 File Manager** - Open file browser (Thunar)
+- **󰍃 File Manager** - Open Nautilus file manager
 - **󰊶 Terminal** - Launch new terminal window
 
 ### Sub-Menus
@@ -717,7 +717,7 @@ For detailed documentation, see [`webapp/README.md`](webapp/README.md).
 Install all required packages:
 
 ```bash
-sudo pacman -S sway waybar wofi foot swaybg brightnessctl sway-contrib grim slurp wl-clipboard mako wlsunset swayosd xdg-utils swaylock thunar btop
+sudo pacman -S sway waybar wofi foot swaybg brightnessctl sway-contrib grim slurp wl-clipboard mako wlsunset swayosd xdg-utils swaylock nautilus sushi eog evince btop
 ```
 
 **What each package does:**
@@ -735,7 +735,10 @@ sudo pacman -S sway waybar wofi foot swaybg brightnessctl sway-contrib grim slur
 - `swayosd` - On-screen display for volume/brightness
 - `xdg-utils` - Desktop integration (needed for web apps)
 - `swaylock` - Screen locker (Super+Escape)
-- `thunar` - File manager (Super+f)
+- `nautilus` - GNOME file manager with modern UI (Super+f)
+- `sushi` - Spacebar file preview for Nautilus
+- `eog` - Eye of GNOME image viewer
+- `evince` - PDF and document viewer
 - `btop` - System monitor (accessible from System menu)
 
 ### User-Configurable Applications
@@ -813,10 +816,11 @@ BunkerOS is currently a manual installation on Arch Linux. Full ISO distribution
 
 ```bash
 # Install base packages
-sudo pacman -S swayfx autotiling-rs waybar wofi mako foot thunar \
-               btop grim slurp wl-clipboard brightnessctl \
-               playerctl pavucontrol network-manager-applet \
-               blueman sddm mate-calc qt5-declarative qt5-quickcontrols2
+sudo pacman -S swayfx autotiling-rs waybar wofi mako foot nautilus \
+               sushi eog evince btop grim slurp wl-clipboard \
+               brightnessctl playerctl pavucontrol \
+               network-manager-applet blueman sddm mate-calc \
+               qt5-declarative qt5-quickcontrols2
 
 # Install SwayOSD for volume/brightness overlays
 yay -S swayosd-git
