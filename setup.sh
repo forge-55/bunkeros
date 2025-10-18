@@ -126,6 +126,12 @@ cd "$PROJECT_DIR/lite-xl"
 cd "$PROJECT_DIR"
 echo ""
 
+echo "Step 11.6: Installing Desktop Portal Configuration..."
+cd "$PROJECT_DIR/xdg-desktop-portal"
+./install.sh
+cd "$PROJECT_DIR"
+echo ""
+
 echo "Step 12: Setting up shell configuration..."
 backup_if_exists "$HOME/.dircolors"
 ln -sf "$PROJECT_DIR/dircolors" "$HOME/.dircolors"
@@ -171,7 +177,11 @@ xdg-mime default org.gnome.eog.desktop image/svg+xml 2>/dev/null || true
 # Set default PDF viewer to Evince
 xdg-mime default org.gnome.Evince.desktop application/pdf 2>/dev/null || true
 
-echo "  ✓ Default applications configured (eog for images, evince for PDFs)"
+# Set default file manager to Nautilus
+xdg-mime default org.gnome.Nautilus.desktop inode/directory 2>/dev/null || true
+xdg-mime default org.gnome.Nautilus.desktop x-directory/normal 2>/dev/null || true
+
+echo "  ✓ Default applications configured (eog for images, evince for PDFs, nautilus for directories)"
 echo ""
 
 echo "Step 13: Installing SDDM theme..."

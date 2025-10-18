@@ -198,6 +198,7 @@ backup() {
 export EDITOR=micro
 export VISUAL=micro
 export PAGER=less
+export FILE_MANAGER=nautilus
 
 export LESS_TERMCAP_mb=$'\e[1;32m'
 export LESS_TERMCAP_md=$'\e[1;38;2;195;176;145m'
