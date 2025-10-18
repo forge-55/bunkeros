@@ -72,6 +72,7 @@ BunkerOS uses SwayFX for both editions with effects toggled on/off:
 - **Quick Actions Menu** - Hierarchical icon-based menu for power, theme, and system controls
 - **Web App Manager** - Install any website as a containerized desktop app (Omarchy-style)
 - **Nautilus file manager** - Modern, polished GNOME file manager with GTK4 and libadwaita
+- **Lite XL note-taking** - Lightweight, modern text editor with tactical theme for quick notes (Super+n)
 - **MATE Calculator** - Simple, GTK3-based calculator with full tactical theming
 - **Custom terminal** with tactical prompt design and color scheme
 - **btop** system monitor with custom tactical theme
@@ -647,6 +648,40 @@ esac
 ```
 
 The modular design makes it easy to extend with additional sub-menus or modify existing options to match your workflow.
+
+## Lite XL Note-Taking
+
+BunkerOS includes **Lite XL**, a lightweight, modern text editor perfect for quick note-taking and text editing. Lite XL provides a clean, tactical-themed interface that matches the BunkerOS aesthetic.
+
+### Quick Start
+- **Super+n**: Open Lite XL with your Notes directory (quick access!)
+- **Super+m → Notes**: Launch from Quick Menu
+- **Super+e**: Open Lite XL as general text editor
+
+### Features
+- **Instant startup**: <0.5 second launch time, ~10 MB RAM footprint
+- **BunkerOS Tactical Theme**: Dark interface with tactical gold accents matching Waybar and Nautilus
+- **Markdown support**: Built-in syntax highlighting for structured notes
+- **Multi-cursor editing**: Power-user features when you need them
+- **Fuzzy file finder**: Quick navigation with Ctrl+p
+- **Tab interface**: Work on multiple notes simultaneously
+- **Auto-save**: Never lose your thoughts
+
+### Keybindings
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl+Shift+f` | Find in all files |
+| `Ctrl+f` | Find in current file |
+| `Ctrl+p` | Quick file open (fuzzy) |
+| `Ctrl+n` | New file |
+| `Ctrl+s` | Save |
+| `Ctrl+w` | Close tab |
+| `Ctrl+Tab` | Next tab |
+
+### Notes Organization
+Notes are stored in `~/Documents/Notes/` and created automatically. A Welcome note explains Lite XL features.
+
+**Full documentation**: See `lite-xl/README.md` for advanced configuration, plugins, and theming.
 
 ## Web App Manager
 

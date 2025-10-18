@@ -22,6 +22,8 @@ set $menu wofi --show drun
 set $editor cursor
 # Your preferred file manager
 set $filemanager nautilus
+# Your preferred note-taking app
+set $notes lite-xl
 
 ### Output configuration
 #
@@ -135,6 +137,9 @@ exec_always swaymsg '[class=".*"]' opacity 0.95
 
     # File manager
     bindsym $mod+f exec $filemanager
+
+    # Note-taking app (quick access for frequent use)
+    bindsym $mod+n exec $notes ~/Documents/Notes
 
     # Lock screen (uses Super+Escape to avoid conflict with Vim keys)
     bindsym $mod+Escape exec swaylock -f -c 000000
@@ -269,8 +274,9 @@ mode "resize" {
     bindsym Ctrl+Print exec $grimshot --notify copy area
     bindsym Ctrl+Shift+Print exec $grimshot --notify save active
 
-    # Night mode toggle
-    bindsym $mod+n exec ~/.config/waybar/scripts/night-mode-toggle.sh
+    # Night mode toggle (available via Waybar and Quick Menu - Super+m)
+    # bindsym $mod+n exec ~/.config/waybar/scripts/night-mode-toggle.sh
+    # Note: Super+n is now used for note-taking (Lite XL)
 
 
 #

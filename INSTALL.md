@@ -46,6 +46,9 @@ sudo pacman -S waybar wofi mako foot nautilus btop \
 # Install file manager ecosystem (preview, image viewer, PDF viewer)
 sudo pacman -S sushi eog evince
 
+# Install note-taking app
+sudo pacman -S lite-xl
+
 # Install display manager
 sudo pacman -S sddm qt5-declarative qt5-quickcontrols2
 
