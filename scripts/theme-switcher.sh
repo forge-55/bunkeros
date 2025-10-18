@@ -135,8 +135,19 @@ apply_theme() {
         eval "$(dircolors -b ~/.dircolors)"
     fi
     
-    # Update wallpaper if specified in theme
-    if [ -n "$wallpaper_path" ] && [ -f "$wallpaper_path" ]; then
+    # Update wallpaper based on mode (theme or custom)
+    local wallpaper_mode_file="$HOME/.config/bunkeros/wallpaper-mode"
+    local wallpaper_mode="theme"
+    
+    if [ -f "$wallpaper_mode_file" ]; then
+        wallpaper_mode=$(cat "$wallpaper_mode_file")
+    fi
+    
+    if [ "$wallpaper_mode" = "custom" ]; then
+        # User has set a custom wallpaper - don't change it
+        echo "Keeping custom wallpaper (mode: custom)"
+    elif [ -n "$wallpaper_path" ] && [ -f "$wallpaper_path" ]; then
+        # Apply theme's wallpaper
         killall swaybg 2>/dev/null
         sleep 0.2
         swaymsg exec "swaybg -i $wallpaper_path -m fill" &

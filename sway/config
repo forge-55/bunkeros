@@ -389,6 +389,19 @@ include ~/.config/sway/config.d/swayfx-effects.conf
 
 
 
+
+###############################################################################
+# Custom Keybindings
+###############################################################################
+# Add your custom keybindings below this line
+# Use Super+m → Keybindings to manage these easily
+# 
+# Example:
+#     bindsym $mod+Shift+x exec my-custom-script
+#
+# Note: Keybindings added via the Keybinding Manager will appear here
+
+
 # THEME COLORS START
 # Tactical Theme - Sway Window Border Colors
 # Khaki/Olive/Charcoal tactical aesthetic
@@ -405,14 +418,3 @@ client.placeholder      #2B2D2E #1C1C1C #D4D4D4 #2B2D2E #2B2D2E
 client.background       #1C1C1C
 
 # THEME COLORS END
-
-###############################################################################
-# Custom Keybindings
-###############################################################################
-# Add your custom keybindings below this line
-# Use Super+m → Keybindings to manage these easily
-# 
-# Example:
-#     bindsym $mod+Shift+x exec my-custom-script
-#
-# Note: Keybindings added via the Keybinding Manager will appear here

@@ -41,7 +41,7 @@ sudo pacman -S autotiling-rs
 sudo pacman -S waybar wofi mako foot nautilus btop \
                grim slurp wl-clipboard brightnessctl \
                playerctl pavucontrol network-manager-applet \
-               blueman mate-calc
+               blueman mate-calc zenity
 
 # Install file manager ecosystem (preview, image viewer, PDF viewer)
 sudo pacman -S sushi eog evince

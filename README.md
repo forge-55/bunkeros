@@ -61,6 +61,7 @@ BunkerOS uses SwayFX for both editions with effects toggled on/off:
 - **Intelligent autotiling** - COSMIC-like smart window placement that automatically balances layouts
 - **Interactive keybinding manager** - View, search, edit, and add keybindings via GUI (Super+m → Keybindings)
 - **Multi-theme system** - Switch between 5 curated themes instantly (Tactical, Gruvbox, Nord, Everforest, Tokyo Night)
+- **Smart wallpaper manager** - Graphical wallpaper selector with theme/custom modes, upload support
 - **Automatic wallpaper switching** - Each theme has its own wallpaper that changes automatically
 - **Minimal, intuitive keybindings** - Essential bindings that work across major tiling WMs
 - **Custom SDDM login theme** - BunkerOS-styled login screen with centered design

@@ -1,9 +1,9 @@
 #!/bin/bash
 # BunkerOS Quick Actions Menu
 
-options="󰐥 Power\n󰏘 Change Theme\n󰃟 Theme\n󰒓 System\n⌨️ Keybindings\n󰖔 Night Mode\n󰄀 Screenshot\n📱 Web Apps\n󰍃 File Manager\n󰠮 Notes\n󰃬 Calculator\n 󰊶 Terminal"
+options="󰐥 Power\n󰏘 Change Theme\n🖼️ Wallpaper\n󰃟 Theme\n󰒓 System\n⌨️ Keybindings\n󰖔 Night Mode\n󰄀 Screenshot\n📱 Web Apps\n󰍃 File Manager\n󰠮 Notes\n󰃬 Calculator\n 󰊶 Terminal"
 
-selected=$(echo -e "$options" | wofi --dmenu --prompt "BunkerOS Quick Actions" --width 400 --height 650)
+selected=$(echo -e "$options" | wofi --dmenu --prompt "BunkerOS Quick Actions" --width 400 --height 700)
 
 case $selected in
     "󰐥 Power")
@@ -11,6 +11,9 @@ case $selected in
         ;;
     "󰏘 Change Theme")
         /home/ryan/Projects/bunkeros/scripts/theme-switcher.sh menu
+        ;;
+    "🖼️ Wallpaper")
+        ~/.config/waybar/scripts/wallpaper-manager.sh
         ;;
     "󰃟 Theme")
         ~/.config/waybar/scripts/theme-menu.sh

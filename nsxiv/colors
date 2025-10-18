@@ -1,0 +1,18 @@
+! BunkerOS Tactical Theme for nsxiv
+! Dark, minimalist color scheme matching the BunkerOS aesthetic
+
+! Window background (dark charcoal - matches BunkerOS primary background)
+nsxiv.window.background: #1C1C1C
+
+! Window foreground text (light gray)
+nsxiv.window.foreground: #E0E0E0
+
+! Bar background (slightly lighter than window - matches sidebar)
+nsxiv.bar.background: #2B2D2E
+
+! Bar foreground text (tactical gold - matches BunkerOS accent)
+nsxiv.bar.foreground: #C3B091
+
+! Mark color (tactical gold for selected images)
+nsxiv.mark.foreground: #C3B091
+
