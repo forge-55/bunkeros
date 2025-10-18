@@ -182,23 +182,38 @@ iconview,
     color: #D4D4D4;
 }
 
-/* REMOVE ALL ICON BORDERS */
+/* REMOVE ALL ICON BORDERS - Comprehensive targeting */
 .nautilus-canvas-item,
+.nautilus-canvas-item *,
 .nautilus-canvas-item.dim-label,
 iconview > *,
-iconview.view > * {
+iconview.view > *,
+iconview.view child,
+gridview > child,
+gridview > child > *,
+.icon-ui-labels-box,
+flowbox > *,
+flowboxchild {
     border: none;
     outline: none;
     box-shadow: none;
+    border-radius: 0;
 }
 
 /* Selection - subtle, no borders */
 .nautilus-canvas-item:selected,
+.nautilus-canvas-item:selected *,
 iconview:selected,
-.view:selected {
+iconview:selected *,
+.view:selected,
+gridview:selected,
+gridview > child:selected,
+flowboxchild:selected {
     background-color: rgba(107, 122, 84, 0.25);
     border: none;
     outline: none;
+    box-shadow: none;
+    border-radius: 0;
 }
 
 /* Path bar */
