@@ -9,7 +9,7 @@ case $selected in
         foot -e nmtui &
         ;;
     "󰂯 Bluetooth")
-        foot -e bluetoothctl &
+        ~/.config/waybar/scripts/bluetooth-manager.sh &
         ;;
     "󰕾 Audio Settings")
         foot -e pulsemixer &
