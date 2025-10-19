@@ -72,7 +72,7 @@
         "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
         "format-alt": "{icon} {capacity}%",
         "tooltip-format": "{capacity}% - {time}",
-        "on-click": "notify-send 'Battery' '$(cat /sys/class/power_supply/BAT*/capacity)% - $(cat /sys/class/power_supply/BAT*/status)'",
+        "on-click": "~/.config/waybar/scripts/battery-info.sh",
         "interval": 30
     },
     
@@ -94,7 +94,7 @@
         "tooltip-format-wifi": "{essid} ({signalStrength}%)",
         "tooltip-format-ethernet": "{ifname}: {ipaddr}",
         "tooltip-format-disconnected": "Disconnected",
-        "on-click": "foot nmtui",
+        "on-click": "~/.config/waybar/scripts/network-manager.sh",
         "interval": 5
     },
     
@@ -115,7 +115,7 @@
     
     "custom/power": {
         "format": "󰐥",
-        "on-click": "/home/ryan/Projects/sway/waybar/scripts/power-menu.sh",
+        "on-click": "~/.config/waybar/scripts/power-menu.sh",
         "tooltip": false
     }
 }
