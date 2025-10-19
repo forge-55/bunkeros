@@ -35,10 +35,14 @@ set $notes lite-xl
 
 ### Wallpaper
 #
-# Wallpapers are automatically managed by the theme system
-# When you switch themes (Super+m → Theme → Change Theme), the wallpaper updates automatically
-# Default wallpaper (used on first launch before theme is applied)
-exec_always "killall swaybg 2>/dev/null; swaybg -i ~/.local/share/bunkeros/wallpapers/tactical.jpg -m fill"
+# Wallpapers are managed by the theme system (scripts/theme-switcher.sh)
+# When you switch themes, the wallpaper updates automatically
+# On first boot, if no theme wallpaper is set, you can manually set one via:
+# Super+m → Wallpaper Manager
+#
+# Note: exec (not exec_always) ensures wallpaper only loads on Sway startup,
+# allowing theme switches to persist across Sway reloads (Super+Shift+R)
+exec "killall swaybg 2>/dev/null; sleep 0.2; if ! pgrep -x swaybg; then swaybg -i ~/.local/share/bunkeros/wallpapers/tactical.jpg -m fill; fi"
 
 ### Status Bar
 #
@@ -400,6 +404,22 @@ include ~/.config/sway/config.d/swayfx-effects.conf
 #     bindsym $mod+Shift+x exec my-custom-script
 #
 # Note: Keybindings added via the Keybinding Manager will appear here
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

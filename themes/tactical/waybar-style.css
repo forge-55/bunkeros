@@ -92,6 +92,7 @@ window#waybar.hidden {
 #cpu,
 #memory,
 #network,
+#bluetooth,
 #pulseaudio,
 #custom-power {
     padding: 0 12px;
@@ -129,6 +130,18 @@ window#waybar.hidden {
     background-color: rgba(204, 120, 50, 0.3);
     color: #CC7832;
     font-weight: bold;
+}
+
+#bluetooth {
+    color: #4A5240;
+}
+
+#bluetooth.disabled {
+    color: #3C4A2F;
+}
+
+#bluetooth.connected {
+    color: #6B7657;
 }
 
 #pulseaudio {

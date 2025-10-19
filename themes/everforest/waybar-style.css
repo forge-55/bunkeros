@@ -72,6 +72,7 @@ button {
 #temperature,
 #backlight,
 #network,
+#bluetooth,
 #pulseaudio,
 #battery,
 #tray,
@@ -83,11 +84,11 @@ button {
 }
 
 #battery {
-    color: #A7C080;
+    color: #869B6A;
 }
 
 #battery.charging, #battery.plugged {
-    color: #83C092;
+    color: #6A9978;
 }
 
 @keyframes blink {
@@ -108,39 +109,51 @@ button {
 }
 
 #custom-night_mode {
-    color: #DBBC7F;
+    color: #B39C68;
 }
 
 #custom-quick_menu {
-    color: #A7C080;
+    color: #869B6A;
 }
 
 #custom-power {
-    color: #E67E80;
+    color: #B86568;
 }
 
 #cpu {
-    color: #7FBBB3;
+    color: #689892;
 }
 
 #memory {
-    color: #D699B6;
+    color: #B0819A;
 }
 
 #disk {
-    color: #83C092;
+    color: #6A9978;
 }
 
 #temperature {
-    color: #E69875;
+    color: #C07B61;
 }
 
 #network {
+    color: #6A9978;
+}
+
+#bluetooth {
+    color: #6A9978;
+}
+
+#bluetooth.disabled {
+    color: #527A5C;
+}
+
+#bluetooth.connected {
     color: #83C092;
 }
 
 #pulseaudio {
-    color: #DBBC7F;
+    color: #B39C68;
 }
 
 #tray {

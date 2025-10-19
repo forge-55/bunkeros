@@ -1,11 +1,11 @@
 font=monospace 9
 background-color=#282828
 text-color=#EBDBB2
-border-color=#98971A
+border-color=#79771A
 border-size=2
-border-radius=4
-padding=12
-margin=10
+border-radius=2
+padding=10
+margin=8
 default-timeout=5000
 ignore-timeout=0
 
