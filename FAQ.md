@@ -4,7 +4,7 @@
 
 ### What is BunkerOS?
 
-BunkerOS is a productivity-hardened, Arch-based Linux distribution that combines CachyOS's performance optimizations with a military-inspired, Sway-based computing environment. It's designed for users seeking distraction-free, mission-focused productivity.
+BunkerOS is a productivity-hardened, Arch-based Linux distribution that combines CachyOS's performance optimizations with a tactical, Sway-based computing environment. It's designed for users seeking distraction-free, mission-focused productivity.
 
 ### Is BunkerOS based on CachyOS or Arch Linux?
 
@@ -13,7 +13,7 @@ BunkerOS is a productivity-hardened, Arch-based Linux distribution that combines
 Think of it in layers:
 - **Foundation**: Arch Linux (rolling release, AUR, ecosystem)
 - **Performance**: CachyOS (optimized kernel, BORE scheduler, x86-64-v3 packages)
-- **Experience**: BunkerOS (Sway environment, productivity tools, military theming)
+- **Experience**: BunkerOS (Sway environment, productivity tools, tactical theming)
 
 ### Why build on CachyOS instead of vanilla Arch?
 
@@ -32,7 +32,7 @@ Rather than recreating this infrastructure, BunkerOS leverages CachyOS's optimiz
 **BunkerOS** is a productivity-focused distribution that:
 - Uses only Sway/SwayFX compositor (no traditional DEs)
 - Emphasizes distraction-free, keyboard-driven workflows
-- Features military-inspired theming and discipline
+- Features tactical theming and discipline
 - Provides custom productivity automation and tooling
 - Targets mission-focused computing over general-purpose use
 
@@ -139,7 +139,7 @@ The Standard Edition prioritizes stability. Enhanced Edition adds visual effects
 
 ### What's BunkerOS's mission?
 
-**Distraction-free, productivity-focused computing with military-grade discipline.**
+**Distraction-free, productivity-focused computing with professional-grade discipline.**
 
 We believe:
 - Productivity requires focus, not flashy animations
@@ -147,13 +147,13 @@ We believe:
 - Performance optimization enables, not constrains
 - Smart engineering leverages existing solutions
 
-### Why the military theme?
+### Why the tactical theme?
 
-The military-inspired aesthetic reflects:
+The tactical aesthetic reflects:
 - **Discipline**: Structured, efficient workflows
 - **Focus**: Distraction-free environment
 - **Reliability**: Production-ready stability
-- **Professionalism**: Clean, tactical design
+- **Professionalism**: Clean, purposeful design
 
 It's not about being "hardcore"—it's about operational excellence.
 
@@ -170,13 +170,33 @@ It's not about being "hardcore"—it's about operational excellence.
 
 **Unique differentiators**:
 1. Dual-edition architecture (Standard/Enhanced)
-2. Military-inspired productivity focus
+2. Tactical productivity focus
 3. Sway/SwayFX expertise and optimization
 4. Comprehensive theming system (5 curated themes)
 5. Productivity automation and custom tooling
 6. Hardware range (2018 ThinkPads to modern workstations)
 
 We don't compete with traditional desktop environments—we serve users who want keyboard-driven, tiling window manager workflows with professional polish.
+
+### How does BunkerOS handle security?
+
+BunkerOS implements **productivity-hardened security**: professional-grade protection that works invisibly in the background.
+
+**Automatic security features**:
+- UFW firewall (deny incoming, allow outgoing)
+- Package signature verification (inherited from Arch/CachyOS)
+- AppArmor application containment
+- Hardened kernel parameters
+- Login auditing
+
+**Optional enhancements**:
+- Home directory encryption
+- Secure boot configuration
+- Automatic security updates
+
+Security serves productivity, not the other way around. Protection works automatically while you focus on work.
+
+**See [SECURITY.md](SECURITY.md) for complete security documentation.**
 
 ## Community & Development
 

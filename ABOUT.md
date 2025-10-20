@@ -4,11 +4,11 @@
 
 **BunkerOS is a productivity-hardened, Arch-based Linux distribution built for mission-focused computing.**
 
-Built on Arch Linux via CachyOS's performance-optimized foundation, BunkerOS combines cutting-edge performance with disciplined productivity workflows. It delivers a distraction-free, military-inspired computing environment that values operational excellence over visual flourish.
+Built on Arch Linux via CachyOS's performance-optimized foundation, BunkerOS combines cutting-edge performance with disciplined productivity workflows. It delivers a distraction-free, tactical computing environment that values operational excellence over visual flourish.
 
 ## Our Mission
 
-**Distraction-free, productivity-focused computing with military-grade discipline.**
+**Distraction-free, productivity-focused computing with professional-grade discipline.**
 
 We believe:
 - **Productivity requires focus**, not flashy animations
@@ -34,11 +34,18 @@ We believe:
 - Production-ready stability
 - Lightweight resource usage (~332-380 MB RAM)
 
-### Military-Inspired Discipline
+### Tactical Discipline
 - Tactical color schemes and professional theming
 - Distraction-free interface design
 - Focus on operational efficiency
 - Clean, functional aesthetics
+
+### Productivity-Hardened Security
+- Professional-grade protection working invisibly in background
+- UFW firewall, AppArmor containment, hardened kernel
+- Automatic package signature verification
+- Optional encryption and secure boot
+- Security serves productivity, not the other way around
 
 ### Comprehensive Theming
 - 5 curated themes (Tactical, Gruvbox, Nord, Everforest, Tokyo Night)
@@ -59,7 +66,7 @@ We believe:
 │   BunkerOS Experience Layer                     │
 │   • Sway/SwayFX environment                     │
 │   • Productivity automation                     │
-│   • Military-inspired theming                   │
+│   • Tactical theming                            │
 │   • Custom workflows & tooling                  │
 ├─────────────────────────────────────────────────┤
 │   CachyOS Performance Layer                     │
@@ -147,7 +154,7 @@ Both editions significantly lighter than traditional desktop environments.
 ### Theming
 - 5 curated themes with consistent styling
 - Custom GTK3/GTK4 themes
-- Military-inspired tactical palette
+- Tactical color palette
 - Professional Nord, Gruvbox, Everforest, Tokyo Night variants
 
 ## Installation
@@ -196,4 +203,4 @@ This is professional software engineering: identify core competencies, leverage 
 
 ---
 
-**BunkerOS**: Where Arch performance meets Sway productivity with military discipline. 🎯
+**BunkerOS**: Where Arch performance meets Sway productivity with tactical discipline. 🎯

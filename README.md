@@ -2,7 +2,7 @@
 
 **A productivity-hardened, Arch-based Linux distribution built for mission-focused computing.**
 
-BunkerOS is an Arch-based distribution leveraging CachyOS's performance optimizations to deliver a distraction-free, military-inspired computing environment. Combining the stability of Sway with the visual polish of SwayFX, BunkerOS offers two editions optimized for different hardware profiles—from vintage ThinkPads to modern workstations.
+BunkerOS is an Arch-based distribution leveraging CachyOS's performance optimizations to deliver a distraction-free, tactical computing environment. Combining the stability of Sway with the visual polish of SwayFX, BunkerOS offers two editions optimized for different hardware profiles—from vintage ThinkPads to modern workstations.
 
 ## Philosophy
 
@@ -13,12 +13,13 @@ BunkerOS is designed around operational discipline and efficiency:
 - **Keyboard-driven workflow** for maximum efficiency
 - **Tactical color palette** inspired by professional field gear
 - **Smart engineering** - leveraging proven optimization rather than reinventing the wheel
+- **Productivity-hardened security** - professional-grade protection that works invisibly in the background
 
 ## Technical Foundation
 
 **Arch-based distribution** built on CachyOS's performance-optimized foundation:
 - **Performance Layer**: CachyOS provides optimized kernel, BORE scheduler, and x86-64-v3 packages
-- **Experience Layer**: BunkerOS delivers unique Sway-based environment, productivity automation, and military theming
+- **Experience Layer**: BunkerOS delivers unique Sway-based environment, productivity automation, and tactical theming
 - **Ecosystem Access**: Full Arch ecosystem (AUR, rolling release, extensive documentation)
 
 This architecture allows BunkerOS to focus on delivering the best Sway-based productivity experience while leveraging battle-tested performance infrastructure.
@@ -1165,3 +1166,18 @@ This configuration combines power-user efficiency with modern desktop polish:
 - **Web-first approach** - Seamless integration of web apps as native applications
 - **Tactical aesthetics** - Muted, functional color palette with excellent readability
 
+---
+
+## Documentation
+
+**Core Documentation**:
+- **[ABOUT.md](ABOUT.md)** - BunkerOS overview and marketing document
+- **[ARCHITECTURE.md](ARCHITECTURE.md)** - Technical architecture and layered design
+- **[FAQ.md](FAQ.md)** - Frequently asked questions
+- **[INSTALL.md](INSTALL.md)** - Installation instructions and setup guide
+- **[EDITION_STRATEGY.md](EDITION_STRATEGY.md)** - Edition philosophy and hardware guidelines
+- **[SECURITY.md](SECURITY.md)** - Security philosophy, features, and best practices
+
+**Component Documentation**: See individual component directories for detailed guides.
+
+---

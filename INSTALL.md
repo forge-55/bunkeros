@@ -99,7 +99,7 @@ After booting into your CachyOS base system:
 - Complete Sway/SwayFX environment
 - BunkerOS theming and customization
 - Productivity tools and automation
-- Military-inspired aesthetic
+- Tactical aesthetic
 
 ### Why This Two-Phase Approach?
 
@@ -288,6 +288,41 @@ After logging in to BunkerOS:
    - `Super+m` - Quick actions menu
    - `Super+w` - Workspace overview
    - See README.md for full keybinding list
+
+### Security Configuration
+
+BunkerOS includes automatic security features enabled by default. For additional security options:
+
+**Enable UFW Firewall** (if not already enabled):
+```bash
+sudo systemctl enable --now ufw
+sudo ufw enable
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+```
+
+**Optional: Enable Home Directory Encryption** (requires reinstallation with encrypted home):
+- During Phase 1 CachyOS installation, select home directory encryption option
+
+**Optional: Configure Automatic Security Updates**:
+```bash
+# Enable systemd timer for automatic updates (optional)
+sudo systemctl enable --now archlinux-keyring-wkd-sync.timer
+```
+
+**Verify Security Status**:
+```bash
+# Check firewall status
+sudo ufw status
+
+# Verify package signatures are being checked
+grep SigLevel /etc/pacman.conf
+
+# Check AppArmor status
+sudo systemctl status apparmor
+```
+
+**See [SECURITY.md](SECURITY.md) for comprehensive security documentation and best practices.**
 
 4. **Explore themes**:
    - `Super+m` → Change Theme

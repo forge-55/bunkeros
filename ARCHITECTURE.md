@@ -13,7 +13,7 @@ Technical documentation of BunkerOS design decisions, architecture, and future r
 │   BunkerOS Experience Layer                     │
 │   • Sway/SwayFX environment                     │
 │   • Productivity automation                     │
-│   • Military-inspired theming                   │
+│   • Tactical theming                            │
 │   • Custom workflows & tooling                  │
 ├─────────────────────────────────────────────────┤
 │   CachyOS Performance Layer                     │
@@ -43,16 +43,37 @@ Technical documentation of BunkerOS design decisions, architecture, and future r
 **BunkerOS's Focus**: With performance handled by CachyOS, BunkerOS concentrates on:
 - Exceptional Sway/SwayFX experience
 - Productivity automation and workflows
-- Military-inspired aesthetic and discipline
+- Tactical aesthetic and discipline
 - Distraction-free computing environment
 
 ## Design Philosophy
 
-BunkerOS is built around three core principles:
+BunkerOS is built around four core principles:
 
 1. **Performance First** - CachyOS optimizations + lightweight Sway environment
 2. **Configuration Compatibility** - Single codebase that works across both compositor editions
 3. **Operational Efficiency** - Keyboard-driven, distraction-free interface with professional discipline
+4. **Productivity-Hardened Security** - Professional-grade protection that works invisibly in the background
+
+### Security Architecture
+
+BunkerOS treats security as a **productivity enabler**, not the primary focus. Security features protect workflow integrity automatically without operational burden:
+
+**Automatic Protection**:
+- **UFW Firewall**: Default deny incoming, allow outgoing (protects network exposure)
+- **AppArmor Containment**: Basic application confinement profiles
+- **Package Verification**: Cryptographic signature validation (inherited from Arch/CachyOS)
+- **Hardened Kernel**: Security-focused parameters from CachyOS foundation
+- **Login Auditing**: Failed authentication logging
+
+**Optional Enhancements**:
+- Home directory encryption (installation choice)
+- Secure boot configuration
+- Automatic security updates
+
+Security works silently in the background—users focus on work, not security administration.
+
+**See [SECURITY.md](SECURITY.md) for comprehensive security documentation.**
 
 ## Compositor Architecture
 
