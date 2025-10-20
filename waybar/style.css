@@ -7,8 +7,8 @@
 }
 
 window#waybar {
-    background-color: rgba(40, 40, 40, 0.95);
-    color: #EBDBB2;
+    background-color: rgba(28, 28, 28, 0.95);
+    color: #D4D4D4;
     transition-property: background-color;
     transition-duration: 0.5s;
 }
@@ -27,24 +27,24 @@ window#waybar.hidden {
     padding: 2px 8px;
     margin: 0 4px;
     background-color: transparent;
-    color: #665C54;
-    border: 1px solid rgba(80, 73, 69, 0.6);
+    color: #6B7657;
+    border: 1px solid rgba(60, 74, 47, 0.6);
     border-radius: 4px;
     font-size: 11px;
     min-width: 20px;
 }
 
 #workspaces button:hover {
-    background-color: rgba(80, 73, 69, 0.3);
-    color: #D79921;
-    border-color: rgba(215, 153, 33, 0.4);
+    background-color: rgba(60, 74, 47, 0.3);
+    color: #C3B091;
+    border-color: rgba(195, 176, 145, 0.4);
 }
 
 #workspaces button.active,
 #workspaces button.focused {
-    background-color: rgba(215, 153, 33, 0.4);
-    color: #D79921;
-    border: 2px solid #D79921;
+    background-color: rgba(195, 176, 145, 0.4);
+    color: #C3B091;
+    border: 2px solid #C3B091;
     border-radius: 4px;
     font-weight: bold;
     font-size: 14px;
@@ -53,34 +53,34 @@ window#waybar.hidden {
 
 #workspaces button.active label,
 #workspaces button.focused label {
-    color: #D79921;
+    color: #C3B091;
     font-weight: bold;
     font-size: 14px;
 }
 
 #workspaces button.visible {
-    background-color: rgba(102, 92, 84, 0.3);
-    color: #7C6F64;
+    background-color: rgba(74, 82, 64, 0.3);
+    color: #4A5240;
 }
 
 #workspaces button.urgent {
-    background-color: #FB4934;
-    border: 2px solid #FB4934;
+    background-color: #CC7832;
+    border: 2px solid #CC7832;
     animation: urgent-pulse 1s ease-in-out infinite alternate;
 }
 
 @keyframes urgent-pulse {
     from {
-        box-shadow: 0 0 8px rgba(251, 73, 52, 0.4);
+        box-shadow: 0 0 8px rgba(204, 120, 50, 0.4);
     }
     to {
-        box-shadow: 0 0 16px rgba(251, 73, 52, 0.8);
+        box-shadow: 0 0 16px rgba(204, 120, 50, 0.8);
     }
 }
 
 #mode {
-    background-color: rgba(251, 73, 52, 0.2);
-    color: #FB4934;
+    background-color: rgba(204, 120, 50, 0.2);
+    color: #CC7832;
     padding: 0 10px;
     margin-left: 10px;
     font-weight: normal;
@@ -97,89 +97,88 @@ window#waybar.hidden {
 #custom-power {
     padding: 0 12px;
     background-color: transparent;
-    color: #EBDBB2;
+    color: #D4D4D4;
 }
 
 #clock {
     font-weight: normal;
-    color: #D79921;
+    color: #C3B091;
     background-color: transparent;
 }
 
 #battery {
-    color: #79771A;
+    color: #4A5240;
 }
 
 #backlight {
-    color: #79771A;
+    color: #4A5240;
 }
 
 #cpu {
-    color: #79771A;
+    color: #4A5240;
 }
 
 #memory {
-    color: #527A54;
+    color: #3C4A2F;
 }
 
 #network {
-    color: #79771A;
+    color: #4A5240;
 }
 
 #network.disconnected {
-    background-color: rgba(251, 73, 52, 0.3);
-    color: #FB4934;
+    background-color: rgba(204, 120, 50, 0.3);
+    color: #CC7832;
     font-weight: bold;
 }
 
 #bluetooth {
-    color: #79771A;
+    color: #4A5240;
 }
 
 #bluetooth.disabled {
-    color: #5A5818;
+    color: #3C4A2F;
 }
 
 #bluetooth.connected {
-    color: #98971A;
+    color: #6B7657;
 }
 
 #pulseaudio {
-    color: #79771A;
+    color: #4A5240;
 }
 
 #pulseaudio.muted {
-    background-color: rgba(60, 56, 54, 0.5);
-    color: #3C3836;
+    background-color: rgba(43, 45, 46, 0.5);
+    color: #2B2D2E;
 }
 
 #custom-night-mode {
-    color: #79771A;
+    color: #4A5240;
     font-size: 16px;
     padding: 0 8px;
 }
 
 #custom-night-mode.active {
-    color: #D79921;
+    color: #CC7832;
 }
 
 #custom-night-mode.inactive {
-    color: #79771A;
+    color: #4A5240;
 }
 
 #custom-night-mode:hover {
-    color: #D79921;
-    background-color: rgba(80, 73, 69, 0.2);
+    color: #C3B091;
+    background-color: rgba(60, 74, 47, 0.2);
 }
 
 #custom-power {
-    color: #79771A;
+    color: #4A5240;
     font-size: 16px;
     margin-right: 12px;
 }
 
 #custom-power:hover {
-    color: #D79921;
-    background-color: rgba(80, 73, 69, 0.2);
+    color: #C3B091;
+    background-color: rgba(60, 74, 47, 0.2);
 }
-

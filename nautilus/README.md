@@ -67,7 +67,7 @@ sudo pacman -S nautilus sushi eog evince
 
 ### Default Application Configuration
 
-BunkerOS automatically sets the proper MIME type associations during setup (`setup.sh` Step 12.6):
+BunkerOS automatically sets comprehensive MIME type associations during setup (`setup.sh` Step 12.6) to prevent the "double-click does nothing" bug that affects some Linux distributions:
 
 ```bash
 # Images → Eye of GNOME (eog)
@@ -80,12 +80,32 @@ xdg-mime default org.gnome.eog.desktop image/svg+xml
 
 # PDFs → Evince
 xdg-mime default org.gnome.Evince.desktop application/pdf
+
+# Text files → VS Code
+xdg-mime default code.desktop text/plain
+xdg-mime default code.desktop text/markdown
+xdg-mime default code.desktop text/x-readme
+
+# Code files → VS Code
+xdg-mime default code.desktop text/x-python
+xdg-mime default code.desktop text/x-shellscript
+xdg-mime default code.desktop application/javascript
+xdg-mime default code.desktop application/json
+xdg-mime default code.desktop text/html
+xdg-mime default code.desktop text/css
+
+# Archives → File Roller
+xdg-mime default org.gnome.FileRoller.desktop application/zip
+xdg-mime default org.gnome.FileRoller.desktop application/x-tar
+xdg-mime default org.gnome.FileRoller.desktop application/x-compressed-tar
 ```
 
 To verify your configuration:
 ```bash
-xdg-mime query default image/png    # Should output: org.gnome.eog.desktop
-xdg-mime query default application/pdf  # Should output: org.gnome.Evince.desktop
+xdg-mime query default image/png          # Should output: org.gnome.eog.desktop
+xdg-mime query default application/pdf    # Should output: org.gnome.Evince.desktop
+xdg-mime query default text/plain         # Should output: code.desktop
+xdg-mime query default application/zip    # Should output: org.gnome.FileRoller.desktop
 ```
 
 ## Theming
@@ -191,7 +211,7 @@ sudo pacman -S sushi
 pkill nautilus && nautilus &
 ```
 
-### Images/PDFs open in wrong application (e.g., in web browser)
+### Images/PDFs/files open in wrong application (e.g., in web browser)
 **Cause**: MIME type associations not configured.
 
 **Solution**: Set default applications:
@@ -204,11 +224,38 @@ xdg-mime default org.gnome.eog.desktop image/webp
 
 # Fix PDFs opening in browser instead of evince
 xdg-mime default org.gnome.Evince.desktop application/pdf
+
+# Fix text files opening in wrong application
+xdg-mime default code.desktop text/plain
+xdg-mime default code.desktop text/markdown
+
+# Fix code files
+xdg-mime default code.desktop text/x-python
+xdg-mime default code.desktop text/x-shellscript
+xdg-mime default code.desktop application/javascript
+
+# Fix archives
+xdg-mime default org.gnome.FileRoller.desktop application/zip
+xdg-mime default org.gnome.FileRoller.desktop application/x-tar
 ```
 
 Verify the fix:
 ```bash
-xdg-mime query default image/png  # Should show: org.gnome.eog.desktop
+xdg-mime query default image/png      # Should show: org.gnome.eog.desktop
+xdg-mime query default text/plain     # Should show: code.desktop
+xdg-mime query default application/zip # Should show: org.gnome.FileRoller.desktop
+```
+
+### Double-clicking files does nothing
+**Cause**: No default application set for that file type (system-wide MIME association issue).
+
+**Solution**: This is prevented by BunkerOS's comprehensive MIME type configuration in `setup.sh`. If you encounter this for a specific file type:
+```bash
+# Find the MIME type
+xdg-mime query filetype yourfile.ext
+
+# Set a default application
+xdg-mime default <application>.desktop <mime/type>
 ```
 
 ## Philosophy
