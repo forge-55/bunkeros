@@ -2,11 +2,55 @@
 
 Technical documentation of BunkerOS design decisions, architecture, and future roadmap.
 
+## Overview
+
+**BunkerOS** is an Arch-based Linux distribution built on CachyOS's performance-optimized foundation. This architectural decision enables BunkerOS to focus on delivering an exceptional Sway-based productivity environment while leveraging proven performance infrastructure.
+
+### Technical Stack
+
+```
+┌─────────────────────────────────────────────────┐
+│   BunkerOS Experience Layer                     │
+│   • Sway/SwayFX environment                     │
+│   • Productivity automation                     │
+│   • Military-inspired theming                   │
+│   • Custom workflows & tooling                  │
+├─────────────────────────────────────────────────┤
+│   CachyOS Performance Layer                     │
+│   • Optimized kernel (BORE scheduler)           │
+│   • x86-64-v3 optimized packages (LTO/PGO)      │
+│   • Performance-focused repository              │
+│   • CachyOS installer (interim)                 │
+├─────────────────────────────────────────────────┤
+│   Arch Linux Foundation                         │
+│   • Rolling release model                       │
+│   • AUR access                                  │
+│   • Extensive documentation                     │
+│   • Proven ecosystem                            │
+└─────────────────────────────────────────────────┘
+```
+
+### Why CachyOS Foundation?
+
+**Smart Engineering Decision**: Leverage proven optimization rather than recreating performance infrastructure.
+
+**Benefits**:
+- **BORE Scheduler**: Burst-Oriented Response Enhancer for improved desktop responsiveness
+- **Optimized Packages**: x86-64-v3 builds with Link-Time Optimization (LTO) and Profile-Guided Optimization (PGO)
+- **Maintained Infrastructure**: Active development and performance testing by CachyOS team
+- **Arch Compatibility**: Full access to Arch ecosystem and AUR
+
+**BunkerOS's Focus**: With performance handled by CachyOS, BunkerOS concentrates on:
+- Exceptional Sway/SwayFX experience
+- Productivity automation and workflows
+- Military-inspired aesthetic and discipline
+- Distraction-free computing environment
+
 ## Design Philosophy
 
 BunkerOS is built around three core principles:
 
-1. **Performance First** - Optimized for hardware ranging from 2018 ThinkPads to modern workstations
+1. **Performance First** - CachyOS optimizations + lightweight Sway environment
 2. **Configuration Compatibility** - Single codebase that works across both compositor editions
 3. **Operational Efficiency** - Keyboard-driven, distraction-free interface with professional discipline
 

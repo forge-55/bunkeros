@@ -1,36 +1,134 @@
 # BunkerOS Installation Guide
 
-Complete step-by-step installation instructions for BunkerOS on Arch Linux.
+Complete step-by-step installation instructions for BunkerOS.
+
+## About This Guide
+
+BunkerOS is an Arch-based Linux distribution built on CachyOS's performance-optimized foundation. This guide covers the current installation workflow, which uses the CachyOS installer as a foundation before applying BunkerOS's Sway environment and configuration.
 
 ## Prerequisites
 
 ### System Requirements
 
-**Standard Edition (Sway)**:
+**Standard Edition (Effects Disabled)**:
 - RAM: 4GB minimum, 8GB recommended
 - GPU: Any (Intel integrated graphics work excellently)
-- Disk: 10GB free space
+- CPU: x86-64-v3 compatible (2015+ recommended for CachyOS optimizations)
+- Disk: 20GB free space
 
-**Enhanced Edition (SwayFX)**:
+**Enhanced Edition (Effects Enabled)**:
 - RAM: 8GB minimum, 16GB recommended
 - GPU: Intel HD 620 or newer, AMD GCN 1.0+, NVIDIA GTX 600+
-- Disk: 10GB free space
+- CPU: x86-64-v3 compatible
+- Disk: 20GB free space
 
-### Base System
+## Installation Process
 
-This guide assumes you have:
-- Arch Linux installed and updated
-- Internet connection configured
-- A user account with sudo privileges
+### Phase 1: Install CachyOS Base System
 
-## Installation Steps
+BunkerOS currently uses the CachyOS installer to establish the Arch-based foundation with performance optimizations.
 
-### 1. Install Base Packages
+1. **Download CachyOS ISO** from [cachyos.org](https://cachyos.org)
+
+2. **Create bootable USB**:
+   ```bash
+   sudo dd if=cachyos-*.iso of=/dev/sdX bs=4M status=progress
+   ```
+
+3. **Boot from USB** and start the CachyOS installer
+
+4. **Installation Options**:
+   - **Desktop Environment**: Choose "Minimal" or "None" (we'll install Sway separately)
+   - **Partitioning**: Standard layout or custom as needed
+   - **Bootloader**: GRUB or systemd-boot
+   - **Kernel**: CachyOS optimized kernel (recommended) or Arch standard kernel
+   - **Packages**: Install only base system
+
+5. **Complete Installation** and reboot into your new CachyOS system
+
+**What This Provides**:
+- Arch Linux base system with rolling releases
+- CachyOS performance optimizations (BORE scheduler, optimized packages)
+- Hardware drivers and bootloader configuration
+- Access to AUR and CachyOS repositories
+
+### Phase 2: Install BunkerOS Environment
+
+After booting into your CachyOS base system:
+
+1. **Update System**:
+   ```bash
+   sudo pacman -Syu
+   ```
+
+2. **Clone BunkerOS Repository**:
+   ```bash
+   mkdir -p ~/Projects
+   cd ~/Projects
+   git clone https://github.com/forge-55/bunkeros.git
+   cd bunkeros
+   ```
+
+3. **Run BunkerOS Setup**:
+   ```bash
+   bash setup.sh
+   ```
+
+   The setup script will:
+   - Install SwayFX compositor and dependencies
+   - Install Waybar, Wofi, Mako, and other components
+   - Configure GTK themes and applications
+   - Install SDDM login manager with BunkerOS theme
+   - Set up default applications and MIME types
+   - Configure themes and wallpapers
+
+4. **Choose Your Edition** (during setup):
+   - **Standard Edition**: Optimized for older hardware, minimal effects
+   - **Enhanced Edition**: Polished visuals for modern hardware
+
+5. **Reboot**:
+   ```bash
+   reboot
+   ```
+
+6. **Login** at the SDDM screen:
+   - Select either "BunkerOS Standard" or "BunkerOS Enhanced" session
+   - Enter your credentials
+
+**What This Provides**:
+- Complete Sway/SwayFX environment
+- BunkerOS theming and customization
+- Productivity tools and automation
+- Military-inspired aesthetic
+
+### Why This Two-Phase Approach?
+
+**Current State**: Using CachyOS's proven installer allows BunkerOS to focus on the Sway environment rather than building installation infrastructure from scratch.
+
+**Future Direction**: Planned options include:
+- Dedicated BunkerOS installer
+- BunkerOS installation profile for CachyOS installer
+- ISO with pre-configured BunkerOS environment
+
+For now, the CachyOS installer provides:
+- Reliable hardware detection
+- Performance optimizations
+- Partition management
+- Bootloader setup
+
+## Manual Installation (Advanced)
+
+If you prefer manual installation or already have an Arch/CachyOS base system, you can install BunkerOS components individually:
+
+### 1. Update System
 
 ```bash
-# Update system
 sudo pacman -Syu
+```
 
+### 2. Install Base Packages
+
+```bash
 # Install SwayFX compositor (provides both Standard and Enhanced editions)
 sudo pacman -S swayfx
 
@@ -41,7 +139,7 @@ sudo pacman -S autotiling-rs
 sudo pacman -S waybar wofi mako foot nautilus btop \
                grim slurp wl-clipboard brightnessctl \
                playerctl pavucontrol network-manager-applet \
-               blueman mate-calc zenity
+               blueman mate-calc zenity file-roller
 
 # Install file manager ecosystem (preview, image viewer, PDF viewer)
 sudo pacman -S sushi eog evince
@@ -56,55 +154,31 @@ sudo pacman -S sddm qt5-declarative qt5-quickcontrols2
 yay -S swayosd-git
 ```
 
-### 2. Clone BunkerOS Repository
+### 3. Clone BunkerOS Repository
 
 ```bash
+mkdir -p ~/Projects
 cd ~/Projects
 git clone https://github.com/forge-55/bunkeros.git
 cd bunkeros
 ```
 
-### 3. Install Configuration Files
+### 4. Run Setup Script
 
+**Recommended**: Use the automated setup script:
 ```bash
-# Create config directories
-mkdir -p ~/.config/{sway/config.d,waybar,wofi,mako,foot,btop,swayosd}
-
-# Copy configuration files
-cp -r sway/* ~/.config/sway/
-cp -r waybar/* ~/.config/waybar/
-cp -r wofi/* ~/.config/wofi/
-cp -r mako/* ~/.config/mako/
-cp -r foot/* ~/.config/foot/
-cp -r btop/* ~/.config/btop/
-cp -r swayosd/* ~/.config/swayosd/
-
-# Make scripts executable
-chmod +x ~/.config/waybar/scripts/*.sh
+bash setup.sh
 ```
 
-### 4. Install GTK Themes
+The setup script handles:
+- Configuration file installation
+- GTK theme installation
+- SDDM theme setup
+- MIME type configuration
+- Default application setup
+- Session file installation
 
-```bash
-cd ~/Projects/bunkeros
-
-# Install GTK 3.0 theme
-cd gtk-3.0
-./install.sh
-cd ..
-
-# Install GTK 4.0 theme
-cd gtk-4.0
-./install.sh
-cd ..
-```
-
-### 5. Install SDDM Theme and Sessions
-
-```bash
-cd ~/Projects/bunkeros/sddm
-sudo ./install-theme.sh
-```
+**Alternative**: Manual installation (see below)
 
 This script will:
 - Install the BunkerOS SDDM theme
@@ -301,6 +375,30 @@ sudo pacman -S ttf-jetbrains-mono-nerd
 # Reload font cache
 fc-cache -fv
 ```
+
+### CachyOS-Specific Issues
+
+If you encounter issues with the CachyOS foundation:
+
+```bash
+# Check CachyOS kernel version
+uname -r
+
+# Switch to standard Arch kernel if needed
+sudo pacman -S linux linux-headers
+
+# Check CachyOS repository status
+pacman -Sl cachyos
+```
+
+**Note**: BunkerOS's Sway environment works on both CachyOS-optimized and standard Arch kernels. Performance optimizations are a benefit, not a requirement.
+
+For CachyOS-specific issues (kernel, scheduler, package optimizations), consult:
+- CachyOS forums: https://forum.cachyos.org/
+- CachyOS Discord: https://discord.gg/cachyos
+
+For BunkerOS environment issues (Sway, themes, configuration), use:
+- BunkerOS GitHub Issues: https://github.com/forge-55/bunkeros/issues
 
 ## Uninstallation
 

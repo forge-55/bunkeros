@@ -1,15 +1,27 @@
 # BunkerOS
 
-A tactical, professional Arch Linux environment built for power users and anyone seeking a distraction-free, mission-driven computing experience. BunkerOS combines the stability and performance of Sway with the visual polish of SwayFX, offering two editions optimized for different hardware profiles.
+**A productivity-hardened, Arch-based Linux distribution built for mission-focused computing.**
+
+BunkerOS is an Arch-based distribution leveraging CachyOS's performance optimizations to deliver a distraction-free, military-inspired computing environment. Combining the stability of Sway with the visual polish of SwayFX, BunkerOS offers two editions optimized for different hardware profiles—from vintage ThinkPads to modern workstations.
 
 ## Philosophy
 
 BunkerOS is designed around operational discipline and efficiency:
-- Distraction-free interface focused on productivity
-- Performance-first architecture for old ThinkPads to modern workstations
-- Minimal, functional design over flashy animations
-- Keyboard-driven workflow for maximum efficiency
-- Tactical color palette inspired by professional field gear
+- **Distraction-free interface** focused on productivity and work excellence
+- **Performance-first architecture** - CachyOS optimizations (BORE scheduler, LTO/PGO packages) meet BunkerOS's lightweight Sway environment
+- **Minimal, functional design** over flashy animations
+- **Keyboard-driven workflow** for maximum efficiency
+- **Tactical color palette** inspired by professional field gear
+- **Smart engineering** - leveraging proven optimization rather than reinventing the wheel
+
+## Technical Foundation
+
+**Arch-based distribution** built on CachyOS's performance-optimized foundation:
+- **Performance Layer**: CachyOS provides optimized kernel, BORE scheduler, and x86-64-v3 packages
+- **Experience Layer**: BunkerOS delivers unique Sway-based environment, productivity automation, and military theming
+- **Ecosystem Access**: Full Arch ecosystem (AUR, rolling release, extensive documentation)
+
+This architecture allows BunkerOS to focus on delivering the best Sway-based productivity experience while leveraging battle-tested performance infrastructure.
 
 ## Editions
 
