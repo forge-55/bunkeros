@@ -2,11 +2,14 @@
 
 # Power menu using wofi
 
-options="󰐥 Shutdown\n󰜉 Reboot\n󰤄 Suspend\n󰍃 Logout\n⬅️  Back"
+options="� Screensaver\n�󰐥 Shutdown\n󰜉 Reboot\n󰤄 Suspend\n󰍃 Logout\n⬅️  Back"
 
-chosen=$(echo -e "$options" | wofi --dmenu --prompt "Power Options" --width 220 --height 220)
+chosen=$(echo -e "$options" | wofi --dmenu --prompt "Power Options" --width 220 --height 260)
 
 case $chosen in
+    "󰔎 Screensaver")
+        ~/.config/sway-config/scripts/launch-screensaver.sh
+        ;;
     "󰐥 Shutdown")
         systemctl poweroff
         ;;

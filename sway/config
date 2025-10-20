@@ -88,21 +88,31 @@ for_window [app_id=".*"] opacity $opacity
 # Screenshot dialog - floating and centered
 for_window [app_id="screenshot-dialog"] floating enable, resize set 600 300, move position center, opacity 1
 
+# Screensaver window rules
+for_window [app_id="BunkerOS-Screensaver"] {
+    floating enable
+    fullscreen enable
+    move position center
+    opacity 1.0
+    focus
+    inhibit_idle fullscreen
+}
+
 exec_always swaymsg '[app_id=".*"]' opacity 0.95
 exec_always swaymsg '[class=".*"]' opacity 0.95
 
 ### Idle configuration
 #
-# Example configuration:
-#
-# exec swayidle -w \
-#          timeout 300 'swaylock -f -c 000000' \
-#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-#          before-sleep 'swaylock -f -c 000000'
-#
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
-# resumed. It will also lock your screen before your computer goes to sleep.
+# Swayidle handles automatic screensaver after idle timeout
+# Screensaver activates after 10 minutes (600 seconds) of inactivity
+# Press any key to exit screensaver and return to work
+exec swayidle -w \
+    timeout 600 '~/.config/sway-config/scripts/launch-screensaver.sh' \
+    resume 'swaymsg "[app_id=BunkerOS-Screensaver]" kill'
+
+# Prevent screensaver during fullscreen applications (videos, presentations)
+for_window [class=".*"] inhibit_idle fullscreen
+for_window [app_id=".*"] inhibit_idle fullscreen
 
 ### Input configuration
 #
