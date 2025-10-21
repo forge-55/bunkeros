@@ -64,6 +64,12 @@ exec_always "killall swayosd-server 2>/dev/null; swayosd-server --style ~/.confi
 # Automatically adjusts split direction based on window dimensions (COSMIC-like behavior)
 exec_always autotiling-rs
 
+### Workspaces Initialization
+#
+# Pre-create 5 workspaces on startup for a polished, ready-to-use experience
+# This gives users visual feedback of available workspace capacity in Waybar
+exec "swaymsg 'workspace 1; workspace 2; workspace 3; workspace 4; workspace 5; workspace 1'"
+
 ### Appearance
 #
 # Window gaps (always visible like Hyprland/COSMIC)
