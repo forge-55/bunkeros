@@ -15,7 +15,8 @@ if [ "$POSITION" = "center" ]; then
         --prompt "Appearance" \
         --width 200 \
         --lines "$num_items" \
-        --location center)
+        --location center \
+        --cache-file=/dev/null)
 else
     selected=$(echo -e "$options" | wofi --dmenu \
         --prompt "Appearance" \
@@ -23,12 +24,13 @@ else
         --lines "$num_items" \
         --location top_right \
         --xoffset -10 \
-        --yoffset 40)
+        --yoffset 40 \
+        --cache-file=/dev/null)
 fi
 
 case $selected in
     "󰏘 Theme")
-        "$PROJECT_DIR/scripts/theme-switcher.sh" menu
+        ~/.local/bin/theme-switcher.sh menu "$POSITION"
         ;;
     "󰸉 Wallpaper")
         ~/.config/waybar/scripts/wallpaper-manager.sh
@@ -47,7 +49,8 @@ case $selected in
                 --prompt "Window Gaps" \
                 --width 200 \
                 --lines "$num_gap_items" \
-                --location center)
+                --location center \
+                --cache-file=/dev/null)
         else
             gap_choice=$(echo -e "$gap_options" | wofi --dmenu \
                 --prompt "Window Gaps" \
@@ -55,7 +58,8 @@ case $selected in
                 --lines "$num_gap_items" \
                 --location top_right \
                 --xoffset -10 \
-                --yoffset 40)
+                --yoffset 40 \
+                --cache-file=/dev/null)
         fi
         
         case $gap_choice in
@@ -96,7 +100,8 @@ case $selected in
                 --prompt "Opacity" \
                 --width 200 \
                 --lines "$num_opacity_items" \
-                --location center)
+                --location center \
+                --cache-file=/dev/null)
         else
             opacity_choice=$(echo -e "$opacity_options" | wofi --dmenu \
                 --prompt "Opacity" \
@@ -104,7 +109,8 @@ case $selected in
                 --lines "$num_opacity_items" \
                 --location top_right \
                 --xoffset -10 \
-                --yoffset 40)
+                --yoffset 40 \
+                --cache-file=/dev/null)
         fi
         
         case $opacity_choice in

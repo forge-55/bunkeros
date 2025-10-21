@@ -7,11 +7,13 @@ options="🎨 Appearance\n⚙️  System\n📦 Install\n󰄀 Screenshot\n⌨️ 
 num_items=6
 
 # Main menu always appears centered
+# Use cache-file=/dev/null to prevent menu items from reordering
 selected=$(echo -e "$options" | wofi --dmenu \
     --prompt "Search..." \
     --width 200 \
     --lines "$num_items" \
-    --location center)
+    --location center \
+    --cache-file=/dev/null)
 
 case $selected in
     "🎨 Appearance")

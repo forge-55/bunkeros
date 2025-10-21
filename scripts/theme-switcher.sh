@@ -2,7 +2,16 @@
 # BunkerOS Theme Switcher
 # Manages and applies themes across all BunkerOS components
 
+# Use fixed config directory instead of relative path
+# This ensures the script works whether run from symlink or directly
+CONFIG_DIR="$HOME/.config/bunkeros"
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
+# If running from symlink (e.g., ~/.local/bin), use the real project directory
+if [[ "$(readlink -f "${BASH_SOURCE[0]}")" == *"/Projects/bunkeros/"* ]]; then
+    PROJECT_DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/.." && pwd)"
+fi
+
 THEMES_DIR="$PROJECT_DIR/themes"
 CURRENT_THEME_FILE="$PROJECT_DIR/.current-theme"
 
@@ -157,6 +166,7 @@ apply_theme() {
 }
 
 show_theme_menu() {
+    local position=${1:-center}
     local current_theme=$(get_current_theme)
     local theme_list=""
     
@@ -187,13 +197,15 @@ show_theme_menu() {
         theme_name=$(echo "$selected" | sed 's/^[● ] //' | awk '{print tolower($1)}')
         if [ -n "$theme_name" ] && [ "$theme_name" != "" ]; then
             apply_theme "$theme_name"
+            # Return to appearance menu after applying theme
+            ~/.config/waybar/scripts/appearance-menu.sh "$position"
         fi
     fi
 }
 
 case "${1:-menu}" in
     menu)
-        show_theme_menu
+        show_theme_menu "${2:-center}"
         ;;
     list)
         list_themes

@@ -13,7 +13,8 @@ if [ "$POSITION" = "center" ]; then
         --prompt "Power Options" \
         --width 200 \
         --lines "$num_items" \
-        --location center)
+        --location center \
+        --cache-file=/dev/null)
 else
     chosen=$(echo -e "$options" | wofi --dmenu \
         --prompt "Power Options" \
@@ -21,7 +22,8 @@ else
         --lines "$num_items" \
         --location top_right \
         --xoffset -10 \
-        --yoffset 40)
+        --yoffset 40 \
+        --cache-file=/dev/null)
 fi
 
 case $chosen in
