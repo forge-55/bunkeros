@@ -28,7 +28,7 @@ window#waybar.hidden {
     margin: 0 4px;
     background-color: transparent;
     color: #665C54;
-    border: 1px solid rgba(80, 73, 69, 0.6);
+    border: none;
     border-radius: 4px;
     font-size: 11px;
     min-width: 20px;
@@ -37,7 +37,7 @@ window#waybar.hidden {
 #workspaces button:hover {
     background-color: rgba(80, 73, 69, 0.3);
     color: #D79921;
-    border-color: rgba(215, 153, 33, 0.4);
+    border: none;
 }
 
 #workspaces button.active,
