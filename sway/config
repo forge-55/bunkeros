@@ -163,8 +163,8 @@ for_window [app_id=".*"] inhibit_idle fullscreen
     bindsym $mod+Escape exec swaylock -f -c 000000
 
     # Quick actions menu
-    bindsym $mod+m exec ~/.config/waybar/scripts/quick-menu.sh
-    bindsym $mod+Mod1+space exec ~/.config/waybar/scripts/quick-menu.sh  # Alternative (Omarchy-style)
+    bindsym $mod+m exec ~/.config/waybar/scripts/main-menu.sh
+    bindsym $mod+Mod1+space exec ~/.config/waybar/scripts/main-menu.sh  # Alternative (Omarchy-style)
 
     # Launch terminal
     bindsym $mod+t exec $term

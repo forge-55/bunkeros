@@ -1,0 +1,69 @@
+┌─────────────────────────────────────────────────────────────────┐
+│                    BunkerOS Menu Structure                      │
+└─────────────────────────────────────────────────────────────────┘
+
+                          Main Menu
+                        (Search...)
+                              │
+        ┌─────────────────────┼─────────────────────┬─────────────┐
+        │                     │                     │             │
+    🎨 Appearance        ⚙️ System          📦 Install    󰄀 Screenshot
+        │                     │                     │
+    ┌───┴────┐           ┌────┴────┐               │
+    │        │           │         │               │
+  Theme   Wallpaper   Network   Display        Web Apps
+  Night    Gaps       Bluetooth  Monitor      (Future: Packages)
+  Gaps     Opacity    Audio
+    │        │
+  Toggle  Increase
+  +/-     Decrease
+
+
+                              │
+        ┌─────────────────────┴─────────────────────┐
+        │                                           │
+    ⌨️ Settings                                  󰐥 Power
+        │                                           │
+    ┌───┴────┐                                 ┌────┴────┐
+    │        │                                 │         │
+Keybinds  Reload                           Shutdown  Reboot
+          Config                           Suspend   Logout
+                                           Screensaver
+
+
+═══════════════════════════════════════════════════════════════════
+
+Key Design Features:
+
+✓ 6 top-level items (streamlined, focused)
+✓ "Search..." prompt for intuitive filtering
+✓ Screenshot at top level for quick access
+✓ Logical grouping of related functions
+✓ 2 levels deep maximum (fast navigation)
+✓ Consistent "Back" navigation throughout
+✓ All menus positioned based on context
+✓ Auto-sizing with --lines (no scrolling, no dead space)
+
+═══════════════════════════════════════════════════════════════════
+
+Menu Category Philosophy:
+
+🎨 Appearance  → How things LOOK
+⚙️ System      → How things WORK  
+📦 Install     → What you ADD
+󰄀 Screenshot   → Quick capture tool
+⌨️ Settings    → How you CONFIGURE
+󰐥 Power       → How you EXIT
+
+═══════════════════════════════════════════════════════════════════
+
+Design Decisions:
+
+✗ Removed Launch menu - Apps launched via wofi (Super+Space)
+✗ Removed Actions menu - Items moved to top level or other menus
+✓ Screenshot at top level - Frequently used, deserves prominence
+✓ Streamlined Settings - Only keybindings and config reload
+✓ Install menu ready for package manager expansion
+✓ "Search..." prompt instead of "BunkerOS" - more intuitive
+
+═══════════════════════════════════════════════════════════════════

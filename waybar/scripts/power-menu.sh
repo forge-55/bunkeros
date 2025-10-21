@@ -1,21 +1,28 @@
 #!/bin/bash
-
 # Power menu using wofi
 
+# Accept position parameter (default: top_right for waybar button)
+POSITION=${1:-top_right}
+
 options="󰔎 Screensaver\n󰐥 Shutdown\n󰜉 Reboot\n󰤄 Suspend\n󰍃 Logout\n⬅️  Back"
-
-# Calculate height based on number of items (6 items * 40px per item + 50px for prompt/padding)
-item_height=40
 num_items=6
-total_height=$((num_items * item_height + 50))
 
-chosen=$(echo -e "$options" | wofi --dmenu \
-    --prompt "Power Options" \
-    --width 200 \
-    --height "$total_height" \
-    --location top_right \
-    --xoffset -10 \
-    --yoffset 40)
+# Set location based on position parameter
+if [ "$POSITION" = "center" ]; then
+    chosen=$(echo -e "$options" | wofi --dmenu \
+        --prompt "Power Options" \
+        --width 200 \
+        --lines "$num_items" \
+        --location center)
+else
+    chosen=$(echo -e "$options" | wofi --dmenu \
+        --prompt "Power Options" \
+        --width 200 \
+        --lines "$num_items" \
+        --location top_right \
+        --xoffset -10 \
+        --yoffset 40)
+fi
 
 case $chosen in
     "󰔎 Screensaver")
@@ -34,7 +41,8 @@ case $chosen in
         swaymsg exit
         ;;
     "⬅️  Back")
-        ~/.config/waybar/scripts/quick-menu.sh
+        if [ "$POSITION" = "center" ]; then
+            ~/.config/waybar/scripts/main-menu.sh
+        fi
         ;;
 esac
-

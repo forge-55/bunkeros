@@ -1,22 +1,22 @@
 #!/bin/bash
-# BunkerOS System Menu
+# BunkerOS Settings Menu
 
 # Accept position parameter (default: top_right for waybar button)
 POSITION=${1:-top_right}
 
-options="󰖩 Network\n󰂯 Bluetooth\n󰕾 Audio\n󰍹 Display\n󰍛 Monitor\n⬅️  Back"
-num_items=6
+options="⌨️  Keybindings\n󰆊 Reload Config\n⬅️  Back"
+num_items=3
 
 # Set location based on position parameter
 if [ "$POSITION" = "center" ]; then
     selected=$(echo -e "$options" | wofi --dmenu \
-        --prompt "System" \
+        --prompt "Settings" \
         --width 200 \
         --lines "$num_items" \
         --location center)
 else
     selected=$(echo -e "$options" | wofi --dmenu \
-        --prompt "System" \
+        --prompt "Settings" \
         --width 200 \
         --lines "$num_items" \
         --location top_right \
@@ -25,20 +25,12 @@ else
 fi
 
 case $selected in
-    "󰖩 Network")
-        foot -e nmtui &
+    "⌨️  Keybindings")
+        ~/.config/waybar/scripts/keybinding-manager.sh
         ;;
-    "󰂯 Bluetooth")
-        ~/.config/waybar/scripts/bluetooth-manager.sh &
-        ;;
-    "󰕾 Audio")
-        foot -e pulsemixer &
-        ;;
-    "󰍹 Display")
-        wdisplays &
-        ;;
-    "󰍛 Monitor")
-        foot -e btop &
+    "󰆊 Reload Config")
+        swaymsg reload
+        notify-send "BunkerOS" "Configuration reloaded"
         ;;
     "⬅️  Back")
         if [ "$POSITION" = "center" ]; then
