@@ -85,6 +85,7 @@ BunkerOS uses SwayFX for both editions with effects toggled on/off:
 - **Wofi** application launcher with minimal design aesthetic
 - **Quick Actions Menu** - Hierarchical icon-based menu for power, theme, and system controls
 - **Web App Manager** - Install any website as a containerized desktop app (Omarchy-style)
+- **Video conferencing ready** - Full PipeWire audio, screen sharing, and webcam support for Zoom, Meet, Teams, Discord
 - **Nautilus file manager** - Modern, polished GNOME file manager with GTK4 and libadwaita
 - **Lite XL note-taking** - Lightweight, modern text editor with tactical theme for quick notes (Super+n)
 - **MATE Calculator** - Simple, GTK3-based calculator with full tactical theming
@@ -766,7 +767,7 @@ For detailed documentation, see [`webapp/README.md`](webapp/README.md).
 Install all required packages:
 
 ```bash
-sudo pacman -S sway waybar wofi foot swaybg brightnessctl sway-contrib grim slurp wl-clipboard mako wlsunset swayosd xdg-utils swaylock nautilus sushi eog evince btop
+sudo pacman -S sway waybar wofi foot swaybg brightnessctl sway-contrib grim slurp wl-clipboard mako wlsunset swayosd xdg-utils swaylock nautilus sushi eog evince btop pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber v4l-utils
 ```
 
 **What each package does:**
@@ -789,6 +790,21 @@ sudo pacman -S sway waybar wofi foot swaybg brightnessctl sway-contrib grim slur
 - `eog` - Eye of GNOME image viewer
 - `evince` - PDF and document viewer
 - `btop` - System monitor (accessible from System menu)
+- `pipewire` + `pipewire-pulse` - Modern audio system (required for video conferencing)
+- `pipewire-alsa` + `pipewire-jack` - Audio compatibility layers
+- `wireplumber` - PipeWire session manager
+- `v4l-utils` - Webcam utilities (video conferencing)
+
+### Video Conferencing
+
+BunkerOS includes full support for video conferencing with screen sharing, audio, and webcam support. The setup script automatically configures browsers for optimal Wayland screen sharing.
+
+**Supported platforms:**
+- Google Meet, Zoom, Microsoft Teams (web and native)
+- Discord, Slack, Jitsi Meet
+- Any WebRTC-based conferencing tool
+
+**See the complete guide:** [`VIDEOCONFERENCING.md`](VIDEOCONFERENCING.md)
 
 ### User-Configurable Applications
 

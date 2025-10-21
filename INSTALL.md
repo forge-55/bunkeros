@@ -81,6 +81,8 @@ After booting into your CachyOS base system:
    - Install SDDM login manager with BunkerOS theme
    - Set up default applications and MIME types
    - Configure themes and wallpapers
+   - Enable PipeWire audio services
+   - Configure browsers for video conferencing (Wayland screen sharing)
 
 4. **Choose Your Edition** (during setup):
    - **Standard Edition**: Optimized for older hardware, minimal effects
@@ -177,6 +179,8 @@ The setup script handles:
 - MIME type configuration
 - Default application setup
 - Session file installation
+- PipeWire audio service enablement
+- Browser Wayland screen sharing configuration
 
 **Alternative**: Manual installation (see below)
 

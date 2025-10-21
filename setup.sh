@@ -258,6 +258,37 @@ echo "  ✓ Screensaver configuration symlinked"
 echo "  ℹ Install TerminalTextEffects: pipx install terminaltexteffects"
 echo ""
 
+echo "Step 17: Configuring video conferencing support..."
+echo "  Enabling PipeWire services for audio/video..."
+
+# Enable PipeWire services if not already enabled
+if ! systemctl --user is-enabled pipewire.service >/dev/null 2>&1; then
+    systemctl --user enable --now pipewire.service >/dev/null 2>&1 || true
+    echo "    ✓ PipeWire service enabled"
+else
+    echo "    ✓ PipeWire already enabled"
+fi
+
+if ! systemctl --user is-enabled pipewire-pulse.service >/dev/null 2>&1; then
+    systemctl --user enable --now pipewire-pulse.service >/dev/null 2>&1 || true
+    echo "    ✓ PipeWire PulseAudio replacement enabled"
+else
+    echo "    ✓ PipeWire PulseAudio already enabled"
+fi
+
+if ! systemctl --user is-enabled wireplumber.service >/dev/null 2>&1; then
+    systemctl --user enable --now wireplumber.service >/dev/null 2>&1 || true
+    echo "    ✓ WirePlumber session manager enabled"
+else
+    echo "    ✓ WirePlumber already enabled"
+fi
+
+echo ""
+echo "  Configuring browsers for Wayland screen sharing..."
+cd "$PROJECT_DIR"
+"$PROJECT_DIR/scripts/configure-browser-wayland.sh"
+echo ""
+
 echo "=== BunkerOS Setup Complete! ==="
 echo ""
 echo "Next steps:"
@@ -268,7 +299,8 @@ echo "                  nautilus sushi eog evince lite-xl btop \\"
 echo "                  grim slurp wl-clipboard brightnessctl \\"
 echo "                  playerctl pavucontrol network-manager-applet \\"
 echo "                  blueman mate-calc zenity sddm wlsunset swaylock \\"
-echo "                  swayidle python-pipx"
+echo "                  swayidle python-pipx pipewire pipewire-pulse \\"
+echo "                  pipewire-alsa pipewire-jack wireplumber v4l-utils"
 echo ""
 echo "2. Install SwayOSD from AUR:"
 echo "   yay -S swayosd-git"

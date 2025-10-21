@@ -170,6 +170,65 @@ By using both portals, BunkerOS gets:
 - Full Wayland support (wlr for screen sharing, etc.)
 - No compromises
 
+## Screen Sharing & Video Conferencing
+
+The wlr portal provides full screen sharing support for video conferencing applications.
+
+### Testing Screen Sharing
+
+1. **Quick test** (no account needed):
+   ```bash
+   xdg-open https://meet.jit.si/test-$(date +%s)
+   ```
+
+2. Click "Share screen" button
+
+3. You should see a screen picker showing:
+   - Individual windows
+   - Entire screen/output
+   - Specific workspaces
+
+### Supported Applications
+
+- **Web-based**: Google Meet, Zoom (web), Microsoft Teams, Slack, Discord
+- **Native**: Zoom, Discord, Slack Desktop, OBS Studio
+- **Browsers**: Chromium, Chrome, Brave, Edge (auto-configured by setup.sh)
+
+### Browser Requirements
+
+Chromium-based browsers need specific Wayland flags. BunkerOS automatically configures these via the setup script:
+
+```bash
+~/Projects/bunkeros/scripts/configure-browser-wayland.sh
+```
+
+**Flags added:**
+- `--enable-features=WebRTCPipeWireCapturer` - PipeWire screen capture
+- `--ozone-platform-hint=auto` - Native Wayland rendering
+
+### Troubleshooting Screen Sharing
+
+**Screen sharing button does nothing:**
+```bash
+# Restart desktop portal
+pkill -f xdg-desktop-portal
+
+# Verify PipeWire is running
+systemctl --user status pipewire
+```
+
+**Screen picker shows no screens:**
+```bash
+# Verify wlr portal is installed
+pacman -Q xdg-desktop-portal-wlr
+
+# Check config
+cat ~/.config/xdg-desktop-portal/portals.conf
+# Should show: default=wlr
+```
+
+**For detailed video conferencing setup, see:** [`VIDEOCONFERENCING.md`](../VIDEOCONFERENCING.md)
+
 ## Resources
 
 - [xdg-desktop-portal Documentation](https://github.com/flatpak/xdg-desktop-portal)
