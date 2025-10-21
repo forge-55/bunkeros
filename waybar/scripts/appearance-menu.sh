@@ -1,6 +1,8 @@
 #!/bin/bash
 # BunkerOS Appearance Menu
 
+PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+
 # Accept position parameter (default: top_right for waybar button)
 POSITION=${1:-top_right}
 
@@ -26,7 +28,7 @@ fi
 
 case $selected in
     "󰏘 Theme")
-        /home/ryan/Projects/bunkeros/scripts/theme-switcher.sh menu
+        "$PROJECT_DIR/scripts/theme-switcher.sh" menu
         ;;
     "󰸉 Wallpaper")
         ~/.config/waybar/scripts/wallpaper-manager.sh

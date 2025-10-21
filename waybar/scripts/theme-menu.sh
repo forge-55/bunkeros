@@ -1,5 +1,7 @@
 #!/bin/bash
 
+PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+
 show_menu() {
     options="󰏘 Change Theme\n󰹑 Toggle Gaps\n󰙵 Increase Gaps\n󰙴 Decrease Gaps\n󰂚 Increase Opacity\n󰂙 Decrease Opacity\n󰸉 Wallpaper\n󰆊 Reload Config\n⬅️  Back"
 
@@ -7,7 +9,7 @@ show_menu() {
 
 case $selected in
     "󰏘 Change Theme")
-        /home/ryan/Projects/bunkeros/scripts/theme-switcher.sh menu
+        "$PROJECT_DIR/scripts/theme-switcher.sh" menu
         ;;
     "󰹑 Toggle Gaps")
         current=$(swaymsg -t get_tree | grep -o '"gaps":{"inner":[0-9]*' | head -1 | grep -o '[0-9]*$')

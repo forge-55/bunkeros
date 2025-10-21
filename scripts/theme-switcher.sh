@@ -2,7 +2,7 @@
 # BunkerOS Theme Switcher
 # Manages and applies themes across all BunkerOS components
 
-PROJECT_DIR="/home/ryan/Projects/bunkeros"
+PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 THEMES_DIR="$PROJECT_DIR/themes"
 CURRENT_THEME_FILE="$PROJECT_DIR/.current-theme"
 

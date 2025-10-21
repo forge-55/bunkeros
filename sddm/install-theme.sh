@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
+PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 THEME_DIR="/usr/share/sddm/themes/tactical"
-SOURCE_DIR="/home/ryan/Projects/bunkeros/sddm/tactical"
+SOURCE_DIR="$PROJECT_DIR/sddm/tactical"
 SESSION_DIR="/usr/share/wayland-sessions"
-SESSION_SOURCE="/home/ryan/Projects/bunkeros/sddm/sessions"
+SESSION_SOURCE="$PROJECT_DIR/sddm/sessions"
 
 echo "=== BunkerOS SDDM Installation ==="
 echo ""
