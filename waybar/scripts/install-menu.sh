@@ -4,8 +4,8 @@
 # Accept position parameter (default: top_right for waybar button)
 POSITION=${1:-top_right}
 
-options="📱 Web Apps\n⬅️  Back"
-num_items=2
+options="󰏖 Arch Packages\n󰣇 AUR Packages\n󰖟 Web Apps\n⬅️  Back"
+num_items=4
 
 # Set location based on position parameter
 if [ "$POSITION" = "center" ]; then
@@ -25,7 +25,13 @@ else
 fi
 
 case $selected in
-    "📱 Web Apps")
+    "󰏖 Arch Packages")
+        ~/.config/waybar/scripts/install-arch-package.sh
+        ;;
+    "󰣇 AUR Packages")
+        ~/.config/waybar/scripts/install-aur-package.sh
+        ;;
+    "󰖟 Web Apps")
         ~/.config/waybar/scripts/webapp-menu.sh
         ;;
     "⬅️  Back")
