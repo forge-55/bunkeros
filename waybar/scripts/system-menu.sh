@@ -4,8 +4,8 @@
 # Accept position parameter (default: top_right for waybar button)
 POSITION=${1:-top_right}
 
-options="󰖩 Network\n󰂯 Bluetooth\n󰕾 Audio\n󰍹 Display\n󰍛 Monitor\n⬅️  Back"
-num_items=6
+options="󰖩 Network\n󰂯 Bluetooth\n󰕾 Audio\n󰍹 Display\n󰔎 Display Scaling\n󰍛 Monitor\n⬅️  Back"
+num_items=7
 
 # Set location based on position parameter
 if [ "$POSITION" = "center" ]; then
@@ -38,6 +38,13 @@ case $selected in
         ;;
     "󰍹 Display")
         wdisplays &
+        ;;
+    "󰔎 Display Scaling")
+        if [ -f "$HOME/Projects/bunkeros/scripts/configure-display-scaling.sh" ]; then
+            foot -T "BunkerOS Display Scaling" -e "$HOME/Projects/bunkeros/scripts/configure-display-scaling.sh" --interactive &
+        else
+            notify-send "BunkerOS" "Display scaling script not found"
+        fi
         ;;
     "󰍛 Monitor")
         foot -e btop &

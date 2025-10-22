@@ -1,6 +1,6 @@
 * {
     font-family: "MesloLGL Nerd Font", "DejaVu Sans Mono", monospace;
-    font-size: 14px;
+    font-size: 17px;
 }
 
 window {
@@ -18,7 +18,7 @@ window {
     color: #C3B091;
     border-radius: 0px;
     font-weight: bold;
-    font-size: 15px;
+    font-size: 17px;
 }
 
 #input:focus {

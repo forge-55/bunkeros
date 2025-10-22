@@ -2,7 +2,7 @@
     border: none;
     border-radius: 0;
     font-family: "MesloLGL Nerd Font", "DejaVu Sans Mono", monospace;
-    font-size: 13px;
+    font-size: 16px;
     min-height: 0;
 }
 
@@ -30,7 +30,7 @@ window#waybar.hidden {
     color: #6B7657;
     border: none;
     border-radius: 4px;
-    font-size: 11px;
+    font-size: 16px;
     min-width: 20px;
 }
 
@@ -47,7 +47,7 @@ window#waybar.hidden {
     border: 2px solid #C3B091;
     border-radius: 4px;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 16px;
     padding: 3px 10px;
 }
 
@@ -55,7 +55,7 @@ window#waybar.hidden {
 #workspaces button.focused label {
     color: #C3B091;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 #workspaces button.visible {
