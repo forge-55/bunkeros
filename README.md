@@ -1191,8 +1191,10 @@ This configuration combines power-user efficiency with modern desktop polish:
 - **[ARCHITECTURE.md](ARCHITECTURE.md)** - Technical architecture and layered design
 - **[FAQ.md](FAQ.md)** - Frequently asked questions
 - **[INSTALL.md](INSTALL.md)** - Installation instructions and setup guide
+- **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** - Common issues and solutions
 - **[EDITION_STRATEGY.md](EDITION_STRATEGY.md)** - Edition philosophy and hardware guidelines
 - **[SECURITY.md](SECURITY.md)** - Security philosophy, features, and best practices
+- **[VIDEOCONFERENCING.md](VIDEOCONFERENCING.md)** - Video call setup and screen sharing
 
 **Component Documentation**: See individual component directories for detailed guides.
 

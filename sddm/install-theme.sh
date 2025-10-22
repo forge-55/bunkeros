@@ -28,6 +28,12 @@ sudo mkdir -p "$SESSION_DIR"
 sudo cp "$SESSION_SOURCE/bunkeros-standard.desktop" "$SESSION_DIR/"
 sudo cp "$SESSION_SOURCE/bunkeros-enhanced.desktop" "$SESSION_DIR/"
 
+echo "Installing launch scripts to /usr/local/bin..."
+sudo cp "$PROJECT_DIR/scripts/launch-bunkeros-standard.sh" /usr/local/bin/
+sudo cp "$PROJECT_DIR/scripts/launch-bunkeros-enhanced.sh" /usr/local/bin/
+sudo chmod +x /usr/local/bin/launch-bunkeros-standard.sh
+sudo chmod +x /usr/local/bin/launch-bunkeros-enhanced.sh
+
 if [ ! -f /etc/sddm.conf ]; then
     echo "Creating /etc/sddm.conf..."
     sudo touch /etc/sddm.conf
@@ -50,8 +56,13 @@ echo "Available sessions at login:"
 echo "  - BunkerOS (Standard)  - Lightweight Sway"
 echo "  - BunkerOS (Enhanced)  - SwayFX with visual effects"
 echo ""
-echo "To enable SDDM as your display manager:"
-echo "  sudo systemctl enable sddm.service"
+echo "Enabling SDDM as your display manager..."
+sudo systemctl enable sddm.service
+
+echo ""
+echo "✓ SDDM enabled and will start at next boot"
+echo ""
+echo "To start SDDM now (log out of current session first):"
 echo "  sudo systemctl start sddm.service"
 echo ""
 echo "To preview the theme (test mode):"

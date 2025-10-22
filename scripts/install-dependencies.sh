@@ -70,6 +70,13 @@ DM_PACKAGES=(
     sddm
 )
 
+# Desktop portals (for file pickers and screen sharing)
+PORTAL_PACKAGES=(
+    xdg-desktop-portal
+    xdg-desktop-portal-wlr
+    xdg-desktop-portal-gtk
+)
+
 # Python tools
 PYTHON_PACKAGES=(
     python-pipx
@@ -83,6 +90,7 @@ ALL_PACKAGES=(
     "${MEDIA_PACKAGES[@]}"
     "${FONT_PACKAGES[@]}"
     "${DM_PACKAGES[@]}"
+    "${PORTAL_PACKAGES[@]}"
     "${PYTHON_PACKAGES[@]}"
 )
 
@@ -106,6 +114,9 @@ printf '  • %s\n' "${FONT_PACKAGES[@]}"
 echo ""
 echo "Display Manager:"
 printf '  • %s\n' "${DM_PACKAGES[@]}"
+echo ""
+echo "Desktop Portals:"
+printf '  • %s\n' "${PORTAL_PACKAGES[@]}"
 echo ""
 echo "Python Tools:"
 printf '  • %s\n' "${PYTHON_PACKAGES[@]}"

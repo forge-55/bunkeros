@@ -80,14 +80,17 @@ cat << "EOF"
 
 Next steps:
 
-1. Reboot your system:
+1. Validate the installation (optional but recommended):
+   $ $SCRIPT_DIR/scripts/validate-installation.sh
+
+2. Reboot your system:
    $ reboot
 
-2. At the login screen, select one of the BunkerOS sessions:
+3. At the login screen, select one of the BunkerOS sessions:
    • BunkerOS (Standard)  - Optimized for older hardware
    • BunkerOS (Enhanced)  - Full visual effects for modern hardware
 
-3. Start being productive!
+4. Start being productive!
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -103,6 +106,7 @@ To switch themes:
 Need help? Check the documentation:
    • README.md - Overview and features
    • INSTALL.md - Installation guide
+   • TROUBLESHOOTING.md - Common issues and fixes
    • FAQ.md - Frequently asked questions
    • ARCHITECTURE.md - Technical details
 
