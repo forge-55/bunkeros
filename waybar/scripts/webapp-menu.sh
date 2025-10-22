@@ -1,6 +1,8 @@
 #!/bin/bash
 
-PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+# Resolve the real path (follow symlinks) to get to the actual bunkeros project directory
+SCRIPT_PATH="$(readlink -f "${BASH_SOURCE[0]}")"
+PROJECT_DIR="$(cd "$(dirname "$SCRIPT_PATH")/../.." && pwd)"
 WEBAPP_BIN="$PROJECT_DIR/webapp/bin"
 
 options="󰐖 Install Web App\n󰆴 Remove Web App\n󰋗 List Web Apps\n⬅️  Back"
