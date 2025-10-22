@@ -876,67 +876,45 @@ The configuration uses MesloLGL Nerd Font by default. This can be changed in `wa
 
 ## Installation
 
-BunkerOS is currently a manual installation on Arch Linux. Full ISO distribution is planned for future releases.
+BunkerOS provides a robust, automated installation system with compatibility checking and error recovery.
 
-### Prerequisites
-
-```bash
-# Install base packages
-sudo pacman -S swayfx autotiling-rs waybar wofi mako foot nautilus \
-               sushi eog evince btop grim slurp wl-clipboard \
-               brightnessctl playerctl pavucontrol \
-               network-manager-applet blueman sddm mate-calc \
-               qt5-declarative qt5-quickcontrols2
-
-# Install SwayOSD for volume/brightness overlays
-yay -S swayosd-git
-```
-
-### Clone and Install
+### Quick Start
 
 ```bash
 cd ~/Projects
 git clone https://github.com/forge-55/bunkeros.git
 cd bunkeros
 
-# Install configurations
-mkdir -p ~/.config/{sway/config.d,waybar,wofi,mako,foot,btop,swayosd}
-cp -r sway/* ~/.config/sway/
-cp -r waybar/* ~/.config/waybar/
-cp -r wofi/* ~/.config/wofi/
-cp -r mako/* ~/.config/mako/
-cp -r foot/* ~/.config/foot/
-cp -r btop/* ~/.config/btop/
-cp -r swayosd/* ~/.config/swayosd/
+# Check system compatibility (recommended)
+./scripts/check-compatibility.sh
 
-# Install GTK themes
-cd gtk-3.0 && ./install.sh && cd ..
-cd gtk-4.0 && ./install.sh && cd ..
-
-# Install SDDM theme and session files
-cd sddm && sudo ./install-theme.sh && cd ..
-
-# Install theme system
-mkdir -p ~/.config/themes
-cp -r themes/* ~/.config/themes/
-mkdir -p ~/.local/bin
-cp scripts/theme-switcher.sh ~/.local/bin/
-chmod +x ~/.local/bin/theme-switcher.sh
-
-# Install webapp manager
-cp -r webapp/bin/* ~/.local/bin/
-chmod +x ~/.local/bin/webapp-*
-
-# Copy bashrc and dircolors
-cat bashrc >> ~/.bashrc
-cp dircolors ~/.dircolors
-
-# Apply BunkerOS theme as default
-~/.local/bin/theme-switcher.sh tactical
-
-# Enable and start SDDM
-sudo systemctl enable sddm.service
+# Install BunkerOS with robust error handling
+./install-robust.sh
 ```
+
+### Alternative: Manual Setup
+
+If you prefer the original setup process:
+
+```bash
+# Install dependencies manually first
+sudo pacman -S swayfx autotiling-rs waybar wofi mako foot nautilus \
+               sushi eog evince lite-xl btop grim slurp wl-clipboard \
+               brightnessctl playerctl pavucontrol network-manager-applet \
+               blueman sddm qt5-declarative qt5-quickcontrols2 mate-calc \
+               ttf-meslo-nerd xdg-desktop-portal xdg-desktop-portal-wlr \
+               xdg-desktop-portal-gtk pipewire pipewire-pulse pipewire-alsa \
+               pipewire-jack wireplumber v4l-utils python-pipx zenity \
+               wlsunset swaylock swayidle swaybg
+
+# Install SwayOSD for volume/brightness overlays
+yay -S swayosd-git
+
+# Run configuration setup
+./setup.sh
+```
+
+**For detailed installation instructions, see [INSTALL.md](INSTALL.md)**
 
 ### Selecting Your Edition
 
@@ -1187,16 +1165,22 @@ This configuration combines power-user efficiency with modern desktop polish:
 
 ## Documentation
 
-**Core Documentation**:
-- **[ABOUT.md](ABOUT.md)** - BunkerOS overview and marketing document
-- **[ARCHITECTURE.md](ARCHITECTURE.md)** - Technical architecture and layered design
-- **[FAQ.md](FAQ.md)** - Frequently asked questions
-- **[INSTALL.md](INSTALL.md)** - Installation instructions and setup guide
-- **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** - Common issues and solutions
-- **[EDITION_STRATEGY.md](EDITION_STRATEGY.md)** - Edition philosophy and hardware guidelines
-- **[SECURITY.md](SECURITY.md)** - Security philosophy, features, and best practices
-- **[VIDEOCONFERENCING.md](VIDEOCONFERENCING.md)** - Video call setup and screen sharing
+### Installation & Setup
+- **[INSTALL.md](INSTALL.md)** - Installation guide with robust installer
+- **[INSTALLATION-v2.md](INSTALLATION-v2.md)** - Technical details about installation system
+- **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** - Issues and automated troubleshooting tools
 
-**Component Documentation**: See individual component directories for detailed guides.
+### Architecture & Design
+- **[ARCHITECTURE.md](ARCHITECTURE.md)** - Technical architecture and design decisions
+- **[EDITION_STRATEGY.md](EDITION_STRATEGY.md)** - Edition philosophy and hardware guidelines
+- **[SECURITY.md](SECURITY.md)** - Security features and best practices
+
+### Features & Usage
+- **[VIDEOCONFERENCING.md](VIDEOCONFERENCING.md)** - Video call setup and screen sharing
+- **[FAQ.md](FAQ.md)** - Frequently asked questions
+- **Component READMEs** - Individual component directories for detailed guides
+
+### Project Information
+- **[ABOUT.md](ABOUT.md)** - Project overview and philosophy
 
 ---

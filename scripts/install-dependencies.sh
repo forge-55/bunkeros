@@ -68,6 +68,8 @@ FONT_PACKAGES=(
 # Display manager
 DM_PACKAGES=(
     sddm
+    qt5-declarative
+    qt5-quickcontrols2
 )
 
 # Desktop portals (for file pickers and screen sharing)

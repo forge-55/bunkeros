@@ -2,7 +2,60 @@
 
 This document covers common issues encountered during BunkerOS installation and use.
 
+## Quick Troubleshooting Tools
+
+Before diving into specific issues, try these automated tools:
+
+```bash
+# Check system compatibility
+./scripts/check-compatibility.sh
+
+# Verify all packages are installed
+./scripts/verify-packages.sh
+
+# List all required packages with status check
+./scripts/list-all-packages.sh --check
+
+# Fix current session environment
+./scripts/fix-environment.sh
+
+# Full installation validation
+./scripts/validate-installation.sh
+
+# View installation log (if using robust installer)
+cat /tmp/bunkeros-install.log
+```
+
 ## Installation Issues
+
+### Issue: SDDM theme not showing (default theme instead of BunkerOS tactical theme)
+
+**Symptoms:**
+- SDDM shows default blue/gray theme instead of dark tactical theme
+- Login screen doesn't have BunkerOS branding
+
+**Root Cause:**
+Missing Qt QML packages required for SDDM theme rendering.
+
+**Solution:**
+```bash
+# Install required Qt packages
+sudo pacman -S qt5-declarative qt5-quickcontrols2
+
+# Restart SDDM to load theme
+sudo systemctl restart sddm.service
+# OR reboot for full reset
+sudo reboot
+```
+
+**Verification:**
+You should see the BunkerOS tactical theme with:
+- Dark charcoal background
+- Centered login box with tactical colors
+- Session selector for BunkerOS Standard/Enhanced
+- Power management buttons
+
+---
 
 ### Issue: Apps from AUR (VS Code, Cursor) show in launcher but won't open
 
@@ -114,7 +167,7 @@ This is now fixed in BunkerOS. The fixes include:
    ```bash
    cd ~/Projects/bunkeros
    git pull
-   ./install.sh
+   ./install-robust.sh
    ```
 5. **Re-enable SDDM:**
    ```bash

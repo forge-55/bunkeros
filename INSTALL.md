@@ -1,14 +1,8 @@
 # BunkerOS Installation Guide
 
-Complete step-by-step installation instructions for BunkerOS.
+Complete installation instructions for BunkerOS with robust error handling and compatibility checking.
 
-## About This Guide
-
-BunkerOS is a vanilla Arch-based Linux distribution with custom optimizations. This guide covers the installation workflow, which uses the standard Arch installation process before applying BunkerOS's Sway environment and configuration.
-
-## Prerequisites
-
-### System Requirements
+## System Requirements
 
 **Standard Edition (Effects Disabled)**:
 - RAM: 4GB minimum, 8GB recommended
@@ -22,102 +16,91 @@ BunkerOS is a vanilla Arch-based Linux distribution with custom optimizations. T
 - CPU: x86-64 compatible
 - Disk: 20GB free space
 
-## Installation Process
+## Quick Installation (Recommended)
 
-### Phase 1: Install Arch Linux Base System
+For most users, this is the easiest method:
 
-BunkerOS uses a standard Arch Linux installation as its foundation.
+```bash
+# Clone repository
+cd ~/Projects
+git clone https://github.com/forge-55/bunkeros.git
+cd bunkeros
+
+# Check system compatibility (recommended)
+./scripts/check-compatibility.sh
+
+# Install with robust error handling
+./install-robust.sh
+```
+
+The robust installer will:
+- Check for existing display managers and handle conflicts
+- Install all required packages with verification
+- Create automatic backups of existing configs
+- Set up all BunkerOS configurations with symlinks
+- Enable proper services and environment variables
+- Provide clear error messages and recovery instructions
+
+## Manual Installation
+
+If you prefer step-by-step control or need to troubleshoot:
+
+### Step 1: Arch Linux Base
+
+BunkerOS requires an Arch-based system. If installing from scratch:
 
 1. **Download Arch ISO** from [archlinux.org](https://archlinux.org/download/)
+2. **Follow standard Arch installation** (see [Arch Installation Guide](https://wiki.archlinux.org/title/Installation_guide))
+3. **Boot into your Arch system**
 
-2. **Create bootable USB**:
-   ```bash
-   sudo dd if=archlinux-*.iso of=/dev/sdX bs=4M status=progress
-   ```
+### Step 2: Install Dependencies
 
-3. **Boot from USB** and follow the Arch installation guide
+```bash
+# Update system
+sudo pacman -Syu
 
-4. **Installation Options**:
-   - **Desktop Environment**: Don't install any (we'll install Sway separately)
-   - **Partitioning**: Standard layout or custom as needed
-   - **Bootloader**: GRUB or systemd-boot
-   - **Kernel**: Standard Arch kernel (linux or linux-lts)
-   - **Packages**: Install only base system, base-devel, and network tools
+# Install system packages
+sudo pacman -S --needed swayfx autotiling-rs waybar wofi mako foot \
+                        swaylock swayidle swaybg brightnessctl playerctl \
+                        wl-clipboard grim slurp wlsunset network-manager-applet \
+                        blueman pavucontrol nautilus sushi eog evince lite-xl \
+                        btop mate-calc zenity pipewire pipewire-pulse \
+                        pipewire-alsa pipewire-jack wireplumber v4l-utils \
+                        sddm qt5-declarative qt5-quickcontrols2 ttf-meslo-nerd \
+                        xdg-desktop-portal xdg-desktop-portal-wlr \
+                        xdg-desktop-portal-gtk python-pipx
 
-5. **Complete Installation** and reboot into your new Arch system
+# Install AUR packages (requires yay or paru)
+yay -S swayosd-git
 
-**What This Provides**:
-- Arch Linux base system with rolling releases
-- Hardware drivers and bootloader configuration
-- Access to official repositories and AUR
+# Install Python tools
+pipx install terminaltexteffects
+```
 
-**Installation Help**: See the [Arch Installation Guide](https://wiki.archlinux.org/title/Installation_guide) for detailed instructions.
+### Step 3: Configure BunkerOS
 
-### Phase 2: Install BunkerOS Environment
+```bash
+# Clone repository if not done already
+cd ~/Projects
+git clone https://github.com/forge-55/bunkeros.git
+cd bunkeros
 
-After booting into your Arch base system:
+# Run configuration setup
+./setup.sh
 
-1. **Update System**:
-   ```bash
-   sudo pacman -Syu
-   ```
+# Fix environment for current session (optional)
+./scripts/fix-environment.sh
+```
 
-2. **Clone BunkerOS Repository**:
-   ```bash
-   mkdir -p ~/Projects
-   cd ~/Projects
-   git clone https://github.com/forge-55/bunkeros.git
-   cd bunkeros
-   ```
+### Step 4: Verify Installation
 
-3. **Run BunkerOS Setup**:
-   ```bash
-   bash setup.sh
-   ```
+```bash
+# Check all packages and configurations
+./scripts/validate-installation.sh
 
-   The setup script will:
-   - Install SwayFX compositor and dependencies
-   - Install Waybar, Wofi, Mako, and other components
-   - Configure GTK themes and applications
-   - Install SDDM login manager with BunkerOS theme
-   - Set up default applications and MIME types
-   - Configure themes and wallpapers
-   - Enable PipeWire audio services
-   - Configure browsers for video conferencing (Wayland screen sharing)
-
-4. **Choose Your Edition** (during setup):
-   - **Standard Edition**: Optimized for older hardware, minimal effects
-   - **Enhanced Edition**: Polished visuals for modern hardware
-
-5. **Reboot**:
-   ```bash
-   reboot
-   ```
-
-6. **Login** at the SDDM screen:
-   - Select either "BunkerOS Standard" or "BunkerOS Enhanced" session
-   - Enter your credentials
-
-**What This Provides**:
-- Complete Sway/SwayFX environment
-- BunkerOS theming and customization
-- Productivity tools and automation
-- Tactical aesthetic
-
-### Why This Two-Phase Approach?
-
-**Current State**: Using the standard Arch installer allows BunkerOS to maintain a clean, vanilla base while focusing on the Sway environment excellence.
-
-**Future Direction**: Planned options include:
-- Dedicated BunkerOS installer
-- BunkerOS installation profile or script automation
-- ISO with pre-configured BunkerOS environment
-
-For now, the standard Arch installation provides:
-- Reliable hardware detection
-- Clean, minimal base system
-- Partition management
-- Bootloader setup
+# Fix any missing packages
+./scripts/verify-packages.sh
+```
 
 ## Manual Installation (Advanced)
 
@@ -256,6 +239,22 @@ sudo reboot
 
 ## Post-Installation
 
+## Post-Installation
+
+### Themed Login Screen
+
+After installation, you should see the BunkerOS tactical-themed SDDM login screen. If you see the default SDDM theme instead:
+
+```bash
+# Ensure Qt QML packages are installed (should be automatic with robust installer)
+sudo pacman -S qt5-declarative qt5-quickcontrols2
+
+# Restart SDDM to load the theme
+sudo systemctl restart sddm.service
+# OR reboot
+sudo reboot
+```
+
 ### Selecting Your Edition
 
 At the SDDM login screen:
@@ -267,81 +266,21 @@ At the SDDM login screen:
 
 Your selection is remembered for future logins. Both use the same SwayFX compositor.
 
-### First Launch Configuration
+### First Launch
 
-After logging in to BunkerOS:
+After logging in, test key features:
+- `Super+Return` - Open terminal
+- `Super+d` - Application launcher
+- `Super+m` - Quick actions menu
+- `Super+w` - Workspace overview
 
-1. **Set your wallpaper**:
-   ```bash
-   killall swaybg
-   swaybg -i ~/Pictures/your-wallpaper.jpg -m fill &
-   ```
+### Theme Switching
+- `Super+m` → Change Theme
+- Try: Tactical (default), Gruvbox, Nord, Tokyo Night, Everforest
 
-2. **Configure displays** (if multiple monitors):
-   ```bash
-   swaymsg -t get_outputs  # List outputs
-   ```
-   
-   Edit `~/.config/sway/config` and add:
-   ```
-   output HDMI-A-1 resolution 1920x1080 position 1920,0
-   ```
+**For detailed feature documentation, see [README.md](README.md)**
 
-3. **Test all keybindings**:
-   - `Super+Return` - Open terminal
-   - `Super+d` - Application launcher
-   - `Super+m` - Quick actions menu
-   - `Super+w` - Workspace overview
-   - See README.md for full keybinding list
-
-### Security Configuration
-
-BunkerOS includes automatic security features enabled by default. For additional security options:
-
-**Enable UFW Firewall** (if not already enabled):
-```bash
-sudo systemctl enable --now ufw
-sudo ufw enable
-sudo ufw default deny incoming
-sudo ufw default allow outgoing
-```
-
-**Optional: Enable Home Directory Encryption** (requires reinstallation with encrypted home):
-- During Phase 1 Arch installation, configure home directory encryption when setting up partitions
-
-**Optional: Configure Automatic Security Updates**:
-```bash
-# Enable systemd timer for automatic updates (optional)
-sudo systemctl enable --now archlinux-keyring-wkd-sync.timer
-```
-
-**Verify Security Status**:
-```bash
-# Check firewall status
-sudo ufw status
-
-# Verify package signatures are being checked
-grep SigLevel /etc/pacman.conf
-
-# Check AppArmor status
-sudo systemctl status apparmor
-```
-
-**See [SECURITY.md](SECURITY.md) for comprehensive security documentation and best practices.**
-
-4. **Explore themes**:
-   - `Super+m` → Change Theme
-   - Try Gruvbox, Nord, Tokyo Night, Everforest
-
-### Optional: Configure Auto-start Applications
-
-Edit `~/.config/sway/config` and add:
-
-```bash
-# Example: Start Thunderbird on workspace 4
-exec --no-startup-id thunderbird
-for_window [class="Thunderbird"] move to workspace 4
-```
+**For security configuration, see [SECURITY.md](SECURITY.md)**
 
 ## Troubleshooting
 
