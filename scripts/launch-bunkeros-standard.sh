@@ -3,7 +3,7 @@
 # Launches Sway/SwayFX without visual effects
 
 # Set up Wayland environment variables
-export WAYLAND_DISPLAY=wayland-1
+# WAYLAND_DISPLAY is set by SDDM - don't override
 export XDG_CURRENT_DESKTOP=sway
 export XDG_SESSION_TYPE=wayland
 export XDG_SESSION_DESKTOP=sway
