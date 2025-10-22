@@ -63,6 +63,9 @@ Before diving into specific issues, try these automated tools:
 # List all required packages with status check
 ./scripts/list-all-packages.sh --check
 
+# Test BunkerOS sessions before logging out
+./scripts/test-sessions.sh
+
 # Fix current session environment
 ./scripts/fix-environment.sh
 
@@ -74,6 +77,35 @@ cat /tmp/bunkeros-install.log
 ```
 
 ## Installation Issues
+
+### Issue: BunkerOS sessions cause black screen or "no signal"
+
+**Symptoms:**
+- Selecting BunkerOS (Standard) or (Enhanced) results in black screen
+- Monitor shows "no signal" message
+- Need to select regular "Sway" session to get back in
+
+**Root Cause:**
+Corrupted or outdated launch scripts in `/usr/local/bin/`
+
+**Solution:**
+```bash
+# Test sessions before logging out
+./scripts/test-sessions.sh
+
+# If test fails, reinstall launch scripts
+cd ~/Projects/bunkeros/sddm
+sudo ./install-theme.sh
+
+# Test again
+./scripts/test-sessions.sh
+```
+
+**Prevention:**
+- Always run `./scripts/test-sessions.sh` after pulling repository updates
+- Check `/tmp/bunkeros-launch-error.log` if sessions fail to start
+
+---
 
 ### Issue: SDDM theme not showing (default theme instead of BunkerOS tactical theme)
 
