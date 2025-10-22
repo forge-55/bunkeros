@@ -4,7 +4,7 @@ Technical documentation of BunkerOS design decisions, architecture, and future r
 
 ## Overview
 
-**BunkerOS** is an Arch-based Linux distribution built on CachyOS's performance-optimized foundation. This architectural decision enables BunkerOS to focus on delivering an exceptional Sway-based productivity environment while leveraging proven performance infrastructure.
+**BunkerOS** is a vanilla Arch-based Linux distribution with custom optimizations. This architectural decision enables BunkerOS to maintain full control over the system while delivering an exceptional Sway-based productivity environment.
 
 ### Technical Stack
 
@@ -16,11 +16,11 @@ Technical documentation of BunkerOS design decisions, architecture, and future r
 │   • Tactical theming                            │
 │   • Custom workflows & tooling                  │
 ├─────────────────────────────────────────────────┤
-│   CachyOS Performance Layer                     │
-│   • Optimized kernel (BORE scheduler)           │
-│   • x86-64-v3 optimized packages (LTO/PGO)      │
-│   • Performance-focused repository              │
-│   • CachyOS installer (interim)                 │
+│   BunkerOS Optimization Layer                   │
+│   • Custom kernel configurations                │
+│   • Performance tuning                          │
+│   • Curated package selection                   │
+│   • Productivity-focused optimizations          │
 ├─────────────────────────────────────────────────┤
 │   Arch Linux Foundation                         │
 │   • Rolling release model                       │
@@ -30,17 +30,17 @@ Technical documentation of BunkerOS design decisions, architecture, and future r
 └─────────────────────────────────────────────────┘
 ```
 
-### Why CachyOS Foundation?
+### Why Vanilla Arch Foundation?
 
-**Smart Engineering Decision**: Leverage proven optimization rather than recreating performance infrastructure.
+**Clean foundation, full control**: Build on vanilla Arch for complete control over optimizations.
 
 **Benefits**:
-- **BORE Scheduler**: Burst-Oriented Response Enhancer for improved desktop responsiveness
-- **Optimized Packages**: x86-64-v3 builds with Link-Time Optimization (LTO) and Profile-Guided Optimization (PGO)
-- **Maintained Infrastructure**: Active development and performance testing by CachyOS team
-- **Arch Compatibility**: Full access to Arch ecosystem and AUR
+- **Full Control**: Complete control over system configuration and optimization
+- **Clean Base**: No third-party modifications or dependencies
+- **Direct Updates**: Direct access to Arch's proven stability and ecosystem
+- **Custom Tuning**: Targeted optimizations for specific productivity workflows
 
-**BunkerOS's Focus**: With performance handled by CachyOS, BunkerOS concentrates on:
+**BunkerOS's Focus**: With a clean Arch base, BunkerOS concentrates on:
 - Exceptional Sway/SwayFX experience
 - Productivity automation and workflows
 - Tactical aesthetic and discipline
@@ -50,7 +50,7 @@ Technical documentation of BunkerOS design decisions, architecture, and future r
 
 BunkerOS is built around four core principles:
 
-1. **Performance First** - CachyOS optimizations + lightweight Sway environment
+1. **Performance First** - Custom optimizations + lightweight Sway environment
 2. **Configuration Compatibility** - Single codebase that works across both compositor editions
 3. **Operational Efficiency** - Keyboard-driven, distraction-free interface with professional discipline
 4. **Productivity-Hardened Security** - Professional-grade protection that works invisibly in the background
@@ -62,8 +62,8 @@ BunkerOS treats security as a **productivity enabler**, not the primary focus. S
 **Automatic Protection**:
 - **UFW Firewall**: Default deny incoming, allow outgoing (protects network exposure)
 - **AppArmor Containment**: Basic application confinement profiles
-- **Package Verification**: Cryptographic signature validation (inherited from Arch/CachyOS)
-- **Hardened Kernel**: Security-focused parameters from CachyOS foundation
+- **Package Verification**: Cryptographic signature validation (inherited from Arch Linux)
+- **Hardened Kernel**: Security-focused parameters
 - **Login Auditing**: Failed authentication logging
 
 **Optional Enhancements**:

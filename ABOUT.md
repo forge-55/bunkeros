@@ -4,7 +4,9 @@
 
 **BunkerOS is a productivity-hardened, Arch-based Linux distribution built for mission-focused computing.**
 
-Built on Arch Linux via CachyOS's performance-optimized foundation, BunkerOS combines cutting-edge performance with disciplined productivity workflows. It delivers a distraction-free, tactical computing environment that values operational excellence over visual flourish.
+## What is BunkerOS?
+
+Built on vanilla Arch Linux with custom optimizations, BunkerOS combines performance with disciplined productivity workflows. It delivers a distraction-free, tactical computing environment that values operational excellence over visual flourish.
 
 ## Our Mission
 
@@ -20,8 +22,8 @@ We believe:
 
 ### Arch-Based Excellence
 - Full access to Arch ecosystem (AUR, rolling release, extensive documentation)
-- CachyOS performance optimizations (BORE scheduler, LTO/PGO packages, x86-64-v3 builds)
-- Smart architecture: leverage proven infrastructure, focus on unique experience
+- Custom performance optimizations for productivity workflows
+- Smart architecture: build on solid Arch foundation with targeted enhancements
 
 ### Dual-Edition Philosophy
 - **Standard Edition**: Maximum performance for older hardware (2018+)
@@ -69,10 +71,10 @@ We believe:
 │   • Tactical theming                            │
 │   • Custom workflows & tooling                  │
 ├─────────────────────────────────────────────────┤
-│   CachyOS Performance Layer                     │
-│   • Optimized kernel (BORE scheduler)           │
-│   • x86-64-v3 optimized packages (LTO/PGO)      │
-│   • Performance-focused repository              │
+│   BunkerOS Optimization Layer                   │
+│   • Custom kernel configurations                │
+│   • Performance tuning for productivity         │
+│   • Optimized package selection                 │
 ├─────────────────────────────────────────────────┤
 │   Arch Linux Foundation                         │
 │   • Rolling release model                       │
@@ -82,17 +84,17 @@ We believe:
 └─────────────────────────────────────────────────┘
 ```
 
-### Why CachyOS Foundation?
+### Why Vanilla Arch Foundation?
 
-**Smart engineering decision**: Leverage proven optimization rather than recreating performance infrastructure.
+**Clean, controlled base**: Build on vanilla Arch for complete control over optimizations.
 
 **Benefits**:
-- BORE Scheduler for improved desktop responsiveness
-- Link-Time Optimization (LTO) and Profile-Guided Optimization (PGO) packages
-- x86-64-v3 builds optimized for modern CPUs (2015+)
-- Maintained infrastructure with active performance testing
+- Full control over system configuration and optimization
+- Clean base without third-party modifications
+- Direct access to Arch's proven stability and ecosystem
+- Custom tuning for specific productivity workflows
 
-**Focus**: With performance handled by CachyOS, BunkerOS concentrates on delivering the best Sway-based productivity experience.
+**Focus**: BunkerOS concentrates on delivering the best Sway-based productivity experience with targeted performance optimizations.
 
 ## Who is BunkerOS For?
 
@@ -160,7 +162,7 @@ Both editions significantly lighter than traditional desktop environments.
 ## Installation
 
 **Current Process**:
-1. Install CachyOS base system using their installer
+1. Install vanilla Arch Linux base system
 2. Clone BunkerOS repository
 3. Run `setup.sh` to install Sway environment and configuration
 4. Reboot and select BunkerOS session
@@ -173,9 +175,9 @@ See [INSTALL.md](INSTALL.md) for complete installation instructions.
 
 BunkerOS doesn't try to do everything. We:
 
-**Leverage** CachyOS's performance infrastructure rather than recreating it
+**Build** on vanilla Arch's solid foundation with targeted enhancements
 **Focus** on Sway environment excellence and productivity workflows
-**Stand** on the shoulders of giants: Arch, CachyOS, Sway, SwayFX
+**Stand** on the shoulders of giants: Arch, Sway, SwayFX
 **Credit** our foundations transparently and prominently
 **Deliver** a unique experience that doesn't exist elsewhere
 

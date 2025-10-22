@@ -15,7 +15,7 @@ cat << "EOF"
 EOF
 
 echo ""
-echo "This will install BunkerOS on top of your CachyOS/Arch base system."
+echo "This will install BunkerOS on top of your Arch base system."
 echo ""
 echo "Installation directory: $SCRIPT_DIR"
 echo ""

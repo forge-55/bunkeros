@@ -4,98 +4,96 @@
 
 ### What is BunkerOS?
 
-BunkerOS is a productivity-hardened, Arch-based Linux distribution that combines CachyOS's performance optimizations with a tactical, Sway-based computing environment. It's designed for users seeking distraction-free, mission-focused productivity.
+BunkerOS is a productivity-hardened, vanilla Arch-based Linux distribution with custom optimizations for a tactical, Sway-based computing environment. It's designed for users seeking distraction-free, mission-focused productivity.
 
-### Is BunkerOS based on CachyOS or Arch Linux?
+### Is BunkerOS based on Arch Linux?
 
-**Both**. BunkerOS is an Arch-based distribution built on CachyOS's performance-optimized foundation.
+**Yes**. BunkerOS is a vanilla Arch-based distribution with custom optimizations.
 
 Think of it in layers:
-- **Foundation**: Arch Linux (rolling release, AUR, ecosystem)
-- **Performance**: CachyOS (optimized kernel, BORE scheduler, x86-64-v3 packages)
+- **Foundation**: Arch Linux (rolling release, AUR, proven ecosystem)
+- **Optimization**: BunkerOS custom tuning (performance configurations, productivity focus)
 - **Experience**: BunkerOS (Sway environment, productivity tools, tactical theming)
 
-### Why build on CachyOS instead of vanilla Arch?
+### Why use vanilla Arch instead of a derivative?
 
-**Smart engineering**. CachyOS provides battle-tested performance infrastructure:
-- BORE scheduler for improved desktop responsiveness
-- Link-Time Optimization (LTO) and Profile-Guided Optimization (PGO) packages
-- x86-64-v3 optimized builds for modern CPUs
-- Active performance testing and maintenance
+**Clean foundation, full control**. Vanilla Arch provides:
+- Complete control over system configuration
+- No third-party modifications or dependencies
+- Direct access to Arch's proven stability
+- Clean base for custom optimizations
 
-Rather than recreating this infrastructure, BunkerOS leverages CachyOS's optimizations to focus on delivering the best Sway-based productivity experience.
+This allows BunkerOS to implement targeted performance enhancements specifically for productivity workflows while maintaining a pure Arch base.
 
-### How is BunkerOS different from CachyOS?
+### How is BunkerOS different from vanilla Arch?
 
-**CachyOS** is a performance-optimized Arch distribution that ships with various desktop environments (KDE Plasma, GNOME, etc.) and focuses on speed optimizations.
+**Vanilla Arch** is a minimal, do-it-yourself distribution that gives you a blank slate.
 
 **BunkerOS** is a productivity-focused distribution that:
 - Uses only Sway/SwayFX compositor (no traditional DEs)
 - Emphasizes distraction-free, keyboard-driven workflows
 - Features tactical theming and discipline
 - Provides custom productivity automation and tooling
+- Includes curated optimizations for productivity workflows
 - Targets mission-focused computing over general-purpose use
 
 ### Do I get access to the AUR?
 
 **Yes**. As an Arch-based distribution, BunkerOS has full access to the Arch User Repository (AUR) and all standard Arch packages.
 
-You also get access to CachyOS's optimized package repositories for performance-critical packages.
-
-### What's BunkerOS's relationship with these projects?
+### What's BunkerOS's relationship with Arch Linux?
 
 ```
 Arch Linux        → Foundation (rolling release, package ecosystem)
     ↓
-CachyOS           → Performance layer (optimized kernel/packages)
-    ↓
-BunkerOS          → Experience layer (Sway environment, productivity focus)
+BunkerOS          → Custom optimizations + Sway environment + productivity focus
 ```
 
-We're transparent about this architecture because it represents smart engineering: focus on what makes BunkerOS unique while leveraging proven infrastructure.
+We build directly on Arch Linux, maintaining full compatibility while adding our productivity-focused enhancements.
 
 ## Installation & Setup
 
 ### How do I install BunkerOS?
 
-**Current workflow** (interim):
-1. Install CachyOS using their installer
-2. Choose minimal installation
+**Current workflow**:
+1. Install vanilla Arch Linux using the standard installer
+2. Boot into your Arch system
 3. Clone BunkerOS repository
 4. Run `setup.sh` to configure the environment
 
-**Future goal**: Dedicated BunkerOS installer or installation profile.
+**Future goal**: Dedicated BunkerOS installer or automated installation script.
 
-### Why use the CachyOS installer?
+### Why use the standard Arch installation?
 
-**Pragmatic interim solution**. The CachyOS installer provides:
-- Reliable Arch installation with performance optimizations
-- Partition management and bootloader setup
+**Clean, flexible foundation**. The standard Arch installation provides:
+- Reliable base system setup
+- Partition management and bootloader configuration
 - Hardware detection and driver installation
+- Clean base without any unnecessary modifications
 
-This allows BunkerOS to focus on the environment configuration rather than building an installer from scratch.
+This allows BunkerOS to focus on the environment configuration and optimizations.
 
 ### Will BunkerOS have its own installer?
 
 **Possible future direction**. Options under consideration:
 - Custom BunkerOS installer
-- Installation profile for CachyOS installer
+- Automated installation script
 - Calamares-based installer with BunkerOS branding
 
-For now, the CachyOS installer provides a solid foundation.
+For now, the standard Arch installation provides a solid, clean foundation.
 
 ## Technical Questions
 
-### What performance benefits does CachyOS provide?
+### What performance optimizations does BunkerOS provide?
 
-Key optimizations that benefit BunkerOS:
+Key optimizations for productivity workflows:
 
-1. **BORE Scheduler**: Burst-Oriented Response Enhancer improves desktop responsiveness and reduces latency
-2. **x86-64-v3 Packages**: Optimized for modern CPUs (2015+) with SIMD instructions
-3. **LTO/PGO**: Link-Time Optimization and Profile-Guided Optimization for critical packages
-4. **Optimized Kernel**: Performance-focused kernel configuration
+1. **Lightweight Environment**: Sway/SwayFX is extremely efficient compared to traditional DEs
+2. **Optimized Configuration**: System tuned for productivity workflows and responsiveness
+3. **Minimal Resource Usage**: ~332-380 MB RAM depending on edition
+4. **Curated Package Selection**: Only essential packages, reducing bloat
 
-These combine with BunkerOS's lightweight Sway environment for exceptional performance.
+These optimizations combine with BunkerOS's focused environment for exceptional performance.
 
 ### Does BunkerOS work on older hardware?
 
@@ -130,8 +128,8 @@ Both editions are significantly lighter than traditional desktop environments.
 **Yes**. BunkerOS combines:
 - Arch's rolling release model (latest software)
 - Sway's production-ready stability
-- CachyOS's tested optimizations
-- BunkerOS's focused configuration
+- BunkerOS's focused configuration and testing
+- Curated package selection for reliability
 
 The Standard Edition prioritizes stability. Enhanced Edition adds visual effects but maintains Sway's stable foundation.
 
@@ -184,7 +182,7 @@ BunkerOS implements **productivity-hardened security**: professional-grade prote
 
 **Automatic security features**:
 - UFW firewall (deny incoming, allow outgoing)
-- Package signature verification (inherited from Arch/CachyOS)
+- Package signature verification (inherited from Arch Linux)
 - AppArmor application containment
 - Hardened kernel parameters
 - Login auditing
@@ -216,8 +214,7 @@ Security serves productivity, not the other way around. Protection works automat
 ### How does BunkerOS credit its foundations?
 
 **Transparently and prominently**. We:
-- Document the CachyOS foundation in all materials
-- Credit Arch Linux as the base ecosystem
+- Document the Arch Linux foundation in all materials
 - Acknowledge Sway/SwayFX projects
 - Reference all upstream projects appropriately
 
@@ -226,13 +223,13 @@ Smart engineering means standing on the shoulders of giants and acknowledging th
 ### What's the future roadmap?
 
 **Short-term**:
-- Custom installer or CachyOS installation profile
+- Custom installer or automated installation script
 - Additional productivity automation
 - Expanded hardware support documentation
 - Community theme submissions
 
 **Long-term**:
-- Potential custom BunkerOS repository for unique packages
+- Potential custom BunkerOS repository for optimized packages
 - Integration with productivity services
 - Mobile companion tools
 - Enterprise/team editions
@@ -246,11 +243,10 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for detailed technical roadmap.
 - **GitHub Issues**: Bug reports and feature requests
 - **Documentation**: Comprehensive guides in the repository
 - **Arch Wiki**: Arch Linux documentation applies
-- **CachyOS Forums**: For performance/kernel questions
 
 ### How do I report bugs?
 
-1. Check if it's a BunkerOS-specific issue or upstream (Sway/CachyOS/Arch)
+1. Check if it's a BunkerOS-specific issue or upstream (Sway/Arch)
 2. Search existing GitHub issues
 3. Open a new issue with:
    - Edition (Standard/Enhanced)
@@ -258,14 +254,9 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for detailed technical roadmap.
    - Steps to reproduce
    - Expected vs. actual behavior
 
-### What if I want vanilla Arch instead of CachyOS base?
+### Can I use BunkerOS configuration on vanilla Arch?
 
-BunkerOS's configuration can be adapted to vanilla Arch, but you'll lose:
-- BORE scheduler optimizations
-- x86-64-v3 optimized packages
-- LTO/PGO compilation benefits
-
-The BunkerOS environment (Sway config, themes, scripts) is Arch-compatible and can be installed on any Arch-based system.
+**Yes**. The BunkerOS environment (Sway config, themes, scripts) is designed for vanilla Arch and can be installed on any standard Arch-based system following the installation guide.
 
 ---
 

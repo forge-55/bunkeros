@@ -25,7 +25,7 @@ BunkerOS enables robust security measures by default. These features work silent
 - Invisible operation—no manual rule management required
 
 ### Package Signature Verification
-- Inherited from Arch Linux and CachyOS foundation
+- Inherited from Arch Linux foundation
 - Every package cryptographically verified before installation
 - Protects against supply chain attacks and compromised packages
 - Automatic validation with zero user intervention
@@ -37,7 +37,7 @@ BunkerOS enables robust security measures by default. These features work silent
 - Operates transparently without affecting application functionality
 
 ### Hardened Kernel Parameters
-- Security-focused kernel configuration from CachyOS foundation
+- Security-focused kernel configuration
 - ASLR (Address Space Layout Randomization) enabled
 - Stack protection and memory hardening
 - Performance-optimized while maintaining strong security posture
@@ -137,9 +137,9 @@ Route traffic through VPN for privacy and security:
 
 ---
 
-## Security and the CachyOS Foundation
+## Security and the Arch Linux Foundation
 
-BunkerOS's security model builds on the trusted Arch Linux and CachyOS foundation:
+BunkerOS's security model builds on the trusted Arch Linux foundation:
 
 ### Layered Trust Model
 ```
@@ -148,14 +148,12 @@ BunkerOS's security model builds on the trusted Arch Linux and CachyOS foundatio
 │   • UFW firewall defaults           │
 │   • AppArmor profiles               │
 │   • Workflow-specific hardening     │
-├─────────────────────────────────────┤
-│   CachyOS Performance Layer         │
-│   • Hardened kernel parameters      │
-│   • Optimized security features     │
-│   • Package signature verification  │
+│   • Custom security configurations  │
 ├─────────────────────────────────────┤
 │   Arch Linux Foundation             │
 │   • Rolling security updates        │
+│   • Hardened kernel parameters      │
+│   • Package signature verification  │
 │   • Trusted package maintainers     │
 │   • Community security auditing     │
 └─────────────────────────────────────┘
@@ -164,8 +162,7 @@ BunkerOS's security model builds on the trusted Arch Linux and CachyOS foundatio
 ### Security Update Process
 1. **Upstream patches**: Linux kernel and package maintainers release security fixes
 2. **Arch integration**: Arch Linux packages and tests security updates
-3. **CachyOS optimization**: CachyOS rebuilds with performance optimizations intact
-4. **BunkerOS deployment**: Updates delivered through standard `pacman` workflow
+3. **BunkerOS deployment**: Updates delivered through standard `pacman` workflow
 
 **User action required**: Run `sudo pacman -Syu` regularly (weekly recommended) or enable automatic security updates.
 
@@ -173,7 +170,7 @@ BunkerOS's security model builds on the trusted Arch Linux and CachyOS foundatio
 - **GPG signature validation**: Every package cryptographically signed by maintainers
 - **Database integrity**: Package database checksums verified on each sync
 - **Transport security**: HTTPS-only package downloads from official mirrors
-- **Trust inheritance**: BunkerOS trusts Arch → CachyOS → upstream security practices
+- **Trust inheritance**: BunkerOS trusts Arch Linux → upstream security practices
 
 This transparent chain ensures you receive legitimate, unmodified packages from trusted sources.
 

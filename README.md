@@ -2,27 +2,28 @@
 
 **A productivity-hardened, Arch-based Linux distribution built for mission-focused computing.**
 
-BunkerOS is an Arch-based distribution leveraging CachyOS's performance optimizations to deliver a distraction-free, tactical computing environment. Combining the stability of Sway with the visual polish of SwayFX, BunkerOS offers two editions optimized for different hardware profiles—from vintage ThinkPads to modern workstations.
+BunkerOS is a vanilla Arch-based distribution with custom optimizations to deliver a distraction-free, tactical computing environment. Combining the stability of Sway with the visual polish of SwayFX, BunkerOS offers two editions optimized for different hardware profiles—from vintage ThinkPads to modern workstations.
 
 ## Philosophy
 
 BunkerOS is designed around operational discipline and efficiency:
 - **Distraction-free interface** focused on productivity and work excellence
-- **Performance-first architecture** - CachyOS optimizations (BORE scheduler, LTO/PGO packages) meet BunkerOS's lightweight Sway environment
+- **Performance-first architecture** - Custom optimizations meet BunkerOS's lightweight Sway environment
 - **Minimal, functional design** over flashy animations
 - **Keyboard-driven workflow** for maximum efficiency
 - **Tactical color palette** inspired by professional field gear
-- **Smart engineering** - leveraging proven optimization rather than reinventing the wheel
+- **Smart engineering** - Building on the solid Arch foundation with targeted enhancements
 - **Productivity-hardened security** - professional-grade protection that works invisibly in the background
 
 ## Technical Foundation
 
-**Arch-based distribution** built on CachyOS's performance-optimized foundation:
-- **Performance Layer**: CachyOS provides optimized kernel, BORE scheduler, and x86-64-v3 packages
+**Vanilla Arch-based distribution** with BunkerOS optimizations:
+- **Base Layer**: Clean Arch Linux installation with rolling release model
 - **Experience Layer**: BunkerOS delivers unique Sway-based environment, productivity automation, and tactical theming
+- **Optimization Layer**: Custom kernel configurations and performance tuning for productivity workflows
 - **Ecosystem Access**: Full Arch ecosystem (AUR, rolling release, extensive documentation)
 
-This architecture allows BunkerOS to focus on delivering the best Sway-based productivity experience while leveraging battle-tested performance infrastructure.
+This architecture allows BunkerOS to focus on delivering the best Sway-based productivity experience while maintaining full control over optimizations.
 
 ## Editions
 

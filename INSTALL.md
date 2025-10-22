@@ -4,7 +4,7 @@ Complete step-by-step installation instructions for BunkerOS.
 
 ## About This Guide
 
-BunkerOS is an Arch-based Linux distribution built on CachyOS's performance-optimized foundation. This guide covers the current installation workflow, which uses the CachyOS installer as a foundation before applying BunkerOS's Sway environment and configuration.
+BunkerOS is a vanilla Arch-based Linux distribution with custom optimizations. This guide covers the installation workflow, which uses the standard Arch installation process before applying BunkerOS's Sway environment and configuration.
 
 ## Prerequisites
 
@@ -13,48 +13,49 @@ BunkerOS is an Arch-based Linux distribution built on CachyOS's performance-opti
 **Standard Edition (Effects Disabled)**:
 - RAM: 4GB minimum, 8GB recommended
 - GPU: Any (Intel integrated graphics work excellently)
-- CPU: x86-64-v3 compatible (2015+ recommended for CachyOS optimizations)
+- CPU: x86-64 compatible (modern processors recommended)
 - Disk: 20GB free space
 
 **Enhanced Edition (Effects Enabled)**:
 - RAM: 8GB minimum, 16GB recommended
 - GPU: Intel HD 620 or newer, AMD GCN 1.0+, NVIDIA GTX 600+
-- CPU: x86-64-v3 compatible
+- CPU: x86-64 compatible
 - Disk: 20GB free space
 
 ## Installation Process
 
-### Phase 1: Install CachyOS Base System
+### Phase 1: Install Arch Linux Base System
 
-BunkerOS currently uses the CachyOS installer to establish the Arch-based foundation with performance optimizations.
+BunkerOS uses a standard Arch Linux installation as its foundation.
 
-1. **Download CachyOS ISO** from [cachyos.org](https://cachyos.org)
+1. **Download Arch ISO** from [archlinux.org](https://archlinux.org/download/)
 
 2. **Create bootable USB**:
    ```bash
-   sudo dd if=cachyos-*.iso of=/dev/sdX bs=4M status=progress
+   sudo dd if=archlinux-*.iso of=/dev/sdX bs=4M status=progress
    ```
 
-3. **Boot from USB** and start the CachyOS installer
+3. **Boot from USB** and follow the Arch installation guide
 
 4. **Installation Options**:
-   - **Desktop Environment**: Choose "Minimal" or "None" (we'll install Sway separately)
+   - **Desktop Environment**: Don't install any (we'll install Sway separately)
    - **Partitioning**: Standard layout or custom as needed
    - **Bootloader**: GRUB or systemd-boot
-   - **Kernel**: CachyOS optimized kernel (recommended) or Arch standard kernel
-   - **Packages**: Install only base system
+   - **Kernel**: Standard Arch kernel (linux or linux-lts)
+   - **Packages**: Install only base system, base-devel, and network tools
 
-5. **Complete Installation** and reboot into your new CachyOS system
+5. **Complete Installation** and reboot into your new Arch system
 
 **What This Provides**:
 - Arch Linux base system with rolling releases
-- CachyOS performance optimizations (BORE scheduler, optimized packages)
 - Hardware drivers and bootloader configuration
-- Access to AUR and CachyOS repositories
+- Access to official repositories and AUR
+
+**Installation Help**: See the [Arch Installation Guide](https://wiki.archlinux.org/title/Installation_guide) for detailed instructions.
 
 ### Phase 2: Install BunkerOS Environment
 
-After booting into your CachyOS base system:
+After booting into your Arch base system:
 
 1. **Update System**:
    ```bash
@@ -105,22 +106,22 @@ After booting into your CachyOS base system:
 
 ### Why This Two-Phase Approach?
 
-**Current State**: Using CachyOS's proven installer allows BunkerOS to focus on the Sway environment rather than building installation infrastructure from scratch.
+**Current State**: Using the standard Arch installer allows BunkerOS to maintain a clean, vanilla base while focusing on the Sway environment excellence.
 
 **Future Direction**: Planned options include:
 - Dedicated BunkerOS installer
-- BunkerOS installation profile for CachyOS installer
+- BunkerOS installation profile or script automation
 - ISO with pre-configured BunkerOS environment
 
-For now, the CachyOS installer provides:
+For now, the standard Arch installation provides:
 - Reliable hardware detection
-- Performance optimizations
+- Clean, minimal base system
 - Partition management
 - Bootloader setup
 
 ## Manual Installation (Advanced)
 
-If you prefer manual installation or already have an Arch/CachyOS base system, you can install BunkerOS components individually:
+If you prefer manual installation or already have an Arch base system, you can install BunkerOS components individually:
 
 ### 1. Update System
 
@@ -306,7 +307,7 @@ sudo ufw default allow outgoing
 ```
 
 **Optional: Enable Home Directory Encryption** (requires reinstallation with encrypted home):
-- During Phase 1 CachyOS installation, select home directory encryption option
+- During Phase 1 Arch installation, configure home directory encryption when setting up partitions
 
 **Optional: Configure Automatic Security Updates**:
 ```bash
@@ -415,26 +416,25 @@ sudo pacman -S ttf-jetbrains-mono-nerd
 fc-cache -fv
 ```
 
-### CachyOS-Specific Issues
+### Kernel Issues
 
-If you encounter issues with the CachyOS foundation:
+If you encounter issues with the kernel:
 
 ```bash
-# Check CachyOS kernel version
+# Check kernel version
 uname -r
 
-# Switch to standard Arch kernel if needed
-sudo pacman -S linux linux-headers
+# Switch between kernels if needed
+sudo pacman -S linux linux-headers        # Standard kernel
+sudo pacman -S linux-lts linux-lts-headers # LTS kernel
 
-# Check CachyOS repository status
-pacman -Sl cachyos
+# Update bootloader after kernel changes
+sudo grub-mkconfig -o /boot/grub/grub.cfg  # For GRUB
 ```
 
-**Note**: BunkerOS's Sway environment works on both CachyOS-optimized and standard Arch kernels. Performance optimizations are a benefit, not a requirement.
-
-For CachyOS-specific issues (kernel, scheduler, package optimizations), consult:
-- CachyOS forums: https://forum.cachyos.org/
-- CachyOS Discord: https://discord.gg/cachyos
+For Arch-specific issues (kernel, packages, system configuration), consult:
+- Arch Wiki: https://wiki.archlinux.org/
+- Arch Forums: https://bbs.archlinux.org/
 
 For BunkerOS environment issues (Sway, themes, configuration), use:
 - BunkerOS GitHub Issues: https://github.com/forge-55/bunkeros/issues

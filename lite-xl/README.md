@@ -30,7 +30,8 @@ Lite XL strikes the perfect balance: fast like Nano, capable like VS Code, clean
 
 ## Installation
 
-Install Lite XL on Arch/CachyOS:
+Install Lite XL on Arch:
+```bash
 
 ```bash
 sudo pacman -S lite-xl
