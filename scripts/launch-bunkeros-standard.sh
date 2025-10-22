@@ -32,10 +32,23 @@ fi
 
 touch "$EFFECTS_FILE"
 
-if command -v sway &> /dev/null; then
-    exec sway "$@"
-else
-    echo "Error: sway/swayfx not found in PATH"
+# Check for sway/swayfx installation
+if ! command -v sway &> /dev/null; then
+    # Log to a file that user can check
+    LOG_FILE="/tmp/bunkeros-launch-error.log"
+    echo "ERROR: sway/swayfx not found in PATH" > "$LOG_FILE"
+    echo "Installation check:" >> "$LOG_FILE"
+    echo "PATH=$PATH" >> "$LOG_FILE"
+    pacman -Q swayfx >> "$LOG_FILE" 2>&1
+    
+    # Try to show error to user
+    if command -v zenity &> /dev/null; then
+        zenity --error --text="SwayFX not found!\n\nPlease install: yay -S swayfx\n\nSee /tmp/bunkeros-launch-error.log for details" --width=400
+    fi
+    
     exit 1
 fi
+
+# Launch Sway
+exec sway "$@"
 

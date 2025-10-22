@@ -2,11 +2,58 @@
 
 This document covers common issues encountered during BunkerOS installation and use.
 
+## Critical Issues
+
+### 🚨 Black Screen After SDDM Login (No Signal)
+
+**Symptoms:**
+- SDDM login screen works fine
+- After entering password, screen goes black
+- Monitor displays "No Signal"
+- Computer is still running
+
+**Immediate Fix:**
+1. Press `Ctrl+Alt+F2` to switch to TTY
+2. Login with your username and password
+3. Run: `which sway` to check if SwayFX is installed
+4. If not found, install it: `yay -S swayfx` or `paru -S swayfx`
+5. If found, test manually: `sway`
+
+**Common Causes:**
+- SwayFX not installed or not in PATH
+- Missing dependencies
+- Sway config syntax errors
+- Session files not properly installed
+
+**Full diagnostic and fix guide:** See [TROUBLESHOOTING-SDDM.md](TROUBLESHOOTING-SDDM.md)
+
+**Quick Reinstall:**
+```bash
+# From TTY (Ctrl+Alt+F2)
+cd ~/Projects/bunkeros
+
+# Ensure SwayFX is installed
+yay -S swayfx  # or: paru -S swayfx
+
+# Reinstall session files
+sudo cp scripts/launch-bunkeros-*.sh /usr/local/bin/
+sudo chmod +x /usr/local/bin/launch-bunkeros-*.sh
+sudo cp sddm/sessions/*.desktop /usr/share/wayland-sessions/
+
+# Restart SDDM
+sudo systemctl restart sddm
+```
+
+---
+
 ## Quick Troubleshooting Tools
 
 Before diving into specific issues, try these automated tools:
 
 ```bash
+# Diagnose SDDM/login issues (if you get black screen)
+./scripts/diagnose-sddm-login.sh
+
 # Check system compatibility
 ./scripts/check-compatibility.sh
 
