@@ -25,16 +25,17 @@ We believe:
 - Custom performance optimizations for productivity workflows
 - Smart architecture: build on solid Arch foundation with targeted enhancements
 
-### Dual-Edition Philosophy
-- **Standard Edition**: Maximum performance for older hardware (2018+)
-- **Enhanced Edition**: Modern visual polish for capable systems (2020+)
-- Same compositor (SwayFX), same config, same workflow—choose your style at login
+### Performance-First Visual Design
+- **Minimal effects by default**: Only rounded corners enabled (~0% overhead)
+- **Modern look, vintage speed**: Clean professional appearance without performance cost
+- **Optional enhancements**: Users with modern GPUs can enable additional effects via toggle script
+- Same compositor (SwayFX), same workflow—choose your visual style anytime
 
 ### Sway-Powered Productivity
 - Keyboard-driven tiling window manager
 - Intelligent autotiling (COSMIC-like behavior)
 - Production-ready stability
-- Lightweight resource usage (~332-380 MB RAM)
+- Lightweight resource usage (~332 MB RAM)
 
 ### Tactical Discipline
 - Tactical color schemes and professional theming
@@ -114,24 +115,26 @@ We believe:
 
 ## Performance Profile
 
-### Standard Edition (Effects Disabled)
+### Default Configuration (Minimal Effects)
 - **RAM**: ~332 MB at idle
 - **GPU**: Minimal overhead (~5-10%)
-- **Behavior**: Identical to vanilla Sway
-- **Target**: 2018+ hardware, production environments
+- **Effects**: Rounded corners only (6px)
+- **Target**: All hardware (2012+)
+- **Behavior**: Nearly identical to vanilla Sway with modern appearance
 
-### Enhanced Edition (Effects Enabled)
+### Optional Enhanced Mode (Full Effects)
 - **RAM**: ~360-380 MB at idle
 - **GPU**: Moderate overhead (~15-25%)
 - **Features**: Rounded corners, shadows, blur, animations
-- **Target**: 2020+ hardware, modern GPUs
+- **Target**: Modern GPUs (Intel Xe, AMD Vega+, NVIDIA GTX 1050+)
+- **Toggle**: Use `~/Projects/bunkeros/scripts/toggle-swayfx-mode.sh`
 
-Both editions significantly lighter than traditional desktop environments.
+Both configurations significantly lighter than traditional desktop environments.
 
 ## Key Features
 
 ### Environment
-- SwayFX compositor (both editions)
+- SwayFX compositor with minimal effects
 - Waybar status bar with tactical styling
 - Wofi application launcher
 - Mako notification daemon

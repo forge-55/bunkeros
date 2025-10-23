@@ -2,13 +2,13 @@
 
 **A productivity-hardened, Arch-based Linux distribution built for mission-focused computing.**
 
-BunkerOS is a vanilla Arch-based distribution with custom optimizations to deliver a distraction-free, tactical computing environment. Combining the stability of Sway with the visual polish of SwayFX, BunkerOS offers two editions optimized for different hardware profiles—from vintage ThinkPads to modern workstations.
+BunkerOS is a vanilla Arch-based distribution with custom optimizations to deliver a distraction-free, tactical computing environment. Combining the stability of Sway with subtle visual polish from SwayFX (rounded corners only), BunkerOS delivers a clean, modern desktop optimized for productivity.
 
 ## Philosophy
 
 BunkerOS is designed around operational discipline and efficiency:
 - **Distraction-free interface** focused on productivity and work excellence
-- **Performance-first architecture** - Custom optimizations meet BunkerOS's lightweight Sway environment
+- **Performance-first architecture** - Minimal effects (rounded corners only) for maximum speed
 - **Minimal, functional design** over flashy animations
 - **Keyboard-driven workflow** for maximum efficiency
 - **Tactical color palette** inspired by professional field gear
@@ -20,34 +20,26 @@ BunkerOS is designed around operational discipline and efficiency:
 **Vanilla Arch-based distribution** with BunkerOS optimizations:
 - **Base Layer**: Clean Arch Linux installation with rolling release model
 - **Experience Layer**: BunkerOS delivers unique Sway-based environment, productivity automation, and tactical theming
+- **Compositor**: SwayFX with minimal effects (rounded corners only - no shadows, blur, or animations)
 - **Optimization Layer**: Custom kernel configurations and performance tuning for productivity workflows
 - **Ecosystem Access**: Full Arch ecosystem (AUR, rolling release, extensive documentation)
 
 This architecture allows BunkerOS to focus on delivering the best Sway-based productivity experience while maintaining full control over optimizations.
 
-## Editions
+## Visual Effects
 
-BunkerOS provides **two first-class editions** designed for different hardware profiles. See [EDITION_STRATEGY.md](EDITION_STRATEGY.md) for detailed philosophy and hardware guidelines.
+BunkerOS uses SwayFX with a **minimal, performance-optimized configuration**:
 
-### Standard Edition
-Designed for **older hardware and maximum performance**. Perfect for:
-- Older hardware (ThinkPad T480, Intel UHD 620, 2012-2019 systems)
-- Users who prioritize speed and zero visual flutter
-- Production environments where stability is critical
-- Battery-focused laptop use
+**Enabled:**
+- ✅ Rounded corners (6px) - Negligible performance impact, modern appearance
 
-**Performance**: ~332 MB RAM, minimal GPU overhead (~5-10%), instantaneous window operations, zero stutter
+**Disabled:**
+- ❌ Shadows - Performance drain during workspace switching
+- ❌ Blur - High GPU usage, causes lag
+- ❌ Dim inactive - Causes visual flicker
+- ❌ Animations - Unnecessary visual complexity
 
-**Visual**: Clean, professional, flat design with tactical color scheme and excellent contrast
-
-### Enhanced Edition  
-Designed for **modern hardware and visual polish**. Perfect for:
-- Modern hardware (2020+ systems, Intel Xe, AMD Vega+, NVIDIA GTX 1050+)
-- Users who want Hyprland-competitive visuals
-- Systems where eye candy enhances the experience
-- Showcasing SwayFX capabilities
-
-**Performance**: ~360-380 MB RAM, moderate GPU usage (~15-25%), smooth on capable hardware
+**Result**: Clean, modern look with essentially zero performance overhead. Users who want more effects can enable them via `~/Projects/bunkeros/scripts/toggle-swayfx-mode.sh`.
 
 **Visual**: Rounded corners (8px), window shadows, blur effects, fade animations, modern polished aesthetic
 
@@ -995,7 +987,7 @@ bunkeros/
 │   │   └── metadata.desktop      (Theme metadata)
 │   ├── sessions/
 │   │   ├── bunkeros-standard.desktop  → /usr/share/wayland-sessions/ (Sway session)
-│   │   └── bunkeros-enhanced.desktop  → /usr/share/wayland-sessions/ (SwayFX session)
+│   │   └── bunkeros.desktop          → /usr/share/wayland-sessions/ (BunkerOS session)
 │   ├── install-theme.sh          (Theme and session installation script)
 │   └── README.md                 (SDDM theme documentation)
 ├── webapp/

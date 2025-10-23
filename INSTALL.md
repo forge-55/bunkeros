@@ -4,17 +4,13 @@ Complete installation instructions for BunkerOS with robust error handling and c
 
 ## System Requirements
 
-**Standard Edition (Effects Disabled)**:
+**BunkerOS**:
 - RAM: 4GB minimum, 8GB recommended
 - GPU: Any (Intel integrated graphics work excellently)
 - CPU: x86-64 compatible (modern processors recommended)
 - Disk: 20GB free space
 
-**Enhanced Edition (Effects Enabled)**:
-- RAM: 8GB minimum, 16GB recommended
-- GPU: Intel HD 620 or newer, AMD GCN 1.0+, NVIDIA GTX 600+
-- CPU: x86-64 compatible
-- Disk: 20GB free space
+**Note**: BunkerOS uses minimal effects (rounded corners only) by default for maximum performance. Users with modern GPUs who want additional effects can enable them after installation using the effects toggle script.
 
 ## Quick Installation (Recommended)
 
@@ -115,7 +111,7 @@ sudo pacman -Syu
 ### 2. Install Base Packages
 
 ```bash
-# Install SwayFX compositor (provides both Standard and Enhanced editions)
+# Install SwayFX compositor
 sudo pacman -S swayfx
 
 # Install autotiling for intelligent window placement (COSMIC-like behavior)
@@ -170,7 +166,7 @@ The setup script handles:
 
 This script will:
 - Install the BunkerOS SDDM theme
-- Copy session files for Standard and Enhanced editions
+- Copy the BunkerOS session file
 - Configure SDDM to use the BunkerOS theme
 
 ### 6. Install Theme System

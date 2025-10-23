@@ -77,45 +77,49 @@ Security works silently in the background—users focus on work, not security ad
 
 ## Compositor Architecture
 
-### Single Compositor, Two Editions
+### SwayFX with Configurable Effects
 
-BunkerOS uses **SwayFX for both editions** with visual effects toggled via configuration:
+BunkerOS uses **SwayFX** with a performance-first visual effects configuration:
 
-#### Standard Edition
-- **Base**: SwayFX with effects disabled
+#### Default Configuration (Minimal Effects)
+- **Base**: SwayFX with effects mostly disabled
 - **Memory**: ~332 MB RAM at idle
 - **GPU**: Minimal overhead (~5-10% during rendering)
-- **Target**: Production environments, older hardware, stability-focused users
-- **Behavior**: Identical to vanilla Sway
+- **Effects**: Rounded corners only (6px) - negligible performance impact
+- **Target**: All hardware, maximum performance and stability
+- **Behavior**: Nearly identical to vanilla Sway with modern appearance
 
-#### Enhanced Edition
-- **Base**: SwayFX with effects enabled
+#### Optional Enhanced Mode (Full Effects)
+- **Base**: SwayFX with all effects enabled
 - **Memory**: ~360-380 MB RAM at idle
 - **GPU**: Moderate overhead (~15-25% with all effects enabled)
-- **Target**: Modern hardware, users wanting visual polish without Hyprland's overhead
-- **Features**: Rounded corners, shadows, blur, fade animations
+- **Effects**: Rounded corners, shadows, blur, fade animations
+- **Target**: Modern GPUs (Intel Xe, AMD Vega+, NVIDIA GTX 1050+)
+- **Toggle**: Use `~/Projects/bunkeros/scripts/toggle-swayfx-mode.sh`
 
 ### How It Works
 
-Visual effects are controlled via an optional config file:
+Visual effects are controlled via a configuration file:
 
 ```
-~/.config/sway/config.d/swayfx-effects.conf
+~/.config/sway/config.d/swayfx-effects
 ```
 
-- **Standard Edition**: Launcher creates empty file (effects disabled)
-- **Enhanced Edition**: Launcher symlinks actual effects config (effects enabled)
+- **Default (Minimal)**: Only `corner_radius 6` enabled, all other effects disabled
+- **Enhanced Mode**: Shadows, blur, dim inactive, animations all enabled
+- **Runtime Switching**: Toggle script swaps configs and reloads Sway (no logout needed)
 
 This architectural decision provides:
 
 - **Single Binary**: Only SwayFX needs to be installed
-- **Single Configuration**: No parallel configs to maintain
-- **Seamless Switching**: Users can switch editions at login with zero workflow change
-- **Maintenance Simplicity**: Bug fixes and features apply to both editions
+- **Single Configuration**: One unified config with effects file toggle
+- **User Choice**: Enable effects anytime with toggle script
+- **Maintenance Simplicity**: Single codebase, unified workflow
+- **Performance First**: Default minimal config works excellently on all hardware
 
 ### Why SwayFX Over Vanilla Sway?
 
-SwayFX is a fork of Sway 1.11.0 that adds visual effects as optional features. With effects disabled, it performs identically to vanilla Sway while providing the flexibility to enable effects when desired.
+SwayFX is a fork of Sway 1.11.0 that adds visual effects as optional features. With minimal effects (rounded corners only), it performs nearly identically to vanilla Sway while providing modern aesthetics and the flexibility to enable additional effects when desired.
 
 ### Why Not Hyprland?
 
@@ -195,25 +199,19 @@ All files must be present for a theme to work correctly.
 Custom QML theme providing:
 - Professional login interface
 - Centered design with tactical color palette
-- Session selector for Standard/Enhanced editions
+- BunkerOS session launcher
 - Power management buttons
 
-### Session Files
+### Session File
 
-Two `.desktop` files in `/usr/share/wayland-sessions/`:
+Single `.desktop` file in `/usr/share/wayland-sessions/`:
 
-**bunkeros-standard.desktop**:
+**bunkeros.desktop**:
 ```
-Exec=/home/ryan/Projects/bunkeros/scripts/launch-bunkeros-standard.sh
+Exec=/usr/local/bin/launch-bunkeros.sh
 ```
-- Creates empty effects config
-- Runs SwayFX with no visual effects
-
-**bunkeros-enhanced.desktop**:
-```
-Exec=/home/ryan/Projects/bunkeros/scripts/launch-bunkeros-enhanced.sh
-```
-- Symlinks effects config
+- Symlinks minimal effects config by default
+- Runs SwayFX with rounded corners only (optimal for all hardware)
 - Runs SwayFX with visual effects enabled
 
 Both launchers execute the same `sway` binary (SwayFX). SDDM remembers user's session choice across reboots.
@@ -232,21 +230,21 @@ Both launchers execute the same `sway` binary (SwayFX). SDDM remembers user's se
 
 ### GPU Usage (Intel UHD 620)
 
-| Scenario | Standard | Enhanced |
-|----------|----------|----------|
+| Scenario | Minimal Effects | Enhanced Effects |
+|----------|-----------------|------------------|
 | Idle | 2-5% | 8-12% |
 | Window Moving | 15-20% | 25-35% |
 | Window Resizing | 20-25% | 30-40% |
 | Video Playback | +10% | +15% |
 
-Enhanced edition's blur effects are the primary GPU consumer.
+Enhanced mode's blur effects are the primary GPU consumer.
 
 ### Comparison with Alternatives
 
 | Compositor | RAM (Idle) | GPU (Idle) | Stability | T480 Compatible |
 |------------|------------|------------|-----------|----------------|
-| **BunkerOS Standard** | 332 MB | 5% | Excellent | Yes |
-| **BunkerOS Enhanced** | 360 MB | 12% | Very Good | Yes |
+| **BunkerOS (Minimal)** | 332 MB | 5% | Excellent | Yes |
+| **BunkerOS (Enhanced)** | 360 MB | 12% | Very Good | Yes |
 | Hyprland | 532 MB | 25% | Good | Marginal |
 | GNOME Wayland | 780 MB | 35% | Excellent | No |
 | KDE Plasma | 650 MB | 30% | Very Good | Marginal |

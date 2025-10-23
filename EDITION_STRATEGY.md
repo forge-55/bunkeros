@@ -1,50 +1,46 @@
-# BunkerOS Edition Strategy
+# BunkerOS Effects Configuration Strategy
 
 ## Philosophy
 
-BunkerOS provides **two first-class editions** designed for different hardware profiles. Neither edition is a compromise - each is optimized for its target audience.
+BunkerOS provides a **performance-first visual design** with optional enhancements for capable hardware. The default minimal effects configuration works excellently on all hardware while maintaining a modern, professional appearance.
 
-## Standard Edition
-
-### Target Audience
-- **Older hardware** (ThinkPad T480, 2018 and earlier)
-- **Intel UHD 620** or equivalent integrated graphics
-- **Performance-focused users** who prioritize speed over visual polish
-- **Production environments** where stability and responsiveness are critical
+## Default Configuration (Minimal Effects)
 
 ### Design Goals
 - Zero visual flutter or stutter
 - Instant window transitions
 - Maximum responsiveness
-- Professional, clean aesthetic
+- Modern, clean aesthetic with rounded corners
 - Minimal GPU overhead (~5-10% during rendering)
 - Memory usage: ~332 MB RAM at idle
 
 ### Visual Characteristics
-- **No visual effects** (blur, shadows, rounded corners disabled)
-- Clean, flat design philosophy
-- Tactical color scheme with excellent contrast
-- Professional appearance without GPU-intensive effects
-- Fast, immediate response to all actions
+- **Rounded corners** (6px) - Negligible performance impact
+- **No shadows** - Eliminates workspace switching flicker
+- **No blur effects** - Prevents GPU lag during rapid updates
+- **No dim inactive** - Avoids visual flickering on Intel GPUs
+- **No animations** - Instant, responsive feel
+- Clean, tactical color scheme with excellent contrast
+- Professional appearance optimized for productivity
 
-### When to Use
+### Target Hardware
+- **All systems** (2012+)
+- Intel HD/UHD integrated graphics (HD 520, UHD 620, etc.)
 - ThinkPad T400-T490 series
-- Laptops with Intel HD/UHD 6xx series graphics
-- Desktops with integrated graphics
-- Any scenario where performance > aesthetics
-- Systems with limited GPU capability
+- Any hardware prioritizing performance and stability
+- Battery-focused laptop use
 
-## Enhanced Edition
+### Performance Profile
+- RAM: ~332 MB at idle
+- GPU: 2-5% idle, 15-20% during window operations
+- Zero workspace switching delay
+- Instant response to all actions
 
-### Target Audience
-- **Modern hardware** (2020+ laptops/desktops)
-- **Capable GPUs**: Intel Xe, AMD Vega+, NVIDIA GTX 1050+
-- **Users who want visual polish** comparable to Hyprland/COSMIC
-- **Systems where eye candy matters** - presentations, demos, personal use
+## Optional Enhanced Mode
 
 ### Design Goals
 - Maximum visual polish within tactical aesthetic
-- Hyprland-competitive visuals
+- Hyprland-competitive visuals for capable hardware
 - Showcase SwayFX capabilities
 - Smooth animations and transitions
 - Beautiful without being distracting
@@ -56,58 +52,75 @@ BunkerOS provides **two first-class editions** designed for different hardware p
 - **Blur effects** on bars, menus, and windows
 - **Smooth animations** for workspace transitions
 - **Fade effects** for window focus changes
+- **Dim inactive** windows for focus clarity
 - Modern, polished aesthetic
 
-### When to Use
-- Laptops from 2020 onwards
-- Desktop systems with dedicated graphics
-- Intel Iris Xe or newer integrated graphics
-- AMD Ryzen 5000+ series with Vega graphics
-- Any NVIDIA discrete GPU
-- When you want the "wow" factor
+### Target Hardware
+- **Modern systems** (2020+)
+- Intel Iris Xe (11th gen+)
+- AMD Vega 6/8+ (Ryzen 4000+)
+- NVIDIA GTX 1050 or newer
+- ThinkPad T14 Gen 2+
+- Desktop systems with discrete GPUs
 
-## Strategic Decision: No Compromise
+### Performance Profile
+- RAM: ~360-380 MB at idle
+- GPU: 8-12% idle, 25-35% during window operations
+- Smooth on capable hardware
+- May show flicker on Intel UHD 620 + Electron apps during workspace switching
+
+### Enabling Enhanced Mode
+
+```bash
+~/Projects/bunkeros/scripts/toggle-swayfx-mode.sh
+```
+
+This script:
+- Swaps between minimal and enhanced effects configurations
+- Reloads Sway without logout
+- Persists choice across reboots
+
+## Strategic Decision: Performance First
 
 ### The Core Principle
-**We do NOT optimize Enhanced Edition for older hardware.**
-
-If Enhanced Edition shows flutter or stuttering on your hardware:
-- ✅ **Use Standard Edition** - it's designed for your hardware
-- ❌ Don't reduce Enhanced effects to accommodate older GPUs
-- ✅ Keep Enhanced impressive for modern hardware
+**We optimize for performance by default, with optional enhancements for capable hardware.**
 
 ### Why This Matters
 
-**Bad Strategy:**
-- Water down Enhanced to work on T480
-- Now you have two mediocre editions
-- Enhanced loses its value proposition
-- Modern hardware users get compromised experience
+**Reasoning:**
+- Rounded corners alone provide modern appearance with ~0% performance overhead
+- Shadows and blur are the primary performance drains
+- Intel integrated GPUs (majority of laptops) struggle with heavy effects during workspace switching
+- Users with modern GPUs can enable effects anytime with toggle script
+- Default configuration works excellently on all hardware
 
-**Good Strategy (Ours):**
-- Standard: Perfect for T480 and older
-- Enhanced: Perfect for modern hardware
-- Both audiences get optimal experience
-- Clear hardware guidance for users
+**Benefits:**
+- New users get fast, responsive system out-of-the-box
+- No hardware-specific installation decisions
+- Modern appearance without performance compromise
+- Power users can enable effects after installation
+- Single unified configuration and session file
 
 ## Hardware Guidelines
 
-### Standard Edition Recommended
-- Intel HD 5xx/6xx series
+### Minimal Effects Recommended (Default)
+- Intel HD 5xx/6xx series (UHD 620, etc.)
 - AMD pre-Vega integrated graphics
 - ThinkPad T series: T400-T490
 - Systems from 2012-2019
 - Any laptop prioritizing battery life
 - Fanless/low-power systems
+- Production environments requiring stability
 
-### Enhanced Edition Recommended
+### Enhanced Effects Optional
 - Intel Iris Xe (11th gen+)
 - AMD Vega 6/8+ (Ryzen 4000+)
 - NVIDIA GTX 1050 or newer
 - ThinkPad T series: T14 Gen 2+
-- Desktop systems with any discrete GPU
+- Desktop systems with discrete GPUs
 - Systems from 2020+
 - Gaming laptops
+- Presentation/demo systems
 
 ## User Experience
 

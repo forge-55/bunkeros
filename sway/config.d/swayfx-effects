@@ -1,39 +1,10 @@
-# BunkerOS Enhanced - SwayFX Visual Effects
+# BunkerOS - SwayFX Visual Effects (Minimal/Performance Mode)
 # These directives are ignored by vanilla Sway
 
-# Rounded corners (subtle, professional)
-corner_radius 8
+# Rounded corners only - minimal performance impact
+corner_radius 6
 
-# Shadows for depth and dimension
-shadows on
-shadows_on_csd off
-shadow_blur_radius 30
-shadow_color #000000AA
-shadow_offset 0 8
-
-# Blur effects for modern aesthetic (subtle, professional)
-blur on
-blur_xray off
-blur_passes 3
-blur_radius 7
-
-# Blur specific window types
-layer_effects "waybar" blur on; shadows on; corner_radius 0
-layer_effects "notifications" blur on; shadows on; corner_radius 10
-layer_effects "wofi" blur on; shadows on; corner_radius 8
-
-# Fade animations (Hyprland-like smooth transitions)
-default_dim_inactive 0.05
-
-# Scratchpad minimize animation (smooth minimize/restore)
-scratchpad_minimize enable
-
-# Blur for all windows
-for_window [class=".*"] blur enable
-for_window [app_id=".*"] blur enable
-
-# Enhanced effects for floating windows (better visual hierarchy)
-for_window [floating] corner_radius 12
-for_window [floating] shadow_blur_radius 40
-for_window [floating] blur_radius 10
-
+# Explicitly disable performance-draining effects
+shadows off
+blur off
+default_dim_inactive 0

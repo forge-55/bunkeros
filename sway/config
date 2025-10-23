@@ -82,17 +82,15 @@ gaps inner 8
 gaps outer 8
 smart_gaps off
 
-exec_always swaymsg gaps inner all set 8
-exec_always swaymsg gaps outer all set 8
-
 # Window border colors are managed by the theme system
 # See the THEME COLORS section at the end of this file
 
 # Font for window titles
 font pango:monospace 10
 
-# Window transparency (light, like Omakub)
-set $opacity 0.95
+# Window transparency (disabled for performance - prevents flicker)
+# Opacity calculations during workspace switching can cause visual artifacts
+set $opacity 1.0
 for_window [class=".*"] opacity $opacity
 for_window [app_id=".*"] opacity $opacity
 
@@ -109,9 +107,6 @@ for_window [app_id="BunkerOS-Screensaver"] {
     focus
     inhibit_idle fullscreen
 }
-
-exec_always swaymsg '[app_id=".*"]' opacity 0.95
-exec_always swaymsg '[class=".*"]' opacity 0.95
 
 ### Idle configuration
 #
@@ -402,12 +397,11 @@ include /etc/sway/config.d/*
 
 
 
-
-# Include SwayFX effects (only load if using SwayFX)
-# This file contains SwayFX-specific commands that will error in vanilla Sway
-# The launcher scripts below will handle enabling/disabling this file
-include ~/.config/sway/config.d/swayfx-effects.conf
-
+# SwayFX effects disabled - running in vanilla Sway mode
+# corner_radius 6
+# shadows off
+# blur off
+# default_dim_inactive 0
 
 
 

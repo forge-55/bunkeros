@@ -97,31 +97,39 @@ These optimizations combine with BunkerOS's focused environment for exceptional 
 
 ### Does BunkerOS work on older hardware?
 
-**Yes**. BunkerOS Standard Edition runs excellently on:
+**Yes**. BunkerOS runs excellently on:
+- 2012+ systems with integrated graphics
 - 2018 ThinkPad T480 (Intel UHD 620)
-- 2012-2019 systems
-- 8GB RAM systems
-- Integrated graphics
+- 4GB+ RAM systems
+- Any Intel/AMD/NVIDIA GPU
 
-The Enhanced Edition targets modern hardware (2020+) but Standard Edition is designed specifically for older systems.
+The default minimal effects configuration (~332 MB RAM) works on essentially all hardware while maintaining a modern appearance.
 
-### Can I switch between Standard and Enhanced editions?
+### Can I enable additional visual effects?
 
-**Yes, at login**. Both editions use the same SwayFX compositor with effects toggled on/off. You can switch at the SDDM login screen with zero relearning curve—same keybindings, same configuration, same workflow.
+**Yes, anytime**. BunkerOS defaults to minimal effects (rounded corners only) for maximum performance. Users with modern GPUs can enable additional effects:
+
+```bash
+~/Projects/bunkeros/scripts/toggle-swayfx-mode.sh
+```
+
+This toggles between minimal mode (default) and enhanced mode (shadows, blur, animations). No logout required—changes apply instantly.
 
 ### What's the resource usage?
 
-**Standard Edition** (effects disabled):
+**Default (Minimal Effects)**:
 - RAM: ~332 MB at idle
 - GPU: Minimal overhead (~5-10%)
-- Behavior: Identical to vanilla Sway
+- Effects: Rounded corners only
+- Behavior: Nearly identical to vanilla Sway
 
-**Enhanced Edition** (effects enabled):
+**Optional (Enhanced Effects)**:
 - RAM: ~360-380 MB at idle
 - GPU: Moderate overhead (~15-25%)
-- Features: Rounded corners, shadows, blur, animations
+- Effects: Rounded corners, shadows, blur, animations
+- Toggle script available for instant switching
 
-Both editions are significantly lighter than traditional desktop environments.
+Both configurations are significantly lighter than traditional desktop environments.
 
 ### Is BunkerOS stable for daily use?
 
@@ -131,7 +139,7 @@ Both editions are significantly lighter than traditional desktop environments.
 - BunkerOS's focused configuration and testing
 - Curated package selection for reliability
 
-The Standard Edition prioritizes stability. Enhanced Edition adds visual effects but maintains Sway's stable foundation.
+The minimal effects configuration prioritizes stability and performance while maintaining a modern, professional appearance.
 
 ## Philosophy & Direction
 
