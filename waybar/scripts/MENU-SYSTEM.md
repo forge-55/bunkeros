@@ -10,8 +10,9 @@ The BunkerOS menu system has been redesigned with a clean, hierarchical structur
 The primary entry point accessed from waybar or keybindings (Super+M or Super+Alt+Space):
 - **🎨 Appearance** - Visual customization options
 - **⚙️ System** - System controls and settings
-- **� Install** - Install packages and web apps
-- **⌨️ Settings** - System configuration and utilities
+- **📦 Install** - Install packages and web apps
+- **󰄀 Screenshot** - Quick screenshot tool
+- **⚙️ Preferences** - User preferences and configuration
 - **󰐥 Power** - Power management options
 
 ### 🎨 Appearance Menu (`appearance-menu.sh`)
@@ -40,10 +41,15 @@ Package and application installation:
 - **📱 Web Apps** - Install websites as desktop applications
 - *Future*: Package manager (pacman/AUR) interface
 
-### ⌨️ Settings Menu (`settings-menu.sh`)
-System configuration and utilities:
+### ⚙️ Preferences Menu (`preferences-menu.sh`)
+User preferences and system configuration:
+- **🎯 Default Apps** - Configure default applications for keybindings
+  - Terminal (mod+t): foot, alacritty, kitty, etc.
+  - Editor (mod+e): code, cursor, vim, lite-xl, etc.
+  - File Manager (mod+f): nautilus, thunar, dolphin, etc.
+  - Notes (mod+n): lite-xl, obsidian, code, etc.
 - **⌨️ Keybindings** - Interactive keybinding manager (view/edit/add)
-- **󰄀 Screenshot** - GNOME/COSMIC-style screenshot workflow
+- **󰹳 Autotiling** - Toggle automatic split direction
 - **󰆊 Reload Config** - Reload Sway configuration
 
 ### 󰐥 Power Menu (`power-menu.sh`)
@@ -140,14 +146,16 @@ The old `quick-menu.sh` is preserved but no longer used. The new system provides
 All menu scripts located in: `/home/ryan/Projects/bunkeros/waybar/scripts/`
 
 **Active Scripts:**
-- `main-menu.sh` - Primary entry point (5 categories)
+- `main-menu.sh` - Primary entry point (6 categories)
 - `appearance-menu.sh` - Visual customization
 - `system-menu.sh` - System controls
 - `install-menu.sh` - Package/app installation
-- `settings-menu.sh` - Configuration and utilities
+- `preferences-menu.sh` - User preferences and configuration
+- `default-apps-manager.sh` - Default application selector
 - `power-menu.sh` - Power management
 
 **Deprecated:**
+- `settings-menu.sh` - Renamed to `preferences-menu.sh`
 - `quick-menu.sh` - Old flat menu (preserved for reference)
 - `launch-menu.sh` - Removed (apps via wofi instead)
 - `actions-menu.sh` - Removed (items merged into other menus)

@@ -4,21 +4,21 @@
 # Accept position parameter (default: top_right for waybar button)
 POSITION=${1:-top_right}
 
-options="󰏖 Arch Packages\n󰣇 AUR Packages\n󰖟 Web Apps\n⬅️  Back"
+options="󰏖  Arch Packages\n󰣇  AUR Packages\n󰖟  Web Apps\n󰌑  Back"
 num_items=4
 
 # Set location based on position parameter
 if [ "$POSITION" = "center" ]; then
     selected=$(echo -e "$options" | wofi --dmenu \
         --prompt "Install" \
-        --width 200 \
+        --width 220 \
         --lines "$num_items" \
         --location center \
         --cache-file=/dev/null)
 else
     selected=$(echo -e "$options" | wofi --dmenu \
         --prompt "Install" \
-        --width 200 \
+        --width 220 \
         --lines "$num_items" \
         --location top_right \
         --xoffset -10 \
@@ -27,16 +27,16 @@ else
 fi
 
 case $selected in
-    "󰏖 Arch Packages")
+    "󰏖  Arch Packages")
         ~/.config/waybar/scripts/install-arch-package.sh
         ;;
-    "󰣇 AUR Packages")
+    "󰣇  AUR Packages")
         ~/.config/waybar/scripts/install-aur-package.sh
         ;;
-    "󰖟 Web Apps")
+    "󰖟  Web Apps")
         ~/.config/waybar/scripts/webapp-menu.sh
         ;;
-    "⬅️  Back")
+    "󰌑  Back")
         if [ "$POSITION" = "center" ]; then
             ~/.config/waybar/scripts/main-menu.sh
         fi

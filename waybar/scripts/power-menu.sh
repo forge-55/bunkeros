@@ -4,21 +4,21 @@
 # Accept position parameter (default: top_right for waybar button)
 POSITION=${1:-top_right}
 
-options="󰔎 Screensaver\n󰐥 Shutdown\n󰜉 Reboot\n󰤄 Suspend\n󰍃 Logout\n⬅️  Back"
+options="󰌾  Screensaver\n󰐥  Shutdown\n󰜉  Reboot\n󰤄  Suspend\n󰍃  Logout\n󰌑  Back"
 num_items=6
 
 # Set location based on position parameter
 if [ "$POSITION" = "center" ]; then
     chosen=$(echo -e "$options" | wofi --dmenu \
         --prompt "Power Options" \
-        --width 200 \
+        --width 220 \
         --lines "$num_items" \
         --location center \
         --cache-file=/dev/null)
 else
     chosen=$(echo -e "$options" | wofi --dmenu \
         --prompt "Power Options" \
-        --width 200 \
+        --width 220 \
         --lines "$num_items" \
         --location top_right \
         --xoffset -10 \
@@ -27,22 +27,22 @@ else
 fi
 
 case $chosen in
-    "󰔎 Screensaver")
+    "󰌾  Screensaver")
         ~/.config/sway-config/scripts/launch-screensaver.sh
         ;;
-    "󰐥 Shutdown")
+    "󰐥  Shutdown")
         systemctl poweroff
         ;;
-    "󰜉 Reboot")
+    "󰜉  Reboot")
         systemctl reboot
         ;;
-    "󰤄 Suspend")
+    "󰤄  Suspend")
         systemctl suspend
         ;;
-    "󰍃 Logout")
+    "󰍃  Logout")
         swaymsg exit
         ;;
-    "⬅️  Back")
+    "󰌑  Back")
         if [ "$POSITION" = "center" ]; then
             ~/.config/waybar/scripts/main-menu.sh
         fi

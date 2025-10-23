@@ -7,7 +7,7 @@
                               │
         ┌─────────────────────┼─────────────────────┬─────────────┐
         │                     │                     │             │
-    🎨 Appearance        ⚙️ System          📦 Install    󰄀 Screenshot
+    󰏘 Appearance        󰒓 System          󰏖 Install    󰄀 Screenshot
         │                     │                     │
     ┌───┴────┐           ┌────┴────┐               │
     │        │           │         │               │
@@ -22,13 +22,13 @@
                               │
         ┌─────────────────────┴─────────────────────┐
         │                                           │
-    ⌨️ Settings                                  󰐥 Power
+    󰀉 Preferences                               󰐥 Power
         │                                           │
-    ┌───┴────┐                                 ┌────┴────┐
-    │        │                                 │         │
-Keybinds  Reload                           Shutdown  Reboot
-          Config                           Suspend   Logout
-                                           Screensaver
+    ┌───┴────┬─────┐                          ┌────┴────┐
+    │        │     │                          │         │
+Default  Keybinds Reload                  Shutdown  Reboot
+Apps              Config                 Suspend   Logout
+                                          Screensaver
 
 
 ═══════════════════════════════════════════════════════════════════
@@ -48,11 +48,11 @@ Key Design Features:
 
 Menu Category Philosophy:
 
-🎨 Appearance  → How things LOOK
-⚙️ System      → How things WORK  
-📦 Install     → What you ADD
+󰏘 Appearance  → How things LOOK
+󰒓 System      → How things WORK  
+󰏖 Install     → What you ADD
 󰄀 Screenshot   → Quick capture tool
-⌨️ Settings    → How you CONFIGURE
+󰀉 Preferences → How you CONFIGURE
 󰐥 Power       → How you EXIT
 
 ═══════════════════════════════════════════════════════════════════
@@ -62,8 +62,9 @@ Design Decisions:
 ✗ Removed Launch menu - Apps launched via wofi (Super+Space)
 ✗ Removed Actions menu - Items moved to top level or other menus
 ✓ Screenshot at top level - Frequently used, deserves prominence
-✓ Streamlined Settings - Only keybindings and config reload
+✓ Streamlined Preferences - Default apps, keybindings, autotiling, config
 ✓ Install menu ready for package manager expansion
 ✓ "Search..." prompt instead of "BunkerOS" - more intuitive
+✓ Default Apps - Easy customization of mod+e, mod+b, mod+f, etc.
 
 ═══════════════════════════════════════════════════════════════════

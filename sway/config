@@ -14,16 +14,17 @@ set $left h
 set $down j
 set $up k
 set $right l
-# Your preferred terminal emulator
-set $term foot
-# Your preferred application launcher
-set $menu wofi --show drun
-# Your preferred text editor (change to: code, cursor, micro, vim, etc.)
-set $editor code
-# Your preferred file manager
-set $filemanager nautilus
-# Your preferred note-taking app
-set $notes lite-xl
+
+# Load user's default applications from config file
+# These can be customized via: Super+m → Preferences → Default Apps
+include ~/.config/bunkeros/defaults.conf
+
+# Set Sway variables from user defaults
+set $term $BUNKEROS_TERM
+set $menu $BUNKEROS_MENU
+set $editor $BUNKEROS_EDITOR
+set $filemanager $BUNKEROS_FILEMANAGER
+set $notes $BUNKEROS_NOTES
 
 ### Output configuration
 #
