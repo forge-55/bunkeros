@@ -103,19 +103,21 @@ for_window [app_id="BunkerOS-Screensaver"] {
     move position center
     opacity 1.0
     focus
-    inhibit_idle fullscreen
+    # Do NOT inhibit idle - we want suspend to work after screensaver starts
 }
 
 ### Idle configuration
 #
 # Swayidle handles automatic screensaver and suspend
 # Screensaver activates after 5 minutes (300 seconds) of inactivity
-# System suspends after 15 minutes (900 seconds) of inactivity
+# System suspends after 10 minutes (600 seconds) of total inactivity
+#   - This means suspend happens 5 minutes AFTER the screensaver starts
+#   - Optimized for laptop battery life
 # Press any key to exit screensaver and return to work
 exec swayidle -w \
     timeout 300 '~/.config/sway-config/scripts/launch-screensaver.sh' \
     resume 'swaymsg "[app_id=BunkerOS-Screensaver]" kill' \
-    timeout 900 'systemctl suspend' \
+    timeout 600 'systemctl suspend' \
     before-sleep 'swaymsg "[app_id=BunkerOS-Screensaver]" kill'
 
 # Prevent screensaver during fullscreen applications (videos, presentations)
