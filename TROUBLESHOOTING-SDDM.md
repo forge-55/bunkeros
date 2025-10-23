@@ -8,11 +8,11 @@
 
 ## Common Causes
 
-### 1. SwayFX Not in PATH for SDDM
+### 1. Sway Not in PATH for SDDM
 SDDM runs as a system service and may not have the same PATH as your user account.
 
 ### 2. Missing Dependencies
-SwayFX requires specific packages that may not have been installed.
+Sway requires specific packages that may not have been installed.
 
 ### 3. Configuration Errors
 Syntax errors in Sway config prevent startup.
@@ -32,16 +32,14 @@ At the black screen:
 which sway
 # Should output: /usr/bin/sway or similar
 
-pacman -Q swayfx
-# Should show: swayfx <version>
+pacman -Q sway
+# Should show: sway <version>
 ```
 
 **If sway is not found:**
 ```bash
-# Install SwayFX
-yay -S swayfx
-# or
-paru -S swayfx
+# Install Sway
+sudo pacman -S sway
 ```
 
 ### Step 3: Check Sway Config
@@ -93,20 +91,13 @@ cd ~/Projects/bunkeros
 bash scripts/install-dependencies.sh
 ```
 
-### Fix #3: SwayFX from AUR
+### Fix #3: Install Sway
 
-If SwayFX isn't installed:
+If Sway isn't installed:
 
 ```bash
-# Install an AUR helper if you don't have one
-sudo pacman -S --needed base-devel git
-git clone https://aur.archlinux.org/yay.git
-cd yay
-makepkg -si
-cd ..
-
-# Install SwayFX
-yay -S swayfx
+# Install Sway from official repositories
+sudo pacman -S sway
 ```
 
 ### Fix #4: Check Logs
@@ -191,7 +182,7 @@ ls -la /usr/local/bin/launch-bunkeros-*.sh
 ## Common Error Messages
 
 ### "sway: command not found"
-- SwayFX is not installed → Use Fix #3
+- Sway is not installed → Use Fix #3
 
 ### "Unable to retrieve DRM resources"
 - GPU driver issue → Install proper mesa/vulkan packages
@@ -213,8 +204,8 @@ If none of these fixes work:
    # Create diagnostic report
    echo "=== System Info ===" > ~/bunkeros-debug.txt
    uname -a >> ~/bunkeros-debug.txt
-   echo -e "\n=== SwayFX ===" >> ~/bunkeros-debug.txt
-   pacman -Q swayfx >> ~/bunkeros-debug.txt
+   echo -e "\n=== Sway ===" >> ~/bunkeros-debug.txt
+   pacman -Q sway >> ~/bunkeros-debug.txt
    echo -e "\n=== Graphics ===" >> ~/bunkeros-debug.txt
    lspci | grep -i vga >> ~/bunkeros-debug.txt
    echo -e "\n=== Sway Log ===" >> ~/bunkeros-debug.txt

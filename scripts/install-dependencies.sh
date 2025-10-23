@@ -14,7 +14,7 @@ fi
 
 # Core Sway environment
 CORE_PACKAGES=(
-    swayfx
+    sway
     autotiling-rs
     waybar
     wofi

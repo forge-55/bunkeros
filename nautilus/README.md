@@ -8,7 +8,7 @@ After evaluating several file managers (Thunar, lf, Yazi), Nautilus emerged as t
 
 - **Modern & User-Friendly**: Provides an intuitive GUI experience for all users
 - **Lightweight**: Despite GNOME origins, runs efficiently (~14 MiB memory footprint)
-- **Native Wayland**: Full support for Wayland protocol in Sway/SwayFX
+- **Native Wayland**: Full support for Wayland protocol in Sway
 - **Libadwaita Integration**: Modern GTK4/libadwaita stack with dark mode support
 - **Extensible**: Plugin architecture for previews, integrations, and extensions
 - **Well-Maintained**: Active development by GNOME project

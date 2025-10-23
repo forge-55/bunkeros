@@ -2,13 +2,13 @@
 
 **A productivity-hardened, Arch-based Linux distribution built for mission-focused computing.**
 
-BunkerOS is a vanilla Arch-based distribution with custom optimizations to deliver a distraction-free, tactical computing environment. Combining the stability of Sway with subtle visual polish from SwayFX (rounded corners only), BunkerOS delivers a clean, modern desktop optimized for productivity.
+BunkerOS is a vanilla Arch-based distribution with custom optimizations to deliver a distraction-free, tactical computing environment. Built on the rock-solid Sway Wayland compositor, BunkerOS delivers a clean, minimal desktop optimized for productivity.
 
 ## Philosophy
 
 BunkerOS is designed around operational discipline and efficiency:
 - **Distraction-free interface** focused on productivity and work excellence
-- **Performance-first architecture** - Minimal effects (rounded corners only) for maximum speed
+- **Performance-first architecture** - Vanilla Sway for maximum speed and stability
 - **Minimal, functional design** over flashy animations
 - **Keyboard-driven workflow** for maximum efficiency
 - **Tactical color palette** inspired by professional field gear
@@ -20,50 +20,26 @@ BunkerOS is designed around operational discipline and efficiency:
 **Vanilla Arch-based distribution** with BunkerOS optimizations:
 - **Base Layer**: Clean Arch Linux installation with rolling release model
 - **Experience Layer**: BunkerOS delivers unique Sway-based environment, productivity automation, and tactical theming
-- **Compositor**: SwayFX with minimal effects (rounded corners only - no shadows, blur, or animations)
+- **Compositor**: Vanilla Sway - stable, fast, and reliable Wayland compositor
 - **Optimization Layer**: Custom kernel configurations and performance tuning for productivity workflows
 - **Ecosystem Access**: Full Arch ecosystem (AUR, rolling release, extensive documentation)
 
 This architecture allows BunkerOS to focus on delivering the best Sway-based productivity experience while maintaining full control over optimizations.
 
-## Visual Effects
+## Design Philosophy
 
-BunkerOS uses SwayFX with a **minimal, performance-optimized configuration**:
+BunkerOS uses **vanilla Sway** with no visual effects or animations. This approach delivers:
 
-**Enabled:**
-- ✅ Rounded corners (6px) - Negligible performance impact, modern appearance
+- **Maximum performance** - No GPU overhead from effects
+- **Zero visual artifacts** - No flicker, blur, or shadows during workspace switching
+- **Rock-solid stability** - Sway's production-ready reliability
+- **Universal compatibility** - Works excellently on all hardware from 2012+
+- **Clean, professional aesthetic** - Function over decoration
 
-**Disabled:**
-- ❌ Shadows - Performance drain during workspace switching
-- ❌ Blur - High GPU usage, causes lag
-- ❌ Dim inactive - Causes visual flicker
-- ❌ Animations - Unnecessary visual complexity
-
-**Result**: Clean, modern look with essentially zero performance overhead. Users who want more effects can enable them via `~/Projects/bunkeros/scripts/toggle-swayfx-mode.sh`.
-
-**Visual**: Rounded corners (8px), window shadows, blur effects, fade animations, modern polished aesthetic
-
-**Key Advantage**: Both editions use SwayFX compositor with effects toggled on/off. They share identical configuration, keybindings, themes, and workflow. Switch between them at login with zero relearning curve.
-
-**Strategy**: We do NOT compromise Enhanced Edition for older hardware. If you experience flutter on Enhanced, use Standard Edition - it's designed for your hardware. Both are first-class experiences optimized for their target audience.
-
-## Why SwayFX (Not Hyprland)?
-
-BunkerOS uses SwayFX for both editions with effects toggled on/off:
-
-**Single Compositor**: SwayFX provides both performance (effects disabled) and aesthetics (effects enabled) in one package. No need to install multiple compositors.
-
-**Hardware Range**: From a 2018 ThinkPad T480 to a 2025 gaming rig, BunkerOS performs excellently. With effects disabled, it's lightweight. With effects enabled, still lighter than Hyprland.
-
-**Stability First**: SwayFX is based on Sway 1.11.0 and maintains production-ready stability. Hyprland is cutting-edge but prone to breaking changes.
-
-**Maintenance**: Single configuration, single compositor binary. Effects are controlled via config files, not different binaries.
-
-**Philosophy Alignment**: Hyprland prioritizes flashy animations and eye candy. BunkerOS prioritizes mission-focused productivity with optional aesthetic enhancements.
+The tactical color palette and flat design provide a modern, professional look without any performance cost.
 
 ## Features
 
-- **Dual edition support** - Choose Standard (effects off) or Enhanced (effects on) at login
 - **Intelligent autotiling** - COSMIC-like smart window placement that automatically balances layouts
 - **Automatic display scaling** - Auto-detects your screen resolution and applies optimal font sizes on first login
 - **Interactive keybinding manager** - View, search, edit, and add keybindings via GUI (Super+m → Keybindings)
@@ -91,10 +67,9 @@ BunkerOS uses SwayFX for both editions with effects toggled on/off:
 - **SwayOSD** on-screen display for volume and brightness with elegant overlays
 - **Dynamic wallpaper** management via swaybg
 - **Window gaps** for a modern tiled layout
-- **Subtle transparency** on windows (95% opacity)
 - **Custom color scheme** with olive drab, tactical gray, and tan accents
 - **Flat design philosophy** - function over decoration
-- **Performance-optimized** - from 332 MB (Standard) to 380 MB (Enhanced)
+- **Performance-optimized** - ~280 MB RAM at idle
 
 ## Color Palette
 
@@ -891,7 +866,7 @@ If you prefer the original setup process:
 
 ```bash
 # Install dependencies manually first
-sudo pacman -S swayfx autotiling-rs waybar wofi mako foot nautilus \
+sudo pacman -S sway autotiling-rs waybar wofi mako foot nautilus \
                sushi eog evince lite-xl btop grim slurp wl-clipboard \
                brightnessctl playerctl pavucontrol network-manager-applet \
                blueman sddm qt5-declarative qt5-quickcontrols2 mate-calc \
@@ -909,15 +884,6 @@ yay -S swayosd-git
 
 **For detailed installation instructions, see [INSTALL.md](INSTALL.md)**
 
-### Selecting Your Edition
-
-At the SDDM login screen, click the session selector (usually in the top-right corner) and choose:
-
-- **BunkerOS (Standard)** - SwayFX with effects disabled for maximum performance
-- **BunkerOS (Enhanced)** - SwayFX with visual effects enabled
-
-Your choice is remembered until you change it. Both editions use the same SwayFX compositor and share identical configuration, keybindings, and workflow.
-
 ## Project Structure
 
 All configuration files are stored in this repository and copied to their appropriate locations:
@@ -927,7 +893,6 @@ bunkeros/
 ├── sway/
 │   ├── config                    → ~/.config/sway/config
 │   └── config.d/
-│       └── swayfx-effects        → ~/.config/sway/config.d/swayfx-effects (SwayFX visual effects)
 ├── themes/                       (Theme system - all themes stored here)
 │   ├── tactical/                 (Default tactical theme)
 │   │   ├── theme.conf            (Theme metadata and color palette)

@@ -76,25 +76,21 @@ When you first login to BunkerOS:
 - **Wayland scaling**: 1.0x
 - **Terminal font**: 11pt
 - **UI fonts**: 15pt waybar, 16pt wofi
-- **Edition**: Standard (optimized for Intel UHD 620)
 
 ### LG Ultrawide (3440x1440, Ultrawide Monitor)
 - **Wayland scaling**: 1.0x
 - **Terminal font**: 12pt
 - **UI fonts**: 16pt waybar, 17pt wofi
-- **Edition**: Enhanced or Standard (based on GPU)
 
 ### 4K Monitor (3840x2160, High-DPI Monitor)
 - **Wayland scaling**: 1.75x
 - **Terminal font**: 11pt
 - **UI fonts**: 16pt waybar, 17pt wofi
-- **Edition**: Enhanced (requires capable GPU)
 
 ### Modern Laptop (2560x1440, High-DPI Laptop)
 - **Wayland scaling**: 1.5x
 - **Terminal font**: 9pt
 - **UI fonts**: 14pt waybar, 15pt wofi
-- **Edition**: Enhanced
 
 ## Integration
 
@@ -128,11 +124,6 @@ Run the configuration script anytime to:
 - **Terminal**: Prioritizes readability for extended coding sessions
 - **UI Elements**: Balances information density with usability
 - **Scaling Factor**: Applied when text scaling alone isn't sufficient
-
-### GPU Detection
-Recommends BunkerOS edition based on graphics capabilities:
-- **Enhanced**: Modern GPUs (GTX 1050+, RX 500+, Intel Xe)
-- **Standard**: Older or integrated graphics for optimal performance
 
 ### Backup System
 - All configuration changes are backed up to `~/.config/bunkeros-backups/`
@@ -185,18 +176,18 @@ output eDP-1 scale 1.0
 
 **ThinkPad T480 (Intel UHD 620)**
 - Resolution: 1366x768
-- Result: Standard Edition, larger fonts for readability
-- Performance: Optimal with visual effects disabled
+- Result: Larger fonts for readability
+- Performance: Optimal
 
 **LG 34" Ultrawide (AMD HawkPoint)**  
 - Resolution: 3440x1440
-- Result: Larger fonts, Standard/Enhanced based on GPU
-- Performance: Smooth with appropriate edition selection
+- Result: Larger fonts
+- Performance: Smooth
 
 **Dell XPS 13 (Intel Iris)**
 - Resolution: 2560x1600
-- Result: 1.5x scaling, Enhanced Edition
-- Performance: Excellent with modern integrated graphics
+- Result: 1.5x scaling
+- Performance: Excellent
 
 ## Pop_OS!/COSMIC Comparison
 
@@ -212,6 +203,5 @@ BunkerOS adaptive scaling provides similar benefits to Pop_OS!/COSMIC:
 - Lightweight, shell-based implementation
 - Integrated with existing theme system
 - Tactical/minimalist design philosophy maintained
-- Compatible with both Standard and Enhanced editions
 
 This system ensures BunkerOS provides excellent hardware compatibility across the full spectrum of devices, from vintage ThinkPads to modern ultrawide workstations.

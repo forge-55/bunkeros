@@ -289,7 +289,7 @@ EOF
     
     # Define package groups
     local core_packages=(
-        swayfx autotiling-rs waybar wofi mako foot swaylock swayidle swaybg
+        sway autotiling-rs waybar wofi mako foot swaylock swayidle swaybg
         brightnessctl playerctl wl-clipboard grim slurp wlsunset
         network-manager-applet blueman pavucontrol
     )

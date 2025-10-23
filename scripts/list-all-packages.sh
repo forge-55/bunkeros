@@ -8,7 +8,7 @@ echo ""
 
 # Core Sway environment packages
 CORE_PACKAGES=(
-    swayfx                    # SwayFX compositor (both Standard and Enhanced editions)
+    sway                     # Vanilla Sway Wayland compositor
     autotiling-rs            # Intelligent automatic window tiling
     waybar                   # Status bar
     wofi                     # Application launcher and menus

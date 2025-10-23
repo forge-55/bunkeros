@@ -30,7 +30,7 @@ This allows BunkerOS to implement targeted performance enhancements specifically
 **Vanilla Arch** is a minimal, do-it-yourself distribution that gives you a blank slate.
 
 **BunkerOS** is a productivity-focused distribution that:
-- Uses only Sway/SwayFX compositor (no traditional DEs)
+- Uses only Sway compositor (no traditional DEs)
 - Emphasizes distraction-free, keyboard-driven workflows
 - Features tactical theming and discipline
 - Provides custom productivity automation and tooling
@@ -88,9 +88,9 @@ For now, the standard Arch installation provides a solid, clean foundation.
 
 Key optimizations for productivity workflows:
 
-1. **Lightweight Environment**: Sway/SwayFX is extremely efficient compared to traditional DEs
+1. **Lightweight Environment**: Vanilla Sway is extremely efficient compared to traditional DEs
 2. **Optimized Configuration**: System tuned for productivity workflows and responsiveness
-3. **Minimal Resource Usage**: ~332-380 MB RAM depending on edition
+3. **Minimal Resource Usage**: ~280 MB RAM at idle
 4. **Curated Package Selection**: Only essential packages, reducing bloat
 
 These optimizations combine with BunkerOS's focused environment for exceptional performance.
@@ -103,31 +103,15 @@ These optimizations combine with BunkerOS's focused environment for exceptional 
 - 4GB+ RAM systems
 - Any Intel/AMD/NVIDIA GPU
 
-The default minimal effects configuration (~332 MB RAM) works on essentially all hardware while maintaining a modern appearance.
-
-### Can I enable additional visual effects?
-
-**Yes, anytime**. BunkerOS defaults to minimal effects (rounded corners only) for maximum performance. Users with modern GPUs can enable additional effects:
-
-```bash
-~/Projects/bunkeros/scripts/toggle-swayfx-mode.sh
-```
-
-This toggles between minimal mode (default) and enhanced mode (shadows, blur, animations). No logout required—changes apply instantly.
+The vanilla Sway configuration (~280 MB RAM) works on essentially all hardware while maintaining a clean, professional appearance.
 
 ### What's the resource usage?
 
-**Default (Minimal Effects)**:
-- RAM: ~332 MB at idle
-- GPU: Minimal overhead (~5-10%)
-- Effects: Rounded corners only
-- Behavior: Nearly identical to vanilla Sway
-
-**Optional (Enhanced Effects)**:
-- RAM: ~360-380 MB at idle
-- GPU: Moderate overhead (~15-25%)
-- Effects: Rounded corners, shadows, blur, animations
-- Toggle script available for instant switching
+**BunkerOS (Vanilla Sway)**:
+- RAM: ~280 MB at idle
+- GPU: Minimal overhead (~2-5%)
+- Effects: None - clean, flat design
+- Behavior: Rock-solid stability, zero visual artifacts
 
 Both configurations are significantly lighter than traditional desktop environments.
 
@@ -170,17 +154,16 @@ It's not about being "hardcore"—it's about operational excellence.
 - Power users comfortable with keyboard-driven workflows
 - Anyone valuing productivity over visual flourish
 - Users wanting Arch/AUR access with excellent defaults
-- ThinkPad enthusiasts and vintage hardware users (Standard Edition)
+- ThinkPad enthusiasts and vintage hardware users
 
 ### What makes BunkerOS unique?
 
 **Unique differentiators**:
-1. Dual-edition architecture (Standard/Enhanced)
-2. Tactical productivity focus
-3. Sway/SwayFX expertise and optimization
-4. Comprehensive theming system (5 curated themes)
-5. Productivity automation and custom tooling
-6. Hardware range (2018 ThinkPads to modern workstations)
+1. Tactical productivity focus
+2. Vanilla Sway expertise and optimization
+3. Comprehensive theming system (5 curated themes)
+4. Productivity automation and custom tooling
+5. Hardware range (2018 ThinkPads to modern workstations)
 
 We don't compete with traditional desktop environments—we serve users who want keyboard-driven, tiling window manager workflows with professional polish.
 
@@ -223,7 +206,7 @@ Security serves productivity, not the other way around. Protection works automat
 
 **Transparently and prominently**. We:
 - Document the Arch Linux foundation in all materials
-- Acknowledge Sway/SwayFX projects
+- Acknowledge Sway projects
 - Reference all upstream projects appropriately
 
 Smart engineering means standing on the shoulders of giants and acknowledging them.

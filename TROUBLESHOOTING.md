@@ -15,12 +15,12 @@ This document covers common issues encountered during BunkerOS installation and 
 **Immediate Fix:**
 1. Press `Ctrl+Alt+F2` to switch to TTY
 2. Login with your username and password
-3. Run: `which sway` to check if SwayFX is installed
-4. If not found, install it: `yay -S swayfx` or `paru -S swayfx`
+3. Run: `which sway` to check if Sway is installed
+4. If not found, install it: `sudo pacman -S sway`
 5. If found, test manually: `sway`
 
 **Common Causes:**
-- SwayFX not installed or not in PATH
+- Sway not installed or not in PATH
 - Missing dependencies
 - Sway config syntax errors
 - Session files not properly installed
@@ -32,13 +32,13 @@ This document covers common issues encountered during BunkerOS installation and 
 # From TTY (Ctrl+Alt+F2)
 cd ~/Projects/bunkeros
 
-# Ensure SwayFX is installed
-yay -S swayfx  # or: paru -S swayfx
+# Ensure Sway is installed
+sudo pacman -S sway
 
 # Reinstall session files
-sudo cp scripts/launch-bunkeros-*.sh /usr/local/bin/
-sudo chmod +x /usr/local/bin/launch-bunkeros-*.sh
-sudo cp sddm/sessions/*.desktop /usr/share/wayland-sessions/
+sudo cp scripts/launch-bunkeros.sh /usr/local/bin/
+sudo chmod +x /usr/local/bin/launch-bunkeros.sh
+sudo cp sddm/sessions/bunkeros.desktop /usr/share/wayland-sessions/
 
 # Restart SDDM
 sudo systemctl restart sddm
@@ -78,15 +78,15 @@ cat /tmp/bunkeros-install.log
 
 ## Installation Issues
 
-### Issue: BunkerOS sessions cause black screen or "no signal"
+### Issue: BunkerOS session causes black screen or "no signal"
 
 **Symptoms:**
-- Selecting BunkerOS (Standard) or (Enhanced) results in black screen
+- Selecting BunkerOS results in black screen
 - Monitor shows "no signal" message
 - Need to select regular "Sway" session to get back in
 
 **Root Cause:**
-Corrupted or outdated launch scripts in `/usr/local/bin/`
+Corrupted or outdated launch script in `/usr/local/bin/`
 
 **Solution:**
 ```bash
@@ -131,7 +131,7 @@ sudo reboot
 You should see the BunkerOS tactical theme with:
 - Dark charcoal background
 - Centered login box with tactical colors
-- Session selector for BunkerOS Standard/Enhanced
+- Session selector for BunkerOS
 - Power management buttons
 
 ---
@@ -150,7 +150,7 @@ Electron-based apps require proper Wayland environment variables to function cor
 This issue is now fixed in BunkerOS. The fix includes:
 
 1. **Environment variables** - Automatically configured in `~/.config/environment.d/10-bunkeros-wayland.conf`
-2. **Launch script environment** - Both `launch-bunkeros-standard.sh` and `launch-bunkeros-enhanced.sh` now export Wayland variables
+2. **Launch script environment** - `launch-bunkeros.sh` now exports Wayland variables
 3. **Desktop portal support** - `xdg-desktop-portal-wlr` and `xdg-desktop-portal-gtk` are now installed by default
 
 **To apply the fix on existing installations:**
@@ -210,7 +210,7 @@ sudo systemctl stop sddm.service
 
 # Add to ~/.bash_profile or ~/.zprofile:
 if [ -z "$WAYLAND_DISPLAY" ] && [ "$XDG_VTNR" -eq 1 ]; then
-    exec ~/Projects/bunkeros/scripts/launch-bunkeros-standard.sh
+    exec ~/Projects/bunkeros/scripts/launch-bunkeros.sh
 fi
 ```
 
@@ -228,9 +228,8 @@ Session files were pointing to hardcoded paths that don't exist on other systems
 **Solution:**
 This is now fixed in BunkerOS. The fixes include:
 
-1. **Launch scripts copied to system location** - Scripts are now in `/usr/local/bin/` instead of user-specific paths
-2. **Dynamic BunkerOS directory detection** - Enhanced edition launcher finds BunkerOS repo automatically
-3. **Proper environment variable export** - All necessary Wayland variables are set during session startup
+1. **Launch script copied to system location** - Script is now in `/usr/local/bin/` instead of user-specific paths
+2. **Proper environment variable export** - All necessary Wayland variables are set during session startup
 
 **If you're stuck at a broken SDDM:**
 

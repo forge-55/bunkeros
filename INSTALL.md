@@ -56,7 +56,7 @@ BunkerOS requires an Arch-based system. If installing from scratch:
 sudo pacman -Syu
 
 # Install system packages
-sudo pacman -S --needed swayfx autotiling-rs waybar wofi mako foot \
+sudo pacman -S --needed sway autotiling-rs waybar wofi mako foot \
                         swaylock swayidle swaybg brightnessctl playerctl \
                         wl-clipboard grim slurp wlsunset network-manager-applet \
                         blueman pavucontrol nautilus sushi eog evince lite-xl \
@@ -111,8 +111,8 @@ sudo pacman -Syu
 ### 2. Install Base Packages
 
 ```bash
-# Install SwayFX compositor
-sudo pacman -S swayfx
+# Install Sway compositor
+sudo pacman -S sway
 
 # Install autotiling for intelligent window placement (COSMIC-like behavior)
 sudo pacman -S autotiling-rs
@@ -256,11 +256,7 @@ sudo reboot
 At the SDDM login screen:
 1. Enter your username and password
 2. Click the session selector (usually top-right corner)
-3. Choose:
-   - **BunkerOS (Standard)** - SwayFX with effects disabled (maximum performance)
-   - **BunkerOS (Enhanced)** - SwayFX with visual effects enabled
-
-Your selection is remembered for future logins. Both use the same SwayFX compositor.
+3. Choose **BunkerOS**
 
 ### First Launch
 
@@ -301,17 +297,17 @@ journalctl -u sddm -b
 ls -la /usr/share/sddm/themes/tactical
 
 # Verify session files
-ls -la /usr/share/wayland-sessions/bunkeros-*
+ls -la /usr/share/wayland-sessions/bunkeros.desktop
 ```
 
-### SwayFX Not Available at Login
+### Sway Not Available at Login
 
 ```bash
-# Verify SwayFX is installed
-which swayfx
+# Verify Sway is installed
+which sway
 
 # If not installed:
-sudo pacman -S swayfx
+sudo pacman -S sway
 
 # Reinstall session files
 cd ~/Projects/bunkeros/sddm

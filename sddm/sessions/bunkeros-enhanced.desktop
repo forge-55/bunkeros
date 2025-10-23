@@ -1,7 +1,0 @@
-[Desktop Entry]
-Name=BunkerOS
-Comment=Modern Wayland desktop environment
-Exec=/usr/local/bin/launch-bunkeros.sh
-Type=Application
-DesktopNames=BunkerOS
-

@@ -25,17 +25,17 @@ We believe:
 - Custom performance optimizations for productivity workflows
 - Smart architecture: build on solid Arch foundation with targeted enhancements
 
-### Performance-First Visual Design
-- **Minimal effects by default**: Only rounded corners enabled (~0% overhead)
-- **Modern look, vintage speed**: Clean professional appearance without performance cost
-- **Optional enhancements**: Users with modern GPUs can enable additional effects via toggle script
-- Same compositor (SwayFX), same workflow—choose your visual style anytime
+### Performance-First Design
+- **Vanilla Sway**: Rock-solid stability with zero visual artifacts
+- **No effects overhead**: Clean, flat design without GPU performance cost
+- **Modern look, vintage speed**: Professional appearance on any hardware
+- **Universal compatibility**: Works excellently from 2012+ systems to modern workstations
 
 ### Sway-Powered Productivity
 - Keyboard-driven tiling window manager
 - Intelligent autotiling (COSMIC-like behavior)
 - Production-ready stability
-- Lightweight resource usage (~332 MB RAM)
+- Lightweight resource usage (~280 MB RAM)
 
 ### Tactical Discipline
 - Tactical color schemes and professional theming
@@ -67,7 +67,7 @@ We believe:
 ```
 ┌─────────────────────────────────────────────────┐
 │   BunkerOS Experience Layer                     │
-│   • Sway/SwayFX environment                     │
+│   • Vanilla Sway environment                    │
 │   • Productivity automation                     │
 │   • Tactical theming                            │
 │   • Custom workflows & tooling                  │
@@ -117,24 +117,21 @@ We believe:
 
 ### Default Configuration (Minimal Effects)
 - **RAM**: ~332 MB at idle
-- **GPU**: Minimal overhead (~5-10%)
-- **Effects**: Rounded corners only (6px)
+## Resource Usage
+
+### Vanilla Sway Configuration
+- **RAM**: ~280 MB at idle
+- **GPU**: Minimal overhead (~2-5%)
+- **Effects**: None - clean, flat design
 - **Target**: All hardware (2012+)
-- **Behavior**: Nearly identical to vanilla Sway with modern appearance
+- **Behavior**: Rock-solid stability, zero visual artifacts
 
-### Optional Enhanced Mode (Full Effects)
-- **RAM**: ~360-380 MB at idle
-- **GPU**: Moderate overhead (~15-25%)
-- **Features**: Rounded corners, shadows, blur, animations
-- **Target**: Modern GPUs (Intel Xe, AMD Vega+, NVIDIA GTX 1050+)
-- **Toggle**: Use `~/Projects/bunkeros/scripts/toggle-swayfx-mode.sh`
-
-Both configurations significantly lighter than traditional desktop environments.
+Significantly lighter than traditional desktop environments.
 
 ## Key Features
 
 ### Environment
-- SwayFX compositor with minimal effects
+- Vanilla Sway compositor
 - Waybar status bar with tactical styling
 - Wofi application launcher
 - Mako notification daemon
@@ -180,7 +177,7 @@ BunkerOS doesn't try to do everything. We:
 
 **Build** on vanilla Arch's solid foundation with targeted enhancements
 **Focus** on Sway environment excellence and productivity workflows
-**Stand** on the shoulders of giants: Arch, Sway, SwayFX
+**Stand** on the shoulders of giants: Arch and Sway
 **Credit** our foundations transparently and prominently
 **Deliver** a unique experience that doesn't exist elsewhere
 

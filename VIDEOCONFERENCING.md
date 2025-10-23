@@ -307,7 +307,7 @@ Check that:
    ```bash
    sway --version
    ```
-   Should be 1.11+ or SwayFX equivalent
+   Should be 1.11+
 
 2. **Verify xdg-desktop-portal-wlr**:
    ```bash
@@ -372,12 +372,7 @@ Check that:
 
 1. **Use native apps when available** - Generally better performance than web
 2. **Close unnecessary browser tabs** - Each tab uses resources
-3. **Use Standard Edition** for video calls on older hardware
-4. **Disable blur effects** during calls if on Enhanced Edition:
-   ```bash
-   # Quick switch to Standard for the call
-   # Select "BunkerOS Standard" at login
-   ```
+3. **Monitor resource usage** with btop during calls
 
 ### Privacy Recommendations
 

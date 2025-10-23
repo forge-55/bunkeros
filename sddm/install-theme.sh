@@ -14,25 +14,19 @@ if ! command -v sway &> /dev/null; then
     echo "WARNING: sway not found. Install with: sudo pacman -S sway"
 fi
 
-if ! command -v swayfx &> /dev/null; then
-    echo "WARNING: swayfx not found. Install with: sudo pacman -S swayfx"
-fi
-
 echo ""
 echo "Installing BunkerOS SDDM theme..."
 sudo mkdir -p "$THEME_DIR"
 sudo cp -r "$SOURCE_DIR"/* "$THEME_DIR/"
 
-echo "Installing BunkerOS session files..."
+echo "Installing BunkerOS session file..."
 sudo mkdir -p "$SESSION_DIR"
-sudo cp "$SESSION_SOURCE/bunkeros-standard.desktop" "$SESSION_DIR/"
-sudo cp "$SESSION_SOURCE/bunkeros-enhanced.desktop" "$SESSION_DIR/"
+sudo cp "$SESSION_SOURCE/bunkeros.desktop" "$SESSION_DIR/"
 
 echo "Installing launch scripts to /usr/local/bin..."
-sudo cp "$PROJECT_DIR/scripts/launch-bunkeros-standard.sh" /usr/local/bin/
-sudo cp "$PROJECT_DIR/scripts/launch-bunkeros-enhanced.sh" /usr/local/bin/
-sudo chmod +x /usr/local/bin/launch-bunkeros-standard.sh
-sudo chmod +x /usr/local/bin/launch-bunkeros-enhanced.sh
+echo "Installing BunkerOS launch script..."
+sudo cp "$PROJECT_DIR/scripts/launch-bunkeros.sh" /usr/local/bin/
+sudo chmod +x /usr/local/bin/launch-bunkeros.sh
 
 if [ ! -f /etc/sddm.conf ]; then
     echo "Creating /etc/sddm.conf..."
@@ -52,9 +46,8 @@ fi
 echo ""
 echo "=== BunkerOS SDDM Installation Complete! ==="
 echo ""
-echo "Available sessions at login:"
-echo "  - BunkerOS (Standard)  - Lightweight Sway"
-echo "  - BunkerOS (Enhanced)  - SwayFX with visual effects"
+echo "Available session at login:"
+echo "  - BunkerOS - Vanilla Sway compositor"
 echo ""
 echo "Enabling SDDM as your display manager..."
 sudo systemctl enable sddm.service

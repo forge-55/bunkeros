@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # BunkerOS Launcher
-# Launches Sway with optimized settings
+# Launches vanilla Sway
 
 # Set up Wayland environment variables
 # WAYLAND_DISPLAY is set by SDDM - don't override
@@ -24,8 +24,10 @@ export CLUTTER_BACKEND=wayland
 # Electron apps (VS Code, Cursor, Discord, etc.)
 export ELECTRON_OZONE_PLATFORM_HINT=auto
 
-# Run auto-scaling on first login (or when user hasn't disabled it)
+# Find the BunkerOS directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Run auto-scaling on first login (or when user hasn't disabled it)
 if [ -x "$SCRIPT_DIR/auto-scaling-service-v2.sh" ]; then
     "$SCRIPT_DIR/auto-scaling-service-v2.sh" &
 fi
@@ -49,3 +51,4 @@ fi
 
 # Launch Sway
 exec sway "$@"
+

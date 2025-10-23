@@ -11,7 +11,7 @@ Technical documentation of BunkerOS design decisions, architecture, and future r
 ```
 ┌─────────────────────────────────────────────────┐
 │   BunkerOS Experience Layer                     │
-│   • Sway/SwayFX environment                     │
+│   • Vanilla Sway environment                    │
 │   • Productivity automation                     │
 │   • Tactical theming                            │
 │   • Custom workflows & tooling                  │
@@ -41,7 +41,7 @@ Technical documentation of BunkerOS design decisions, architecture, and future r
 - **Custom Tuning**: Targeted optimizations for specific productivity workflows
 
 **BunkerOS's Focus**: With a clean Arch base, BunkerOS concentrates on:
-- Exceptional Sway/SwayFX experience
+- Exceptional Sway experience
 - Productivity automation and workflows
 - Tactical aesthetic and discipline
 - Distraction-free computing environment
@@ -77,61 +77,38 @@ Security works silently in the background—users focus on work, not security ad
 
 ## Compositor Architecture
 
-### SwayFX with Configurable Effects
+### Vanilla Sway
 
-BunkerOS uses **SwayFX** with a performance-first visual effects configuration:
+BunkerOS uses **vanilla Sway** for maximum stability and performance:
 
-#### Default Configuration (Minimal Effects)
-- **Base**: SwayFX with effects mostly disabled
-- **Memory**: ~332 MB RAM at idle
-- **GPU**: Minimal overhead (~5-10% during rendering)
-- **Effects**: Rounded corners only (6px) - negligible performance impact
-- **Target**: All hardware, maximum performance and stability
-- **Behavior**: Nearly identical to vanilla Sway with modern appearance
+#### Configuration
+- **Base**: Vanilla Sway from official Arch repositories
+- **Memory**: ~280 MB RAM at idle
+- **GPU**: Minimal overhead (~2-5% during rendering)
+- **Effects**: None - clean, flat design
+- **Target**: All hardware (2012+), maximum performance and stability
+- **Behavior**: Rock-solid reliability, zero visual artifacts
 
-#### Optional Enhanced Mode (Full Effects)
-- **Base**: SwayFX with all effects enabled
-- **Memory**: ~360-380 MB RAM at idle
-- **GPU**: Moderate overhead (~15-25% with all effects enabled)
-- **Effects**: Rounded corners, shadows, blur, fade animations
-- **Target**: Modern GPUs (Intel Xe, AMD Vega+, NVIDIA GTX 1050+)
-- **Toggle**: Use `~/Projects/bunkeros/scripts/toggle-swayfx-mode.sh`
+### Why Vanilla Sway?
 
-### How It Works
-
-Visual effects are controlled via a configuration file:
-
-```
-~/.config/sway/config.d/swayfx-effects
-```
-
-- **Default (Minimal)**: Only `corner_radius 6` enabled, all other effects disabled
-- **Enhanced Mode**: Shadows, blur, dim inactive, animations all enabled
-- **Runtime Switching**: Toggle script swaps configs and reloads Sway (no logout needed)
-
-This architectural decision provides:
-
-- **Single Binary**: Only SwayFX needs to be installed
-- **Single Configuration**: One unified config with effects file toggle
-- **User Choice**: Enable effects anytime with toggle script
-- **Maintenance Simplicity**: Single codebase, unified workflow
-- **Performance First**: Default minimal config works excellently on all hardware
-
-### Why SwayFX Over Vanilla Sway?
-
-SwayFX is a fork of Sway 1.11.0 that adds visual effects as optional features. With minimal effects (rounded corners only), it performs nearly identically to vanilla Sway while providing modern aesthetics and the flexibility to enable additional effects when desired.
+**Stability**: Production-ready compositor with years of proven reliability
+**Performance**: Minimal resource usage without visual effects overhead
+**Compatibility**: Works excellently on all hardware from ThinkPad T480 to modern workstations
+**Simplicity**: No effects configuration or GPU-specific tuning required
+**Philosophy Alignment**: Function over decoration, operational efficiency over eye candy
 
 ### Why Not Hyprland?
 
 Extensive research led to excluding Hyprland:
 
-| Criterion | SwayFX | Hyprland |
-|-----------|--------|----------|
-| Config Compatibility | Sway-compatible | Incompatible syntax |
-| RAM Usage | 332-380 MB | ~532 MB |
+| Criterion | Sway | Hyprland |
+|-----------|------|----------|
+| Config Compatibility | Standard | Incompatible syntax |
+| RAM Usage | ~280 MB | ~532 MB |
 | Stability | Production-ready | Breaking changes common |
 | Hardware Range | T480 to modern | Modern hardware only |
-| Flexibility | Effects on/off | Always-on effects |
+| Effects Overhead | None | Always-on effects |
+| Visual Artifacts | Zero | Flicker during transitions |
 
 Hyprland prioritizes flashy animations over operational efficiency, contradicting BunkerOS's mission-focused philosophy.
 
@@ -210,41 +187,46 @@ Single `.desktop` file in `/usr/share/wayland-sessions/`:
 ```
 Exec=/usr/local/bin/launch-bunkeros.sh
 ```
-- Symlinks minimal effects config by default
-- Runs SwayFX with rounded corners only (optimal for all hardware)
-- Runs SwayFX with visual effects enabled
-
-Both launchers execute the same `sway` binary (SwayFX). SDDM remembers user's session choice across reboots.
+- Single unified launcher for vanilla Sway
+- SDDM remembers session choice across reboots
 
 ## Performance Benchmarks
 
 ### Memory Usage (Idle, 1920x1080)
 
-| Component | Standard | Enhanced | Notes |
-|-----------|----------|----------|-------|
-| Compositor | 180 MB | 200 MB | Sway vs SwayFX base |
-| Waybar | 45 MB | 48 MB | Status bar |
-| Mako | 12 MB | 12 MB | Notifications |
-| Foot (1 instance) | 25 MB | 25 MB | Terminal |
-| **Total System** | **332 MB** | **360 MB** | With 3 terminals open |
+### Launch Architecture
+
+BunkerOS uses a single launch script (`launch-bunkeros.sh`) that:
+- Sets up Wayland environment variables
+- Exports desktop session metadata
+- Launches vanilla Sway compositor
+
+The launcher is installed to `/usr/local/bin/` during setup and referenced by the SDDM session file.
+
+### Resource Footprint
+
+| Component | Memory Usage | Notes |
+|-----------|--------------|-------|
+| Sway Compositor | 180 MB | Vanilla Sway base |
+| Waybar | 45 MB | Status bar |
+| Mako | 12 MB | Notifications |
+| Foot (1 instance) | 25 MB | Terminal |
+| **Total System** | **~280 MB** | With 3 terminals open |
 
 ### GPU Usage (Intel UHD 620)
 
-| Scenario | Minimal Effects | Enhanced Effects |
-|----------|-----------------|------------------|
-| Idle | 2-5% | 8-12% |
-| Window Moving | 15-20% | 25-35% |
-| Window Resizing | 20-25% | 30-40% |
-| Video Playback | +10% | +15% |
-
-Enhanced mode's blur effects are the primary GPU consumer.
+| Scenario | Vanilla Sway |
+|----------|--------------|
+| Idle | 2-5% |
+| Window Moving | 10-15% |
+| Window Resizing | 15-20% |
+| Video Playback | +10% |
 
 ### Comparison with Alternatives
 
 | Compositor | RAM (Idle) | GPU (Idle) | Stability | T480 Compatible |
 |------------|------------|------------|-----------|----------------|
-| **BunkerOS (Minimal)** | 332 MB | 5% | Excellent | Yes |
-| **BunkerOS (Enhanced)** | 360 MB | 12% | Very Good | Yes |
+| **BunkerOS (Vanilla Sway)** | 280 MB | 3% | Excellent | Yes |
 | Hyprland | 532 MB | 25% | Good | Marginal |
 | GNOME Wayland | 780 MB | 35% | Excellent | No |
 | KDE Plasma | 650 MB | 30% | Very Good | Marginal |
@@ -356,11 +338,10 @@ Scripts are organized by function:
 
 ### Adding Features
 
-1. Maintain Sway/SwayFX compatibility
-2. Update both Standard and Enhanced if applicable
-3. Theme all visual components (5+ themes)
-4. Document in appropriate README section
-5. Test on both old (T480) and modern hardware
+1. Maintain Sway compatibility
+2. Theme all visual components (5+ themes)
+3. Document in appropriate README section
+4. Test on both old (T480) and modern hardware
 
 ### Adding Themes
 
@@ -380,13 +361,11 @@ Scripts are organized by function:
 ## Research References
 
 This architecture was informed by:
-- Performance benchmarks across Sway, SwayFX, and Hyprland
+- Performance benchmarks across vanilla Sway and Hyprland
 - User experience reports from T480 and modern hardware users
 - Configuration compatibility testing
 - Stability analysis of compositor update histories
 - Memory profiling across different setups
-
-Key insight: The performance delta between Sway and SwayFX is marginal (~30 MB, ~7% GPU), while the configuration compatibility provides enormous maintenance benefits.
 
 ## Contact and Support
 

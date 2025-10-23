@@ -1,7 +1,4 @@
-# BunkerOS Configuration - Compatible with Sway and SwayFX
-#
-# This config works with both vanilla Sway and SwayFX.
-# SwayFX users get additional visual effects loaded from config.d/swayfx-effects
+# BunkerOS Configuration - Vanilla Sway
 #
 # Read `man 5 sway` for a complete reference.
 
@@ -324,85 +321,6 @@ mode "resize" {
 # }
 
 include /etc/sway/config.d/*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# SwayFX effects disabled - running in vanilla Sway mode
-# corner_radius 6
-# shadows off
-# blur off
-# default_dim_inactive 0
 
 
 

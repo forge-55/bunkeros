@@ -10,7 +10,7 @@ Lite XL is the ideal note-taking app for BunkerOS:
 - **Modern Design**: Rounded dark theme, hardware-accelerated rendering, smooth scrolling
 - **Tactically Clean**: Minimalist interface that stays out of your way
 - **Lua-Extensible**: Optional plugins for advanced features without bloat
-- **Wayland-Native**: Fully functional under Sway/SwayFX
+- **Wayland-Native**: Fully functional under Sway
 - **Multi-Cursor**: Power-user features when you need them
 - **Syntax Highlighting**: Built-in support for Markdown, code, and more
 
