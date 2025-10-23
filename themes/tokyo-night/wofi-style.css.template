@@ -1,42 +1,42 @@
 * {
     font-family: "MesloLGL Nerd Font", "DejaVu Sans Mono", monospace;
-    font-size: 17px;
+    font-size: 15px;
 }
 
 window {
     margin: 0px;
-    border: 2px solid #98971A;
-    background-color: #282828;
+    border: 2px solid #9ECE6A;
+    background-color: #1A1B26;
     border-radius: 0px;
 }
 
 #input {
     margin: 8px;
     padding: 10px 14px;
-    border: 2px solid #D79921;
-    background-color: #3C3836;
-    color: #D79921;
+    border: 2px solid #7AA2F7;
+    background-color: #24283B;
+    color: #7AA2F7;
     border-radius: 0px;
     font-weight: bold;
-    font-size: 17px;
+    font-size: 15px;
 }
 
 #input:focus {
-    border: 2px solid #D79921;
+    border: 2px solid #7AA2F7;
     outline: none;
-    background-color: #504945;
+    background-color: #414868;
 }
 
 #inner-box {
     margin: 8px;
     border: none;
-    background-color: #282828;
+    background-color: #1A1B26;
 }
 
 #outer-box {
     margin: 0px;
     border: none;
-    background-color: #282828;
+    background-color: #1A1B26;
 }
 
 #scroll {
@@ -47,7 +47,7 @@ window {
 #text {
     margin: 4px 0px;
     border: none;
-    color: #EBDBB2;
+    color: #C0CAF5;
 }
 
 #entry {
@@ -60,30 +60,30 @@ window {
 }
 
 #entry:selected {
-    background-color: rgba(215, 153, 33, 0.15);
-    border-left: 3px solid #D79921;
+    background-color: rgba(122, 162, 247, 0.15);
+    border-left: 3px solid #7AA2F7;
     outline: none;
 }
 
 #entry:hover {
-    background-color: rgba(152, 151, 26, 0.3);
-    border-left: 2px solid #504945;
+    background-color: rgba(158, 206, 106, 0.3);
+    border-left: 2px solid #414868;
 }
 
 #entry:selected #text {
-    color: #D79921;
+    color: #7AA2F7;
     font-weight: bold;
 }
 
 /* Highlight current workspace (▸) */
 #text:contains("▸") {
-    color: #D79921;
+    color: #7AA2F7;
     font-weight: bold;
 }
 
 /* Visible workspace (●) */
 #text:contains("●") {
-    color: #98971A;
+    color: #9ECE6A;
 }
 
 /* Inactive workspace (○) */

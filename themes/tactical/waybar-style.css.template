@@ -2,13 +2,13 @@
     border: none;
     border-radius: 0;
     font-family: "MesloLGL Nerd Font", "DejaVu Sans Mono", monospace;
-    font-size: 16px;
+    font-size: 14px;
     min-height: 0;
 }
 
 window#waybar {
-    background-color: rgba(26, 27, 38, 0.95);
-    color: #C0CAF5;
+    background-color: rgba(28, 28, 28, 0.95);
+    color: #D4D4D4;
     transition-property: background-color;
     transition-duration: 0.5s;
 }
@@ -27,60 +27,60 @@ window#waybar.hidden {
     padding: 2px 8px;
     margin: 0 4px;
     background-color: transparent;
-    color: #565F89;
+    color: #6B7657;
     border: none;
     border-radius: 4px;
-    font-size: 16px;
+    font-size: 14px;
     min-width: 20px;
 }
 
 #workspaces button:hover {
-    background-color: rgba(65, 72, 104, 0.3);
-    color: #7AA2F7;
+    background-color: rgba(60, 74, 47, 0.3);
+    color: #C3B091;
     border: none;
 }
 
 #workspaces button.active,
 #workspaces button.focused {
-    background-color: rgba(122, 162, 247, 0.4);
-    color: #7AA2F7;
-    border: 2px solid #7AA2F7;
+    background-color: rgba(195, 176, 145, 0.4);
+    color: #C3B091;
+    border: 2px solid #C3B091;
     border-radius: 4px;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 14px;
     padding: 3px 10px;
 }
 
 #workspaces button.active label,
 #workspaces button.focused label {
-    color: #7AA2F7;
+    color: #C3B091;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 #workspaces button.visible {
-    background-color: rgba(86, 95, 137, 0.3);
-    color: #565F89;
+    background-color: rgba(74, 82, 64, 0.3);
+    color: #4A5240;
 }
 
 #workspaces button.urgent {
-    background-color: #F7768E;
-    border: 2px solid #F7768E;
+    background-color: #CC7832;
+    border: 2px solid #CC7832;
     animation: urgent-pulse 1s ease-in-out infinite alternate;
 }
 
 @keyframes urgent-pulse {
     from {
-        box-shadow: 0 0 8px rgba(247, 118, 142, 0.4);
+        box-shadow: 0 0 8px rgba(204, 120, 50, 0.4);
     }
     to {
-        box-shadow: 0 0 16px rgba(247, 118, 142, 0.8);
+        box-shadow: 0 0 16px rgba(204, 120, 50, 0.8);
     }
 }
 
 #mode {
-    background-color: rgba(247, 118, 142, 0.2);
-    color: #F7768E;
+    background-color: rgba(204, 120, 50, 0.2);
+    color: #CC7832;
     padding: 0 10px;
     margin-left: 10px;
     font-weight: normal;
@@ -97,89 +97,88 @@ window#waybar.hidden {
 #custom-power {
     padding: 0 12px;
     background-color: transparent;
-    color: #C0CAF5;
+    color: #D4D4D4;
 }
 
 #clock {
     font-weight: normal;
-    color: #7AA2F7;
+    color: #C3B091;
     background-color: transparent;
 }
 
 #battery {
-    color: #6B8E4E;
+    color: #4A5240;
 }
 
 #backlight {
-    color: #6B8E4E;
+    color: #4A5240;
 }
 
 #cpu {
-    color: #6B8E4E;
+    color: #4A5240;
 }
 
 #memory {
-    color: #2A8AA0;
+    color: #3C4A2F;
 }
 
 #network {
-    color: #6B8E4E;
+    color: #4A5240;
 }
 
 #network.disconnected {
-    background-color: rgba(247, 118, 142, 0.3);
-    color: #F7768E;
+    background-color: rgba(204, 120, 50, 0.3);
+    color: #CC7832;
     font-weight: bold;
 }
 
 #bluetooth {
-    color: #6B8E4E;
+    color: #4A5240;
 }
 
 #bluetooth.disabled {
-    color: #4A6338;
+    color: #3C4A2F;
 }
 
 #bluetooth.connected {
-    color: #8BA76B;
+    color: #6B7657;
 }
 
 #pulseaudio {
-    color: #6B8E4E;
+    color: #4A5240;
 }
 
 #pulseaudio.muted {
-    background-color: rgba(36, 40, 59, 0.5);
-    color: #24283B;
+    background-color: rgba(43, 45, 46, 0.5);
+    color: #2B2D2E;
 }
 
 #custom-night-mode {
-    color: #6B8E4E;
-    font-size: 16px;
+    color: #4A5240;
+    font-size: 14px;
     padding: 0 8px;
 }
 
 #custom-night-mode.active {
-    color: #7AA2F7;
+    color: #CC7832;
 }
 
 #custom-night-mode.inactive {
-    color: #6B8E4E;
+    color: #4A5240;
 }
 
 #custom-night-mode:hover {
-    color: #7AA2F7;
-    background-color: rgba(65, 72, 104, 0.2);
+    color: #C3B091;
+    background-color: rgba(60, 74, 47, 0.2);
 }
 
 #custom-power {
-    color: #6B8E4E;
-    font-size: 16px;
+    color: #4A5240;
+    font-size: 14px;
     margin-right: 12px;
 }
 
 #custom-power:hover {
-    color: #7AA2F7;
-    background-color: rgba(65, 72, 104, 0.2);
+    color: #C3B091;
+    background-color: rgba(60, 74, 47, 0.2);
 }
-

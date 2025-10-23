@@ -4,6 +4,18 @@
 *~
 .DS_Store
 
+# Lite-xl session files (user-specific)
+lite-xl/session.lua
+lite-xl/ws/
+
+# Auto-scaling modifies theme files - exclude to prevent conflicts
+# Users should have these in ~/.config instead
+themes/*/foot.ini
+themes/*/waybar-style.css
+themes/*/wofi-style.css
+
+# Keep only the template versions (add .template extension)
+!themes/*/*.template
 
 # Web app user data (stored in ~/.local/share/sway-webapp/)
 webapp/icons/
@@ -11,3 +23,6 @@ webapp/data/
 
 # Ignore current theme preference (user-specific)
 .current-theme
+
+# User-specific BunkerOS config
+.config/bunkeros/
