@@ -23,6 +23,13 @@ export CLUTTER_BACKEND=wayland
 
 # Electron apps (VS Code, Cursor, Discord, etc.)
 export ELECTRON_OZONE_PLATFORM_HINT=auto
+
+# Run auto-scaling on first login (or when user hasn't disabled it)
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [ -x "$SCRIPT_DIR/auto-scaling-service-v2.sh" ]; then
+    "$SCRIPT_DIR/auto-scaling-service-v2.sh" &
+fi
+
 # Find the BunkerOS project directory
 # Check common locations
 if [ -d "$HOME/Projects/bunkeros" ]; then

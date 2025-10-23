@@ -24,6 +24,14 @@ export CLUTTER_BACKEND=wayland
 # Electron apps (VS Code, Cursor, Discord, etc.)
 export ELECTRON_OZONE_PLATFORM_HINT=auto
 
+# Find the BunkerOS directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Run auto-scaling on first login (or when user hasn't disabled it)
+if [ -x "$SCRIPT_DIR/auto-scaling-service-v2.sh" ]; then
+    "$SCRIPT_DIR/auto-scaling-service-v2.sh" &
+fi
+
 EFFECTS_FILE="$HOME/.config/sway/config.d/swayfx-effects.conf"
 
 if [ -f "$EFFECTS_FILE" ] || [ -L "$EFFECTS_FILE" ]; then

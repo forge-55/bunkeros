@@ -268,11 +268,19 @@ Your selection is remembered for future logins. Both use the same SwayFX composi
 
 ### First Launch
 
-After logging in, test key features:
-- `Super+Return` - Open terminal
-- `Super+d` - Application launcher
-- `Super+m` - Quick actions menu
-- `Super+w` - Workspace overview
+After logging in for the first time:
+
+1. **Auto-Scaling**: BunkerOS automatically detects your display resolution and applies optimal font sizes
+   - This happens on first login only - your manual font changes are preserved
+   - To disable: `touch ~/.config/bunkeros/scaling-disabled`
+   - To reset to auto-detected settings: `rm ~/.config/bunkeros/user-preferences.conf`
+   - See [AUTO-SCALING.md](AUTO-SCALING.md) for details
+
+2. **Test key features**:
+   - `Super+Return` - Open terminal
+   - `Super+d` - Application launcher
+   - `Super+m` - Quick actions menu
+   - `Super+w` - Workspace overview
 
 ### Theme Switching
 - `Super+m` → Change Theme

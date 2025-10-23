@@ -73,6 +73,7 @@ BunkerOS uses SwayFX for both editions with effects toggled on/off:
 
 - **Dual edition support** - Choose Standard (effects off) or Enhanced (effects on) at login
 - **Intelligent autotiling** - COSMIC-like smart window placement that automatically balances layouts
+- **Automatic display scaling** - Auto-detects your screen resolution and applies optimal font sizes on first login
 - **Interactive keybinding manager** - View, search, edit, and add keybindings via GUI (Super+m → Keybindings)
 - **Multi-theme system** - Switch between 5 curated themes instantly (Tactical, Gruvbox, Nord, Everforest, Tokyo Night)
 - **Smart wallpaper manager** - Graphical wallpaper selector with theme/custom modes, upload support
