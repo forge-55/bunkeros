@@ -38,7 +38,7 @@ Trigger the screensaver manually from two locations:
 
 ### Automatic Activation
 
-The screensaver automatically activates after **10 minutes (600 seconds)** of keyboard/mouse inactivity. This is managed by `swayidle` in your Sway configuration.
+The screensaver automatically activates after **5 minutes (300 seconds)** of keyboard/mouse inactivity. The system will then suspend after **10 minutes (600 seconds)** of total inactivity (5 minutes after the screensaver starts). This is managed by `swayidle` in your Sway configuration.
 
 **Preventing automatic activation**:
 - Fullscreen applications (videos, presentations) automatically inhibit the screensaver

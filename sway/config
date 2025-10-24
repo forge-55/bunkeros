@@ -114,11 +114,11 @@ for_window [app_id="BunkerOS-Screensaver"] {
 #   - This means suspend happens 5 minutes AFTER the screensaver starts
 #   - Optimized for laptop battery life
 # Press any key to exit screensaver and return to work
-exec swayidle -w \
+exec_always "killall swayidle 2>/dev/null; swayidle -w \
     timeout 300 '~/.config/sway-config/scripts/launch-screensaver.sh' \
-    resume 'swaymsg "[app_id=BunkerOS-Screensaver]" kill' \
+    resume 'swaymsg \"[app_id=BunkerOS-Screensaver]\" kill' \
     timeout 600 'systemctl suspend' \
-    before-sleep 'swaymsg "[app_id=BunkerOS-Screensaver]" kill'
+    before-sleep 'swaymsg \"[app_id=BunkerOS-Screensaver]\" kill'"
 
 # Prevent screensaver during fullscreen applications (videos, presentations)
 for_window [class=".*"] inhibit_idle fullscreen
