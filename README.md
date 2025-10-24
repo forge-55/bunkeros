@@ -781,9 +781,19 @@ You'll also need to install your preferred applications for the keybindings:
 
 **Web Browser** (Super+b):
 ```bash
-sudo pacman -S chromium  # or: firefox, brave-bin (AUR)
+# Default: Brave (privacy-focused, built-in ad blocking, seamless web apps)
+yay -S brave-bin
+
+# Alternative: Firefox (also included, independent engine)
+sudo pacman -S firefox
+
+# Optional: Other browsers
+yay -S ungoogled-chromium  # Community-driven, no Google services
+yay -S google-chrome       # Official Google browser
 ```
-Set your default browser: `xdg-settings set default-web-browser chromium.desktop`
+Set your default browser: `xdg-settings set default-web-browser brave-browser.desktop`
+
+**Note**: BunkerOS defaults to Brave for optimal containerized web app functionality while providing built-in privacy protection. Firefox is also installed for users who prefer it, though containerized web apps will have limited isolation. See `DEFAULT-APPS.md` for details.
 
 **Text Editor** (Super+e):
 ```bash

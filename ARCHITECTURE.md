@@ -304,6 +304,60 @@ The launcher is installed to `/usr/local/bin/` during setup and referenced by th
 - **Functional**: Basic + scientific modes
 - **Lightweight**: Minimal dependencies
 
+### Browser Strategy: Brave as Default
+
+**Decision**: BunkerOS ships with **Brave** as the default browser, with **Firefox** also installed but not set as default.
+
+#### Rationale
+
+**Web App Feature Compatibility**:
+- BunkerOS's Web App Manager (Omarchy-style containerized web apps) provides critical productivity features
+- Chromium-based browsers support proper app mode (`--app=URL`) with chrome-less windows
+- Firefox's app mode implementation lacks feature parity (no proper window isolation, limited PWA support)
+- This ensures the "Install Web App" feature works seamlessly out of the box
+
+**Privacy-First with Better UX**:
+- **Brave** provides Chromium's technical advantages without Google telemetry
+- Built-in ad blocking and tracker protection (no extensions needed)
+- Open source, actively maintained with fast commercial updates
+- Privacy-focused by default with optional features (Brave Rewards)
+- Polished user experience for non-technical users
+
+**User Flexibility**:
+- Firefox remains installed for users who prefer it or don't need containerized web apps
+- Users can easily set Firefox as default: `xdg-settings set default-web-browser firefox.desktop`
+- Installation scripts support Chrome, Chromium, Ungoogled Chromium, and other browsers if users prefer alternatives
+
+#### Technical Advantages of Chromium for Web Apps
+
+| Feature | Chromium-based | Firefox |
+|---------|----------------|---------|
+| App Mode Window Isolation | Excellent | Limited |
+| Custom Window Titles | Full support | Partial |
+| Profile Separation | Complete | Shared context |
+| PWA Installation | Native | Addon required |
+| Wayland Screen Sharing | Excellent (with flags) | Good |
+| Integration with Sway | Perfect tiling | Works well |
+
+#### User Choice Philosophy
+
+BunkerOS prioritizes **productivity features that work seamlessly out of the box** while respecting user choice:
+
+1. **Default**: Brave (privacy + features + polished UX)
+2. **Included**: Firefox (alternative for users who don't need web apps)
+3. **Optional**: Chrome, Chromium, Ungoogled Chromium (user can install via package manager)
+4. **Documented**: Clear instructions for changing defaults in README.md
+
+Users who value Firefox's independent engine, Mozilla's privacy focus, or container tabs can easily switch, understanding they'll lose containerized web app functionality. Users who need containerized web apps benefit from seamless functionality immediately.
+
+#### Package Information
+
+- **Default Browser**: `brave-bin` (AUR package)
+- **Secondary Browser**: `firefox` (official repositories)
+- **XDG Default Setting**: `xdg-settings set default-web-browser brave-browser.desktop`
+
+This decision aligns with BunkerOS's philosophy: **productivity-focused defaults with full user control**.
+
 ## Project Structure Philosophy
 
 ### Modular Configuration

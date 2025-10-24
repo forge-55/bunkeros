@@ -40,10 +40,13 @@ The app will appear in your Wofi launcher immediately!
 
 The tool automatically detects and uses your default browser:
 
+- **Brave** - Full support with main profile (BunkerOS default)
 - **Google Chrome** - Full support with main profile
 - **Chromium** - Full support with main profile
-- **Brave** - Full support with main profile
-- **Firefox** - Supported with new-window mode
+- **Ungoogled Chromium** - Full support with main profile
+- **Firefox** - Supported with new-window mode (limited isolation)
+
+**Note**: BunkerOS ships with Brave as the default browser for optimal containerized web app functionality. Chromium-based browsers provide proper window isolation and PWA support, making them ideal for the Web App Manager. Firefox is also installed for users who prefer it, though containerized web app isolation is more limited. See `ARCHITECTURE.md` for details.
 
 ## Directory Structure
 
@@ -71,10 +74,11 @@ This separation keeps your personal web app data private while allowing the setu
 ### Browser Detection
 
 The tool uses `xdg-settings` to detect your default browser and falls back to checking for installed browsers in this order:
-1. Google Chrome
-2. Chromium
-3. Brave
-4. Firefox
+1. Brave (BunkerOS default)
+2. Google Chrome
+3. Chromium
+4. Ungoogled Chromium
+5. Firefox
 
 ### Desktop Integration
 

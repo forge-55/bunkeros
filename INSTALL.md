@@ -98,6 +98,59 @@ cd bunkeros
 ./scripts/verify-packages.sh
 ```
 
+### Step 5: Install User Applications
+
+BunkerOS requires some user applications for full functionality:
+
+#### Web Browsers (Required)
+
+**Default Browser** (recommended for containerized web apps):
+```bash
+# Brave - Privacy-focused, built-in ad blocking, seamless web app support
+yay -S brave-bin
+
+# Set as default
+xdg-settings set default-web-browser brave-browser.desktop
+```
+
+**Alternative Browser** (included for user choice):
+```bash
+# Firefox - Independent engine, Mozilla privacy focus
+sudo pacman -S firefox
+```
+
+**Optional Browsers**:
+```bash
+# Ungoogled Chromium - Community-driven, no Google services
+yay -S ungoogled-chromium
+
+# Google Chrome - Official Google browser
+yay -S google-chrome
+
+# Chromium - Open source base
+sudo pacman -S chromium
+```
+
+**Why Brave?** BunkerOS defaults to Brave for optimal containerized web app functionality (proper window isolation, PWA support) while providing built-in privacy protection (ad blocking, tracker blocking) and a polished user experience. Firefox is also installed for users who prefer it, though containerized web app isolation will be limited. See `ARCHITECTURE.md` for detailed rationale.
+
+#### Code Editor (Recommended)
+
+```bash
+# VS Code (or Cursor, VSCodium)
+yay -S visual-studio-code-bin
+# OR
+yay -S cursor-bin
+# OR
+sudo pacman -S vscodium
+```
+
+#### Other Applications
+
+```bash
+# Additional tools as needed
+sudo pacman -S gimp vlc libreoffice-fresh
+```
+
 ## Manual Installation (Advanced)
 
 If you prefer manual installation or already have an Arch base system, you can install BunkerOS components individually:

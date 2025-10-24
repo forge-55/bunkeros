@@ -12,6 +12,7 @@ The default applications system lets you configure:
 | `mod+e` | Editor | code, cursor, vim, nvim, lite-xl |
 | `mod+f` | File Manager | nautilus, thunar, dolphin, ranger |
 | `mod+n` | Notes | lite-xl, obsidian, logseq, joplin |
+| `mod+b` | Web Browser | brave, firefox, chrome, ungoogled-chromium |
 
 ## Accessing the Menu
 
@@ -106,8 +107,125 @@ To add an application not in the default list:
 ### Want to use command-line flags
 Edit `defaults.conf` directly to add flags:
 ```bash
-BUNKEROS_TERM=alacritty --config-file ~/.config/alacritty/custom.yml
+BUNKEROS_TERM=alacritty --config-file ~/.config/alacritry/custom.yml
 ```
+
+## Web Browser Configuration
+
+BunkerOS provides flexible browser management while optimizing for web app functionality.
+
+### Default Browser
+
+BunkerOS ships with **Brave** as the default browser for `Super+b` and system-wide web links. This choice ensures:
+
+- **Containerized web apps work seamlessly** - Chromium's app mode provides proper window isolation for containerized web apps
+- **Privacy by default** - Brave has built-in ad blocking and tracker protection, no Google telemetry
+- **No extensions needed** - Ad blocking and privacy features work out of the box
+- **Polished experience** - Fast updates, professional UX, actively maintained
+- **Wayland optimized** - Excellent screen sharing and compositor integration
+
+### Firefox is Also Included
+
+Firefox is pre-installed as an alternative browser. Users who prefer Firefox can easily switch, understanding they'll lose the containerized web app feature:
+
+1. **Set Firefox as default**:
+   ```bash
+   xdg-settings set default-web-browser firefox.desktop
+   ```
+
+2. **Launch Firefox directly**:
+   - Via Wofi launcher: `Super+d` → type "firefox"
+   - Add custom keybinding if desired
+
+**Note**: Switching to Firefox means containerized web apps will have limited isolation compared to Chromium-based browsers.
+
+### Why Brave by Default?
+
+The default browser choice prioritizes **productivity features that work seamlessly out of the box**:
+
+| Feature | Chromium-based (Brave) | Firefox |
+|---------|----------------|---------|
+| Containerized Web App Isolation | ✅ Excellent | ⚠️ Limited |
+| PWA Support | ✅ Native | ⚠️ Requires addon |
+| Profile Separation | ✅ Complete | ⚠️ Shared context |
+| Built-in Ad Blocking | ✅ Yes (Brave) | ⚠️ Extension needed |
+| Wayland Integration | ✅ Full support | ✅ Good support |
+
+**However**: Firefox offers advantages like independent engine, Mozilla's privacy focus, and container tabs. Users can easily switch based on their priorities, understanding the trade-off with containerized web apps.
+
+### Changing Your Default Browser
+
+**Via XDG Settings** (recommended):
+```bash
+# Set Brave (default)
+xdg-settings set default-web-browser brave-browser.desktop
+
+# Set Firefox
+xdg-settings set default-web-browser firefox.desktop
+
+# Set Ungoogled Chromium (if installed)
+xdg-settings set default-web-browser ungoogled-chromium.desktop
+
+# Set Chrome (if installed)
+xdg-settings set default-web-browser google-chrome.desktop
+```
+
+**Verify current default**:
+```bash
+xdg-settings get default-web-browser
+```
+
+### Installing Additional Browsers
+
+**From Official Repositories**:
+```bash
+# Firefox
+sudo pacman -S firefox
+
+# Firefox Developer Edition
+sudo pacman -S firefox-developer-edition
+```
+
+**From AUR**:
+```bash
+# Brave (default)
+yay -S brave-bin
+
+# Ungoogled Chromium
+yay -S ungoogled-chromium
+
+# Google Chrome
+yay -S google-chrome
+
+# Chromium (official, with Google integration)
+yay -S chromium
+
+# Vivaldi
+yay -S vivaldi
+```
+
+### Web App Manager Compatibility
+
+The Web App Manager (Super+Alt+Space → Web Apps) works best with Chromium-based browsers:
+
+- **Excellent**: Brave (default), Chrome, Chromium, Ungoogled Chromium, Vivaldi, Edge
+- **Limited**: Firefox (uses new-window mode instead of proper app isolation)
+
+See `webapp/README.md` for detailed web app documentation.
+
+### Browser-Specific Wayland Configuration
+
+BunkerOS automatically configures Chromium-based browsers for optimal Wayland support during installation. To manually configure:
+
+```bash
+~/Projects/bunkeros/scripts/configure-browser-wayland.sh
+```
+
+This enables:
+- Native Wayland rendering
+- Screen sharing via PipeWire
+- Proper HiDPI support
+- Optimal performance
 
 ## Philosophy
 
