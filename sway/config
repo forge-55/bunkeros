@@ -104,6 +104,7 @@ for_window [app_id="BunkerOS-Screensaver"] {
     opacity 1.0
     focus
     # Do NOT inhibit idle - we want suspend to work after screensaver starts
+    inhibit_idle none
 }
 
 ### Idle configuration
