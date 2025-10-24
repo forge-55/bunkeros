@@ -132,7 +132,7 @@ fi
 # Different prompts based on mode
 if [ "$reorder_mode" = "reorder" ]; then
     # In reorder mode - show compact list with position numbers
-    prompt="━━━━━  REORDER MODE  ━━━━━  Select workspace to move, then type destination number (1-9)  •  [Esc] Cancel"
+    prompt="━━━━━  REORDER MODE  ━━━━━  Select workspace to move  •  [Esc] Done Reordering"
     width=1400
     height=500
 else
@@ -171,9 +171,14 @@ if [ -n "$selected" ]; then
             
             if [ -n "$destination" ] && [ "$destination" -ge 1 ] && [ "$destination" -le 9 ] 2>/dev/null; then
                 if move_workspace "$ws_num" "$destination"; then
-                    # Switch to the workspace in its new position
-                    swaymsg workspace number "$destination"
+                    # Reopen reorder mode for multiple operations
+                    rm -f "$temp_file" "$window_file"
+                    exec "$0" reorder
                 fi
+            else
+                # User cancelled - return to reorder menu
+                rm -f "$temp_file" "$window_file"
+                exec "$0" reorder
             fi
         else
             # Normal mode - just switch to workspace
