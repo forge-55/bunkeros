@@ -78,6 +78,7 @@ show_cheatsheet() {
   Super + q              Close window
   Super + m              Quick actions menu
   Super + w              Workspace overview
+  Super + Shift + w      Reorder workspaces
   Super + Escape         Lock screen
   Super + Shift + r      Reload Sway config
 

@@ -186,6 +186,9 @@ for_window [app_id=".*"] inhibit_idle fullscreen
     # Workspace overview - see all workspaces and windows at a glance
     bindsym $mod+w exec ~/.config/waybar/scripts/workspace-windows.sh
 
+    # Workspace reorder mode - reorganize workspaces easily
+    bindsym $mod+Shift+w exec ~/.config/waybar/scripts/workspace-windows.sh reorder
+
     # Drag floating windows by holding $mod and left mouse button
     # Resize them with right mouse button + $mod
     floating_modifier $mod normal

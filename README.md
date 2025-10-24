@@ -202,6 +202,7 @@ This configuration uses minimal, intuitive keybindings that are consistent acros
 - `Super+t` or `Super+Enter` - Launch terminal
 - `Super+c` - Launch calculator (MATE Calculator)
 - `Super+w` - Workspace overview (see all workspaces and windows)
+- `Super+Shift+w` - Reorder workspaces (reorganize workspace positions)
 - `Super+Shift+r` - Reload Sway configuration
 
 **Window Focus (Vim-style or Arrow keys):**
@@ -329,8 +330,31 @@ The overview displays:
 
 - **Type to filter** - Start typing to narrow down workspaces or windows
 - **Click or Enter** - Select a workspace to switch to it
-- **Click window** - Select a window name to focus that specific window
 - **Esc** - Close the overview without switching
+
+### Reordering Workspaces
+
+Want to reorganize your workspaces? Use the dedicated reorder mode:
+
+**Quick Access:** Press `Super+Shift+W` to enter reorder mode directly
+
+**How it works:**
+1. Press `Super+Shift+W` (reorder mode opens immediately)
+2. Select the workspace you want to move
+3. Type the destination position number (1-9)
+4. Done! The workspaces swap positions instantly
+
+**Example:** If you have development work on workspace 7 but want it on workspace 2:
+- Press `Super+Shift+W`
+- Select workspace 7
+- Type `2`
+- Workspace 7 and 2 swap - you're now on your dev workspace at position 2!
+
+**Why this is useful:**
+- Quick reorganization when you have many workspaces open
+- Group related work together (all communication apps on 3-4)
+- Move important work to easier-to-reach positions (1-3)
+- Much faster than manually moving windows between workspaces
 
 ### When to Use
 
@@ -348,7 +372,8 @@ The overview is implemented as a custom script (`workspace-windows.sh`) that:
 1. Queries Sway's IPC for all workspaces and their windows
 2. Formats the data with icons and clear labeling
 3. Displays in Wofi with tactical theme styling
-4. Handles workspace switching and window focusing
+4. Handles workspace switching, window focusing, and workspace reordering
+5. Uses Sway's native `rename workspace` command for seamless reordering
 
 ## Night Mode
 

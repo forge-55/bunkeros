@@ -2,6 +2,29 @@
 
 temp_file="/tmp/sway-workspace-overview-$$"
 window_file="/tmp/sway-windows-$$"
+reorder_mode="${1:-normal}"  # 'normal' or 'reorder'
+
+# Function to move workspace to new position
+move_workspace() {
+    local source_ws="$1"
+    local target_ws="$2"
+    
+    if [ "$source_ws" -eq "$target_ws" ]; then
+        notify-send "Workspace Reorder" "No change - same position selected" -t 2000
+        return 1
+    fi
+    
+    # Use a temporary name to avoid conflicts
+    local temp_name="temp_ws_move_$$"
+    
+    # Perform the swap
+    swaymsg "rename workspace \"$source_ws\" to \"$temp_name\""
+    swaymsg "rename workspace \"$target_ws\" to \"$source_ws\""
+    swaymsg "rename workspace \"$temp_name\" to \"$target_ws\""
+    
+    notify-send "Workspace Reorder" "Moved workspace $source_ws → $target_ws (swapped positions)" -t 3000
+    return 0
+}
 
 # Get all windows with workspace numbers
 swaymsg -t get_tree | jq -r '
@@ -106,12 +129,25 @@ if [ ! -s "$temp_file" ]; then
     exit 0
 fi
 
+# Different prompts based on mode
+if [ "$reorder_mode" = "reorder" ]; then
+    # In reorder mode - show compact list with position numbers
+    prompt="━━━━━  REORDER MODE  ━━━━━  Select workspace to move, then type destination number (1-9)  •  [Esc] Cancel"
+    width=1400
+    height=500
+else
+    # Normal mode - workspace overview (removed misleading [R] hint since Wofi uses R for search)
+    prompt="━━━━━  WORKSPACE OVERVIEW  ━━━━━  [Enter] Switch  •  [Esc] Cancel  •  Super+Shift+W to Reorder"
+    width=1400
+    height=500
+fi
+
 # Display with clean format
 selected=$(sed 's/^[^|]*|//' "$temp_file" | wofi \
     --dmenu \
-    --prompt "━━━━━  WORKSPACE OVERVIEW  ━━━━━  Type number or use ↑↓ arrows" \
-    --width 1400 \
-    --height 450 \
+    --prompt "$prompt" \
+    --width $width \
+    --height $height \
     --cache-file=/dev/null \
     --insensitive)
 
@@ -121,8 +157,29 @@ if [ -n "$selected" ]; then
     ws_num=$(echo "$line" | grep -oP '^WS:\K[0-9]+')
     
     if [ -n "$ws_num" ]; then
-        swaymsg workspace number "$ws_num"
+        if [ "$reorder_mode" = "reorder" ]; then
+            # Store the selected workspace and prompt for destination
+            echo "Selected workspace $ws_num to move"
+            
+            # Prompt for destination using a simple input
+            destination=$(echo -e "1\n2\n3\n4\n5\n6\n7\n8\n9" | wofi \
+                --dmenu \
+                --prompt "Move workspace $ws_num to position:" \
+                --width 400 \
+                --height 350 \
+                --cache-file=/dev/null)
+            
+            if [ -n "$destination" ] && [ "$destination" -ge 1 ] && [ "$destination" -le 9 ] 2>/dev/null; then
+                if move_workspace "$ws_num" "$destination"; then
+                    # Switch to the workspace in its new position
+                    swaymsg workspace number "$destination"
+                fi
+            fi
+        else
+            # Normal mode - just switch to workspace
+            swaymsg workspace number "$ws_num"
+        fi
     fi
 fi
 
-rm -f "$temp_file" "$window_file"
+rm -f "$temp_file" "$window_file" "/tmp/workspace-reorder-source-$$"
