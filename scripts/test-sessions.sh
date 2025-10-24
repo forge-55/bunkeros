@@ -53,15 +53,15 @@ fi
 
 echo ""
 
-# Test SwayFX availability
-echo "3. Testing SwayFX installation:"
+# Test Sway availability
+echo "3. Testing Sway installation:"
 if command -v sway &> /dev/null; then
-    echo "   ✓ sway/swayfx command found in PATH"
+    echo "   ✓ sway command found in PATH"
     sway_version=$(sway --version 2>/dev/null || echo "unknown")
     echo "   Version: $sway_version"
 else
-    echo "   ❌ sway/swayfx not found in PATH"
-    echo "   Install with: sudo pacman -S swayfx"
+    echo "   ❌ sway not found in PATH"
+    echo "   Install with: sudo pacman -S sway"
 fi
 
 echo ""
@@ -85,18 +85,17 @@ done
 
 echo ""
 
-# Test BunkerOS directory detection (for Enhanced edition)
+# Test BunkerOS directory detection
 echo "5. Testing BunkerOS directory detection:"
 if [ -d "$HOME/Projects/bunkeros" ]; then
     echo "   ✓ Found BunkerOS directory: $HOME/Projects/bunkeros"
-    if [ -f "$HOME/Projects/bunkeros/sway/config.d/swayfx-effects" ]; then
-        echo "   ✓ SwayFX effects file exists"
+    if [ -f "$HOME/Projects/bunkeros/sway/config" ]; then
+        echo "   ✓ Sway config file exists"
     else
-        echo "   ⚠️  SwayFX effects file missing"
+        echo "   ⚠️  Sway config file missing"
     fi
 else
     echo "   ⚠️  BunkerOS directory not found in $HOME/Projects/bunkeros"
-    echo "       Enhanced edition may not work correctly"
 fi
 
 echo ""

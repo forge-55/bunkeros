@@ -50,7 +50,7 @@ echo "1. Core Packages"
 echo "═══════════════════════════════════════════════════════════════"
 echo ""
 
-check "Sway/SwayFX installed" "command -v sway"
+check "Sway installed" "command -v sway"
 check "Waybar installed" "command -v waybar"
 check "Wofi installed" "command -v wofi"
 check "Foot terminal installed" "command -v foot"

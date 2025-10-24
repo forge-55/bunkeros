@@ -170,7 +170,7 @@ recommend_edition() {
     local gpu_info=$1
     local device_type=$2
     
-    # Check for modern GPUs that handle SwayFX well
+    # Check for modern GPUs
     if echo "$gpu_info" | grep -qiE "(nvidia.*rtx|nvidia.*gtx [12][0-9]|nvidia.*gtx [3-9][0-9]|amd.*(vega|rdna|rx [5-7][0-9]|rx [3-4][0-9][0-9])|intel.*(xe|iris|uhd [6-9]|hd [5-9]))"; then
         echo "enhanced"
     # Check for older but capable GPUs

@@ -71,21 +71,14 @@ for edition in standard enhanced; do
     fi
 done
 
-log_and_echo "=== SwayFX Installation Check ==="
+log_and_echo "=== Sway Installation Check ==="
 if command -v sway &>/dev/null; then
     sway_path=$(which sway)
     sway_version=$(sway --version 2>/dev/null)
     log_and_echo "✓ Sway found: $sway_path"
     log_and_echo "Version: $sway_version"
-    
-    # Check if it's actually SwayFX
-    if sway --version 2>&1 | grep -q "swayfx"; then
-        log_and_echo "✓ SwayFX confirmed"
-    else
-        log_and_echo "⚠️  This appears to be vanilla Sway, not SwayFX"
-    fi
 else
-    log_and_echo "❌ Sway/SwayFX not found in PATH"
+    log_and_echo "❌ Sway not found in PATH"
 fi
 log_and_echo ""
 
@@ -135,12 +128,6 @@ log_and_echo "=== Recommendations ==="
 log_and_echo ""
 
 # Check for common issues
-if ! sway --version 2>&1 | grep -q "swayfx"; then
-    log_and_echo "❌ CRITICAL: You have vanilla Sway instead of SwayFX!"
-    log_and_echo "   Solution: sudo pacman -S swayfx"
-    log_and_echo ""
-fi
-
 if [ ! -f "/usr/local/bin/launch-bunkeros-standard.sh" ] || [ ! -f "/usr/local/bin/launch-bunkeros-enhanced.sh" ]; then
     log_and_echo "❌ CRITICAL: Launch scripts missing!"
     log_and_echo "   Solution: cd ~/Projects/bunkeros/sddm && sudo ./install-theme.sh"

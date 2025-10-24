@@ -25,23 +25,20 @@ check_warn() {
     echo -e "${YELLOW}⚠${NC} $1"
 }
 
-# Check 1: SwayFX Installation
-echo "1. Checking SwayFX Installation..."
+# Check 1: Sway Installation
+echo "1. Checking Sway Installation..."
 if command -v sway &> /dev/null; then
     SWAY_PATH=$(which sway)
     check_pass "sway found at: $SWAY_PATH"
     
-    if pacman -Q swayfx &> /dev/null; then
-        SWAYFX_VERSION=$(pacman -Q swayfx)
-        check_pass "SwayFX installed: $SWAYFX_VERSION"
-    else
-        check_warn "sway found but swayfx package not detected"
-        echo "  You may have vanilla sway instead of swayfx"
+    if pacman -Q sway &> /dev/null; then
+        SWAY_VERSION=$(pacman -Q sway)
+        check_pass "Sway installed: $SWAY_VERSION"
     fi
 else
-    check_fail "sway/swayfx NOT FOUND"
-    echo "  FIX: Install SwayFX with: yay -S swayfx"
-    NEEDS_SWAYFX=true
+    check_fail "sway NOT FOUND"
+    echo "  FIX: Install Sway with: sudo pacman -S sway"
+    NEEDS_SWAY=true
 fi
 echo ""
 
@@ -175,13 +172,12 @@ echo ""
 echo "=== SUMMARY ==="
 echo ""
 
-if [ "$NEEDS_SWAYFX" = true ]; then
-    echo -e "${RED}CRITICAL:${NC} SwayFX is not installed!"
+if [ "$NEEDS_SWAY" = true ]; then
+    echo -e "${RED}CRITICAL:${NC} Sway is not installed!"
     echo "This is the most likely cause of the black screen."
     echo ""
     echo "FIX NOW:"
-    echo "  yay -S swayfx"
-    echo "  # or: paru -S swayfx"
+    echo "  sudo pacman -S sway"
     echo ""
 fi
 

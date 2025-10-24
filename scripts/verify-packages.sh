@@ -10,7 +10,7 @@ echo ""
 
 # Define all required packages
 CORE_PACKAGES=(
-    swayfx
+    sway
     autotiling-rs
     waybar
     wofi
