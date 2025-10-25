@@ -109,16 +109,18 @@ for_window [app_id="BunkerOS-Screensaver"] {
 
 ### Idle configuration
 #
-# Swayidle handles automatic screensaver and suspend
+# Swayidle handles screensaver activation
 # Screensaver activates after 5 minutes (300 seconds) of inactivity
+# 
+# System suspend is handled by systemd-logind (see /etc/systemd/logind.conf.d/bunkeros-power.conf)
 # System suspends after 10 minutes (600 seconds) of total inactivity
 #   - This means suspend happens 5 minutes AFTER the screensaver starts
 #   - Optimized for laptop battery life
+# 
 # Press any key to exit screensaver and return to work
 exec_always "killall swayidle 2>/dev/null; swayidle -w \
     timeout 300 '~/.config/sway-config/scripts/launch-screensaver.sh' \
     resume 'swaymsg \"[app_id=BunkerOS-Screensaver]\" kill' \
-    timeout 600 'systemctl suspend' \
     before-sleep 'swaymsg \"[app_id=BunkerOS-Screensaver]\" kill'"
 
 # Prevent screensaver during fullscreen applications (videos, presentations)

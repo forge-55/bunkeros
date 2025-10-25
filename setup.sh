@@ -297,6 +297,18 @@ cd "$PROJECT_DIR"
 "$PROJECT_DIR/scripts/configure-browser-wayland.sh"
 echo ""
 
+echo "Step 16: Installing power management configuration..."
+echo "  Installing systemd-logind configuration for auto-suspend..."
+if [ ! -d "/etc/systemd/logind.conf.d" ]; then
+    sudo mkdir -p /etc/systemd/logind.conf.d
+fi
+sudo cp "$PROJECT_DIR/systemd/logind.conf.d/bunkeros-power.conf" /etc/systemd/logind.conf.d/
+echo "  ✓ Power management configuration installed"
+echo "  📋 Screensaver: 5 minutes (swayidle)"
+echo "  📋 Auto-suspend: 10 minutes (systemd-logind)"
+echo "  ℹ Changes will take effect after reboot or logout"
+echo ""
+
 echo "=== BunkerOS Setup Complete! ==="
 echo ""
 echo "Next steps:"
