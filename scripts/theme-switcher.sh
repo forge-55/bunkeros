@@ -68,6 +68,7 @@ apply_theme() {
         wallpaper_path=$(eval echo "$wallpaper_path")
     fi
     
+    # Update project directory (source of truth)
     cp "$theme_dir/waybar-style.css" "$PROJECT_DIR/waybar/style.css"
     cp "$theme_dir/wofi-style.css" "$PROJECT_DIR/wofi/style.css"
     cp "$theme_dir/mako-config" "$PROJECT_DIR/mako/config"
@@ -75,6 +76,15 @@ apply_theme() {
     cp "$theme_dir/btop.theme" "$PROJECT_DIR/btop/themes/active.theme"
     cp "$theme_dir/foot.ini" "$PROJECT_DIR/foot/foot.ini"
     cp "$theme_dir/dircolors" "$PROJECT_DIR/dircolors"
+    
+    # Also update active config locations
+    cp "$theme_dir/waybar-style.css" "$HOME/.config/waybar/style.css"
+    cp "$theme_dir/wofi-style.css" "$HOME/.config/wofi/style.css"
+    cp "$theme_dir/mako-config" "$HOME/.config/mako/config"
+    cp "$theme_dir/swayosd-style.css" "$HOME/.config/swayosd/style.css"
+    cp "$theme_dir/btop.theme" "$HOME/.config/btop/themes/active.theme"
+    cp "$theme_dir/foot.ini" "$HOME/.config/foot/foot.ini"
+    cp "$theme_dir/dircolors" "$HOME/.dircolors"
     
     if grep -q "^# THEME COLORS START" "$PROJECT_DIR/sway/config" 2>/dev/null; then
         sed -i '/^# THEME COLORS START/,/^# THEME COLORS END/d' "$PROJECT_DIR/sway/config"
