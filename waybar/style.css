@@ -24,20 +24,23 @@ window#waybar.hidden {
 }
 
 #workspaces button {
-    padding: 2px 8px;
+    padding: 3px 10px;
     margin: 0 4px;
     background-color: transparent;
     color: #6B7657;
-    border: none;
+    border: 2px solid transparent;
     border-radius: 4px;
-    font-size: 11px;
-    min-width: 20px;
+    font-size: 13px;
+    font-weight: normal;
+    min-width: 32px;
+    box-sizing: border-box;
+    transition: all 0.2s ease-in-out;
 }
 
 #workspaces button:hover {
     background-color: rgba(60, 74, 47, 0.3);
     color: #C3B091;
-    border: none;
+    border: 2px solid rgba(195, 176, 145, 0.2);
 }
 
 #workspaces button.active,
@@ -47,7 +50,7 @@ window#waybar.hidden {
     border: 2px solid #C3B091;
     border-radius: 4px;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 13px;
     padding: 3px 10px;
 }
 
@@ -55,12 +58,13 @@ window#waybar.hidden {
 #workspaces button.focused label {
     color: #C3B091;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 #workspaces button.visible {
     background-color: rgba(74, 82, 64, 0.3);
     color: #4A5240;
+    border: 2px solid transparent;
 }
 
 #workspaces button.urgent {
