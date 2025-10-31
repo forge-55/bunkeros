@@ -89,6 +89,7 @@ Creates `~/.config/bunkeros/defaults.conf` with proper application defaults, whi
 
 **Quick Reinstall:**
 ```bash
+```bash
 # From TTY (Ctrl+Alt+F2)
 cd ~/Projects/bunkeros
 
@@ -100,8 +101,12 @@ sudo cp scripts/launch-bunkeros.sh /usr/local/bin/
 sudo chmod +x /usr/local/bin/launch-bunkeros.sh
 sudo cp sddm/sessions/bunkeros.desktop /usr/share/wayland-sessions/
 
+# Re-run installation
+./install.sh
+
 # Restart SDDM
 sudo systemctl restart sddm
+```
 ```
 
 ---

@@ -893,7 +893,8 @@ cd bunkeros
 ./scripts/check-compatibility.sh
 
 # Install BunkerOS with robust error handling
-./install-robust.sh
+# Install with robust error handling
+./install.sh
 ```
 
 ### Alternative: Manual Setup

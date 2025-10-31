@@ -25,8 +25,8 @@ cd bunkeros
 # Check system compatibility (recommended)
 ./scripts/check-compatibility.sh
 
-# Install with robust error handling
-./install-robust.sh
+# Install with error handling and recovery
+./install.sh
 ```
 
 The robust installer will:

@@ -117,7 +117,7 @@ if [ $CRITICAL_ISSUES -eq 0 ] && [ $WARNINGS -eq 0 ]; then
     echo "${PASS} System is fully compatible with BunkerOS!"
     echo ""
     echo "Ready to install! Run:"
-    echo "  ./install-robust.sh"
+    echo "  ./install.sh"
     exit 0
 elif [ $CRITICAL_ISSUES -eq 0 ]; then
     echo "${WARN} System is compatible with $WARNINGS warning(s)"
@@ -125,7 +125,7 @@ elif [ $CRITICAL_ISSUES -eq 0 ]; then
     echo "You can proceed with installation, but address warnings if possible."
     echo ""
     echo "Ready to install! Run:"
-    echo "  ./install-robust.sh"
+    echo "  ./install.sh"
     exit 0
 else
     echo "${FAIL} $CRITICAL_ISSUES critical issue(s) found"
