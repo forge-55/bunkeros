@@ -1,6 +1,6 @@
 # BunkerOS Installation Guide
 
-Complete installation instructions for BunkerOS with robust error handling and compatibility checking.
+Complete installation instructions for BunkerOS with robust error handling, automatic recovery, and checkpoint-based resumption.
 
 ## System Requirements
 
@@ -8,7 +8,8 @@ Complete installation instructions for BunkerOS with robust error handling and c
 - RAM: 4GB minimum, 8GB recommended
 - GPU: Any (Intel integrated graphics work excellently)
 - CPU: x86-64 compatible (modern processors recommended)
-- Disk: 20GB free space
+- Disk: 20GB free space (2GB minimum for installation)
+- Network: Active internet connection required
 
 **Note**: BunkerOS uses minimal effects (rounded corners only) by default for maximum performance. Users with modern GPUs who want additional effects can enable them after installation using the effects toggle script.
 
@@ -25,17 +26,20 @@ cd bunkeros
 # Check system compatibility (recommended)
 ./scripts/check-compatibility.sh
 
-# Install with error handling and recovery
+# Install with automatic error handling and recovery
 ./install.sh
 ```
 
-The robust installer will:
-- Check for existing display managers and handle conflicts
-- Install all required packages with verification
-- Create automatic backups of existing configs
-- Set up all BunkerOS configurations with symlinks
-- Enable proper services and environment variables
-- Provide clear error messages and recovery instructions
+The installer features:
+- **Preflight checks**: Verifies internet, disk space, and package database
+- **Checkpoint system**: Resume from interruptions automatically
+- **Automatic recovery**: Handles package conflicts intelligently
+- **Backup creation**: Saves existing configs before changes
+- **Configuration validation**: Tests Sway config before completion
+- **Emergency session**: Installs recovery mode accessible from login screen
+- **Detailed logging**: All operations logged for troubleshooting
+
+**If installation is interrupted**, simply re-run `./install.sh` and it will resume from the last successful checkpoint.
 
 ## Manual Installation
 
@@ -434,7 +438,130 @@ sudo pacman -S ttf-jetbrains-mono-nerd
 fc-cache -fv
 ```
 
-### Kernel Issues
+### Emergency Recovery
+
+If you encounter issues after installation, BunkerOS includes an emergency recovery session.
+
+### Accessing Emergency Recovery
+
+1. **At the SDDM login screen**, select "BunkerOS Emergency Recovery" from the session menu
+2. A fullscreen terminal will open with recovery instructions
+3. Use the minimal emergency keybindings:
+   - `Super+T` - Open new terminal
+   - `Super+Shift+E` - Exit emergency session
+
+### What Emergency Recovery Provides
+
+- Minimal Sway configuration (no user config dependencies)
+- Direct terminal access for troubleshooting
+- Ability to edit config files and fix issues
+- Access to system logs and diagnostics
+
+### Common Recovery Tasks
+
+**Restore configuration backup:**
+```bash
+# Find your backup
+ls ~/.config/.bunkeros-backup-*
+
+# Restore it (replace TIMESTAMP)
+cp -r ~/.config/.bunkeros-backup-TIMESTAMP/* ~/.config/
+```
+
+**Check installation log:**
+```bash
+# Find the log
+ls /tmp/bunkeros-install-*.log
+
+# View errors
+grep -i "error\|fail" /tmp/bunkeros-install-*.log
+```
+
+**Validate Sway configuration:**
+```bash
+# Test config syntax
+sway --validate
+
+# Check for errors
+sway --debug 2>&1 | grep -i error
+```
+
+**Re-run installation:**
+```bash
+cd ~/Projects/bunkeros
+./install.sh
+# Will resume from last checkpoint
+```
+
+## Troubleshooting Common Issues
+
+### Installation Failed with "Atomic commit failed"
+
+**Cause**: Package file conflicts (usually desktop portals)
+
+**Solution**: The installer now handles this automatically with `--overwrite` flags. If you see this error, ensure you're using the latest install.sh.
+
+### Terminal Keybindings Don't Work
+
+**Cause**: Missing `~/.config/bunkeros/defaults.conf`
+
+**Solution**: The installer now auto-creates this file. If missing:
+```bash
+cd ~/Projects/bunkeros
+cp bunkeros/defaults.conf ~/.config/bunkeros/defaults.conf
+```
+
+### Emergency Recovery Session is Default
+
+**Cause**: Session file naming/ordering issue
+
+**Solution**: The installer now names sessions correctly. Verify:
+```bash
+ls /usr/share/wayland-sessions/
+# Should show: bunkeros.desktop, bunkeros-recovery.desktop
+```
+
+### Installation Interrupted/Failed
+
+**Solution**: Just re-run `./install.sh` - it will resume from the last checkpoint:
+- `backup_complete`
+- `sddm_configured`
+- `core_packages_installed`
+- `app_packages_installed`
+- etc.
+
+### Can't Access TTY from SDDM
+
+**Note**: `Ctrl+Alt+F2` shortcuts don't work at the SDDM login screen - use the Emergency Recovery session instead.
+
+## Advanced Troubleshooting
+
+### Check Service Status
+
+```bash
+systemctl --user status pipewire pipewire-pulse wireplumber
+systemctl status sddm
+```
+
+### Verify Package Installation
+
+```bash
+cd ~/Projects/bunkeros
+./scripts/verify-packages.sh
+```
+
+### Test Sway Without Waybar
+
+```bash
+cd ~/Projects/bunkeros
+./scripts/test-without-waybar.sh
+```
+
+### Debug SDDM Login Issues
+
+See [TROUBLESHOOTING-SDDM.md](TROUBLESHOOTING-SDDM.md) for detailed SDDM troubleshooting.
+
+## Kernel Issues
 
 If you encounter issues with the kernel:
 

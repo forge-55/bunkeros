@@ -5,6 +5,7 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 LOG_FILE="/tmp/bunkeros-install.log"
 BACKUP_DIR="$HOME/.config/bunkeros-backup-$(date +%Y%m%d-%H%M%S)"
+CHECKPOINT_FILE="/tmp/bunkeros-install-checkpoint"
 
 # Colors for output
 RED='\033[0;31m'
@@ -32,6 +33,72 @@ success() {
 
 info() {
     echo -e "${BLUE}INFO: $1${NC}" | tee -a "$LOG_FILE"
+}
+
+# Save checkpoint
+save_checkpoint() {
+    echo "$1" > "$CHECKPOINT_FILE"
+}
+
+# Get last checkpoint
+get_checkpoint() {
+    if [ -f "$CHECKPOINT_FILE" ]; then
+        cat "$CHECKPOINT_FILE"
+    else
+        echo "start"
+    fi
+}
+
+# Pre-flight checks
+preflight_checks() {
+    info "Running pre-flight checks..."
+    
+    # Check if running on Arch-based system
+    if ! command -v pacman &>/dev/null; then
+        error "This installer requires an Arch-based system with pacman"
+        exit 1
+    fi
+    
+    # Check for internet connectivity
+    if ! ping -c 1 archlinux.org &>/dev/null; then
+        warning "No internet connection detected"
+        echo "Internet connection is required to download packages."
+        read -p "Continue anyway? (y/n) " -n 1 -r
+        echo
+        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+            exit 1
+        fi
+    fi
+    
+    # Check for pacman lock
+    if [ -f /var/lib/pacman/db.lck ]; then
+        warning "Pacman database is locked"
+        echo "Another package manager might be running, or a previous operation was interrupted."
+        read -p "Remove lock file and continue? (y/n) " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            sudo rm -f /var/lib/pacman/db.lck
+            success "Lock file removed"
+        else
+            exit 1
+        fi
+    fi
+    
+    # Check disk space (need at least 2GB free)
+    local free_space=$(df -BG / | tail -1 | awk '{print $4}' | sed 's/G//')
+    if [ "$free_space" -lt 2 ]; then
+        error "Insufficient disk space. Need at least 2GB free, have ${free_space}GB"
+        exit 1
+    fi
+    
+    # Update pacman database
+    info "Updating package database..."
+    if ! sudo pacman -Sy; then
+        error "Failed to update package database"
+        exit 1
+    fi
+    
+    success "Pre-flight checks passed"
 }
 
 # Check if package is installed
@@ -141,23 +208,29 @@ handle_display_manager() {
     fi
 }
 
-# Install packages with verification
+# Install packages with verification and conflict handling
 install_packages() {
     local package_list=("$@")
     local failed_packages=()
     
     info "Installing ${#package_list[@]} packages..."
     
-    # Try to install all packages
-    if ! sudo pacman -S --needed "${package_list[@]}"; then
-        warning "Some packages failed to install, checking individually..."
+    # Try to install all packages with --overwrite for common conflicts
+    if ! sudo pacman -S --needed --noconfirm "${package_list[@]}" 2>&1 | tee -a "$LOG_FILE"; then
+        warning "Batch install had issues, trying individually..."
         
         # Check each package individually
         for pkg in "${package_list[@]}"; do
             if ! check_package "$pkg"; then
-                if ! sudo pacman -S --needed "$pkg"; then
-                    failed_packages+=("$pkg")
-                    error "Failed to install: $pkg"
+                # Try normal install first
+                if ! sudo pacman -S --needed --noconfirm "$pkg" 2>&1 | tee -a "$LOG_FILE"; then
+                    # If it fails, try with --overwrite (for file conflicts)
+                    if ! sudo pacman -S --needed --noconfirm --overwrite='*' "$pkg" 2>&1 | tee -a "$LOG_FILE"; then
+                        failed_packages+=("$pkg")
+                        error "Failed to install: $pkg"
+                    else
+                        success "Installed (with overwrite): $pkg"
+                    fi
                 else
                     success "Installed: $pkg"
                 fi
@@ -309,9 +382,11 @@ EOF
     
     # Create backup
     backup_config
+    save_checkpoint "backup_complete"
     
     # Handle display manager
     handle_display_manager
+    save_checkpoint "sddm_configured"
     
     # Define package groups
     local core_packages=(
@@ -346,44 +421,68 @@ EOF
     echo ""
     info "Installing core packages..."
     install_packages "${core_packages[@]}"
+    save_checkpoint "core_packages_installed"
     
     echo ""
     info "Installing application packages..."
     install_packages "${app_packages[@]}"
+    save_checkpoint "app_packages_installed"
     
     echo ""
     info "Installing media packages..."
     install_packages "${media_packages[@]}"
+    save_checkpoint "media_packages_installed"
     
     echo ""
     info "Installing system packages..."
     install_packages "${system_packages[@]}"
+    save_checkpoint "system_packages_installed"
     
     echo ""
     info "Installing desktop portal packages (may have file conflicts)..."
-    if ! sudo pacman -S --needed --overwrite='*' "${portal_packages[@]}"; then
+    if ! sudo pacman -S --needed --noconfirm --overwrite='*' "${portal_packages[@]}" 2>&1 | tee -a "$LOG_FILE"; then
         warning "Desktop portal installation had conflicts - trying individually..."
         for pkg in "${portal_packages[@]}"; do
-            if ! sudo pacman -S --needed --overwrite='*' "$pkg"; then
+            if ! sudo pacman -S --needed --noconfirm --overwrite='*' "$pkg" 2>&1 | tee -a "$LOG_FILE"; then
                 warning "Failed to install $pkg (non-critical, continuing...)"
             fi
         done
     fi
     success "Desktop portal packages installed"
+    save_checkpoint "portal_packages_installed"
     
     echo ""
     info "Installing AUR packages..."
     install_aur_packages "${aur_packages[@]}"
+    save_checkpoint "aur_packages_installed"
     
     # Run setup script
     echo ""
     info "Running configuration setup..."
     if "$SCRIPT_DIR/setup.sh"; then
         success "Configuration setup completed"
+        save_checkpoint "setup_complete"
     else
         error "Configuration setup failed"
         exit 1
     fi
+    
+    # Validate Sway configuration
+    echo ""
+    info "Validating Sway configuration..."
+    if sway --validate 2>&1 | tee -a "$LOG_FILE"; then
+        success "Sway configuration is valid"
+    else
+        error "Sway configuration has errors!"
+        echo "Please check the errors above before logging in."
+        echo "You can still use the Emergency Recovery session if needed."
+        read -p "Continue anyway? (y/n) " -n 1 -r
+        echo
+        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+            exit 1
+        fi
+    fi
+    save_checkpoint "sway_validated"
     
     # Install Python tools
     echo ""
@@ -393,9 +492,11 @@ EOF
     else
         warning "Failed to install TerminalTextEffects (optional)"
     fi
+    save_checkpoint "python_tools_installed"
     
     # Verify services
     verify_services
+    save_checkpoint "services_verified"
     
     # Install power management
     echo ""
@@ -405,18 +506,21 @@ EOF
     else
         warning "Power management setup had issues (non-critical)"
     fi
+    save_checkpoint "power_management_complete"
     
     # Fix current session
     fix_current_session
+    save_checkpoint "session_fixed"
     
     # Final validation
     echo ""
     info "Running final validation..."
-    if "$SCRIPT_DIR/scripts/validate-installation.sh" &>/dev/null; then
+    if "$SCRIPT_DIR/scripts/validate-installation.sh" 2>&1 | tee -a "$LOG_FILE"; then
         success "Installation validation passed"
     else
         warning "Some validation checks failed - see log for details"
     fi
+    save_checkpoint "installation_complete"
     
     cat << EOF
 
@@ -437,9 +541,13 @@ EOF
    3. Enjoy your productivity environment!
 
 🔧 If something goes wrong:
+   • Use "BunkerOS Emergency Recovery" from login screen
    • Check the log: $LOG_FILE
    • Restore backup: cp -r $BACKUP_DIR/* ~/.config/
    • Re-run this script: $SCRIPT_DIR/install.sh
+
+💡 Checkpoints saved - if installation was interrupted, re-running
+   will resume from the last successful stage.
 
 EOF
 }
