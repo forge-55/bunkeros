@@ -248,10 +248,6 @@ cd "$PROJECT_DIR"
 echo ""
 
 echo "Step 16: Setting up BunkerOS screensaver..."
-mkdir -p "$HOME/.config/bunkeros/screensaver"
-backup_if_exists "$HOME/.config/bunkeros/screensaver/screensaver.txt"
-ln -sf "$PROJECT_DIR/screensaver/screensaver.txt" "$HOME/.config/bunkeros/screensaver/screensaver.txt"
-
 # Symlink screensaver scripts to sway-config scripts directory
 mkdir -p "$CONFIG_DIR/sway-config/scripts"
 backup_if_exists "$CONFIG_DIR/sway-config/scripts/bunkeros-screensaver.sh"

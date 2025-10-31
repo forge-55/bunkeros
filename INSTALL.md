@@ -319,7 +319,7 @@ After logging in for the first time:
    - This happens on first login only - your manual font changes are preserved
    - To disable: `touch ~/.config/bunkeros/scaling-disabled`
    - To reset to auto-detected settings: `rm ~/.config/bunkeros/user-preferences.conf`
-   - See [AUTO-SCALING.md](AUTO-SCALING.md) for details
+   - See [ADAPTIVE-SCALING.md](ADAPTIVE-SCALING.md) for details
 
 2. **Test key features**:
    - `Super+Return` - Open terminal

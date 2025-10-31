@@ -1160,7 +1160,6 @@ This configuration combines power-user efficiency with modern desktop polish:
 
 ### Installation & Setup
 - **[INSTALL.md](INSTALL.md)** - Installation guide with robust installer
-- **[INSTALLATION-v2.md](INSTALLATION-v2.md)** - Technical details about installation system
 - **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** - Issues and automated troubleshooting tools
 
 ### Architecture & Design
