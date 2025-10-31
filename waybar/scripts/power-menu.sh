@@ -1,6 +1,12 @@
 #!/bin/bash
 # Power menu using wofi
 
+# If wofi is already running, close it instead of opening a new menu
+if pgrep -x wofi > /dev/null 2>&1; then
+    pkill -x wofi
+    exit 0
+fi
+
 # Accept position parameter (default: top_right for waybar button)
 POSITION=${1:-top_right}
 

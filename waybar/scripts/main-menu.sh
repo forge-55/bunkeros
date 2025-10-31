@@ -1,6 +1,12 @@
 #!/bin/bash
 # BunkerOS Main Menu - Organized and tactical
 
+# If wofi is already running, close it instead of opening a new menu
+if pgrep -x wofi > /dev/null 2>&1; then
+    pkill -x wofi
+    exit 0
+fi
+
 options="󰏘  Appearance\n󰒓  System\n󰏖  Install\n󰄀  Screenshot\n󰀉  Preferences\n󰐥  Power"
 
 # Count number of items
