@@ -22,6 +22,59 @@ sudo cp "$PROJECT_DIR/systemd/logind.conf.d/bunkeros-power.conf" /etc/systemd/lo
 echo "Configuration installed to: /etc/systemd/logind.conf.d/bunkeros-power.conf"
 echo ""
 
+# CPU Power Management (for laptops)
+echo "=== CPU Power Management (Optional) ==="
+echo ""
+echo "For laptops, you can install additional CPU power management tools:"
+echo ""
+echo "Options:"
+echo "  1) auto-cpufreq (Recommended) - Automatic CPU speed & power optimizer"
+echo "  2) TLP - Advanced laptop power management"
+echo "  3) Skip - Use kernel defaults only"
+echo ""
+echo "Note: Do NOT install both TLP and auto-cpufreq (they conflict)"
+echo ""
+read -p "Choose option (1-3) [3]: " -n 1 -r
+echo ""
+
+case $REPLY in
+    1)
+        echo ""
+        echo "Installing auto-cpufreq..."
+        if sudo pacman -S --needed auto-cpufreq; then
+            sudo systemctl enable --now auto-cpufreq
+            echo "✓ auto-cpufreq installed and enabled"
+            echo ""
+            echo "View status with: sudo auto-cpufreq --stats"
+        else
+            echo "✗ Failed to install auto-cpufreq"
+        fi
+        ;;
+    2)
+        echo ""
+        echo "Installing TLP..."
+        if sudo pacman -S --needed tlp tlp-rdw; then
+            sudo systemctl enable --now tlp
+            echo "✓ TLP installed and enabled"
+            echo ""
+            echo "View status with: sudo tlp-stat -s"
+        else
+            echo "✗ Failed to install TLP"
+        fi
+        ;;
+    3|"")
+        echo ""
+        echo "Skipping CPU power management tools"
+        echo "(Using kernel defaults)"
+        ;;
+    *)
+        echo ""
+        echo "Invalid option. Skipping CPU power management."
+        ;;
+esac
+
+echo ""
+
 echo "=== Power Management Settings ==="
 echo ""
 echo "  Screensaver:  5 minutes (managed by swayidle)"

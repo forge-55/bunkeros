@@ -71,13 +71,12 @@ If Sway works manually but not from SDDM:
 ```bash
 cd ~/Projects/bunkeros  # or wherever you cloned it
 
-# Reinstall the launch scripts
-sudo cp scripts/launch-bunkeros-standard.sh /usr/local/bin/
-sudo cp scripts/launch-bunkeros-enhanced.sh /usr/local/bin/
-sudo chmod +x /usr/local/bin/launch-bunkeros-*.sh
+# Reinstall the launch script
+sudo cp scripts/launch-bunkeros.sh /usr/local/bin/
+sudo chmod +x /usr/local/bin/launch-bunkeros.sh
 
-# Reinstall the session files
-sudo cp sddm/sessions/*.desktop /usr/share/wayland-sessions/
+# Reinstall the session file
+sudo cp sddm/sessions/bunkeros.desktop /usr/share/wayland-sessions/
 
 # Restart SDDM
 sudo systemctl restart sddm

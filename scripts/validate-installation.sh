@@ -86,11 +86,9 @@ echo "════════════════════════�
 echo ""
 
 check "SDDM service enabled" "systemctl is-enabled sddm.service"
-check "BunkerOS Standard session file" "test -f /usr/share/wayland-sessions/bunkeros-standard.desktop"
-check "BunkerOS Enhanced session file" "test -f /usr/share/wayland-sessions/bunkeros-enhanced.desktop"
-check "Launch script (Standard) in /usr/local/bin" "test -f /usr/local/bin/launch-bunkeros-standard.sh"
-check "Launch script (Enhanced) in /usr/local/bin" "test -f /usr/local/bin/launch-bunkeros-enhanced.sh"
-check "Launch scripts are executable" "test -x /usr/local/bin/launch-bunkeros-standard.sh && test -x /usr/local/bin/launch-bunkeros-enhanced.sh"
+check "BunkerOS session file" "test -f /usr/share/wayland-sessions/bunkeros.desktop"
+check "Launch script in /usr/local/bin" "test -f /usr/local/bin/launch-bunkeros.sh"
+check "Launch script is executable" "test -x /usr/local/bin/launch-bunkeros.sh"
 
 echo ""
 echo "═══════════════════════════════════════════════════════════════"

@@ -44,47 +44,27 @@ echo ""
 
 # Check 2: Launch Scripts
 echo "2. Checking Launch Scripts..."
-if [ -f /usr/local/bin/launch-bunkeros-standard.sh ]; then
-    check_pass "Standard launcher found"
-    if [ -x /usr/local/bin/launch-bunkeros-standard.sh ]; then
-        check_pass "Standard launcher is executable"
+if [ -f /usr/local/bin/launch-bunkeros.sh ]; then
+    check_pass "BunkerOS launcher found"
+    if [ -x /usr/local/bin/launch-bunkeros.sh ]; then
+        check_pass "BunkerOS launcher is executable"
     else
-        check_fail "Standard launcher is NOT executable"
-        echo "  FIX: sudo chmod +x /usr/local/bin/launch-bunkeros-standard.sh"
+        check_fail "BunkerOS launcher is NOT executable"
+        echo "  FIX: sudo chmod +x /usr/local/bin/launch-bunkeros.sh"
     fi
 else
-    check_fail "Standard launcher NOT FOUND"
-    echo "  FIX: sudo cp ~/Projects/bunkeros/scripts/launch-bunkeros-standard.sh /usr/local/bin/"
-fi
-
-if [ -f /usr/local/bin/launch-bunkeros-enhanced.sh ]; then
-    check_pass "Enhanced launcher found"
-    if [ -x /usr/local/bin/launch-bunkeros-enhanced.sh ]; then
-        check_pass "Enhanced launcher is executable"
-    else
-        check_fail "Enhanced launcher is NOT executable"
-        echo "  FIX: sudo chmod +x /usr/local/bin/launch-bunkeros-enhanced.sh"
-    fi
-else
-    check_fail "Enhanced launcher NOT FOUND"
-    echo "  FIX: sudo cp ~/Projects/bunkeros/scripts/launch-bunkeros-enhanced.sh /usr/local/bin/"
+    check_fail "BunkerOS launcher NOT FOUND"
+    echo "  FIX: sudo cp ~/Projects/bunkeros/scripts/launch-bunkeros.sh /usr/local/bin/"
 fi
 echo ""
 
 # Check 3: Session Files
 echo "3. Checking SDDM Session Files..."
-if [ -f /usr/share/wayland-sessions/bunkeros-standard.desktop ]; then
-    check_pass "Standard session file found"
+if [ -f /usr/share/wayland-sessions/bunkeros.desktop ]; then
+    check_pass "BunkerOS session file found"
 else
-    check_fail "Standard session file NOT FOUND"
-    echo "  FIX: sudo cp ~/Projects/bunkeros/sddm/sessions/bunkeros-standard.desktop /usr/share/wayland-sessions/"
-fi
-
-if [ -f /usr/share/wayland-sessions/bunkeros-enhanced.desktop ]; then
-    check_pass "Enhanced session file found"
-else
-    check_fail "Enhanced session file NOT FOUND"
-    echo "  FIX: sudo cp ~/Projects/bunkeros/sddm/sessions/bunkeros-enhanced.desktop /usr/share/wayland-sessions/"
+    check_fail "BunkerOS session file NOT FOUND"
+    echo "  FIX: sudo cp ~/Projects/bunkeros/sddm/sessions/bunkeros.desktop /usr/share/wayland-sessions/"
 fi
 echo ""
 

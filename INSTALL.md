@@ -331,6 +331,32 @@ After logging in for the first time:
 - `Super+m` → Change Theme
 - Try: Tactical (default), Gruvbox, Nord, Tokyo Night, Everforest
 
+### Power Management (Laptops)
+
+For improved battery life on laptops, BunkerOS supports optional CPU power management:
+
+**Option 1: auto-cpufreq (Recommended)**
+```bash
+sudo pacman -S auto-cpufreq
+sudo systemctl enable --now auto-cpufreq
+
+# View status
+sudo auto-cpufreq --stats
+```
+
+**Option 2: TLP (Alternative)**
+```bash
+sudo pacman -S tlp tlp-rdw
+sudo systemctl enable --now tlp
+
+# View status
+sudo tlp-stat -s
+```
+
+**Note:** Don't install both - they conflict with each other.
+
+See [POWER-MANAGEMENT.md](POWER-MANAGEMENT.md) for complete details.
+
 **For detailed feature documentation, see [README.md](README.md)**
 
 **For security configuration, see [SECURITY.md](SECURITY.md)**

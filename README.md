@@ -65,6 +65,7 @@ The tactical color palette and flat design provide a modern, professional look w
 - **Interactive screenshot system** with GNOME/COSMIC-style workflow
 - **Night mode toggle** with one-click color temperature adjustment
 - **SwayOSD** on-screen display for volume and brightness with elegant overlays
+- **Smart power management** - Auto-suspend with optional CPU frequency scaling (auto-cpufreq/TLP)
 - **Dynamic wallpaper** management via swaybg
 - **Window gaps** for a modern tiled layout
 - **Custom color scheme** with olive drab, tactical gray, and tan accents
@@ -986,7 +987,6 @@ bunkeros/
 │   │   ├── theme.conf            (Theme configuration)
 │   │   └── metadata.desktop      (Theme metadata)
 │   ├── sessions/
-│   │   ├── bunkeros-standard.desktop  → /usr/share/wayland-sessions/ (Sway session)
 │   │   └── bunkeros.desktop          → /usr/share/wayland-sessions/ (BunkerOS session)
 │   ├── install-theme.sh          (Theme and session installation script)
 │   └── README.md                 (SDDM theme documentation)

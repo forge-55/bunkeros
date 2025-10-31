@@ -11,6 +11,7 @@ BunkerOS uses the standard Linux power management system: **systemd-logind**. Th
 | **systemd-logind** | System suspend/hibernate | `/etc/systemd/logind.conf.d/` |
 | **swayidle** | Screensaver activation | `~/.config/sway/config` |
 | **Sway compositor** | Idle inhibition (fullscreen apps) | Window rules in Sway config |
+| **auto-cpufreq** or **TLP** | CPU frequency & power (optional) | Systemd service |
 
 ### Why This Approach?
 
@@ -18,6 +19,7 @@ BunkerOS uses the standard Linux power management system: **systemd-logind**. Th
 - **Reliable**: systemd-logind has proper idle detection and power management
 - **Compatible**: Works with system-wide inhibitor locks (video players, updates, etc.)
 - **Battery-aware**: Can have different settings for AC vs battery power
+- **Laptop-optimized**: Optional CPU power management tools extend battery life
 
 ## Default Settings
 
@@ -25,6 +27,69 @@ BunkerOS uses the standard Linux power management system: **systemd-logind**. Th
 5 minutes  → Screensaver activates (swayidle)
 10 minutes → System suspends (systemd-logind)
 ```
+
+## CPU Power Management (Laptops)
+
+BunkerOS supports optional CPU power management tools for improved laptop battery life:
+
+### auto-cpufreq (Recommended)
+
+Automatic CPU speed and power optimizer that adapts to your workload.
+
+**Installation:**
+```bash
+sudo pacman -S auto-cpufreq
+sudo systemctl enable --now auto-cpufreq
+```
+
+**Usage:**
+```bash
+# View current status and statistics
+sudo auto-cpufreq --stats
+
+# Monitor live (updates every second)
+sudo auto-cpufreq --monitor
+```
+
+**Features:**
+- Automatic CPU frequency scaling based on load
+- Battery vs AC power profiles
+- Automatic turbo boost management
+- Process-based optimization
+
+### TLP (Alternative)
+
+Advanced laptop power management with extensive configuration options.
+
+**Installation:**
+```bash
+sudo pacman -S tlp tlp-rdw
+sudo systemctl enable --now tlp
+```
+
+**Usage:**
+```bash
+# View status
+sudo tlp-stat -s
+
+# Full statistics
+sudo tlp-stat
+```
+
+**Note:** Do NOT install both TLP and auto-cpufreq - they conflict with each other.
+
+### Which to Choose?
+
+| Feature | auto-cpufreq | TLP |
+|---------|--------------|-----|
+| Ease of use | ✓ Works out of the box | Requires configuration |
+| Active development | ✓ Modern, actively maintained | Mature but slower updates |
+| Configuration | Minimal/automatic | Extensive options |
+| CPU frequency | ✓ Automatic | Manual profiles |
+| Power savings | Good (20-30% typical) | Excellent (30-40% with tuning) |
+| Best for | Most users | Power users who want control |
+
+**Recommendation:** Start with auto-cpufreq. Switch to TLP only if you need specific features or want to fine-tune settings.
 
 ## Installation
 

@@ -86,9 +86,7 @@ Next steps:
 2. Reboot your system:
    $ reboot
 
-3. At the login screen, select one of the BunkerOS sessions:
-   • BunkerOS (Standard)  - Optimized for older hardware
-   • BunkerOS (Enhanced)  - Full visual effects for modern hardware
+3. At the login screen, select BunkerOS
 
 4. Start being productive!
 

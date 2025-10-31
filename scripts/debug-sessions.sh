@@ -128,8 +128,8 @@ log_and_echo "=== Recommendations ==="
 log_and_echo ""
 
 # Check for common issues
-if [ ! -f "/usr/local/bin/launch-bunkeros-standard.sh" ] || [ ! -f "/usr/local/bin/launch-bunkeros-enhanced.sh" ]; then
-    log_and_echo "❌ CRITICAL: Launch scripts missing!"
+if [ ! -f "/usr/local/bin/launch-bunkeros.sh" ]; then
+    log_and_echo "❌ CRITICAL: Launch script missing!"
     log_and_echo "   Solution: cd ~/Projects/bunkeros/sddm && sudo ./install-theme.sh"
     log_and_echo ""
 fi

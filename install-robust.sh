@@ -84,7 +84,7 @@ handle_display_manager() {
         echo ""
         echo "BunkerOS works best with SDDM for the themed login experience."
         echo "Options:"
-        echo "  1) Switch to SDDM (recommended)"
+        echo "  1) Switch to SDDM (recommended - will install if needed)"
         echo "  2) Keep $current_dm (you'll need to manually select BunkerOS sessions)"
         echo "  3) Cancel installation"
         echo ""
@@ -94,6 +94,19 @@ handle_display_manager() {
         case $REPLY in
             1)
                 info "Switching to SDDM..."
+                
+                # Install SDDM and dependencies if not already installed
+                if ! check_package "sddm"; then
+                    info "Installing SDDM..."
+                    if sudo pacman -S --needed sddm qt5-declarative qt5-quickcontrols2; then
+                        success "SDDM installed successfully"
+                    else
+                        error "Failed to install SDDM"
+                        exit 1
+                    fi
+                fi
+                
+                # Disable old display manager and enable SDDM
                 sudo systemctl disable "$current_dm.service" || true
                 sudo systemctl enable sddm.service
                 success "Switched to SDDM"
@@ -110,8 +123,21 @@ handle_display_manager() {
                 exit 1
                 ;;
         esac
+    elif [ -z "$current_dm" ]; then
+        # No display manager is enabled, install and enable SDDM
+        info "No display manager detected. Installing SDDM..."
+        if ! check_package "sddm"; then
+            if sudo pacman -S --needed sddm qt5-declarative qt5-quickcontrols2; then
+                success "SDDM installed successfully"
+            else
+                error "Failed to install SDDM"
+                exit 1
+            fi
+        fi
+        sudo systemctl enable sddm.service
+        success "SDDM enabled"
     else
-        info "Display manager check completed"
+        info "Display manager check completed (SDDM already configured)"
     fi
 }
 
@@ -355,6 +381,15 @@ EOF
     # Verify services
     verify_services
     
+    # Install power management
+    echo ""
+    info "Installing power management configuration..."
+    if "$SCRIPT_DIR/scripts/install-power-management.sh"; then
+        success "Power management configured"
+    else
+        warning "Power management setup had issues (non-critical)"
+    fi
+    
     # Fix current session
     fix_current_session
     
@@ -382,7 +417,7 @@ EOF
 
 🎯 Next Steps:
    1. Log out and log back in to get full environment
-   2. Select "BunkerOS (Standard)" or "BunkerOS (Enhanced)" at login
+   2. Select "BunkerOS" at the login screen
    3. Enjoy your productivity environment!
 
 🔧 If something goes wrong:
