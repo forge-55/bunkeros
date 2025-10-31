@@ -330,8 +330,12 @@ EOF
     
     local system_packages=(
         sddm qt5-declarative qt5-quickcontrols2 ttf-meslo-nerd 
-        xdg-desktop-portal xdg-desktop-portal-wlr xdg-desktop-portal-gtk 
-        python-pipx
+        xdg-desktop-portal python-pipx
+    )
+    
+    # Desktop portal packages (need special handling due to file conflicts)
+    local portal_packages=(
+        xdg-desktop-portal-wlr xdg-desktop-portal-gtk
     )
     
     local aur_packages=(
@@ -354,6 +358,18 @@ EOF
     echo ""
     info "Installing system packages..."
     install_packages "${system_packages[@]}"
+    
+    echo ""
+    info "Installing desktop portal packages (may have file conflicts)..."
+    if ! sudo pacman -S --needed --overwrite='*' "${portal_packages[@]}"; then
+        warning "Desktop portal installation had conflicts - trying individually..."
+        for pkg in "${portal_packages[@]}"; do
+            if ! sudo pacman -S --needed --overwrite='*' "$pkg"; then
+                warning "Failed to install $pkg (non-critical, continuing...)"
+            fi
+        done
+    fi
+    success "Desktop portal packages installed"
     
     echo ""
     info "Installing AUR packages..."
