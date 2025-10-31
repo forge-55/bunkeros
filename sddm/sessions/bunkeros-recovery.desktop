@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=BunkerOS Emergency Terminal
+Name=BunkerOS Emergency Recovery
 Comment=Emergency recovery terminal (boots directly to TTY-style terminal)
 Exec=/usr/local/bin/launch-bunkeros-emergency.sh
 Type=Application

@@ -24,7 +24,7 @@ sudo mkdir -p "$SESSION_DIR"
 sudo cp "$SESSION_SOURCE/bunkeros.desktop" "$SESSION_DIR/"
 
 echo "Installing emergency recovery session..."
-sudo cp "$SESSION_SOURCE/bunkeros-emergency.desktop" "$SESSION_DIR/"
+sudo cp "$SESSION_SOURCE/bunkeros-recovery.desktop" "$SESSION_DIR/"
 
 echo "Installing launch scripts to /usr/local/bin..."
 echo "Installing BunkerOS launch script..."
