@@ -21,9 +21,19 @@ backup_if_exists() {
 }
 
 echo "Step 1: Creating config directories..."
-mkdir -p "$CONFIG_DIR"/{sway/config.d,waybar/scripts,wofi,mako,foot,btop/themes,swayosd,themes}
+mkdir -p "$CONFIG_DIR"/{sway/config.d,waybar/scripts,wofi,mako,foot,btop/themes,swayosd,themes,bunkeros}
 mkdir -p "$LOCAL_BIN"
 echo "  ✓ Directories created"
+echo ""
+
+echo "Step 1.5: Setting up default applications configuration..."
+if [ ! -f "$CONFIG_DIR/bunkeros/defaults.conf" ]; then
+    echo "  Creating defaults.conf with fallback applications..."
+    cp "$PROJECT_DIR/bunkeros/defaults.conf" "$CONFIG_DIR/bunkeros/defaults.conf"
+    echo "  ✓ Default applications configured"
+else
+    echo "  ℹ defaults.conf already exists, keeping user preferences"
+fi
 echo ""
 
 echo "Step 2: Setting up Sway configuration..."

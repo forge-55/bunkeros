@@ -12,11 +12,19 @@ set $down j
 set $up k
 set $right l
 
-# Load user's default applications from config file
+# Default application fallbacks (used if ~/.config/bunkeros/defaults.conf doesn't exist)
+# These ensure keybindings work even on fresh installations before setup.sh runs
+set $BUNKEROS_TERM foot
+set $BUNKEROS_MENU wofi --show drun
+set $BUNKEROS_EDITOR lite-xl
+set $BUNKEROS_FILEMANAGER nautilus
+set $BUNKEROS_NOTES lite-xl
+
+# Load user's default applications from config file (will override fallbacks above)
 # These can be customized via: Super+m → Preferences → Default Apps
 include ~/.config/bunkeros/defaults.conf
 
-# Set Sway variables from user defaults
+# Set convenient short variables from user defaults
 set $term $BUNKEROS_TERM
 set $menu $BUNKEROS_MENU
 set $editor $BUNKEROS_EDITOR

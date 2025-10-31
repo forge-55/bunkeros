@@ -1,8 +1,43 @@
 # Emergency Recovery Guide
 
-If you encounter a black screen after login, follow these steps:
+If you encounter a black screen, broken keybindings, or can't access your system after installation, follow these steps:
 
-## Quick Recovery (Most Common)
+## 🚨 Can't Open Terminal / Keybindings Don't Work
+
+### Symptoms:
+- You're logged into BunkerOS
+- Desktop appears but nothing happens when you press keys
+- `Super+t` or `Super+Return` don't open terminal
+
+### Quick Fix (From TTY):
+
+1. **Switch to TTY**: Press `Ctrl+Alt+F2`
+2. **Login** with your username and password
+3. **Run setup script**:
+   ```bash
+   cd ~/Projects/bunkeros
+   ./setup.sh
+   ```
+4. **Return to desktop**: Press `Ctrl+Alt+F1`
+5. **Reload Sway**: Press `Super+Shift+r`
+6. **Test terminal**: Press `Super+t` or `Super+Return`
+
+### What This Does:
+Creates the missing `~/.config/bunkeros/defaults.conf` file that contains application mappings for keybindings.
+
+### Emergency Terminal Access (Without TTY):
+
+If you need a terminal RIGHT NOW without switching to TTY:
+
+1. Press `Ctrl+Alt+F2` to switch to TTY
+2. Login
+3. Run: `WAYLAND_DISPLAY=wayland-1 foot &`
+4. Press `Ctrl+Alt+F1` to return
+5. You should now have a terminal window
+
+---
+
+## 🚨 Black Screen After Login (No Display)
 
 ### If you see SDDM login screen but get black screen after logging in:
 

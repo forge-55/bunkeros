@@ -6,13 +6,29 @@ A custom SDDM login theme designed to match the tactical aesthetic of this Sway 
 
 - **Tactical color palette** - Matches the rest of the Sway setup
 - **Minimal centered design** - Clean login box with no distractions
-- **Session selector** - Choose between Sway, X11, or other sessions
+- **Session selector** - Choose between BunkerOS, Emergency Recovery, or other sessions
+- **Emergency recovery mode** - Special session that boots to a fullscreen terminal for troubleshooting
 - **Power controls** - Shutdown, reboot, and suspend buttons
 - **Date/time display** - Shows current date and time
 - **Monospace typography** - Consistent with terminal aesthetic
 - **Keyboard-friendly** - Tab navigation and Enter to login
 - **Focus indicators** - Clear visual feedback for active fields
 - **Smooth animations** - Subtle hover and press effects
+
+## Available Sessions
+
+After installation, you'll have two sessions available:
+
+### BunkerOS (Default)
+- Full desktop environment with Waybar, Wofi, and all features
+- Use this for normal daily work
+
+### BunkerOS Emergency Terminal
+- Minimal Sway session with just a fullscreen terminal
+- Perfect for troubleshooting when normal session has issues
+- Shows recovery instructions on startup
+- Great for running setup.sh if keybindings are broken
+- Exit with `Super+Shift+e` when done
 
 ## Installation
 

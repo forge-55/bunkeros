@@ -23,10 +23,17 @@ echo "Installing BunkerOS session file..."
 sudo mkdir -p "$SESSION_DIR"
 sudo cp "$SESSION_SOURCE/bunkeros.desktop" "$SESSION_DIR/"
 
+echo "Installing emergency recovery session..."
+sudo cp "$SESSION_SOURCE/bunkeros-emergency.desktop" "$SESSION_DIR/"
+
 echo "Installing launch scripts to /usr/local/bin..."
 echo "Installing BunkerOS launch script..."
 sudo cp "$PROJECT_DIR/scripts/launch-bunkeros.sh" /usr/local/bin/
 sudo chmod +x /usr/local/bin/launch-bunkeros.sh
+
+echo "Installing emergency recovery script..."
+sudo cp "$PROJECT_DIR/scripts/launch-bunkeros-emergency.sh" /usr/local/bin/
+sudo chmod +x /usr/local/bin/launch-bunkeros-emergency.sh
 
 if [ ! -f /etc/sddm.conf ]; then
     echo "Creating /etc/sddm.conf..."
@@ -46,8 +53,9 @@ fi
 echo ""
 echo "=== BunkerOS SDDM Installation Complete! ==="
 echo ""
-echo "Available session at login:"
-echo "  - BunkerOS - Vanilla Sway compositor"
+echo "Available sessions at login:"
+echo "  - BunkerOS              - Full desktop environment"
+echo "  - BunkerOS Emergency    - Recovery terminal (for troubleshooting)"
 echo ""
 echo "Enabling SDDM as your display manager..."
 sudo systemctl enable sddm.service

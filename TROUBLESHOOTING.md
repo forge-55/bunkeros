@@ -4,6 +4,66 @@ This document covers common issues encountered during BunkerOS installation and 
 
 ## Critical Issues
 
+### 🚨 Keybindings Not Working / Can't Open Terminal
+
+**Symptoms:**
+- Logged into BunkerOS but keybindings don't work
+- `Super+t` or `Super+Return` don't open terminal
+- Can't access applications or menus
+
+**EASIEST FIX: Use Emergency Mode**
+
+1. **Logout** (if needed, reboot and wait at login screen)
+2. At SDDM login screen, click the **session selector** (usually top-right or bottom-left)
+3. Select **"BunkerOS Emergency Terminal"**
+4. Login with your password
+5. You'll boot into a fullscreen terminal with instructions
+6. Run the fix command:
+   ```bash
+   cd ~/Projects/bunkeros && ./setup.sh
+   ```
+7. Press `Super+Shift+e` to logout
+8. Select "BunkerOS" (normal) at login screen
+9. Login - everything should work!
+
+**Alternative: Use TTY** (if Emergency Mode isn't available)
+
+**Important:** TTY shortcuts only work AFTER logging in, not at the SDDM login screen!
+1. Press `Ctrl+Alt+F2` to switch to TTY
+2. Login with username/password
+3. Run the fix command:
+```bash
+cd ~/Projects/bunkeros
+./setup.sh
+```
+4. Press `Ctrl+Alt+F1` to return to Sway
+5. Press `Super+Shift+r` to reload configuration
+
+**Option 3: Manual Emergency Terminal**
+1. Press `Ctrl+Alt+F2` (switch to TTY)
+2. Login
+3. Run: `WAYLAND_DISPLAY=wayland-1 foot &`
+4. Press `Ctrl+Alt+F1` to return
+
+**Root Cause:**
+The `~/.config/bunkeros/defaults.conf` file is missing or wasn't created during setup.
+
+**Permanent Fix:**
+```bash
+# From terminal or TTY
+cd ~/Projects/bunkeros
+./setup.sh
+
+# Then reload Sway
+# Press Super+Shift+r
+# OR from terminal: swaymsg reload
+```
+
+**What This Does:**
+Creates `~/.config/bunkeros/defaults.conf` with proper application defaults, which the Sway config needs to function.
+
+---
+
 ### 🚨 Black Screen After SDDM Login (No Signal)
 
 **Symptoms:**

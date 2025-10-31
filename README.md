@@ -47,7 +47,7 @@ The tactical color palette and flat design provide a modern, professional look w
 - **Smart wallpaper manager** - Graphical wallpaper selector with theme/custom modes, upload support
 - **Automatic wallpaper switching** - Each theme has its own wallpaper that changes automatically
 - **Minimal, intuitive keybindings** - Essential bindings that work across major tiling WMs
-- **Custom SDDM login theme** - BunkerOS-styled login screen with centered design
+- **Custom SDDM login theme** - BunkerOS-styled login screen with centered design and emergency recovery session
 - **GTK theming** - Custom dark theme with tactical colors for all GTK applications
 - **Waybar** status bar with flat, tactical styling
 - **Numbered workspace indicators** (1-7) with ArchCraft-inspired design and refined box styling
