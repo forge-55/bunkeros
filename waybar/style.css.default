@@ -1,0 +1,173 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "MesloLGL Nerd Font", "DejaVu Sans Mono", monospace;
+    font-size: 14px;
+    min-height: 0;
+}
+
+window#waybar {
+    background-color: rgba(28, 28, 28, 0.95);
+    color: #D4D4D4;
+    transition-property: background-color;
+    transition-duration: 0.5s;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+#workspaces {
+    background-color: transparent;
+    padding: 0;
+    margin: 0 0 0 12px;
+}
+
+/* Workspace Button Style: Bottom Border (Minimal) */
+
+#workspaces button {
+    padding: 4px 10px;
+    margin: 0 4px;
+    background-color: transparent;
+    color: #6B7657;
+    border: none;
+    border-radius: 0;
+    border-bottom: 2px solid transparent;
+    font-size: 14px;
+    font-weight: normal;
+    min-width: 24px;
+    transition: all 0.2s ease-in-out;
+}
+
+#workspaces button:hover {
+    background-color: rgba(60, 74, 47, 0.3);
+    color: #C3B091;
+}
+
+#workspaces button.active,
+#workspaces button.focused {
+    background-color: transparent;
+    color: #C3B091;
+    border: none;
+    border-radius: 0;
+    border-bottom: 2px solid #C3B091;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 4px 10px;
+}
+
+#workspaces button.active label,
+#workspaces button.focused label {
+    color: #C3B091;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#workspaces button.visible {
+    background-color: rgba(74, 82, 64, 0.3);
+    color: #4A5240;
+}
+#mode {
+    background-color: rgba(204, 120, 50, 0.2);
+    color: #CC7832;
+    padding: 0 10px;
+    margin-left: 10px;
+    font-weight: normal;
+}
+
+#clock,
+#battery,
+#backlight,
+#cpu,
+#memory,
+#network,
+#bluetooth,
+#pulseaudio,
+#custom-power {
+    padding: 0 12px;
+    background-color: transparent;
+    color: #D4D4D4;
+}
+
+#clock {
+    font-weight: normal;
+    color: #C3B091;
+    background-color: transparent;
+}
+
+#battery {
+    color: #4A5240;
+}
+
+#backlight {
+    color: #4A5240;
+}
+
+#cpu {
+    color: #4A5240;
+}
+
+#memory {
+    color: #3C4A2F;
+}
+
+#network {
+    color: #4A5240;
+}
+
+#network.disconnected {
+    background-color: rgba(204, 120, 50, 0.3);
+    color: #CC7832;
+    font-weight: bold;
+}
+
+#bluetooth {
+    color: #4A5240;
+}
+
+#bluetooth.disabled {
+    color: #3C4A2F;
+}
+
+#bluetooth.connected {
+    color: #6B7657;
+}
+
+#pulseaudio {
+    color: #4A5240;
+}
+
+#pulseaudio.muted {
+    background-color: rgba(43, 45, 46, 0.5);
+    color: #2B2D2E;
+}
+
+#custom-night-mode {
+    color: #4A5240;
+    font-size: 14px;
+    padding: 0 8px;
+}
+
+#custom-night-mode.active {
+    color: #CC7832;
+}
+
+#custom-night-mode.inactive {
+    color: #4A5240;
+}
+
+#custom-night-mode:hover {
+    color: #C3B091;
+    background-color: rgba(60, 74, 47, 0.2);
+}
+
+#custom-power {
+    color: #4A5240;
+    font-size: 14px;
+    margin-right: 12px;
+}
+
+#custom-power:hover {
+    color: #C3B091;
+    background-color: rgba(60, 74, 47, 0.2);
+}

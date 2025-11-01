@@ -68,16 +68,8 @@ apply_theme() {
         wallpaper_path=$(eval echo "$wallpaper_path")
     fi
     
-    # Update project directory (source of truth)
-    cp "$theme_dir/waybar-style.css.template" "$PROJECT_DIR/waybar/style.css"
-    cp "$theme_dir/wofi-style.css.template" "$PROJECT_DIR/wofi/style.css"
-    cp "$theme_dir/mako-config" "$PROJECT_DIR/mako/config"
-    cp "$theme_dir/swayosd-style.css" "$PROJECT_DIR/swayosd/style.css"
-    cp "$theme_dir/btop.theme" "$PROJECT_DIR/btop/themes/active.theme"
-    cp "$theme_dir/foot.ini.template" "$PROJECT_DIR/foot/foot.ini"
-    cp "$theme_dir/dircolors" "$PROJECT_DIR/dircolors"
-    
-    # Also update active config locations
+    # Update active config locations ONLY (not project directory)
+    # This keeps the git repository clean while applying themes to user configs
     cp "$theme_dir/waybar-style.css.template" "$HOME/.config/waybar/style.css"
     cp "$theme_dir/wofi-style.css.template" "$HOME/.config/wofi/style.css"
     cp "$theme_dir/mako-config" "$HOME/.config/mako/config"
@@ -86,37 +78,39 @@ apply_theme() {
     cp "$theme_dir/foot.ini.template" "$HOME/.config/foot/foot.ini"
     cp "$theme_dir/dircolors" "$HOME/.dircolors"
     
-    if grep -q "^# THEME COLORS START" "$PROJECT_DIR/sway/config" 2>/dev/null; then
-        sed -i '/^# THEME COLORS START/,/^# THEME COLORS END/d' "$PROJECT_DIR/sway/config"
+    # Update Sway config colors
+    if grep -q "^# THEME COLORS START" "$HOME/.config/sway/config" 2>/dev/null; then
+        sed -i '/^# THEME COLORS START/,/^# THEME COLORS END/d' "$HOME/.config/sway/config"
     fi
     
-    echo "" >> "$PROJECT_DIR/sway/config"
-    echo "# THEME COLORS START" >> "$PROJECT_DIR/sway/config"
-    cat "$theme_dir/sway-colors.conf" >> "$PROJECT_DIR/sway/config"
-    echo "# THEME COLORS END" >> "$PROJECT_DIR/sway/config"
+    echo "" >> "$HOME/.config/sway/config"
+    echo "# THEME COLORS START" >> "$HOME/.config/sway/config"
+    cat "$theme_dir/sway-colors.conf" >> "$HOME/.config/sway/config"
+    echo "# THEME COLORS END" >> "$HOME/.config/sway/config"
     
-    if grep -q "^# THEME PROMPT START" "$PROJECT_DIR/bashrc" 2>/dev/null; then
-        sed -i '/^# THEME PROMPT START/,/^# THEME PROMPT END/d' "$PROJECT_DIR/bashrc"
+    # Update bashrc theme colors in user's home directory
+    if grep -q "^# THEME PROMPT START" "$HOME/.bashrc" 2>/dev/null; then
+        sed -i '/^# THEME PROMPT START/,/^# THEME PROMPT END/d' "$HOME/.bashrc"
     fi
     
-    line_num=$(grep -n "^C_RESET=" "$PROJECT_DIR/bashrc" | cut -d: -f1 | head -1)
+    line_num=$(grep -n "^C_RESET=" "$HOME/.bashrc" | cut -d: -f1 | head -1)
     if [ -n "$line_num" ]; then
-        sed -i "${line_num},$((line_num + 5))d" "$PROJECT_DIR/bashrc"
+        sed -i "${line_num},$((line_num + 5))d" "$HOME/.bashrc"
     fi
     
-    insert_line=$(grep -n "^PROMPT_COMMAND=" "$PROJECT_DIR/bashrc" | cut -d: -f1 | head -1)
+    insert_line=$(grep -n "^PROMPT_COMMAND=" "$HOME/.bashrc" | cut -d: -f1 | head -1)
     if [ -n "$insert_line" ]; then
         insert_line=$((insert_line - 1))
         temp_file=$(mktemp)
         {
-            head -n "$insert_line" "$PROJECT_DIR/bashrc"
+            head -n "$insert_line" "$HOME/.bashrc"
             echo "# THEME PROMPT START"
             cat "$theme_dir/bashrc-colors"
             echo "# THEME PROMPT END"
             echo ""
-            tail -n +"$((insert_line + 1))" "$PROJECT_DIR/bashrc"
+            tail -n +"$((insert_line + 1))" "$HOME/.bashrc"
         } > "$temp_file"
-        mv "$temp_file" "$PROJECT_DIR/bashrc"
+        mv "$temp_file" "$HOME/.bashrc"
     fi
     
     echo "$theme" > "$CURRENT_THEME_FILE"

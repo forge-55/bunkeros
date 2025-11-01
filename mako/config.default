@@ -1,0 +1,26 @@
+font=monospace 9
+background-color=#1C1C1C
+text-color=#D4D4D4
+border-color=#4A5240
+border-size=2
+border-radius=2
+padding=10
+margin=8
+default-timeout=5000
+ignore-timeout=0
+
+[urgency=high]
+border-color=#CC7832
+background-color=#1C1C1C
+text-color=#CC7832
+default-timeout=0
+
+[urgency=critical]
+border-color=#CC7832
+background-color=#1C1C1C
+text-color=#CC7832
+default-timeout=0
+
+[app-name=grimshot]
+border-color=#C3B091
+

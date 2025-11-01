@@ -38,15 +38,25 @@ echo ""
 
 echo "Step 2: Setting up Sway configuration..."
 backup_if_exists "$CONFIG_DIR/sway/config"
-ln -sf "$PROJECT_DIR/sway/config" "$CONFIG_DIR/sway/config"
-echo "  ✓ Sway config symlinked"
+if [ ! -f "$CONFIG_DIR/sway/config" ]; then
+    cp "$PROJECT_DIR/sway/config.default" "$CONFIG_DIR/sway/config"
+    echo "  ✓ Sway config copied from defaults"
+else
+    echo "  ℹ Sway config already exists, keeping user version"
+fi
 echo ""
 
 echo "Step 3: Setting up Waybar configuration..."
 backup_if_exists "$CONFIG_DIR/waybar/config"
 ln -sf "$PROJECT_DIR/waybar/config" "$CONFIG_DIR/waybar/config"
 backup_if_exists "$CONFIG_DIR/waybar/style.css"
-ln -sf "$PROJECT_DIR/waybar/style.css" "$CONFIG_DIR/waybar/style.css"
+if [ ! -f "$CONFIG_DIR/waybar/style.css" ] || [ -L "$CONFIG_DIR/waybar/style.css" ]; then
+    rm -f "$CONFIG_DIR/waybar/style.css"
+    cp "$PROJECT_DIR/waybar/style.css.default" "$CONFIG_DIR/waybar/style.css"
+    echo "  ✓ Waybar style copied from defaults (theme-switchable)"
+else
+    echo "  ℹ Waybar style already exists, keeping user version"
+fi
 
 for script in "$PROJECT_DIR/waybar/scripts"/*.sh; do
     script_name=$(basename "$script")
@@ -54,45 +64,75 @@ for script in "$PROJECT_DIR/waybar/scripts"/*.sh; do
     ln -sf "$script" "$CONFIG_DIR/waybar/scripts/$script_name"
     chmod +x "$script"
 done
-echo "  ✓ Waybar config and scripts symlinked"
+ln -sf "$PROJECT_DIR/waybar/config" "$CONFIG_DIR/waybar/config"
+echo "  ✓ Waybar config symlinked, style copied (theme-switchable)"
 echo ""
 
 echo "Step 4: Setting up Wofi configuration..."
 backup_if_exists "$CONFIG_DIR/wofi/config"
 ln -sf "$PROJECT_DIR/wofi/config" "$CONFIG_DIR/wofi/config"
 backup_if_exists "$CONFIG_DIR/wofi/style.css"
-ln -sf "$PROJECT_DIR/wofi/style.css" "$CONFIG_DIR/wofi/style.css"
-echo "  ✓ Wofi config symlinked"
+if [ ! -f "$CONFIG_DIR/wofi/style.css" ] || [ -L "$CONFIG_DIR/wofi/style.css" ]; then
+    rm -f "$CONFIG_DIR/wofi/style.css"
+    cp "$PROJECT_DIR/wofi/style.css.default" "$CONFIG_DIR/wofi/style.css"
+    echo "  ✓ Wofi config symlinked, style copied (theme-switchable)"
+else
+    echo "  ℹ Wofi style already exists, keeping user version"
+fi
 echo ""
 
 echo "Step 5: Setting up Mako configuration..."
 backup_if_exists "$CONFIG_DIR/mako/config"
-ln -sf "$PROJECT_DIR/mako/config" "$CONFIG_DIR/mako/config"
-echo "  ✓ Mako config symlinked"
+if [ ! -f "$CONFIG_DIR/mako/config" ] || [ -L "$CONFIG_DIR/mako/config" ]; then
+    rm -f "$CONFIG_DIR/mako/config"
+    cp "$PROJECT_DIR/mako/config.default" "$CONFIG_DIR/mako/config"
+    echo "  ✓ Mako config copied (theme-switchable)"
+else
+    echo "  ℹ Mako config already exists, keeping user version"
+fi
 echo ""
 
 echo "Step 6: Setting up Foot terminal configuration..."
 backup_if_exists "$CONFIG_DIR/foot/foot.ini"
-ln -sf "$PROJECT_DIR/foot/foot.ini" "$CONFIG_DIR/foot/foot.ini"
-echo "  ✓ Foot config symlinked"
+if [ ! -f "$CONFIG_DIR/foot/foot.ini" ] || [ -L "$CONFIG_DIR/foot/foot.ini" ]; then
+    rm -f "$CONFIG_DIR/foot/foot.ini"
+    cp "$PROJECT_DIR/foot/foot.ini.default" "$CONFIG_DIR/foot/foot.ini"
+    echo "  ✓ Foot config copied (theme-switchable)"
+else
+    echo "  ℹ Foot config already exists, keeping user version"
+fi
 echo ""
 
 echo "Step 7: Setting up btop configuration..."
 backup_if_exists "$CONFIG_DIR/btop/btop.conf"
 ln -sf "$PROJECT_DIR/btop/btop.conf" "$CONFIG_DIR/btop/btop.conf"
 
+# Copy active theme (theme-switchable), symlink static themes
+backup_if_exists "$CONFIG_DIR/btop/themes/active.theme"
+if [ ! -f "$CONFIG_DIR/btop/themes/active.theme" ] || [ -L "$CONFIG_DIR/btop/themes/active.theme" ]; then
+    rm -f "$CONFIG_DIR/btop/themes/active.theme"
+    cp "$PROJECT_DIR/btop/themes/active.theme.default" "$CONFIG_DIR/btop/themes/active.theme"
+fi
+
 for theme in "$PROJECT_DIR/btop/themes"/*.theme; do
     theme_name=$(basename "$theme")
-    backup_if_exists "$CONFIG_DIR/btop/themes/$theme_name"
-    ln -sf "$theme" "$CONFIG_DIR/btop/themes/$theme_name"
+    if [ "$theme_name" != "active.theme" ]; then
+        backup_if_exists "$CONFIG_DIR/btop/themes/$theme_name"
+        ln -sf "$theme" "$CONFIG_DIR/btop/themes/$theme_name"
+    fi
 done
-echo "  ✓ btop config and themes symlinked"
+echo "  ✓ btop config symlinked, active theme copied (theme-switchable)"
 echo ""
 
 echo "Step 8: Setting up SwayOSD configuration..."
 backup_if_exists "$CONFIG_DIR/swayosd/style.css"
-ln -sf "$PROJECT_DIR/swayosd/style.css" "$CONFIG_DIR/swayosd/style.css"
-echo "  ✓ SwayOSD config symlinked"
+if [ ! -f "$CONFIG_DIR/swayosd/style.css" ] || [ -L "$CONFIG_DIR/swayosd/style.css" ]; then
+    rm -f "$CONFIG_DIR/swayosd/style.css"
+    cp "$PROJECT_DIR/swayosd/style.css.default" "$CONFIG_DIR/swayosd/style.css"
+    echo "  ✓ SwayOSD config copied (theme-switchable)"
+else
+    echo "  ℹ SwayOSD config already exists, keeping user version"
+fi
 echo ""
 
 echo "Step 9: Installing theme system..."
@@ -157,13 +197,19 @@ echo ""
 
 echo "Step 12: Setting up shell configuration..."
 backup_if_exists "$HOME/.dircolors"
-ln -sf "$PROJECT_DIR/dircolors" "$HOME/.dircolors"
+if [ ! -f "$HOME/.dircolors" ] || [ -L "$HOME/.dircolors" ]; then
+    rm -f "$HOME/.dircolors"
+    cp "$PROJECT_DIR/dircolors.default" "$HOME/.dircolors"
+    echo "  ✓ dircolors copied (theme-switchable)"
+else
+    echo "  ℹ .dircolors already exists, keeping user version"
+fi
 
 if ! grep -q "# BunkerOS Configuration" "$HOME/.bashrc" 2>/dev/null; then
     echo "  Adding BunkerOS configuration to ~/.bashrc..."
     echo "" >> "$HOME/.bashrc"
     echo "# BunkerOS Configuration" >> "$HOME/.bashrc"
-    cat "$PROJECT_DIR/bashrc" >> "$HOME/.bashrc"
+    cat "$PROJECT_DIR/bashrc.default" >> "$HOME/.bashrc"
     echo "  ✓ BunkerOS bashrc configuration added"
 else
     echo "  ℹ BunkerOS configuration already exists in ~/.bashrc"

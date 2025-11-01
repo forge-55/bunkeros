@@ -1,0 +1,489 @@
+# BunkerOS Configuration - Vanilla Sway
+#
+# Read `man 5 sway` for a complete reference.
+
+### Variables
+#
+# Logo key. Use Mod1 for Alt.
+set $mod Mod4
+# Home row direction keys, like vim
+set $left h
+set $down j
+set $up k
+set $right l
+
+# Default application fallbacks (used if ~/.config/bunkeros/defaults.conf doesn't exist)
+# These ensure keybindings work even on fresh installations before setup.sh runs
+set $BUNKEROS_TERM foot
+set $BUNKEROS_MENU wofi --show drun
+set $BUNKEROS_EDITOR lite-xl
+set $BUNKEROS_FILEMANAGER nautilus
+set $BUNKEROS_NOTES lite-xl
+
+# Load user's default applications from config file (will override fallbacks above)
+# These can be customized via: Super+m → Preferences → Default Apps
+include ~/.config/bunkeros/defaults.conf
+
+# Set convenient short variables from user defaults
+set $term $BUNKEROS_TERM
+set $menu $BUNKEROS_MENU
+set $editor $BUNKEROS_EDITOR
+set $filemanager $BUNKEROS_FILEMANAGER
+set $notes $BUNKEROS_NOTES
+
+### Output configuration
+#
+# Example configuration:
+#
+#   output HDMI-A-1 resolution 1920x1080 position 1920,0
+#
+# You can get the names of your outputs by running: swaymsg -t get_outputs
+
+### Wallpaper
+#
+# Wallpapers are managed by the theme system (scripts/theme-switcher.sh)
+# When you switch themes, the wallpaper updates automatically
+# On first boot, if no theme wallpaper is set, you can manually set one via:
+# Super+m → Wallpaper Manager
+#
+# Note: exec (not exec_always) ensures wallpaper only loads on Sway startup,
+# allowing theme switches to persist across Sway reloads (Super+Shift+R)
+exec "killall swaybg 2>/dev/null; sleep 0.2; if ! pgrep -x swaybg; then swaybg -i ~/.local/share/bunkeros/wallpapers/tactical.jpg -m fill; fi"
+
+### Status Bar
+#
+# Start waybar (kill all instances to prevent duplicates)
+exec_always "killall -9 waybar 2>/dev/null; sleep 0.5; waybar -b bar-0 >/dev/null 2>&1 &"
+
+### Notifications
+#
+# Start mako notification daemon
+exec_always "killall mako 2>/dev/null; mako"
+
+### OSD (On-Screen Display)
+#
+# Start swayosd server for volume/brightness overlays (centered at 0.5)
+exec_always "killall swayosd-server 2>/dev/null; swayosd-server --style ~/.config/swayosd/style.css --top-margin 0.5"
+
+### Auto-Scaling Service
+#
+# Automatically detects and applies optimal display scaling on session start
+exec_always "~/Projects/bunkeros/scripts/auto-scaling-service.sh"
+
+### Autotiling
+#
+# Automatically adjusts split direction based on window dimensions (COSMIC-like behavior)
+exec_always autotiling-rs
+
+### Workspaces Initialization
+#
+# Pre-create 5 workspaces on startup for a polished, ready-to-use experience
+# This gives users visual feedback of available workspace capacity in Waybar
+exec "swaymsg 'workspace 1; workspace 2; workspace 3; workspace 4; workspace 5; workspace 1'"
+
+### Appearance
+#
+# Window gaps (always visible like Hyprland/COSMIC)
+gaps inner 8
+gaps outer 8
+smart_gaps off
+
+# Window border colors are managed by the theme system
+# See the THEME COLORS section at the end of this file
+
+# Font for window titles
+font pango:monospace 10
+
+# Window transparency (disabled for performance - prevents flicker)
+# Opacity calculations during workspace switching can cause visual artifacts
+set $opacity 1.0
+for_window [class=".*"] opacity $opacity
+for_window [app_id=".*"] opacity $opacity
+
+# Screenshot dialog - floating and centered
+for_window [app_id="screenshot-dialog"] floating enable, resize set 600 300, move position center, opacity 1
+
+# Screensaver window rules
+for_window [app_id="BunkerOS-Screensaver"] {
+    floating enable
+    fullscreen enable
+    sticky enable
+    move position center
+    opacity 1.0
+    focus
+    # Do NOT inhibit idle - we want suspend to work after screensaver starts
+    inhibit_idle none
+}
+
+### Idle configuration
+#
+# Swayidle handles screensaver activation
+# Screensaver activates after 5 minutes (300 seconds) of inactivity
+# 
+# System suspend is handled by systemd-logind (see /etc/systemd/logind.conf.d/bunkeros-power.conf)
+# System suspends after 10 minutes (600 seconds) of total inactivity
+#   - This means suspend happens 5 minutes AFTER the screensaver starts
+#   - Optimized for laptop battery life
+# 
+# Press any key to exit screensaver and return to work
+exec_always "killall swayidle 2>/dev/null; swayidle -w \
+    timeout 300 '~/.config/sway-config/scripts/launch-screensaver.sh' \
+    resume 'swaymsg \"[app_id=BunkerOS-Screensaver]\" kill' \
+    before-sleep 'swaymsg \"[app_id=BunkerOS-Screensaver]\" kill'"
+
+# Prevent screensaver during fullscreen applications (videos, presentations)
+for_window [class=".*"] inhibit_idle fullscreen
+for_window [app_id=".*"] inhibit_idle fullscreen
+
+### Input configuration
+#
+# Example configuration:
+#
+#   input type:touchpad {
+#       dwt enabled
+#       tap enabled
+#       natural_scroll enabled
+#       middle_emulation enabled
+#   }
+#
+#   input type:keyboard {
+#       xkb_layout "eu"
+#   }
+#
+# You can also configure each device individually.
+# Read `man 5 sway-input` for more information about this section.
+
+### Key bindings
+#
+# This configuration uses minimal, intuitive keybindings that work across major tiling WMs.
+# Feel free to add your own keybindings for favorite apps and custom scripts below.
+#
+# Essential Basics:
+#
+    # Application launcher
+    bindsym $mod+a exec $menu
+    bindsym $mod+space exec $menu  # Alternative for users coming from other WMs
+
+    # Open default web browser
+    bindsym $mod+b exec xdg-open http://
+
+    # Text editor
+    bindsym $mod+e exec $editor
+
+    # File manager
+    bindsym $mod+f exec $filemanager
+
+    # Note-taking app (quick access for frequent use)
+    bindsym $mod+n exec $notes ~/Documents/Notes
+
+    # Lock screen (uses Super+Escape to avoid conflict with Vim keys)
+    bindsym $mod+Escape exec swaylock -f -c 000000
+
+    # Quick actions menu
+    bindsym $mod+m exec ~/.config/waybar/scripts/main-menu.sh
+    bindsym $mod+Mod1+space exec ~/.config/waybar/scripts/main-menu.sh  # Alternative (Omarchy-style)
+
+    # Launch terminal
+    bindsym $mod+t exec $term
+    bindsym $mod+Return exec $term  # Alternative for users coming from i3/Hyprland
+
+    # Launch calculator
+    bindsym $mod+c exec mate-calc
+
+    # Close focused window (or close menus if open)
+    bindsym $mod+q exec ~/.config/waybar/scripts/smart-close.sh
+
+    # Workspace overview - see all workspaces and windows at a glance
+    bindsym $mod+w exec ~/.config/waybar/scripts/workspace-windows.sh
+
+    # Workspace reorder mode - reorganize workspaces easily
+    bindsym $mod+Shift+w exec ~/.config/waybar/scripts/workspace-windows.sh reorder
+
+    # Drag floating windows by holding $mod and left mouse button
+    # Resize them with right mouse button + $mod
+    floating_modifier $mod normal
+
+    # Reload Sway configuration
+    bindsym $mod+Shift+r reload
+
+    # Exit Sway (uncomment if desired - disabled by default to prevent accidental logout)
+    # bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit Sway?' -B 'Yes' 'swaymsg exit'
+#
+# Window Focus & Movement:
+#
+    # Focus windows (Vim-style)
+    bindsym $mod+$left focus left
+    bindsym $mod+$down focus down
+    bindsym $mod+$up focus up
+    bindsym $mod+$right focus right
+
+    # Focus windows (Arrow keys)
+    bindsym $mod+Left focus left
+    bindsym $mod+Down focus down
+    bindsym $mod+Up focus up
+    bindsym $mod+Right focus right
+
+    # Move windows (Vim-style)
+    bindsym $mod+Shift+$left move left
+    bindsym $mod+Shift+$down move down
+    bindsym $mod+Shift+$up move up
+    bindsym $mod+Shift+$right move right
+
+    # Move windows (Arrow keys)
+    bindsym $mod+Shift+Left move left
+    bindsym $mod+Shift+Down move down
+    bindsym $mod+Shift+Up move up
+    bindsym $mod+Shift+Right move right
+#
+# Workspaces:
+#
+    # Switch to workspace
+    bindsym $mod+1 workspace number 1
+    bindsym $mod+2 workspace number 2
+    bindsym $mod+3 workspace number 3
+    bindsym $mod+4 workspace number 4
+    bindsym $mod+5 workspace number 5
+    bindsym $mod+6 workspace number 6
+    bindsym $mod+7 workspace number 7
+    bindsym $mod+8 workspace number 8
+    bindsym $mod+9 workspace number 9
+    bindsym $mod+0 workspace number 10
+
+    # Move window to workspace
+    bindsym $mod+Shift+1 move container to workspace number 1
+    bindsym $mod+Shift+2 move container to workspace number 2
+    bindsym $mod+Shift+3 move container to workspace number 3
+    bindsym $mod+Shift+4 move container to workspace number 4
+    bindsym $mod+Shift+5 move container to workspace number 5
+    bindsym $mod+Shift+6 move container to workspace number 6
+    bindsym $mod+Shift+7 move container to workspace number 7
+    bindsym $mod+Shift+8 move container to workspace number 8
+    bindsym $mod+Shift+9 move container to workspace number 9
+    bindsym $mod+Shift+0 move container to workspace number 10
+
+    # Cycle through workspaces
+    bindsym --no-repeat Prior workspace prev
+    bindsym --no-repeat Next workspace next
+#
+# Window Layout:
+#
+    # Toggle split layout
+    bindsym $mod+v layout toggle split
+
+    # Fullscreen
+    bindsym F11 fullscreen
+
+    # Enter resize mode
+    bindsym $mod+r mode "resize"
+#
+# Resize Mode:
+#
+mode "resize" {
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+#
+# System Controls:
+#
+    # Volume controls (hardware keys)
+    bindsym --locked XF86AudioMute exec swayosd-client --output-volume mute-toggle
+    bindsym --locked XF86AudioLowerVolume exec swayosd-client --output-volume lower
+    bindsym --locked XF86AudioRaiseVolume exec swayosd-client --output-volume raise
+    bindsym --locked XF86AudioMicMute exec swayosd-client --input-volume mute-toggle
+
+    # Brightness controls (hardware keys)
+    bindsym --locked XF86MonBrightnessDown exec swayosd-client --brightness lower
+    bindsym --locked XF86MonBrightnessUp exec swayosd-client --brightness raise
+
+    # Screenshot tools (GNOME/COSMIC style workflow)
+    set $grimshot /usr/sbin/grimshot
+    bindsym Print exec ~/.config/waybar/scripts/screenshot-area.sh
+    bindsym Shift+Print exec $grimshot --notify save screen
+    bindsym Ctrl+Print exec $grimshot --notify copy area
+    bindsym Ctrl+Shift+Print exec $grimshot --notify save active
+
+    # Night mode toggle (available via Waybar and Quick Menu - Super+m)
+    # bindsym $mod+n exec ~/.config/waybar/scripts/night-mode-toggle.sh
+    # Note: Super+n is now used for note-taking (Lite XL)
+
+
+#
+# User Customization Area:
+#
+# Add your own keybindings below for favorite applications and custom scripts
+# Examples:
+#   bindsym $mod+c exec code
+#   bindsym $mod+m exec spotify
+#
+
+#
+# Status Bar:
+#
+# Using Waybar for a modern, customizable status bar
+# Install with: sudo pacman -S waybar (or your distro's package manager)
+# Started via exec_always at the top of this config
+# bar {
+#     swaybar_command waybar
+# }
+
+include /etc/sway/config.d/*
+
+
+
+
+
+
+
+
+
+
+
+###############################################################################
+# Custom Keybindings
+###############################################################################
+# Add your custom keybindings below this line
+# Use Super+m → Keybindings to manage these easily
+# 
+# Example:
+#     bindsym $mod+Shift+x exec my-custom-script
+#
+# Note: Keybindings added via the Keybinding Manager will appear here
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# THEME COLORS START
+# Tactical Theme - Sway Window Border Colors
+# Khaki/Olive/Charcoal tactical aesthetic
+
+default_border pixel 2
+default_floating_border pixel 2
+
+# Client color scheme (border, background, text, indicator, child_border)
+client.focused          #C3B091 #2B2D2E #D4D4D4 #C3B091 #C3B091
+client.unfocused        #2B2D2E #1C1C1C #D4D4D4 #2B2D2E #2B2D2E
+client.focused_inactive #3C4A2F #1C1C1C #D4D4D4 #3C4A2F #3C4A2F
+client.urgent           #CC7832 #CC7832 #1C1C1C #CC7832 #CC7832
+client.placeholder      #2B2D2E #1C1C1C #D4D4D4 #2B2D2E #2B2D2E
+client.background       #1C1C1C
+
+# THEME COLORS END
