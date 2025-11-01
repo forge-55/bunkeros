@@ -6,7 +6,7 @@
     
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["clock"],
-    "modules-right": ["network", "bluetooth", "pulseaudio", "battery", "custom/night-mode", "custom/power"],
+    "modules-right": ["network", "bluetooth", "pulseaudio", "custom/battery-profile", "custom/night-mode", "custom/power"],
     
     "sway/workspaces": {
         "disable-scroll": false,
@@ -117,6 +117,14 @@
         "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
         "on-click-right": "pavucontrol",
         "tooltip-format": "Volume: {volume}%"
+    },
+    
+    "custom/battery-profile": {
+        "exec": "~/.config/waybar/scripts/battery-profile-status.sh",
+        "on-click": "~/.config/waybar/scripts/battery-profile-menu.sh",
+        "return-type": "json",
+        "interval": 5,
+        "signal": 8
     },
     
     "custom/night-mode": {
