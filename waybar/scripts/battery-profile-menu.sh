@@ -51,12 +51,19 @@ if [ "$mode" = "$current_mode" ]; then
     exit 0
 fi
 
-if sudo auto-cpufreq --force="$cmd_mode" &>/dev/null; then
+# Use -n flag for non-interactive sudo and capture output
+output=$(sudo -n /usr/bin/auto-cpufreq --force="$cmd_mode" 2>&1)
+exit_code=$?
+
+if [ $exit_code -eq 0 ]; then
     echo "$mode" > /tmp/auto-cpufreq-mode
     notify-send "Power Profile" "Switched to: $label" --icon=battery-profile-power
     sleep 0.2
     pkill -RTMIN+8 waybar 2>/dev/null || true
 else
+    # Log error for debugging
+    echo "$(date): Failed to switch to $label (exit code: $exit_code)" >> /tmp/battery-profile-errors.log
+    echo "Output: $output" >> /tmp/battery-profile-errors.log
     notify-send "Power Profile" "Failed to switch mode" --icon=dialog-error --urgency=critical
     exit 1
 fi
