@@ -23,55 +23,24 @@ echo "Configuration installed to: /etc/systemd/logind.conf.d/bunkeros-power.conf
 echo ""
 
 # CPU Power Management (for laptops)
-echo "=== CPU Power Management (Optional) ==="
+echo "=== CPU Power Management ==="
 echo ""
-echo "For laptops, you can install additional CPU power management tools:"
-echo ""
-echo "Options:"
-echo "  1) auto-cpufreq (Recommended) - Automatic CPU speed & power optimizer"
-echo "  2) TLP - Advanced laptop power management"
-echo "  3) Skip - Use kernel defaults only"
-echo ""
-echo "Note: Do NOT install both TLP and auto-cpufreq (they conflict)"
-echo ""
-read -p "Choose option (1-3) [3]: " -n 1 -r
+echo "Installing auto-cpufreq for automatic CPU power optimization..."
+echo "(Provides optimal battery life with zero configuration)"
 echo ""
 
-case $REPLY in
-    1)
-        echo ""
-        echo "Installing auto-cpufreq..."
-        if sudo pacman -S --needed auto-cpufreq; then
-            sudo systemctl enable --now auto-cpufreq
-            echo "✓ auto-cpufreq installed and enabled"
-            echo ""
-            echo "View status with: sudo auto-cpufreq --stats"
-        else
-            echo "✗ Failed to install auto-cpufreq"
-        fi
-        ;;
-    2)
-        echo ""
-        echo "Installing TLP..."
-        if sudo pacman -S --needed tlp tlp-rdw; then
-            sudo systemctl enable --now tlp
-            echo "✓ TLP installed and enabled"
-            echo ""
-            echo "View status with: sudo tlp-stat -s"
-        else
-            echo "✗ Failed to install TLP"
-        fi
-        ;;
-    3|"")
-        echo ""
-        echo "Skipping CPU power management tools"
-        echo "(Using kernel defaults)"
-        ;;
-    *)
-        echo ""
-        echo "Invalid option. Skipping CPU power management."
-        ;;
-esac
+if sudo pacman -S --needed auto-cpufreq; then
+    sudo systemctl enable --now auto-cpufreq
+    echo "✓ auto-cpufreq installed and enabled"
+    echo ""
+    echo "View status with: sudo auto-cpufreq --stats"
+else
+    echo "✗ Failed to install auto-cpufreq"
+    echo ""
+    echo "You can install it manually later with:"
+    echo "  sudo pacman -S auto-cpufreq"
+    echo "  sudo systemctl enable --now auto-cpufreq"
+fi
 
 echo ""
 
@@ -87,17 +56,13 @@ echo ""
 
 echo "=== Restarting systemd-logind ==="
 echo ""
+echo "To activate power management, systemd-logind needs to restart."
 echo "This will log you out. Please save your work first."
 echo ""
-read -p "Continue? (y/N): " -n 1 -r
+read -p "Restart now? (Y/n): " -n 1 -r
 echo ""
 
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-    echo "Restarting systemd-logind..."
-    sudo systemctl restart systemd-logind.service
-    echo ""
-    echo "Done! You will be logged out now."
-else
+if [[ $REPLY =~ ^[Nn]$ ]]; then
     echo ""
     echo "Installation complete, but changes require restart of systemd-logind."
     echo "To activate without logging out, reboot your computer:"
@@ -105,6 +70,11 @@ else
     echo ""
     echo "Or to apply now (will log you out):"
     echo "  sudo systemctl restart systemd-logind.service"
+else
+    echo "Restarting systemd-logind..."
+    sudo systemctl restart systemd-logind.service
+    echo ""
+    echo "Done! You will be logged out now."
 fi
 
 echo ""
