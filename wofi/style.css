@@ -5,38 +5,38 @@
 
 window {
     margin: 0px;
-    border: 2px solid #9ECE6A;
-    background-color: #1A1B26;
+    border: 2px solid #4A5240;
+    background-color: #1C1C1C;
     border-radius: 0px;
 }
 
 #input {
     margin: 8px;
     padding: 10px 14px;
-    border: 2px solid #7AA2F7;
-    background-color: #24283B;
-    color: #7AA2F7;
+    border: 2px solid #C3B091;
+    background-color: #2B2D2E;
+    color: #C3B091;
     border-radius: 0px;
     font-weight: bold;
     font-size: 15px;
 }
 
 #input:focus {
-    border: 2px solid #7AA2F7;
+    border: 2px solid #C3B091;
     outline: none;
-    background-color: #414868;
+    background-color: #3C4A2F;
 }
 
 #inner-box {
     margin: 8px;
     border: none;
-    background-color: #1A1B26;
+    background-color: #1C1C1C;
 }
 
 #outer-box {
     margin: 0px;
     border: none;
-    background-color: #1A1B26;
+    background-color: #1C1C1C;
 }
 
 #scroll {
@@ -47,7 +47,7 @@ window {
 #text {
     margin: 4px 0px;
     border: none;
-    color: #C0CAF5;
+    color: #D4D4D4;
 }
 
 #entry {
@@ -60,30 +60,30 @@ window {
 }
 
 #entry:selected {
-    background-color: rgba(122, 162, 247, 0.15);
-    border-left: 3px solid #7AA2F7;
+    background-color: rgba(195, 176, 145, 0.15);
+    border-left: 3px solid #C3B091;
     outline: none;
 }
 
 #entry:hover {
-    background-color: rgba(158, 206, 106, 0.3);
-    border-left: 2px solid #414868;
+    background-color: rgba(74, 82, 64, 0.3);
+    border-left: 2px solid #3C4A2F;
 }
 
 #entry:selected #text {
-    color: #7AA2F7;
+    color: #C3B091;
     font-weight: bold;
 }
 
 /* Highlight current workspace (▸) */
 #text:contains("▸") {
-    color: #7AA2F7;
+    color: #C3B091;
     font-weight: bold;
 }
 
 /* Visible workspace (●) */
 #text:contains("●") {
-    color: #9ECE6A;
+    color: #6B7A54;
 }
 
 /* Inactive workspace (○) */

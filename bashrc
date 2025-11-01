@@ -199,16 +199,24 @@ fi
 
 
 
+
+
+
+
+
+
+
+
 # THEME PROMPT START
-# Tokyo Night Theme - Bash Prompt Colors
+# Tactical Theme - Bash Prompt Colors
 # Used by bashrc for terminal prompt styling
 
 C_RESET='\[\033[0m\]'
-C_TAN='\[\033[38;2;122;162;247m\]'     # Tokyo Night Blue
-C_OLIVE='\[\033[38;2;158;206;106m\]'   # Tokyo Night Green
-C_GRAY='\[\033[38;2;192;202;245m\]'    # Tokyo Night Foreground
-C_DIM='\[\033[38;2;86;95;137m\]'       # Tokyo Night Gray
-C_AMBER='\[\033[38;2;247;118;142m\]'   # Tokyo Night Red-Pink
+C_TAN='\[\033[38;2;195;176;145m\]'
+C_OLIVE='\[\033[38;2;107;118;87m\]'
+C_GRAY='\[\033[38;2;212;212;212m\]'
+C_DIM='\[\033[38;2;74;82;64m\]'
+C_AMBER='\[\033[38;2;204;120;50m\]'
 
 # THEME PROMPT END
 
