@@ -26,3 +26,16 @@ webapp/data/
 
 # User-specific BunkerOS config
 .config/bunkeros/
+
+# Theme-applied config files (user's active theme)
+# These are generated from .default versions and modified by theme-switcher.sh
+# Git tracks the .default versions, not the active user configs
+bashrc
+dircolors
+foot/foot.ini
+mako/config
+sway/config
+swayosd/style.css
+waybar/style.css
+wofi/style.css
+btop/themes/active.theme
