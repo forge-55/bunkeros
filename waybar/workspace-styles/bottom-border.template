@@ -1,0 +1,44 @@
+/* Workspace Button Style: Bottom Border (Minimal) */
+
+#workspaces button {
+    padding: 4px 10px;
+    margin: 0 4px;
+    background-color: transparent;
+    color: __SECONDARY__;
+    border: none;
+    border-radius: 0;
+    border-bottom: 2px solid transparent;
+    font-size: 14px;
+    font-weight: normal;
+    min-width: 24px;
+    transition: all 0.2s ease-in-out;
+}
+
+#workspaces button:hover {
+    background-color: __ACCENT_MUTED_ALPHA__;
+    color: __PRIMARY__;
+}
+
+#workspaces button.active,
+#workspaces button.focused {
+    background-color: transparent;
+    color: __PRIMARY__;
+    border: none;
+    border-radius: 0;
+    border-bottom: 2px solid __PRIMARY__;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 4px 10px;
+}
+
+#workspaces button.active label,
+#workspaces button.focused label {
+    color: __PRIMARY__;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#workspaces button.visible {
+    background-color: __ACCENT_DIM_ALPHA__;
+    color: __ACCENT_DIM__;
+}

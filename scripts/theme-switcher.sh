@@ -69,21 +69,21 @@ apply_theme() {
     fi
     
     # Update project directory (source of truth)
-    cp "$theme_dir/waybar-style.css" "$PROJECT_DIR/waybar/style.css"
-    cp "$theme_dir/wofi-style.css" "$PROJECT_DIR/wofi/style.css"
+    cp "$theme_dir/waybar-style.css.template" "$PROJECT_DIR/waybar/style.css"
+    cp "$theme_dir/wofi-style.css.template" "$PROJECT_DIR/wofi/style.css"
     cp "$theme_dir/mako-config" "$PROJECT_DIR/mako/config"
     cp "$theme_dir/swayosd-style.css" "$PROJECT_DIR/swayosd/style.css"
     cp "$theme_dir/btop.theme" "$PROJECT_DIR/btop/themes/active.theme"
-    cp "$theme_dir/foot.ini" "$PROJECT_DIR/foot/foot.ini"
+    cp "$theme_dir/foot.ini.template" "$PROJECT_DIR/foot/foot.ini"
     cp "$theme_dir/dircolors" "$PROJECT_DIR/dircolors"
     
     # Also update active config locations
-    cp "$theme_dir/waybar-style.css" "$HOME/.config/waybar/style.css"
-    cp "$theme_dir/wofi-style.css" "$HOME/.config/wofi/style.css"
+    cp "$theme_dir/waybar-style.css.template" "$HOME/.config/waybar/style.css"
+    cp "$theme_dir/wofi-style.css.template" "$HOME/.config/wofi/style.css"
     cp "$theme_dir/mako-config" "$HOME/.config/mako/config"
     cp "$theme_dir/swayosd-style.css" "$HOME/.config/swayosd/style.css"
     cp "$theme_dir/btop.theme" "$HOME/.config/btop/themes/active.theme"
-    cp "$theme_dir/foot.ini" "$HOME/.config/foot/foot.ini"
+    cp "$theme_dir/foot.ini.template" "$HOME/.config/foot/foot.ini"
     cp "$theme_dir/dircolors" "$HOME/.dircolors"
     
     if grep -q "^# THEME COLORS START" "$PROJECT_DIR/sway/config" 2>/dev/null; then
@@ -120,6 +120,16 @@ apply_theme() {
     fi
     
     echo "$theme" > "$CURRENT_THEME_FILE"
+    
+    # Apply user's workspace style preference (if set) - AFTER saving current theme
+    local workspace_style_pref="$CONFIG_DIR/workspace-style"
+    if [ -f "$workspace_style_pref" ]; then
+        local preferred_style=$(cat "$workspace_style_pref")
+        if [ -x "$PROJECT_DIR/scripts/workspace-style-switcher.sh" ]; then
+            # Don't restart waybar here - we'll do it below
+            "$PROJECT_DIR/scripts/workspace-style-switcher.sh" apply "$preferred_style" 2>/dev/null || true
+        fi
+    fi
     
     # Simply restart waybar to apply new CSS
     killall -q waybar

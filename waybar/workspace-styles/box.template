@@ -1,0 +1,56 @@
+/* Workspace Button Style: Box (Classic) */
+
+#workspaces button {
+    padding: 2px 8px;
+    margin: 0 4px;
+    background-color: transparent;
+    color: __SECONDARY__;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    min-width: 20px;
+}
+
+#workspaces button:hover {
+    background-color: __ACCENT_MUTED_ALPHA__;
+    color: __PRIMARY__;
+    border: none;
+}
+
+#workspaces button.active,
+#workspaces button.focused {
+    background-color: __PRIMARY_ALPHA__;
+    color: __PRIMARY__;
+    border: 2px solid __PRIMARY__;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 3px 10px;
+}
+
+#workspaces button.active label,
+#workspaces button.focused label {
+    color: __PRIMARY__;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#workspaces button.visible {
+    background-color: __ACCENT_DIM_ALPHA__;
+    color: __ACCENT_DIM__;
+}
+
+#workspaces button.urgent {
+    background-color: __URGENT__;
+    border: 2px solid __URGENT__;
+    animation: urgent-pulse 1s ease-in-out infinite alternate;
+}
+
+@keyframes urgent-pulse {
+    from {
+        box-shadow: 0 0 8px __URGENT_ALPHA_LOW__;
+    }
+    to {
+        box-shadow: 0 0 16px __URGENT_ALPHA_HIGH__;
+    }
+}
