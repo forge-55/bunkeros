@@ -171,3 +171,39 @@ window#waybar.hidden {
     color: #C3B091;
     background-color: rgba(60, 74, 47, 0.2);
 }
+
+/* Battery Profile Module */
+#custom-battery-profile {
+    padding: 0 12px;
+    background-color: transparent;
+    color: #4A5240;
+}
+
+#custom-battery-profile.auto {
+    color: #6B7657;
+}
+
+#custom-battery-profile.power {
+    color: #7A9A5A;
+}
+
+#custom-battery-profile.balanced {
+    color: #4A5240;
+}
+
+#custom-battery-profile.performance {
+    color: #CC7832;
+}
+
+#custom-battery-profile.charging {
+    color: #C3B091;
+}
+
+#custom-battery-profile.critical {
+    color: #D08770;
+    animation: blink 1s ease-in-out infinite;
+}
+
+#custom-battery-profile.warning {
+    color: #CC7832;
+}

@@ -35,13 +35,13 @@ selected=$(echo -e "$options" | wofi --dmenu \
 [ -z "$selected" ] && exit 0
 
 if echo "$selected" | grep -q "Auto"; then
-    mode="auto"; label="Auto"
+    mode="auto"; label="Auto"; cmd_mode="reset"
 elif echo "$selected" | grep -q "Power Saver"; then
-    mode="power"; label="Power Saver"
+    mode="power"; label="Power Saver"; cmd_mode="powersave"
 elif echo "$selected" | grep -q "Balanced"; then
-    mode="balanced"; label="Balanced"
+    mode="balanced"; label="Balanced"; cmd_mode="powersave"
 elif echo "$selected" | grep -q "Performance"; then
-    mode="performance"; label="Performance"
+    mode="performance"; label="Performance"; cmd_mode="performance"
 else
     exit 0
 fi
@@ -51,11 +51,11 @@ if [ "$mode" = "$current_mode" ]; then
     exit 0
 fi
 
-if sudo auto-cpufreq --force "$mode" &>/dev/null; then
+if sudo auto-cpufreq --force="$cmd_mode" &>/dev/null; then
     echo "$mode" > /tmp/auto-cpufreq-mode
     notify-send "Power Profile" "Switched to: $label" --icon=battery-profile-power
     sleep 0.2
-    killall -SIGUSR2 waybar 2>/dev/null || true
+    pkill -RTMIN+8 waybar 2>/dev/null || true
 else
     notify-send "Power Profile" "Failed to switch mode" --icon=dialog-error --urgency=critical
     exit 1

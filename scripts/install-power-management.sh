@@ -33,6 +33,19 @@ if sudo pacman -S --needed auto-cpufreq; then
     sudo systemctl enable --now auto-cpufreq
     echo "✓ auto-cpufreq installed and enabled"
     echo ""
+    
+    # Install sudoers configuration for passwordless profile switching
+    echo "Installing sudoers configuration for waybar integration..."
+    sudo cp "$PROJECT_DIR/systemd/sudoers.d/auto-cpufreq" /etc/sudoers.d/
+    sudo chmod 0440 /etc/sudoers.d/auto-cpufreq
+    echo "✓ Sudoers configuration installed"
+    echo ""
+    
+    # Create initial state file
+    echo "auto" > /tmp/auto-cpufreq-mode
+    echo "✓ Initial power profile set to Auto"
+    echo ""
+    
     echo "View status with: sudo auto-cpufreq --stats"
 else
     echo "✗ Failed to install auto-cpufreq"
@@ -40,6 +53,8 @@ else
     echo "You can install it manually later with:"
     echo "  sudo pacman -S auto-cpufreq"
     echo "  sudo systemctl enable --now auto-cpufreq"
+    echo "  sudo cp $PROJECT_DIR/systemd/sudoers.d/auto-cpufreq /etc/sudoers.d/"
+    echo "  sudo chmod 0440 /etc/sudoers.d/auto-cpufreq"
 fi
 
 echo ""
