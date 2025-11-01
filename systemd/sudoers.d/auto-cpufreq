@@ -1,8 +1,4 @@
-# Allow users in wheel group to run auto-cpufreq commands without password# Allow users in wheel group to run auto-cpufreq commands without password
-
-%wheel ALL=(ALL) NOPASSWD: /usr/bin/auto-cpufreq --force *%wheel ALL=(ALL) NOPASSWD: /usr/bin/auto-cpufreq --force *
-
-%wheel ALL=(ALL) NOPASSWD: /usr/bin/auto-cpufreq --stats%wheel ALL=(ALL) NOPASSWD: /usr/bin/auto-cpufreq --stats
-
-%wheel ALL=(ALL) NOPASSWD: /usr/bin/auto-cpufreq --monitor%wheel ALL=(ALL) NOPASSWD: /usr/bin/auto-cpufreq --monitor
-
+# Allow users in wheel group to run auto-cpufreq commands without password
+%wheel ALL=(ALL) NOPASSWD: /usr/bin/auto-cpufreq --force *
+%wheel ALL=(ALL) NOPASSWD: /usr/bin/auto-cpufreq --stats
+%wheel ALL=(ALL) NOPASSWD: /usr/bin/auto-cpufreq --monitor
