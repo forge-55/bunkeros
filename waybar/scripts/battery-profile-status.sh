@@ -71,6 +71,8 @@ fi
 
 tooltip="Battery: ${capacity}%\\nStatus: ${status}\\nProfile: ${mode_label}\\n\\nClick to select profile"
 
+# Output JSON for waybar
+# In power saver mode, only show the profile icon for minimal visual clutter
 if [ "$mode" = "power" ]; then
     echo "{\"text\": \"${profile_icon}\", \"tooltip\": \"${tooltip}\", \"class\": \"${mode} ${status_class}\"}"
 else
