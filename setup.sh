@@ -46,6 +46,27 @@ else
 fi
 echo ""
 
+echo "Step 2.5: Setting up multi-monitor configuration..."
+# Copy default multi-monitor config files if they don't exist
+for conf_file in "$PROJECT_DIR/sway/config.d"/*.conf; do
+    conf_name=$(basename "$conf_file")
+    if [ ! -f "$CONFIG_DIR/sway/config.d/$conf_name" ]; then
+        cp "$conf_file" "$CONFIG_DIR/sway/config.d/$conf_name"
+        echo "  ✓ Copied $conf_name"
+    else
+        echo "  ℹ $conf_name already exists, keeping user version"
+    fi
+done
+
+# Copy README if it doesn't exist
+if [ ! -f "$CONFIG_DIR/sway/config.d/README.md" ]; then
+    cp "$PROJECT_DIR/sway/config.d/README.md" "$CONFIG_DIR/sway/config.d/README.md"
+    echo "  ✓ Multi-monitor configuration files installed"
+else
+    echo "  ℹ Multi-monitor config already set up"
+fi
+echo ""
+
 echo "Step 3: Setting up Waybar configuration..."
 backup_if_exists "$CONFIG_DIR/waybar/config"
 ln -sf "$PROJECT_DIR/waybar/config" "$CONFIG_DIR/waybar/config"
@@ -372,7 +393,8 @@ echo "                  grim slurp wl-clipboard brightnessctl \\"
 echo "                  playerctl pavucontrol network-manager-applet \\"
 echo "                  blueman mate-calc zenity sddm wlsunset swaylock \\"
 echo "                  swayidle python-pipx pipewire pipewire-pulse \\"
-echo "                  pipewire-alsa pipewire-jack wireplumber v4l-utils"
+echo "                  pipewire-alsa pipewire-jack wireplumber v4l-utils \\"
+echo "                  jq"
 echo ""
 echo "2. Install SwayOSD from AUR:"
 echo "   yay -S swayosd-git"
@@ -388,6 +410,10 @@ echo "   session selector"
 echo ""
 echo "6. If using SDDM, enable it:"
 echo "   sudo systemctl enable sddm.service"
+echo ""
+echo "7. Multi-monitor setup (optional):"
+echo "   bash ~/Projects/bunkeros/scripts/detect-monitors.sh"
+echo "   bash ~/Projects/bunkeros/scripts/setup-monitors.sh"
 echo ""
 echo "All configuration files are now symlinked. Any changes you make in"
 echo "$PROJECT_DIR will be reflected immediately!"

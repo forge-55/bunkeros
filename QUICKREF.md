@@ -93,10 +93,37 @@ Progress is saved after each stage:
 ## Documentation
 
 - **INSTALL.md** - Full installation guide
+- **MULTI-MONITOR.md** - Multi-monitor setup and configuration
 - **IMPROVEMENTS.md** - Technical details of all fixes
 - **EMERGENCY-RECOVERY.md** - Recovery mode guide
 - **TROUBLESHOOTING.md** - Common issues
 - **TROUBLESHOOTING-SDDM.md** - Display manager issues
+
+## Multi-Monitor Quick Start
+
+```bash
+# Detect connected monitors
+bash ~/Projects/bunkeros/scripts/detect-monitors.sh
+
+# Configure monitors interactively
+bash ~/Projects/bunkeros/scripts/setup-monitors.sh
+
+# Configure monitors automatically
+bash ~/Projects/bunkeros/scripts/setup-monitors.sh --auto
+
+# Reload Sway after manual config edits
+swaymsg reload
+```
+
+**Default workspace distribution:**
+- Single monitor: Workspaces 1-10
+- Dual monitor: 1-5 on primary, 6-10 on secondary
+- Triple monitor: 1-5 primary, 6-10 secondary, 11-15 tertiary
+
+**Config files:**
+- `~/.config/sway/config.d/00-variables.conf` - Monitor variables
+- `~/.config/sway/config.d/10-monitors.conf` - Display settings
+- `~/.config/sway/config.d/20-workspaces.conf` - Workspace assignments
 
 ## Testing Checklist
 

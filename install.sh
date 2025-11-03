@@ -392,7 +392,7 @@ EOF
     local core_packages=(
         sway autotiling-rs waybar wofi mako foot swaylock swayidle swaybg
         brightnessctl playerctl wl-clipboard grim slurp wlsunset
-        network-manager-applet blueman pavucontrol
+        network-manager-applet blueman pavucontrol jq
     )
     
     local app_packages=(
@@ -511,6 +511,39 @@ EOF
     # Fix current session
     fix_current_session
     save_checkpoint "session_fixed"
+    
+    # Configure multi-monitor setup
+    echo ""
+    info "Checking for multi-monitor setup..."
+    if pgrep -x sway > /dev/null 2>&1; then
+        # Sway is running, we can detect monitors
+        local monitor_count=$("$SCRIPT_DIR/scripts/detect-monitors.sh" --count 2>/dev/null || echo "0")
+        
+        if [ "$monitor_count" -gt 1 ]; then
+            echo ""
+            success "Multiple monitors detected ($monitor_count displays)"
+            echo ""
+            read -p "Would you like to configure multi-monitor workspace distribution now? (y/n) " -n 1 -r
+            echo
+            if [[ $REPLY =~ ^[Yy]$ ]]; then
+                if "$SCRIPT_DIR/scripts/setup-monitors.sh" --auto; then
+                    success "Multi-monitor setup configured"
+                else
+                    warning "Multi-monitor setup had issues (you can configure later)"
+                fi
+            else
+                info "You can configure monitors later by running:"
+                info "  bash ~/Projects/bunkeros/scripts/setup-monitors.sh"
+            fi
+        else
+            info "Single monitor detected - no additional configuration needed"
+            info "Add more monitors later? Run: bash ~/Projects/bunkeros/scripts/setup-monitors.sh"
+        fi
+    else
+        info "Multi-monitor detection skipped (Sway not running)"
+        info "Configure monitors after first login: bash ~/Projects/bunkeros/scripts/setup-monitors.sh"
+    fi
+    save_checkpoint "monitor_setup_complete"
     
     # Final validation
     echo ""

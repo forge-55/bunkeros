@@ -41,6 +41,7 @@ The tactical color palette and flat design provide a modern, professional look w
 ## Features
 
 - **Intelligent autotiling** - COSMIC-like smart window placement that automatically balances layouts
+- **Multi-monitor support** - Automatic detection and configuration for 1-5 displays with predictable workspace distribution
 - **Automatic display scaling** - Auto-detects your screen resolution and applies optimal font sizes on first login
 - **Interactive keybinding manager** - View, search, edit, and add keybindings via GUI (Super+m → Keybindings)
 - **Multi-theme system** - Switch between 5 curated themes instantly (Tactical, Gruvbox, Nord, Everforest, Tokyo Night)
@@ -910,7 +911,7 @@ sudo pacman -S sway autotiling-rs waybar wofi mako foot nautilus \
                ttf-meslo-nerd xdg-desktop-portal xdg-desktop-portal-wlr \
                xdg-desktop-portal-gtk pipewire pipewire-pulse pipewire-alsa \
                pipewire-jack wireplumber v4l-utils python-pipx zenity \
-               wlsunset swaylock swayidle swaybg
+               wlsunset swaylock swayidle swaybg jq
 
 # Install SwayOSD for volume/brightness overlays
 yay -S swayosd-git
@@ -1169,6 +1170,7 @@ This configuration combines power-user efficiency with modern desktop polish:
 - **[SECURITY.md](SECURITY.md)** - Security features and best practices
 
 ### Features & Usage
+- **[MULTI-MONITOR.md](MULTI-MONITOR.md)** - Multi-monitor configuration and workspace distribution
 - **[VIDEOCONFERENCING.md](VIDEOCONFERENCING.md)** - Video call setup and screen sharing
 - **[FAQ.md](FAQ.md)** - Frequently asked questions
 - **Component READMEs** - Individual component directories for detailed guides

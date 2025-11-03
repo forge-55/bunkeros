@@ -68,7 +68,7 @@ sudo pacman -S --needed sway autotiling-rs waybar wofi mako foot \
                         pipewire-alsa pipewire-jack wireplumber v4l-utils \
                         sddm qt5-declarative qt5-quickcontrols2 ttf-meslo-nerd \
                         xdg-desktop-portal xdg-desktop-portal-wlr \
-                        xdg-desktop-portal-gtk python-pipx
+                        xdg-desktop-portal-gtk python-pipx jq
 
 # Install AUR packages (requires yay or paru)
 yay -S swayosd-git
@@ -330,6 +330,20 @@ After logging in for the first time:
    - `Super+d` - Application launcher
    - `Super+m` - Quick actions menu
    - `Super+w` - Workspace overview
+
+3. **Multi-Monitor Setup** (if applicable):
+   ```bash
+   # Detect connected monitors
+   bash ~/Projects/bunkeros/scripts/detect-monitors.sh
+   
+   # Configure monitors interactively
+   bash ~/Projects/bunkeros/scripts/setup-monitors.sh
+   
+   # Or configure automatically
+   bash ~/Projects/bunkeros/scripts/setup-monitors.sh --auto
+   ```
+   
+   **Note:** The installer will offer to configure multi-monitor setups automatically if multiple displays are detected. You can also configure this manually at any time. See [MULTI-MONITOR.md](MULTI-MONITOR.md) for complete documentation.
 
 ### Theme Switching
 - `Super+m` → Change Theme
