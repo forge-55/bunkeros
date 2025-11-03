@@ -211,8 +211,8 @@ show_theme_menu() {
         theme_name=$(echo "$selected" | sed 's/^[● ] //' | awk '{print tolower($1)}')
         if [ -n "$theme_name" ] && [ "$theme_name" != "" ]; then
             apply_theme "$theme_name"
-            # Return to appearance menu after applying theme
-            ~/.config/waybar/scripts/appearance-menu.sh "$position"
+            # Close any open wofi menus after applying theme
+            pkill -x wofi
         fi
     fi
 }
