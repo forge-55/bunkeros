@@ -10,8 +10,20 @@ Complete installation instructions for BunkerOS with robust error handling, auto
 - CPU: x86-64 compatible (modern processors recommended)
 - Disk: 20GB free space (2GB minimum for installation)
 - Network: Active internet connection required
+- OS: Arch Linux or Arch-based distribution (Manjaro, EndeavourOS, etc.)
 
 **Note**: BunkerOS uses minimal effects (rounded corners only) by default for maximum performance. Users with modern GPUs who want additional effects can enable them after installation using the effects toggle script.
+
+## Installation Overview
+
+BunkerOS installation follows industry-standard practices for Linux desktop environment setup:
+
+1. **System Preparation**: Update system and verify prerequisites
+2. **Package Installation**: Install required packages from official repositories
+3. **Configuration Setup**: Deploy configuration files to user's home directory
+4. **System Integration**: Install session files and display manager theme
+5. **Service Configuration**: Enable required systemd user services
+6. **Validation**: Verify installation completeness and configuration validity
 
 ## Quick Installation (Recommended)
 
@@ -31,15 +43,115 @@ cd bunkeros
 ```
 
 The installer features:
-- **Preflight checks**: Verifies internet, disk space, and package database
-- **Checkpoint system**: Resume from interruptions automatically
-- **Automatic recovery**: Handles package conflicts intelligently
-- **Backup creation**: Saves existing configs before changes
-- **Configuration validation**: Tests Sway config before completion
-- **Emergency session**: Installs recovery mode accessible from login screen
-- **Detailed logging**: All operations logged for troubleshooting
+- ✅ **Preflight checks**: Verifies internet, disk space, and package database
+- ✅ **Checkpoint system**: Resume from interruptions automatically
+- ✅ **Automatic recovery**: Handles package conflicts intelligently
+- ✅ **Backup creation**: Saves existing configs before changes
+- ✅ **Configuration validation**: Tests Sway config before completion
+- ✅ **Emergency session**: Installs recovery mode accessible from login screen
+- ✅ **Detailed logging**: All operations logged to `/tmp/bunkeros-install.log`
+- ✅ **System services**: Automatically installs SDDM theme and session files
+- ✅ **User environment**: Configures PipeWire and other user services
 
 **If installation is interrupted**, simply re-run `./install.sh` and it will resume from the last successful checkpoint.
+
+### Post-Installation
+
+After installation completes:
+
+1. **Validate installation**:
+   ```bash
+   ./scripts/validate-installation.sh
+   ```
+   This checks all packages, configurations, and services are properly installed.
+
+2. **Log out** of your current session
+
+3. **At the login screen**, select "BunkerOS" from the session menu
+
+4. **Log in** with your credentials
+
+### Troubleshooting
+
+If you encounter issues:
+
+1. **Check installation log**:
+   ```bash
+   cat /tmp/bunkeros-install.log
+   ```
+
+2. **Run validation script**:
+   ```bash
+   ~/Projects/bunkeros/scripts/validate-installation.sh
+   ```
+   This will show exactly what's wrong and how to fix it.
+
+3. **Use Emergency Recovery session**:
+   - At login screen, select "BunkerOS Emergency"
+   - This boots to a terminal where you can fix issues
+
+4. **Rollback installation**:
+   ```bash
+   ~/Projects/bunkeros/scripts/rollback-installation.sh
+   ```
+   This restores your previous configuration from backup.
+
+5. **Check system logs**:
+   ```bash
+   journalctl --user -b          # User session logs
+   journalctl -b                 # System logs
+   ```
+
+### Common Issues and Fixes
+
+#### Black Screen on Login
+
+**Cause**: Sway configuration errors or missing packages
+
+**Fix**:
+```bash
+# Use Emergency Recovery session to access terminal
+# Then run validation:
+~/Projects/bunkeros/scripts/validate-installation.sh
+
+# Check Sway config:
+sway --validate
+
+# View detailed errors:
+cat /tmp/bunkeros-launch.log
+```
+
+#### "Atomic Operation" Errors
+
+**Cause**: Symlinked environment.d files (systemd can't read symlinks)
+
+**Fix**: The new installer copies (not symlinks) environment.d files. If upgrading:
+```bash
+cd ~/Projects/bunkeros
+rm ~/.config/environment.d/10-bunkeros-wayland.conf
+cp environment.d/10-bunkeros-wayland.conf ~/.config/environment.d/
+```
+
+#### Session Not Listed at Login
+
+**Cause**: SDDM theme/session files not installed
+
+**Fix**:
+```bash
+cd ~/Projects/bunkeros/sddm
+sudo ./install-theme.sh
+```
+
+#### No Audio
+
+**Cause**: PipeWire services not enabled
+
+**Fix**:
+```bash
+systemctl --user enable --now pipewire.service
+systemctl --user enable --now pipewire-pulse.service
+systemctl --user enable --now wireplumber.service
+```
 
 ## Manual Installation
 

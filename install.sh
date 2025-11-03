@@ -467,6 +467,35 @@ EOF
         exit 1
     fi
     
+    # Install SDDM theme and sessions (system-wide)
+    echo ""
+    info "Installing SDDM theme and session files..."
+    if [ -f "$SCRIPT_DIR/sddm/install-theme.sh" ]; then
+        if "$SCRIPT_DIR/sddm/install-theme.sh"; then
+            success "SDDM theme and sessions installed"
+        else
+            error "SDDM theme installation failed"
+            exit 1
+        fi
+    else
+        warning "SDDM theme installer not found - skipping"
+    fi
+    save_checkpoint "sddm_theme_installed"
+    
+    # Setup user environment (PipeWire, etc.)
+    echo ""
+    info "Setting up user environment..."
+    if [ -f "$SCRIPT_DIR/scripts/install-user-environment.sh" ]; then
+        if "$SCRIPT_DIR/scripts/install-user-environment.sh"; then
+            success "User environment configured"
+        else
+            warning "User environment setup had issues (non-critical)"
+        fi
+    else
+        warning "User environment installer not found - skipping"
+    fi
+    save_checkpoint "user_environment_complete"
+    
     # Validate Sway configuration
     echo ""
     info "Validating Sway configuration..."
@@ -575,8 +604,10 @@ EOF
 
 🔧 If something goes wrong:
    • Use "BunkerOS Emergency Recovery" from login screen
-   • Check the log: $LOG_FILE
-   • Restore backup: cp -r $BACKUP_DIR/* ~/.config/
+   • Check the validation script: $SCRIPT_DIR/scripts/validate-installation.sh
+   • View logs: $LOG_FILE
+   • Rollback changes: $SCRIPT_DIR/scripts/rollback-installation.sh
+   • Restore backup manually: cp -r $BACKUP_DIR/* ~/.config/
    • Re-run this script: $SCRIPT_DIR/install.sh
 
 💡 Checkpoints saved - if installation was interrupted, re-running

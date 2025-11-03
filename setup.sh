@@ -200,9 +200,12 @@ echo ""
 echo "Step 11.7: Installing Wayland environment variables..."
 mkdir -p "$CONFIG_DIR/environment.d"
 backup_if_exists "$CONFIG_DIR/environment.d/10-bunkeros-wayland.conf"
-ln -sf "$PROJECT_DIR/environment.d/10-bunkeros-wayland.conf" "$CONFIG_DIR/environment.d/10-bunkeros-wayland.conf"
-echo "  ✓ Wayland environment configuration symlinked"
+# IMPORTANT: environment.d files MUST be copied, not symlinked
+# systemd cannot read symlinked environment files
+cp "$PROJECT_DIR/environment.d/10-bunkeros-wayland.conf" "$CONFIG_DIR/environment.d/10-bunkeros-wayland.conf"
+echo "  ✓ Wayland environment configuration installed (copied, not symlinked)"
 echo "  ℹ This ensures Electron apps (VS Code, Cursor) work correctly"
+echo "  ⚠ Note: environment.d files MUST be copied - systemd cannot read symlinks"
 echo ""
 
 echo "Step 11.8: Setting up adaptive display scaling..."
