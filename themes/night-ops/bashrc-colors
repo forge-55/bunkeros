@@ -1,0 +1,9 @@
+# Night Ops Theme - Bash Prompt Colors
+# Ocean of Storms inspired - Meteorite gray with rose gold accents
+
+C_RESET='\[\033[0m\]'
+C_GOLD='\[\033[38;2;212;165;116m\]'
+C_GRAY='\[\033[38;2;74;78;82m\]'
+C_WHITE='\[\033[38;2;232;230;225m\]'
+C_DIM='\[\033[38;2;90;94;98m\]'
+C_AMBER='\[\033[38;2;232;183;117m\]'

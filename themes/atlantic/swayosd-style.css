@@ -1,0 +1,40 @@
+window {
+    background-color: rgba(10, 22, 40, 0.95);
+    border: 4px solid #7BA5D4;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+#osd {
+    background-color: transparent;
+    font-family: monospace;
+    font-size: 18px;
+    color: #7BA5D4;
+}
+
+image {
+    color: #7BA5D4;
+    margin: 0px 20px;
+}
+
+levelbar trough {
+    background-color: #152844;
+    border-radius: 6px;
+    min-height: 24px;
+    min-width: 350px;
+}
+
+levelbar block.filled {
+    background-color: #7BA5D4;
+    border-radius: 6px;
+}
+
+levelbar block.empty {
+    background-color: transparent;
+}
+
+label {
+    color: #7BA5D4;
+    font-weight: bold;
+    margin: 10px;
+}
