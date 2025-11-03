@@ -1,0 +1,9 @@
+# Sahara Theme - Bash Prompt Colors
+# Desert tactical - Warm sand and earth tones
+
+C_RESET='\[\033[0m\]'
+C_GOLD='\[\033[38;2;215;153;33m\]'
+C_BROWN='\[\033[38;2;160;120;86m\]'
+C_SAND='\[\033[38;2;235;219;178m\]'
+C_DIM='\[\033[38;2;102;92;84m\]'
+C_RED='\[\033[38;2;251;73;52m\]'

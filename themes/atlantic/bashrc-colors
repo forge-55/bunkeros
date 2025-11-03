@@ -1,9 +1,0 @@
-# Abyss Theme - Bash Prompt Colors
-# Deep ocean abyss - Tactical underwater mission aesthetic
-
-C_RESET='\[\033[0m\]'
-C_BLUE='\[\033[38;2;123;165;212m\]'
-C_NAVY='\[\033[38;2;30;58;95m\]'
-C_CREAM='\[\033[38;2;232;230;220m\]'
-C_DIM='\[\033[38;2;46;74;107m\]'
-C_GOLD='\[\033[38;2;212;165;116m\]'

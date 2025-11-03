@@ -1,0 +1,96 @@
+* {
+    font-family: "MesloLGL Nerd Font", "DejaVu Sans Mono", monospace;
+    font-size: 15px;
+}
+
+window {
+    margin: 0px;
+    border: 2px solid #665C54;
+    background-color: #1D2021;
+    border-radius: 0px;
+}
+
+#input {
+    margin: 8px;
+    padding: 10px 14px;
+    border: 2px solid #D79921;
+    background-color: #282828;
+    color: #D79921;
+    border-radius: 0px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+#input:focus {
+    border: 2px solid #D79921;
+    outline: none;
+    background-color: #282828;
+}
+
+#inner-box {
+    margin: 8px;
+    border: none;
+    background-color: #1D2021;
+}
+
+#outer-box {
+    margin: 0px;
+    border: none;
+    background-color: #1D2021;
+}
+
+#scroll {
+    margin: 0px;
+    border: none;
+}
+
+#text {
+    margin: 4px 0px;
+    border: none;
+    color: #EBDBB2;
+}
+
+#entry {
+    padding: 10px 8px;
+    margin: 2px 0px;
+    border: none;
+    border-left: 2px solid transparent;
+    background-color: transparent;
+    transition: all 0.2s ease;
+}
+
+#entry:selected {
+    background-color: rgba(215, 153, 33, 0.15);
+    border-left: 3px solid #D79921;
+    outline: none;
+}
+
+#entry:hover {
+    background-color: rgba(160, 120, 86, 0.3);
+    border-left: 2px solid #A07856;
+}
+
+#entry:selected #text {
+    color: #D79921;
+    font-weight: bold;
+}
+
+/* Highlight current workspace (▸) */
+#text:contains("▸") {
+    color: #D79921;
+    font-weight: bold;
+}
+
+/* Visible workspace (●) */
+#text:contains("●") {
+    color: #665C54;
+}
+
+/* Inactive workspace (○) */
+#text:contains("○") {
+    color: #3C3836;
+}
+
+#img {
+    margin-right: 8px;
+}

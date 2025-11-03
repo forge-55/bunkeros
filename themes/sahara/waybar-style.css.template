@@ -1,0 +1,207 @@
+* {
+    border-radius: 0;
+    font-family: "MesloLGL Nerd Font", "DejaVu Sans Mono", monospace;
+    font-size: 14px;
+    min-height: 0;
+}
+
+window#waybar {
+    background-color: rgba(29, 32, 33, 0.95);
+    color: #EBDBB2;
+    transition-property: background-color;
+    transition-duration: 0.5s;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+#workspaces {
+    background-color: transparent;
+    padding: 0;
+    margin: 0 0 0 12px;
+}
+
+#workspaces button {
+    padding: 4px 10px;
+    margin: 0 4px;
+    background-color: transparent;
+    color: #A07856;
+    border: none;
+    border-radius: 0;
+    border-bottom: 2px solid transparent;
+    font-size: 14px;
+    font-weight: normal;
+    min-width: 24px;
+    transition: all 0.2s ease-in-out;
+}
+
+#workspaces button:hover {
+    background-color: rgba(160, 120, 86, 0.3);
+    color: #D79921;
+}
+
+#workspaces button.active,
+#workspaces button.focused {
+    background-color: transparent;
+    color: #D79921;
+    border: none;
+    border-radius: 0;
+    border-bottom: 2px solid #D79921;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 4px 10px;
+}
+
+#workspaces button.active label,
+#workspaces button.focused label {
+    color: #D79921;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#workspaces button.visible {
+    background-color: rgba(60, 56, 54, 0.3);
+    color: #665C54;
+}
+
+#mode {
+    background-color: rgba(251, 73, 52, 0.2);
+    color: #FB4934;
+    padding: 0 10px;
+    margin-left: 10px;
+    font-weight: normal;
+}
+
+#clock,
+#battery,
+#backlight,
+#cpu,
+#memory,
+#network,
+#bluetooth,
+#pulseaudio,
+#custom-power {
+    padding: 0 12px;
+    background-color: transparent;
+    color: #EBDBB2;
+}
+
+#clock {
+    font-weight: normal;
+    color: #D79921;
+    background-color: transparent;
+}
+
+#battery {
+    color: #665C54;
+}
+
+#backlight {
+    color: #665C54;
+}
+
+#cpu {
+    color: #665C54;
+}
+
+#memory {
+    color: #A07856;
+}
+
+#network {
+    color: #665C54;
+}
+
+#network.disconnected {
+    background-color: rgba(251, 73, 52, 0.3);
+    color: #FB4934;
+    font-weight: bold;
+}
+
+#bluetooth {
+    color: #665C54;
+}
+
+#bluetooth.disabled {
+    color: #A07856;
+}
+
+#bluetooth.connected {
+    color: #A07856;
+}
+
+#pulseaudio {
+    color: #665C54;
+}
+
+#pulseaudio.muted {
+    background-color: rgba(40, 40, 40, 0.5);
+    color: #3C3836;
+}
+
+#custom-night-mode {
+    color: #665C54;
+    font-size: 14px;
+    padding: 0 8px;
+}
+
+#custom-night-mode.active {
+    color: #FB4934;
+}
+
+#custom-night-mode.inactive {
+    color: #665C54;
+}
+
+#custom-night-mode:hover {
+    color: #D79921;
+    background-color: rgba(160, 120, 86, 0.2);
+}
+
+#custom-power {
+    color: #665C54;
+    font-size: 14px;
+    margin-right: 12px;
+}
+
+#custom-power:hover {
+    color: #D79921;
+    background-color: rgba(160, 120, 86, 0.2);
+}
+
+/* Battery Profile Module */
+#custom-battery-profile {
+    padding: 0 12px;
+    background-color: transparent;
+    color: #665C54;
+}
+
+#custom-battery-profile.auto {
+    color: #A07856;
+}
+
+#custom-battery-profile.power {
+    color: #928374;
+}
+
+#custom-battery-profile.balanced {
+    color: #665C54;
+}
+
+#custom-battery-profile.performance {
+    color: #FB4934;
+}
+
+#custom-battery-profile.charging {
+    color: #D79921;
+}
+
+#custom-battery-profile.critical {
+    color: #FB4934;
+    animation: blink 1s ease-in-out infinite;
+}
+
+#custom-battery-profile.warning {
+    color: #FB4934;
+}
