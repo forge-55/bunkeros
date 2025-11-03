@@ -1,0 +1,96 @@
+* {
+    font-family: "MesloLGL Nerd Font", "DejaVu Sans Mono", monospace;
+    font-size: 15px;
+}
+
+window {
+    margin: 0px;
+    border: 2px solid #4A6078;
+    background-color: #0E1419;
+    border-radius: 0px;
+}
+
+#input {
+    margin: 8px;
+    padding: 10px 14px;
+    border: 2px solid #7BA8D4;
+    background-color: #1A2430;
+    color: #7BA8D4;
+    border-radius: 0px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+#input:focus {
+    border: 2px solid #7BA8D4;
+    outline: none;
+    background-color: #1A2430;
+}
+
+#inner-box {
+    margin: 8px;
+    border: none;
+    background-color: #0E1419;
+}
+
+#outer-box {
+    margin: 0px;
+    border: none;
+    background-color: #0E1419;
+}
+
+#scroll {
+    margin: 0px;
+    border: none;
+}
+
+#text {
+    margin: 4px 0px;
+    border: none;
+    color: #D8E4F0;
+}
+
+#entry {
+    padding: 10px 8px;
+    margin: 2px 0px;
+    border: none;
+    border-left: 2px solid transparent;
+    background-color: transparent;
+    transition: all 0.2s ease;
+}
+
+#entry:selected {
+    background-color: rgba(123, 168, 212, 0.15);
+    border-left: 3px solid #7BA8D4;
+    outline: none;
+}
+
+#entry:hover {
+    background-color: rgba(74, 106, 138, 0.3);
+    border-left: 2px solid #4A6A8A;
+}
+
+#entry:selected #text {
+    color: #7BA8D4;
+    font-weight: bold;
+}
+
+/* Highlight current workspace (▸) */
+#text:contains("▸") {
+    color: #7BA8D4;
+    font-weight: bold;
+}
+
+/* Visible workspace (●) */
+#text:contains("●") {
+    color: #4A6078;
+}
+
+/* Inactive workspace (○) */
+#text:contains("○") {
+    color: #2A3A4A;
+}
+
+#img {
+    margin-right: 8px;
+}

@@ -1,0 +1,9 @@
+# Winter Theme - Bash Prompt Colors
+# Arctic Night inspired - Deep polar night with ice blue accents
+
+C_RESET='\[\033[0m\]'
+C_ICE='\[\033[38;2;123;168;212m\]'
+C_BLUE='\[\033[38;2;74;106;138m\]'
+C_FROZEN='\[\033[38;2;216;228;240m\]'
+C_DIM='\[\033[38;2;74;96;120m\]'
+C_BRIGHT='\[\033[38;2;155;184;212m\]'
