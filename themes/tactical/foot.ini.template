@@ -20,26 +20,26 @@ blink=yes
 
 [colors]
 alpha=0.95
-foreground=d4d4d4
-background=1c1c1c
+foreground=c8d5c7
+background=0a0f0d
 
-regular0=2b2d2e
-regular1=cc7832
-regular2=6b7657
-regular3=c3b091
-regular4=4a5240
-regular5=8b7b6b
-regular6=6a7a5a
-regular7=d4d4d4
+regular0=1a2822
+regular1=d4a574
+regular2=2d4a3e
+regular3=e8d5b7
+regular4=3d5a4e
+regular5=8a9d94
+regular6=4a6d5e
+regular7=c8d5c7
 
-bright0=3c4a2f
-bright1=e89050
-bright2=7a8768
-bright3=d4c0a0
-bright4=5a6350
-bright5=9b8b7b
-bright6=7a8a6a
-bright7=e4e4e4
+bright0=1e3a2f
+bright1=e8ba90
+bright2=3d5a4e
+bright3=f0e5d0
+bright4=4d6a5e
+bright5=9aaaa0
+bright6=5a7d6e
+bright7=d8e5d7
 
 [csd]
 preferred=none

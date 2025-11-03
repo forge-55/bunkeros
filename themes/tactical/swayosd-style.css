@@ -1,6 +1,6 @@
 window {
-    background-color: rgba(28, 28, 28, 0.95);
-    border: 4px solid #C3B091;
+    background-color: rgba(10, 15, 13, 0.95);
+    border: 4px solid #E8D5B7;
     border-radius: 12px;
     padding: 20px;
 }
@@ -9,23 +9,23 @@ window {
     background-color: transparent;
     font-family: monospace;
     font-size: 18px;
-    color: #C3B091;
+    color: #E8D5B7;
 }
 
 image {
-    color: #C3B091;
+    color: #E8D5B7;
     margin: 0px 20px;
 }
 
 levelbar trough {
-    background-color: #2B2D2E;
+    background-color: #1A2822;
     border-radius: 6px;
     min-height: 24px;
     min-width: 350px;
 }
 
 levelbar block.filled {
-    background-color: #C3B091;
+    background-color: #E8D5B7;
     border-radius: 6px;
 }
 
@@ -34,7 +34,7 @@ levelbar block.empty {
 }
 
 label {
-    color: #C3B091;
+    color: #E8D5B7;
     font-weight: bold;
     margin: 10px;
 }
