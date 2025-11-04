@@ -184,34 +184,51 @@ install_packages() {
 install_aur_packages() {
     local aur_packages=("$@")
     
+    # Check if paru is installed, if not install it
     if ! check_aur_helper; then
-        warning "No AUR helper found (yay/paru)"
-        echo ""
-        echo "AUR packages needed: ${aur_packages[*]}"
-        echo ""
-        echo "Please install an AUR helper first:"
-        echo "  git clone https://aur.archlinux.org/yay.git"
-        echo "  cd yay && makepkg -si"
-        echo ""
-        read -p "Skip AUR packages for now? (y/n) " -n 1 -r
-        echo
-        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        info "AUR helper not found - installing paru..."
+        
+        # Create temporary directory for paru installation
+        local paru_build_dir="/tmp/paru-install-$$"
+        mkdir -p "$paru_build_dir"
+        
+        info "Cloning paru from AUR..."
+        if git clone https://aur.archlinux.org/paru.git "$paru_build_dir" 2>&1 | tee -a "$LOG_FILE"; then
+            cd "$paru_build_dir"
+            info "Building and installing paru..."
+            if makepkg -si --noconfirm 2>&1 | tee -a "$LOG_FILE"; then
+                success "Paru installed successfully"
+                cd "$SCRIPT_DIR"
+                rm -rf "$paru_build_dir"
+            else
+                error "Failed to build paru"
+                cd "$SCRIPT_DIR"
+                rm -rf "$paru_build_dir"
+                warning "Please install paru manually and re-run the script"
+                exit 1
+            fi
+        else
+            error "Failed to clone paru from AUR"
+            rm -rf "$paru_build_dir"
+            warning "Please install paru manually and re-run the script"
             exit 1
         fi
-        return
     fi
     
     local aur_helper
-    if command -v yay &>/dev/null; then
+    if command -v paru &>/dev/null; then
+        aur_helper="paru"
+    elif command -v yay &>/dev/null; then
         aur_helper="yay"
     else
-        aur_helper="paru"
+        error "AUR helper installation failed"
+        exit 1
     fi
     
     info "Installing AUR packages with $aur_helper..."
     for pkg in "${aur_packages[@]}"; do
         if ! check_package "$pkg"; then
-            if $aur_helper -S --needed "$pkg"; then
+            if $aur_helper -S --needed --noconfirm "$pkg" 2>&1 | tee -a "$LOG_FILE"; then
                 success "Installed AUR package: $pkg"
             else
                 error "Failed to install AUR package: $pkg"
