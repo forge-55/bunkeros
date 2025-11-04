@@ -172,24 +172,17 @@ detect_gpu() {
     fi
 }
 
-# Function to recommend BunkerOS edition based on hardware
-recommend_edition() {
+# Function to get hardware compatibility info
+get_hardware_info() {
     local gpu_info=$1
-    local device_type=$2
     
-    # Check for modern GPUs
+    # Determine if hardware is modern/capable for informational purposes
     if echo "$gpu_info" | grep -qiE "(nvidia.*rtx|nvidia.*gtx [12][0-9]|nvidia.*gtx [3-9][0-9]|amd.*(vega|rdna|rx [5-7][0-9]|rx [3-4][0-9][0-9])|intel.*(xe|iris|uhd [6-9]|hd [5-9]))"; then
-        echo "enhanced"
-    # Check for older but capable GPUs
+        echo "modern"
     elif echo "$gpu_info" | grep -qiE "(nvidia.*gtx [4-9][0-9]|amd.*(r9|rx [2-4])|intel.*(hd [4-5]|uhd [6-7]))"; then
-        if [ "$device_type" = "standard-laptop" ]; then
-            echo "standard"
-        else
-            echo "enhanced"
-        fi
-    # Older or integrated graphics
+        echo "capable"
     else
-        echo "standard"
+        echo "basic"
     fi
 }
 
@@ -280,9 +273,9 @@ fi
 dpi=$(calculate_dpi "$width_px" "$height_px" "$width_mm" "$height_mm")
 device_type=$(detect_device_type "$width_px" "$height_px" "$width_mm" "$height_mm" "$dpi")
 
-# Get GPU info and edition recommendation
+# Get GPU info and hardware classification
 gpu_info=$(detect_gpu)
-recommended_edition=$(recommend_edition "$gpu_info" "$device_type")
+hardware_type=$(get_hardware_info "$gpu_info")
 
 # Get optimal scaling configuration
 scaling_config=$(get_scaling_config "$device_type" "$dpi" "$width_px")
@@ -311,7 +304,7 @@ echo "${SUCCESS}Wayland scaling: $scale"
 echo "${SUCCESS}Terminal font size: $foot_font"
 echo "${SUCCESS}Waybar font size: $waybar_font"
 echo "${SUCCESS}Wofi font size: $wofi_font"
-echo "${SUCCESS}Recommended BunkerOS edition: $recommended_edition"
+echo "${SUCCESS}Hardware type: $hardware_type"
 echo ""
 
 # Export variables for use by other scripts
@@ -322,7 +315,7 @@ if [ "$1" = "--export" ]; then
     echo "export BUNKEROS_WAYBAR_FONT_SIZE=\"$waybar_font\""
     echo "export BUNKEROS_WOFI_FONT_SIZE=\"$wofi_font\""
     echo "export BUNKEROS_DEVICE_TYPE=\"$device_type\""
-    echo "export BUNKEROS_RECOMMENDED_EDITION=\"$recommended_edition\""
+    echo "export BUNKEROS_HARDWARE_TYPE=\"$hardware_type\""
     echo "export BUNKEROS_DISPLAY_DPI=\"$dpi\""
     echo "export BUNKEROS_DISPLAY_WIDTH=\"$width_px\""
     echo "export BUNKEROS_DISPLAY_HEIGHT=\"$height_px\""
@@ -344,7 +337,7 @@ elif [ "$1" = "--json" ]; then
     },
     "hardware": {
         "gpu": "$gpu_info",
-        "recommended_edition": "$recommended_edition"
+        "hardware_type": "$hardware_type"
     }
 }
 EOF
@@ -355,7 +348,7 @@ elif [ "$1" = "--config-vars" ]; then
     echo "WAYBAR_FONT_SIZE=$waybar_font"
     echo "WOFI_FONT_SIZE=$wofi_font"
     echo "DEVICE_TYPE=$device_type"
-    echo "RECOMMENDED_EDITION=$recommended_edition"
+    echo "HARDWARE_TYPE=$hardware_type"
     echo "DISPLAY_DPI=$dpi"
     echo "DISPLAY_WIDTH=$width_px"
     echo "DISPLAY_HEIGHT=$height_px"
@@ -373,10 +366,14 @@ else
         echo "   Consider enabling fractional scaling if text appears too small"
     fi
     
-    if [ "$recommended_edition" = "standard" ]; then
+    if [ "$hardware_type" = "basic" ]; then
         echo ""
-        echo "${INFO}Hardware recommendation:"
-        echo "   Your hardware is best suited for BunkerOS Standard Edition"
-        echo "   This provides optimal performance without visual effects"
+        echo "${INFO}Hardware note:"
+        echo "   Your hardware is classified as basic - BunkerOS will work great!"
+        echo "   Consider disabling animations if you experience performance issues"
+    elif [ "$hardware_type" = "modern" ]; then
+        echo ""
+        echo "${INFO}Hardware note:"
+        echo "   Your hardware is modern and fully capable - enjoy all features!"
     fi
 fi

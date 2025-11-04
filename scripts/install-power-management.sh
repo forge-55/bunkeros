@@ -25,11 +25,25 @@ echo ""
 # CPU Power Management (for laptops)
 echo "=== CPU Power Management ==="
 echo ""
-echo "Installing auto-cpufreq for automatic CPU power optimization..."
+echo "Configuring auto-cpufreq for automatic CPU power optimization..."
 echo "(Provides optimal battery life with zero configuration)"
 echo ""
 
-if sudo pacman -S --needed auto-cpufreq; then
+# Check if auto-cpufreq is installed
+if ! command -v auto-cpufreq &>/dev/null; then
+    echo "✗ auto-cpufreq is not installed"
+    echo "It should have been installed during the main installation process."
+    echo ""
+    echo "You can install it manually with:"
+    echo "  yay -S auto-cpufreq"
+    echo "  sudo systemctl enable --now auto-cpufreq"
+    echo "  sudo cp $PROJECT_DIR/systemd/sudoers.d/auto-cpufreq /etc/sudoers.d/"
+    echo "  sudo chmod 0440 /etc/sudoers.d/auto-cpufreq"
+    exit 1
+fi
+
+# Enable and start the service
+if sudo systemctl enable --now auto-cpufreq; then
     sudo systemctl enable --now auto-cpufreq
     echo "✓ auto-cpufreq installed and enabled"
     echo ""
@@ -51,7 +65,7 @@ else
     echo "✗ Failed to install auto-cpufreq"
     echo ""
     echo "You can install it manually later with:"
-    echo "  sudo pacman -S auto-cpufreq"
+    echo "  yay -S auto-cpufreq"
     echo "  sudo systemctl enable --now auto-cpufreq"
     echo "  sudo cp $PROJECT_DIR/systemd/sudoers.d/auto-cpufreq /etc/sudoers.d/"
     echo "  sudo chmod 0440 /etc/sudoers.d/auto-cpufreq"

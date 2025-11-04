@@ -38,7 +38,7 @@ Automatic CPU speed and power optimizer that adapts to your workload.
 
 **Installation:**
 ```bash
-sudo pacman -S auto-cpufreq
+yay -S auto-cpufreq
 sudo systemctl enable --now auto-cpufreq
 ```
 

@@ -144,11 +144,11 @@ auto-cpufreq is installed automatically when running `install.sh`:
 If you need to install/repair auto-cpufreq:
 
 ```bash
-# Install package
-sudo pacman -S auto-cpufreq
+# Install package from AUR
+yay -S auto-cpufreq
 
-# Install and enable daemon
-sudo auto-cpufreq --install
+# Enable and start daemon
+sudo systemctl enable --now auto-cpufreq
 
 # Copy sudoers rules
 sudo cp ~/Projects/bunkeros/systemd/sudoers.d/auto-cpufreq /etc/sudoers.d/

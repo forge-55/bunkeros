@@ -392,6 +392,7 @@ EOF
     
     local aur_packages=(
         swayosd-git
+        auto-cpufreq
     )
     
     # Install package groups
