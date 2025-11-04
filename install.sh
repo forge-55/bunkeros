@@ -184,42 +184,42 @@ install_packages() {
 install_aur_packages() {
     local aur_packages=("$@")
     
-    # Check if paru is installed, if not install it
+    # Check if an AUR helper is installed, if not install yay
     if ! check_aur_helper; then
-        info "AUR helper not found - installing paru..."
+        info "AUR helper not found - installing yay..."
         
-        # Create temporary directory for paru installation
-        local paru_build_dir="/tmp/paru-install-$$"
-        mkdir -p "$paru_build_dir"
+        # Create temporary directory for yay installation
+        local yay_build_dir="/tmp/yay-install-$$"
+        mkdir -p "$yay_build_dir"
         
-        info "Cloning paru from AUR..."
-        if git clone https://aur.archlinux.org/paru.git "$paru_build_dir" 2>&1 | tee -a "$LOG_FILE"; then
-            cd "$paru_build_dir"
-            info "Building and installing paru..."
+        info "Cloning yay from AUR..."
+        if git clone https://aur.archlinux.org/yay.git "$yay_build_dir" 2>&1 | tee -a "$LOG_FILE"; then
+            cd "$yay_build_dir"
+            info "Building and installing yay..."
             if makepkg -si --noconfirm 2>&1 | tee -a "$LOG_FILE"; then
-                success "Paru installed successfully"
+                success "Yay installed successfully"
                 cd "$SCRIPT_DIR"
-                rm -rf "$paru_build_dir"
+                rm -rf "$yay_build_dir"
             else
-                error "Failed to build paru"
+                error "Failed to build yay"
                 cd "$SCRIPT_DIR"
-                rm -rf "$paru_build_dir"
-                warning "Please install paru manually and re-run the script"
+                rm -rf "$yay_build_dir"
+                warning "Please install yay manually and re-run the script"
                 exit 1
             fi
         else
-            error "Failed to clone paru from AUR"
-            rm -rf "$paru_build_dir"
-            warning "Please install paru manually and re-run the script"
+            error "Failed to clone yay from AUR"
+            rm -rf "$yay_build_dir"
+            warning "Please install yay manually and re-run the script"
             exit 1
         fi
     fi
     
     local aur_helper
-    if command -v paru &>/dev/null; then
-        aur_helper="paru"
-    elif command -v yay &>/dev/null; then
+    if command -v yay &>/dev/null; then
         aur_helper="yay"
+    elif command -v paru &>/dev/null; then
+        aur_helper="paru"
     else
         error "AUR helper installation failed"
         exit 1
