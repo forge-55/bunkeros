@@ -303,6 +303,9 @@ EOF
         exit 1
     fi
     
+    info "BunkerOS requires vanilla Arch Linux"
+    echo ""
+    
     # Create backup
     backup_config
     save_checkpoint "backup_complete"
@@ -502,6 +505,97 @@ EOF
     fi
     save_checkpoint "installation_complete"
     
+    # Install SDDM
+    echo ""
+    info "Installing SDDM display manager..."
+    
+    # Install SDDM theme and session files
+    if [ -f "$SCRIPT_DIR/sddm/install-theme.sh" ]; then
+        if "$SCRIPT_DIR/sddm/install-theme.sh" 2>&1 | tee -a "$LOG_FILE"; then
+            success "SDDM theme and sessions installed"
+        else
+            error "SDDM theme installation failed"
+            echo ""
+            echo "You can try installing manually:"
+            echo "  cd $SCRIPT_DIR/sddm"
+            echo "  sudo ./install-theme.sh"
+            exit 1
+        fi
+    else
+        error "SDDM theme installer not found at $SCRIPT_DIR/sddm/install-theme.sh"
+        exit 1
+    fi
+    
+    # Enable SDDM service
+    if ! systemctl is-enabled sddm.service &>/dev/null; then
+        info "Enabling SDDM..."
+        if sudo systemctl enable sddm.service 2>&1 | tee -a "$LOG_FILE"; then
+            success "SDDM will start on next boot"
+        else
+            error "Failed to enable SDDM service"
+            exit 1
+        fi
+    else
+        success "SDDM already enabled"
+    fi
+    
+    save_checkpoint "sddm_installed"
+    
+    # Display completion message
+    display_completion_message
+}
+
+# Completion message
+display_completion_message() {
+    cat << EOF
+
+# Completion message
+display_completion_message() {
+    cat << EOF
+
+╔════════════════════════════════════════════════════════════╗
+║                                                            ║
+║         BunkerOS Installation Complete! ✓                  ║
+║                                                            ║
+╚════════════════════════════════════════════════════════════╝
+
+📋 Installation Summary:
+   • Configuration backup: $BACKUP_DIR
+   • Installation log: $LOG_FILE
+   • SDDM display manager: Installed
+
+🎯 Next Steps:
+
+   INSTALLATION COMPLETE ✓ - Everything installed!
+   
+   1. Reboot your system: sudo reboot
+   2. At SDDM login, select "BunkerOS" session
+   3. Log in and enjoy your environment!
+
+🔧 If something goes wrong:
+   • Validation script: $SCRIPT_DIR/scripts/validate-installation.sh
+   • View logs: $LOG_FILE
+   • Rollback: $SCRIPT_DIR/scripts/rollback-installation.sh
+
+💡 Checkpoints saved - if installation was interrupted, re-running
+   will resume from the last successful stage.
+
+EOF
+}
+
+# Run main function
+main "$@"
+
+}
+
+# Run main function
+main "$@"
+
+EOF
+}
+
+# Completion message for derivative distros (two-phase)
+display_derivative_completion_message() {
     cat << EOF
 
 ╔════════════════════════════════════════════════════════════╗
@@ -538,7 +632,6 @@ EOF
    • This prevents issues switching display managers while running
 
 🔧 If something goes wrong:
-   • Emergency recovery: Select "BunkerOS Emergency Recovery" at login
    • Check the validation script: $SCRIPT_DIR/scripts/validate-installation.sh
    • View logs: $LOG_FILE
    • Rollback changes: $SCRIPT_DIR/scripts/rollback-installation.sh
@@ -549,6 +642,11 @@ EOF
    will resume from the last successful stage.
 
 EOF
+}
+
+# Run main function
+main "$@"
+
 }
 
 # Run main function

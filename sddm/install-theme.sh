@@ -55,13 +55,6 @@ if sudo mkdir -p "$SESSION_DIR"; then
         echo "  ERROR: Failed to install BunkerOS session"
         exit 1
     fi
-    
-    echo "  Installing emergency recovery session..."
-    if sudo cp "$SESSION_SOURCE/bunkeros-recovery.desktop" "$SESSION_DIR/"; then
-        echo "  ✓ Emergency recovery session installed"
-    else
-        echo "  WARNING: Failed to install emergency recovery session (non-critical)"
-    fi
 else
     echo "  ERROR: Failed to create session directory"
     exit 1
@@ -77,14 +70,6 @@ if sudo cp "$PROJECT_DIR/scripts/launch-bunkeros.sh" /usr/local/bin/ && \
 else
     echo "  ERROR: Failed to install launch script"
     exit 1
-fi
-
-echo "  Installing emergency recovery script..."
-if sudo cp "$PROJECT_DIR/scripts/launch-bunkeros-emergency.sh" /usr/local/bin/ && \
-   sudo chmod +x /usr/local/bin/launch-bunkeros-emergency.sh; then
-    echo "  ✓ Emergency recovery script installed"
-else
-    echo "  WARNING: Failed to install emergency recovery script (non-critical)"
 fi
 
 echo ""

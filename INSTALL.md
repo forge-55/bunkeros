@@ -1,6 +1,6 @@
 # BunkerOS Installation Guide
 
-Complete installation instructions for BunkerOS with robust error handling, automatic recovery, and two-phase installation process.
+Complete installation instructions for BunkerOS on vanilla Arch Linux.
 
 ## System Requirements
 
@@ -10,45 +10,61 @@ Complete installation instructions for BunkerOS with robust error handling, auto
 - CPU: x86-64 compatible (modern processors recommended)
 - Disk: 20GB free space (2GB minimum for installation)
 - Network: Active internet connection required
-- OS: Arch Linux or Arch-based distribution (Manjaro, EndeavourOS, etc.)
+- OS: Vanilla Arch Linux (required)
 
-## Installation Overview
+## Prerequisites
 
-BunkerOS uses a **two-phase installation** for maximum safety and reliability:
+BunkerOS is designed for **vanilla Arch Linux only**. If you don't have Arch installed yet, follow our comprehensive guide:
 
-### **Phase 1: User Environment** (`install.sh`)
-- System preparation and package installation
-- User configuration deployment
-- Service setup (PipeWire, etc.)
-- Configuration validation
-- **Safe to run while graphical session is active**
+📘 **[Vanilla Arch Installation Guide](ARCH-INSTALL.md)** - Complete step-by-step instructions
 
-### **Phase 2: SDDM Installation** (`install-sddm.sh`)
-- Display manager installation
-- SDDM theme installation
-- System-wide session files
-- **Requires reboot to take effect**
+**Quick summary:**
+1. Boot Arch ISO
+2. Partition disk and install base system
+3. Configure bootloader, network, user
+4. Reboot into fresh Arch installation
+5. Install BunkerOS (below)
 
-This approach prevents issues with switching display managers mid-session and allows you to test BunkerOS before committing to SDDM.
+---
 
-## Quick Installation (Recommended)
+## Installing BunkerOS
 
-### Step 1: Install User Environment
+Once you have a fresh Arch installation:
 
 ```bash
+# Connect to internet (if WiFi)
+nmcli device wifi connect "YOUR_NETWORK" password "YOUR_PASSWORD"
+
 # Clone repository
-cd ~/Projects
+cd ~
 git clone https://github.com/forge-55/bunkeros.git
 cd bunkeros
 
 # Check system compatibility (recommended)
 ./scripts/check-compatibility.sh
 
-# Phase 1: Install user environment
+# Install BunkerOS (single command!)
 ./install.sh
 ```
 
-The Phase 1 installer features:
+**What happens:**
+- ✅ Installs all dependencies
+- ✅ Configures user environment
+- ✅ Installs and enables SDDM
+- ✅ Sets up themed login screen
+
+**After installation:**
+```bash
+sudo reboot
+```
+
+Select "BunkerOS" at the SDDM login screen and enjoy! 🎯
+
+---
+
+## What Gets Installed
+
+The installer features:
 - ✅ **Preflight checks**: Verifies internet, disk space, and package database
 - ✅ **Checkpoint system**: Resume from interruptions automatically
 - ✅ **Automatic recovery**: Handles package conflicts intelligently
@@ -56,53 +72,12 @@ The Phase 1 installer features:
 - ✅ **Configuration validation**: Tests Sway config before completion
 - ✅ **Detailed logging**: All operations logged to `/tmp/bunkeros-install.log`
 - ✅ **User environment**: Configures PipeWire and other user services
+- ✅ **SDDM installation**: Installs and configures display manager
+- ✅ **Theme setup**: Installs BunkerOS login screen theme
 
 **If installation is interrupted**, simply re-run `./install.sh` and it will resume from the last successful checkpoint.
 
-### Step 2: Test BunkerOS
-
-Before installing SDDM, test that BunkerOS works:
-
-```bash
-# Launch BunkerOS directly
-sway
-```
-
-**What to test:**
-- Waybar appears at the top
-- Keybindings work (Super+Return for terminal)
-- Audio works (PipeWire running)
-- Displays configured correctly
-
-**Exit BunkerOS:**
-- Press `Super+Shift+E` → Click "Exit"
-- You'll return to your current desktop environment
-
-### Step 3: Install SDDM (Optional but Recommended)
-
-Once you've verified BunkerOS works:
-
-```bash
-# Phase 2: Install SDDM display manager
-./install-sddm.sh
-```
-
-The Phase 2 installer:
-- ✅ **Verifies Phase 1**: Checks user environment is installed
-- ✅ **Safe switching**: Doesn't interrupt your current session
-- ✅ **Smart detection**: Handles existing display managers intelligently
-- ✅ **SDDM theme**: Installs custom BunkerOS login screen
-- ✅ **Session files**: Makes BunkerOS available at login
-
-**After installation:**
-```bash
-sudo reboot
-```
-
-At the SDDM login screen, you'll see:
-- BunkerOS themed login screen
-- Session options in the menu
-- Select "BunkerOS" and log in
+---
 
 ## Troubleshooting During Installation
 
@@ -115,21 +90,17 @@ If you encounter issues:
 
 2. **Run validation script**:
    ```bash
-   ~/Projects/bunkeros/scripts/validate-installation.sh
+   ~/bunkeros/scripts/validate-installation.sh
    ```
    This will show exactly what's wrong and how to fix it.
 
-3. **Use Emergency Recovery session**:
-   - At login screen, select "BunkerOS Emergency"
-   - This boots to a terminal where you can fix issues
-
-4. **Rollback installation**:
+3. **Rollback installation**:
    ```bash
-   ~/Projects/bunkeros/scripts/rollback-installation.sh
+   ~/bunkeros/scripts/rollback-installation.sh
    ```
    This restores your previous configuration from backup.
 
-5. **Check system logs**:
+4. **Check system logs**:
    ```bash
    journalctl --user -b          # User session logs
    journalctl -b                 # System logs
@@ -143,24 +114,24 @@ If you encounter issues:
 
 **Fix**:
 ```bash
-# Use Emergency Recovery session to access terminal
-# Then run validation:
-~/Projects/bunkeros/scripts/validate-installation.sh
+# Boot to TTY (Ctrl+Alt+F2)
+# Login and run validation:
+~/bunkeros/scripts/validate-installation.sh
 
 # Check Sway config:
 sway --validate
 
-# View detailed errors:
-cat /tmp/bunkeros-launch.log
+# Try launching manually to see errors:
+sway
 ```
 
 #### "Atomic Operation" Errors
 
 **Cause**: Symlinked environment.d files (systemd can't read symlinks)
 
-**Fix**: The new installer copies (not symlinks) environment.d files. If upgrading:
+**Fix**: The installer copies (not symlinks) environment.d files. If upgrading from old version:
 ```bash
-cd ~/Projects/bunkeros
+cd ~/bunkeros
 rm ~/.config/environment.d/10-bunkeros-wayland.conf
 cp environment.d/10-bunkeros-wayland.conf ~/.config/environment.d/
 ```
@@ -171,7 +142,7 @@ cp environment.d/10-bunkeros-wayland.conf ~/.config/environment.d/
 
 **Fix**:
 ```bash
-cd ~/Projects/bunkeros/sddm
+cd ~/bunkeros/sddm
 sudo ./install-theme.sh
 ```
 
@@ -185,6 +156,7 @@ systemctl --user enable --now pipewire.service
 systemctl --user enable --now pipewire-pulse.service
 systemctl --user enable --now wireplumber.service
 ```
+
 
 ## Why Two-Phase Installation?
 

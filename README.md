@@ -1,8 +1,8 @@
 # BunkerOS
 
-**A productivity-hardened, Arch-based Linux distribution built for mission-focused computing.**
+**A productivity-hardened Sway-based Linux environment built for mission-focused computing.**
 
-BunkerOS is a vanilla Arch-based distribution with custom optimizations to deliver a distraction-free, tactical computing environment. Built on the rock-solid Sway Wayland compositor, BunkerOS delivers a clean, minimal desktop optimized for productivity.
+BunkerOS is a carefully crafted Sway environment for Arch Linux that delivers a distraction-free, tactical computing experience. Built on vanilla Sway Wayland compositor, BunkerOS provides a clean, minimal desktop optimized for productivity.
 
 ## Philosophy
 
@@ -17,14 +17,14 @@ BunkerOS is designed around operational discipline and efficiency:
 
 ## Technical Foundation
 
-**Vanilla Arch-based distribution** with BunkerOS optimizations:
+**Vanilla Arch Linux required**:
 - **Base Layer**: Clean Arch Linux installation with rolling release model
 - **Experience Layer**: BunkerOS delivers unique Sway-based environment, productivity automation, and tactical theming
 - **Compositor**: Vanilla Sway - stable, fast, and reliable Wayland compositor
-- **Optimization Layer**: Custom kernel configurations and performance tuning for productivity workflows
+- **Installation**: Simple single-phase installation process
 - **Ecosystem Access**: Full Arch ecosystem (AUR, rolling release, extensive documentation)
 
-This architecture allows BunkerOS to focus on delivering the best Sway-based productivity experience while maintaining full control over optimizations.
+This architecture allows BunkerOS to focus on delivering the best Sway-based productivity experience with a clean, predictable foundation.
 
 ## Design Philosophy
 
@@ -881,43 +881,35 @@ The configuration uses MesloLGL Nerd Font by default. This can be changed in `wa
 
 ## Installation
 
-BunkerOS uses a **two-phase installation** for maximum safety and reliability.
+BunkerOS is designed for **vanilla Arch Linux** and provides a streamlined single-command installation.
 
-### Quick Start
+### Prerequisites
+
+If you don't have Arch installed yet, see [ARCH-INSTALL.md](ARCH-INSTALL.md) for a complete installation guide.
+
+### Install BunkerOS
 
 ```bash
-cd ~/Projects
+# Clone the repository
+cd ~
 git clone https://github.com/forge-55/bunkeros.git
 cd bunkeros
 
 # Check system compatibility (recommended)
 ./scripts/check-compatibility.sh
 
-# Phase 1: Install user environment
+# Install everything (single command!)
 ./install.sh
 
-# Test BunkerOS works
-sway
-# (Exit with Super+Shift+E)
-
-# Phase 2: Install SDDM (optional)
-./install-sddm.sh
-
-# Reboot to see SDDM themed login
+# Reboot
 sudo reboot
 ```
 
-### Why Two Phases?
+That's it! Select "BunkerOS" at the SDDM login screen.
 
-**Phase 1** (`install.sh`):
-- Installs packages and user configurations
-- Safe to run in your current graphical session
-- Testable immediately with `sway` command
+📘 **New to Arch?** See [ARCH-INSTALL.md](ARCH-INSTALL.md) for full installation guide  
+📘 **Detailed instructions**: See [INSTALL.md](INSTALL.md) for troubleshooting and advanced options
 
-**Phase 2** (`install-sddm.sh`):
-- Installs SDDM display manager and theme
-- Handles existing DM switching safely
-- Takes effect only after reboot
 
 This approach prevents session interruption and allows you to verify BunkerOS works before switching display managers.
 
