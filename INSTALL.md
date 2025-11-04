@@ -12,8 +12,6 @@ Complete installation instructions for BunkerOS with robust error handling, auto
 - Network: Active internet connection required
 - OS: Arch Linux or Arch-based distribution (Manjaro, EndeavourOS, etc.)
 
-**Note**: BunkerOS uses minimal effects (rounded corners only) by default for maximum performance. Users with modern GPUs who want additional effects can enable them after installation using the effects toggle script.
-
 ## Installation Overview
 
 BunkerOS uses a **two-phase installation** for maximum safety and reliability:
