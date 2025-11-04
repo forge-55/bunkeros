@@ -14,9 +14,9 @@ Complete installation instructions for BunkerOS on vanilla Arch Linux.
 
 ## Prerequisites
 
-BunkerOS is designed for **vanilla Arch Linux only**. If you don't have Arch installed yet, follow our comprehensive guide:
+BunkerOS is designed for * Arch Linux**. If you don't have Arch installed yet, follow the guide below:
 
-📘 **[Vanilla Arch Installation Guide](ARCH-INSTALL.md)** - Complete step-by-step instructions
+**[Arch Installation Guide](ARCH-INSTALL.md)** - Complete step-by-step instructions
 
 **Quick summary:**
 1. Boot Arch ISO
@@ -48,32 +48,32 @@ cd bunkeros
 ```
 
 **What happens:**
-- ✅ Installs all dependencies
-- ✅ Configures user environment
-- ✅ Installs and enables SDDM
-- ✅ Sets up themed login screen
+- Installs all dependencies
+- Configures user environment
+- Installs and enables SDDM
+- Sets up themed login screen
 
 **After installation:**
 ```bash
 sudo reboot
 ```
 
-Select "BunkerOS" at the SDDM login screen and enjoy! 🎯
+Select "BunkerOS" at the SDDM login screen and enjoy!
 
 ---
 
 ## What Gets Installed
 
 The installer features:
-- ✅ **Preflight checks**: Verifies internet, disk space, and package database
-- ✅ **Checkpoint system**: Resume from interruptions automatically
-- ✅ **Automatic recovery**: Handles package conflicts intelligently
-- ✅ **Backup creation**: Saves existing configs before changes
-- ✅ **Configuration validation**: Tests Sway config before completion
-- ✅ **Detailed logging**: All operations logged to `/tmp/bunkeros-install.log`
-- ✅ **User environment**: Configures PipeWire and other user services
-- ✅ **SDDM installation**: Installs and configures display manager
-- ✅ **Theme setup**: Installs BunkerOS login screen theme
+- **Preflight checks**: Verifies internet, disk space, and package database
+- **Checkpoint system**: Resume from interruptions automatically
+- **Automatic recovery**: Handles package conflicts intelligently
+- **Backup creation**: Saves existing configs before changes
+- **Configuration validation**: Tests Sway config before completion
+- **Detailed logging**: All operations logged to `/tmp/bunkeros-install.log`
+- **User environment**: Configures PipeWire and other user services
+- **SDDM installation**: Installs and configures display manager
+- **Theme setup**: Installs BunkerOS login screen theme
 
 **If installation is interrupted**, simply re-run `./install.sh` and it will resume from the last successful checkpoint.
 

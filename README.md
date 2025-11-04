@@ -8,7 +8,7 @@ Read more at [bunkeros.com](https://bunkeros.com).
 
 ## Installation
 
-**Requirements:** Minimal Arch Linux Installation (no DE/WM installed)
+**Requirements:** Minimal Arch Linux installation (no DE/WM installed)
 
 ```bash
 git clone https://github.com/forge-55/bunkeros.git
