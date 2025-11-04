@@ -1,4 +1,5 @@
 * {
+    border: none;
     border-radius: 0;
     font-family: "MesloLGL Nerd Font", "DejaVu Sans Mono", monospace;
     font-size: 14px;
