@@ -141,9 +141,6 @@ apply_workspace_style() {
     
     mv "$temp_file" "$waybar_style"
     
-    # Also update the project directory version
-    cp "$waybar_style" "$PROJECT_DIR/waybar/style.css"
-    
     # Restart waybar to apply changes
     killall -q waybar
     sleep 0.5
