@@ -112,6 +112,27 @@ check_aur_helper() {
     command -v yay &>/dev/null || command -v paru &>/dev/null
 }
 
+# Configure pacman settings
+configure_pacman() {
+    info "Configuring pacman settings..."
+    
+    # Check if ILoveCandy is already enabled
+    if grep -q "^ILoveCandy" /etc/pacman.conf; then
+        success "Pac-Man animation already enabled"
+        return 0
+    fi
+    
+    # Enable the classic Pac-Man animation during package installation
+    info "Enabling Pac-Man animation in pacman.conf..."
+    
+    # Add ILoveCandy to the [options] section if not already present
+    if sudo sed -i '/^# Misc options/a ILoveCandy' /etc/pacman.conf 2>/dev/null; then
+        success "Pac-Man animation enabled - you'll see ᗧ··· instead of ###"
+    else
+        warning "Could not enable Pac-Man animation (non-critical)"
+    fi
+}
+
 # Backup existing configuration
 backup_config() {
     info "Creating backup of existing configurations..."
@@ -357,6 +378,13 @@ EOF
     
     success "Base system requirements verified"
     echo ""
+    
+    # Run pre-flight checks
+    preflight_checks
+    
+    # Configure pacman settings (enable Pac-Man animation)
+    configure_pacman
+    save_checkpoint "pacman_configured"
     
     info "BunkerOS requires vanilla Arch Linux"
     echo ""
@@ -654,17 +682,6 @@ display_completion_message() {
 EOF
 }
 
-# Run main function
-main "$@"
-
-}
-
-# Run main function
-main "$@"
-
-EOF
-}
-
 # Completion message for derivative distros (two-phase)
 display_derivative_completion_message() {
     cat << EOF
@@ -713,11 +730,6 @@ display_derivative_completion_message() {
    will resume from the last successful stage.
 
 EOF
-}
-
-# Run main function
-main "$@"
-
 }
 
 # Run main function
