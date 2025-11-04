@@ -116,16 +116,10 @@ check_aur_helper() {
 configure_pacman() {
     info "Configuring pacman settings..."
     
-    # Check if ILoveCandy is already enabled
-    if grep -q "^ILoveCandy" /etc/pacman.conf; then
-        success "Pac-Man animation already enabled"
-        return 0
-    fi
-    
     # Enable the classic Pac-Man animation during package installation
     info "Enabling Pac-Man animation in pacman.conf..."
     
-    # Add ILoveCandy to the [options] section if not already present
+    # Add ILoveCandy to the [options] section
     if sudo sed -i '/^# Misc options/a ILoveCandy' /etc/pacman.conf 2>/dev/null; then
         success "Pac-Man animation enabled - you'll see ᗧ··· instead of ###"
     else
