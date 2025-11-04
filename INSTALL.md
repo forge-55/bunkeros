@@ -106,23 +106,7 @@ At the SDDM login screen, you'll see:
 - Session options in the menu
 - Select "BunkerOS" and log in
 
-### Post-Installation
-
-After installation completes:
-
-1. **Validate installation**:
-   ```bash
-   ./scripts/validate-installation.sh
-   ```
-   This checks all packages, configurations, and services are properly installed.
-
-2. **Log out** of your current session
-
-3. **At the login screen**, select "BunkerOS" from the session menu
-
-4. **Log in** with your credentials
-
-### Troubleshooting
+## Troubleshooting During Installation
 
 If you encounter issues:
 
@@ -248,157 +232,15 @@ This approach prioritizes **safety** and **testability** over convenience.
 
 ## Manual Installation
 
-If you prefer step-by-step control or need to troubleshoot:
+If you prefer step-by-step control:
 
-### Step 1: Arch Linux Base
-
-BunkerOS requires an Arch-based system. If installing from scratch:
-
-1. **Download Arch ISO** from [archlinux.org](https://archlinux.org/download/)
-2. **Follow standard Arch installation** (see [Arch Installation Guide](https://wiki.archlinux.org/title/Installation_guide))
-3. **Boot into your Arch system**
-
-### Step 2: Install Dependencies
-
-```bash
-# Update system
-sudo pacman -Syu
-
-# Install system packages
-sudo pacman -S --needed sway autotiling-rs waybar wofi mako foot \
-                        swaylock swayidle swaybg brightnessctl playerctl \
-                        wl-clipboard grim slurp wlsunset network-manager-applet \
-                        blueman pavucontrol nautilus sushi eog evince lite-xl \
-                        btop mate-calc zenity pipewire pipewire-pulse \
-                        pipewire-alsa pipewire-jack wireplumber v4l-utils \
-                        sddm qt5-declarative qt5-quickcontrols2 ttf-meslo-nerd \
-                        xdg-desktop-portal xdg-desktop-portal-wlr \
-                        xdg-desktop-portal-gtk python-pipx jq
-
-# Install AUR packages (requires yay or paru)
-yay -S swayosd-git
-
-# Install Python tools
-pipx install terminaltexteffects
-```
-
-### Step 3: Configure BunkerOS
-
-```bash
-# Clone repository if not done already
-cd ~/Projects
-git clone https://github.com/forge-55/bunkeros.git
-cd bunkeros
-
-# Run configuration setup
-./setup.sh
-
-# Fix environment for current session (optional)
-./scripts/fix-environment.sh
-```
-
-### Step 4: Verify Installation
-
-```bash
-# Check all packages and configurations
-./scripts/validate-installation.sh
-
-# Fix any missing packages
-./scripts/verify-packages.sh
-```
-
-### Step 5: Install User Applications
-
-BunkerOS requires some user applications for full functionality:
-
-#### Web Browsers (Required)
-
-**Default Browser** (recommended for containerized web apps):
-```bash
-# Brave - Privacy-focused, built-in ad blocking, seamless web app support
-yay -S brave-bin
-
-# Set as default
-xdg-settings set default-web-browser brave-browser.desktop
-```
-
-**Alternative Browser** (included for user choice):
-```bash
-# Firefox - Independent engine, Mozilla privacy focus
-sudo pacman -S firefox
-```
-
-**Optional Browsers**:
-```bash
-# Ungoogled Chromium - Community-driven, no Google services
-yay -S ungoogled-chromium
-
-# Google Chrome - Official Google browser
-yay -S google-chrome
-
-# Chromium - Open source base
-sudo pacman -S chromium
-```
-
-**Why Brave?** BunkerOS defaults to Brave for optimal containerized web app functionality (proper window isolation, PWA support) while providing built-in privacy protection (ad blocking, tracker blocking) and a polished user experience. Firefox is also installed for users who prefer it, though containerized web app isolation will be limited. See `ARCHITECTURE.md` for detailed rationale.
-
-#### Code Editor (Recommended)
-
-```bash
-# VS Code (or Cursor, VSCodium)
-yay -S visual-studio-code-bin
-# OR
-yay -S cursor-bin
-# OR
-sudo pacman -S vscodium
-```
-
-#### Other Applications
-
-```bash
-# Additional tools as needed
-sudo pacman -S gimp vlc libreoffice-fresh
-```
-
-## Manual Installation (Advanced)
-
-If you prefer manual installation or already have an Arch base system, you can install BunkerOS components individually:
-
-### 1. Update System
+### Step 1: Update System
 
 ```bash
 sudo pacman -Syu
 ```
 
-### 2. Install Base Packages
-
-```bash
-# Install Sway compositor
-sudo pacman -S sway
-
-# Install autotiling for intelligent window placement (COSMIC-like behavior)
-sudo pacman -S autotiling-rs
-
-# Install essential utilities
-sudo pacman -S waybar wofi mako foot nautilus btop \
-               grim slurp wl-clipboard brightnessctl \
-               playerctl pavucontrol network-manager-applet \
-               blueman mate-calc zenity file-roller
-
-# Install file manager ecosystem (preview, image viewer, PDF viewer)
-sudo pacman -S sushi eog evince
-
-# Install note-taking app
-sudo pacman -S lite-xl
-
-# Install display manager
-sudo pacman -S sddm qt5-declarative qt5-quickcontrols2
-
-# Install SwayOSD (from AUR)
-yay -S swayosd-git
-```
-
-### 3. Clone BunkerOS Repository
+### Step 2: Clone Repository
 
 ```bash
 mkdir -p ~/Projects
@@ -407,122 +249,35 @@ git clone https://github.com/forge-55/bunkeros.git
 cd bunkeros
 ```
 
-### 4. Run Setup Script
-
-**Recommended**: Use the automated setup script:
-```bash
-bash setup.sh
-```
-
-The setup script handles:
-- Configuration file installation
-- GTK theme installation
-- SDDM theme setup
-- MIME type configuration
-- Default application setup
-- Session file installation
-- PipeWire audio service enablement
-- Browser Wayland screen sharing configuration
-
-**Alternative**: Manual installation (see below)
-
-This script will:
-- Install the BunkerOS SDDM theme
-- Copy the BunkerOS session file
-- Configure SDDM to use the BunkerOS theme
-
-### 6. Install Theme System
+### Step 3: Install Manually
 
 ```bash
-cd ~/Projects/bunkeros
+# Check compatibility
+./scripts/check-compatibility.sh
 
-# Copy themes
-mkdir -p ~/.config/themes
-cp -r themes/* ~/.config/themes/
+# Phase 1: User environment
+./install.sh
 
-# Install theme switcher
-mkdir -p ~/.local/bin
-cp scripts/theme-switcher.sh ~/.local/bin/
-chmod +x ~/.local/bin/theme-switcher.sh
+# Test BunkerOS
+sway
+# (Exit with Super+Shift+E)
 
-# Apply default BunkerOS theme
-~/.local/bin/theme-switcher.sh tactical
-```
+# Phase 2: SDDM (optional)
+./install-sddm.sh
 
-### 7. Install Web App Manager
-
-```bash
-cd ~/Projects/bunkeros
-
-# Copy webapp utilities
-cp -r webapp/bin/* ~/.local/bin/
-chmod +x ~/.local/bin/webapp-*
-```
-
-### 8. Configure Shell
-
-```bash
-cd ~/Projects/bunkeros
-
-# Append BunkerOS bashrc config
-cat bashrc >> ~/.bashrc
-
-# Install dircolors
-cp dircolors ~/.dircolors
-
-# Reload shell config
-source ~/.bashrc
-```
-
-### 9. Enable SDDM
-
-```bash
-# Disable other display managers (if any)
-sudo systemctl disable ly.service 2>/dev/null
-sudo systemctl disable gdm.service 2>/dev/null
-sudo systemctl disable lightdm.service 2>/dev/null
-
-# Enable SDDM
-sudo systemctl enable sddm.service
-
-# Optional: Start SDDM now (will log you out)
-# sudo systemctl start sddm.service
-```
-
-### 10. Reboot
-
-```bash
+# Reboot
 sudo reboot
 ```
+
+**Note**: The automated `install.sh` handles all package installation, service setup, and configuration. Manual package installation is no longer necessary.
 
 ## Post-Installation
 
 ## Post-Installation
-
-### Themed Login Screen
-
-After installation, you should see the BunkerOS tactical-themed SDDM login screen. If you see the default SDDM theme instead:
-
-```bash
-# Ensure Qt QML packages are installed (should be automatic with robust installer)
-sudo pacman -S qt5-declarative qt5-quickcontrols2
-
-# Restart SDDM to load the theme
-sudo systemctl restart sddm.service
-# OR reboot
-sudo reboot
-```
-
-### Selecting Your Edition
-
-At the SDDM login screen:
-1. Enter your username and password
-2. Click the session selector (usually top-right corner)
-3. Choose **BunkerOS**
 
 ### First Launch
 
-After logging in for the first time:
+After rebooting and logging into BunkerOS:
 
 1. **Auto-Scaling**: BunkerOS automatically detects your display resolution and applies optimal font sizes
    - This happens on first login only - your manual font changes are preserved
@@ -548,301 +303,163 @@ After logging in for the first time:
    bash ~/Projects/bunkeros/scripts/setup-monitors.sh --auto
    ```
    
-   **Note:** The installer will offer to configure multi-monitor setups automatically if multiple displays are detected. You can also configure this manually at any time. See [MULTI-MONITOR.md](MULTI-MONITOR.md) for complete documentation.
+   See [MULTI-MONITOR.md](MULTI-MONITOR.md) for complete documentation.
 
-### Theme Switching
-- `Super+m` → Change Theme
-- Try: Tactical (default), Gruvbox, Nord, Tokyo Night, Everforest
+### Optional Applications
+
+BunkerOS works best with these additional applications:
+
+#### Web Browsers
+
+```bash
+# Brave (recommended for web apps)
+yay -S brave-bin
+
+# Firefox (alternative)
+sudo pacman -S firefox
+```
+
+#### Code Editor
+
+```bash
+# VS Code, Cursor, or VSCodium
+yay -S visual-studio-code-bin
+# OR
+yay -S cursor-bin
+# OR
+sudo pacman -S vscodium
+```
+
+#### Other Tools
+
+```bash
+# As needed
+sudo pacman -S gimp vlc libreoffice-fresh
+```
 
 ### Power Management (Laptops)
 
-For improved battery life on laptops, BunkerOS supports optional CPU power management:
+For improved battery life on laptops:
 
 **Option 1: auto-cpufreq (Recommended)**
 ```bash
 sudo pacman -S auto-cpufreq
 sudo systemctl enable --now auto-cpufreq
-
-# View status
-sudo auto-cpufreq --stats
 ```
 
 **Option 2: TLP (Alternative)**
 ```bash
 sudo pacman -S tlp tlp-rdw
 sudo systemctl enable --now tlp
-
-# View status
-sudo tlp-stat -s
 ```
 
-**Note:** Don't install both - they conflict with each other.
+**Note:** Don't install both - they conflict. See [POWER-MANAGEMENT.md](POWER-MANAGEMENT.md) for details.
 
-See [POWER-MANAGEMENT.md](POWER-MANAGEMENT.md) for complete details.
+### Validation
 
-**For detailed feature documentation, see [README.md](README.md)**
+Verify everything is working:
 
-**For security configuration, see [SECURITY.md](SECURITY.md)**
+```bash
+cd ~/Projects/bunkeros
+./scripts/validate-installation.sh
+```
 
 ## Troubleshooting
 
-### SDDM Theme Not Showing
+### Installation Issues
 
+**Check logs:**
 ```bash
-# Check SDDM status
-systemctl status sddm
-
-# Check logs
-journalctl -u sddm -b
-
-# Verify theme installation
-ls -la /usr/share/sddm/themes/tactical
-
-# Verify session files
-ls -la /usr/share/wayland-sessions/bunkeros.desktop
+cat /tmp/bunkeros-install.log        # Phase 1
+cat /tmp/bunkeros-sddm-install.log   # Phase 2
 ```
 
-### Sway Not Available at Login
-
+**Run validation:**
 ```bash
-# Verify Sway is installed
-which sway
-
-# If not installed:
-sudo pacman -S sway
-
-# Reinstall session files
-cd ~/Projects/bunkeros/sddm
-sudo ./install-theme.sh
+~/Projects/bunkeros/scripts/validate-installation.sh
 ```
 
-### Waybar Not Showing
+**Rollback if needed:**
+```bash
+~/Projects/bunkeros/scripts/rollback-installation.sh
+```
+
+### Common Issues
+
+#### Session Not Available at Login
+
+**Solution:**
+```bash
+# Re-run Phase 2
+cd ~/Projects/bunkeros
+./install-sddm.sh
+```
+
+#### Waybar Not Showing
 
 ```bash
-# Check if Waybar is running
+# Check if running
 pgrep waybar
 
-# Manually start Waybar
+# Restart
 killall waybar
 waybar &
-
-# Check for errors
-waybar 2>&1 | grep -i error
 ```
 
-### Theme Switching Not Working
+#### No Audio
 
 ```bash
-# Verify theme switcher is in PATH
-which theme-switcher.sh
-
-# If not, add to PATH:
-echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
-source ~/.bashrc
-
-# Test theme switcher
-theme-switcher.sh list
-```
-
-### Missing Nerd Font Icons
-
-```bash
-# Install Nerd Fonts
-yay -S ttf-meslo-nerd-font-powerlevel10k
-
-# Or any Nerd Font:
-sudo pacman -S ttf-jetbrains-mono-nerd
-
-# Reload font cache
-fc-cache -fv
+# Enable PipeWire services
+systemctl --user enable --now pipewire pipewire-pulse wireplumber
 ```
 
 ### Emergency Recovery
 
-If you encounter issues after installation, BunkerOS includes an emergency recovery session.
+If you can't log in normally:
 
-### Accessing Emergency Recovery
+1. At SDDM, select **"BunkerOS Emergency Recovery"**
+2. Fix issues in the minimal terminal environment
+3. Use `Super+Shift+E` to exit when done
 
-1. **At the SDDM login screen**, select "BunkerOS Emergency Recovery" from the session menu
-2. A fullscreen terminal will open with recovery instructions
-3. Use the minimal emergency keybindings:
-   - `Super+T` - Open new terminal
-   - `Super+Shift+E` - Exit emergency session
+### Advanced Troubleshooting
 
-### What Emergency Recovery Provides
-
-- Minimal Sway configuration (no user config dependencies)
-- Direct terminal access for troubleshooting
-- Ability to edit config files and fix issues
-- Access to system logs and diagnostics
-
-### Common Recovery Tasks
-
-**Restore configuration backup:**
-```bash
-# Find your backup
-ls ~/.config/.bunkeros-backup-*
-
-# Restore it (replace TIMESTAMP)
-cp -r ~/.config/.bunkeros-backup-TIMESTAMP/* ~/.config/
-```
-
-**Check installation log:**
-```bash
-# Find the log
-ls /tmp/bunkeros-install-*.log
-
-# View errors
-grep -i "error\|fail" /tmp/bunkeros-install-*.log
-```
-
-**Validate Sway configuration:**
-```bash
-# Test config syntax
-sway --validate
-
-# Check for errors
-sway --debug 2>&1 | grep -i error
-```
-
-**Re-run installation:**
-```bash
-cd ~/Projects/bunkeros
-./install.sh
-# Will resume from last checkpoint
-```
-
-## Troubleshooting Common Issues
-
-### Installation Failed with "Atomic commit failed"
-
-**Cause**: Package file conflicts (usually desktop portals)
-
-**Solution**: The installer now handles this automatically with `--overwrite` flags. If you see this error, ensure you're using the latest install.sh.
-
-### Terminal Keybindings Don't Work
-
-**Cause**: Missing `~/.config/bunkeros/defaults.conf`
-
-**Solution**: The installer now auto-creates this file. If missing:
-```bash
-cd ~/Projects/bunkeros
-cp bunkeros/defaults.conf ~/.config/bunkeros/defaults.conf
-```
-
-### Emergency Recovery Session is Default
-
-**Cause**: Session file naming/ordering issue
-
-**Solution**: The installer now names sessions correctly. Verify:
-```bash
-ls /usr/share/wayland-sessions/
-# Should show: bunkeros.desktop, bunkeros-recovery.desktop
-```
-
-### Installation Interrupted/Failed
-
-**Solution**: Just re-run `./install.sh` - it will resume from the last checkpoint:
-- `backup_complete`
-- `sddm_configured`
-- `core_packages_installed`
-- `app_packages_installed`
-- etc.
-
-### Can't Access TTY from SDDM
-
-**Note**: `Ctrl+Alt+F2` shortcuts don't work at the SDDM login screen - use the Emergency Recovery session instead.
-
-## Advanced Troubleshooting
-
-### Check Service Status
-
-```bash
-systemctl --user status pipewire pipewire-pulse wireplumber
-systemctl status sddm
-```
-
-### Verify Package Installation
-
-```bash
-cd ~/Projects/bunkeros
-./scripts/verify-packages.sh
-```
-
-### Test Sway Without Waybar
-
-```bash
-cd ~/Projects/bunkeros
-./scripts/test-without-waybar.sh
-```
-
-### Debug SDDM Login Issues
-
-See [TROUBLESHOOTING-SDDM.md](TROUBLESHOOTING-SDDM.md) for detailed SDDM troubleshooting.
-
-## Kernel Issues
-
-If you encounter issues with the kernel:
-
-```bash
-# Check kernel version
-uname -r
-
-# Switch between kernels if needed
-sudo pacman -S linux linux-headers        # Standard kernel
-sudo pacman -S linux-lts linux-lts-headers # LTS kernel
-
-# Update bootloader after kernel changes
-sudo grub-mkconfig -o /boot/grub/grub.cfg  # For GRUB
-```
-
-For Arch-specific issues (kernel, packages, system configuration), consult:
-- Arch Wiki: https://wiki.archlinux.org/
-- Arch Forums: https://bbs.archlinux.org/
-
-For BunkerOS environment issues (Sway, themes, configuration), use:
-- BunkerOS GitHub Issues: https://github.com/forge-55/bunkeros/issues
+See detailed guides:
+- [TROUBLESHOOTING.md](TROUBLESHOOTING.md) - General issues
+- [TROUBLESHOOTING-SDDM.md](TROUBLESHOOTING-SDDM.md) - Display manager issues
 
 ## Uninstallation
 
-To remove BunkerOS:
-
 ```bash
-# Disable SDDM
+# Disable and remove SDDM
 sudo systemctl disable sddm.service
+sudo pacman -Rns sddm qt5-declarative qt5-quickcontrols2
 
-# Remove config files
-rm -rf ~/.config/{sway,waybar,wofi,mako,foot,btop,swayosd}
-
-# Remove GTK themes
+# Remove configurations
+rm -rf ~/.config/{sway,waybar,wofi,mako,foot,btop,swayosd,bunkeros}
 rm -rf ~/.config/{gtk-3.0,gtk-4.0}/gtk.css
-
-# Remove SDDM theme
-sudo rm -rf /usr/share/sddm/themes/tactical
-sudo rm /usr/share/wayland-sessions/bunkeros-*
-
-# Remove scripts
+rm -rf ~/.config/themes
 rm -rf ~/.local/bin/{theme-switcher.sh,webapp-*}
 
-# Remove theme directory
-rm -rf ~/.config/themes
+# Remove system files (requires sudo)
+sudo rm -rf /usr/share/sddm/themes/tactical
+sudo rm /usr/share/wayland-sessions/bunkeros*.desktop
+sudo rm /usr/local/bin/launch-bunkeros.sh
 
-# Restore original bashrc (manual - remove BunkerOS section)
-# Edit ~/.bashrc and remove added lines
+# Restore bashrc (edit manually to remove BunkerOS section)
 ```
-
-## Getting Help
-
-- GitHub Issues: https://github.com/forge-55/bunkeros/issues
-- Documentation: See README.md
-- Architecture: See ARCHITECTURE.md
 
 ## Next Steps
 
 After installation:
-1. Read the full README.md for feature overview
-2. Learn keybindings (Super+m → Quick Actions)
-3. Explore the theme system
-4. Install web apps (Super+m → Web Apps)
-5. Customize colors and layouts to your preference
+1. **Learn keybindings**: `Super+m` → Quick Actions
+2. **Explore themes**: `Super+m` → Change Theme
+3. **Read documentation**: See [README.md](README.md) for features
+4. **Install web apps**: `Super+m` → Web Apps
+5. **Configure power**: See [POWER-MANAGEMENT.md](POWER-MANAGEMENT.md)
+6. **Multi-monitor**: See [MULTI-MONITOR.md](MULTI-MONITOR.md)
 
+## Getting Help
+
+- **Issues**: https://github.com/forge-55/bunkeros/issues
+- **Architecture**: See [ARCHITECTURE.md](ARCHITECTURE.md)
+- **Security**: See [SECURITY.md](SECURITY.md)
