@@ -131,106 +131,6 @@ backup_config() {
     success "Backup created at: $BACKUP_DIR"
 }
 
-# Detect and handle existing display manager
-handle_display_manager() {
-    info "Checking for existing display managers..."
-    
-    local current_dm=""
-    local dm_service=""
-    
-    # Check which display manager is enabled
-    for dm in gdm sddm lightdm ly lxdm; do
-        if systemctl is-enabled "${dm}.service" &>/dev/null; then
-            current_dm="$dm"
-            dm_service="${dm}.service"
-            break
-        fi
-    done
-    
-    if [ -n "$current_dm" ] && [ "$current_dm" != "sddm" ]; then
-        warning "Current display manager: $current_dm"
-        echo ""
-        echo "BunkerOS works best with SDDM for the themed login experience."
-        echo "Options:"
-        echo "  1) Switch to SDDM (recommended - will disable $current_dm)"
-        echo "  2) Keep $current_dm (you'll need to manually select BunkerOS sessions)"
-        echo "  3) Cancel installation"
-        echo ""
-        read -p "Choose option (1-3): " -n 1 -r
-        echo
-        
-        case $REPLY in
-            1)
-                info "Switching to SDDM..."
-                
-                # Install SDDM and dependencies if not already installed
-                if ! check_package "sddm"; then
-                    info "Installing SDDM packages..."
-                    # Use --noconfirm for non-interactive installation
-                    if sudo pacman -S --needed --noconfirm sddm qt5-declarative qt5-quickcontrols2 2>&1 | tee -a "$LOG_FILE"; then
-                        success "SDDM installed successfully"
-                    else
-                        error "Failed to install SDDM"
-                        echo "You can install it manually later: sudo pacman -S sddm qt5-declarative qt5-quickcontrols2"
-                        return 1
-                    fi
-                fi
-                
-                # Stop current display manager if running
-                if systemctl is-active "$dm_service" &>/dev/null; then
-                    info "Stopping $current_dm..."
-                    sudo systemctl stop "$dm_service" 2>&1 | tee -a "$LOG_FILE" || true
-                fi
-                
-                # Disable old display manager
-                info "Disabling $current_dm..."
-                sudo systemctl disable "$dm_service" 2>&1 | tee -a "$LOG_FILE" || true
-                
-                # Enable SDDM (don't start it yet - will start on reboot)
-                info "Enabling SDDM..."
-                if sudo systemctl enable sddm.service 2>&1 | tee -a "$LOG_FILE"; then
-                    success "Switched to SDDM (will activate on next reboot)"
-                else
-                    error "Failed to enable SDDM service"
-                    return 1
-                fi
-                ;;
-            2)
-                warning "Keeping $current_dm"
-                info "BunkerOS sessions will be available in your display manager's session list"
-                ;;
-            3)
-                error "Installation cancelled by user"
-                exit 1
-                ;;
-            *)
-                error "Invalid option"
-                exit 1
-                ;;
-        esac
-    elif [ -z "$current_dm" ]; then
-        # No display manager is enabled, install and enable SDDM
-        info "No display manager detected. Installing SDDM..."
-        if ! check_package "sddm"; then
-            if sudo pacman -S --needed --noconfirm sddm qt5-declarative qt5-quickcontrols2 2>&1 | tee -a "$LOG_FILE"; then
-                success "SDDM installed successfully"
-            else
-                error "Failed to install SDDM"
-                return 1
-            fi
-        fi
-        
-        if sudo systemctl enable sddm.service 2>&1 | tee -a "$LOG_FILE"; then
-            success "SDDM enabled (will start on next reboot)"
-        else
-            error "Failed to enable SDDM service"
-            return 1
-        fi
-    else
-        info "Display manager check completed (SDDM already configured)"
-    fi
-}
-
 # Install packages with verification and conflict handling
 install_packages() {
     local package_list=("$@")
@@ -407,10 +307,6 @@ EOF
     backup_config
     save_checkpoint "backup_complete"
     
-    # Handle display manager
-    handle_display_manager
-    save_checkpoint "sddm_configured"
-    
     # Define package groups
     local core_packages=(
         sway autotiling-rs waybar wofi mako foot swaylock swayidle swaybg
@@ -489,21 +385,6 @@ EOF
         error "Configuration setup failed"
         exit 1
     fi
-    
-    # Install SDDM theme and sessions (system-wide)
-    echo ""
-    info "Installing SDDM theme and session files..."
-    if [ -f "$SCRIPT_DIR/sddm/install-theme.sh" ]; then
-        if "$SCRIPT_DIR/sddm/install-theme.sh"; then
-            success "SDDM theme and sessions installed"
-        else
-            error "SDDM theme installation failed"
-            exit 1
-        fi
-    else
-        warning "SDDM theme installer not found - skipping"
-    fi
-    save_checkpoint "sddm_theme_installed"
     
     # Setup user environment (PipeWire, etc.)
     echo ""
@@ -625,22 +506,39 @@ EOF
 
 ╔════════════════════════════════════════════════════════════╗
 ║                                                            ║
-║           BunkerOS Installation Complete! ✓                ║
+║    BunkerOS Installation Complete! (Phase 1) ✓            ║
 ║                                                            ║
 ╚════════════════════════════════════════════════════════════╝
 
 📋 Installation Summary:
    • Configuration backup: $BACKUP_DIR
    • Installation log: $LOG_FILE
-   • All configs symlinked to: $SCRIPT_DIR
+   • All configs installed to: ~/.config
 
-🎯 Next Steps:
-   1. Log out and log back in to get full environment
-   2. Select "BunkerOS" at the login screen
-   3. Enjoy your productivity environment!
+🎯 Next Steps - IMPORTANT:
+
+   PHASE 1 COMPLETE ✓ - Your BunkerOS environment is ready!
+   
+   TEST FIRST (Recommended):
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   1. Test BunkerOS by running: sway
+   2. Verify everything works (Waybar, keybindings, etc.)
+   3. Exit with Super+Shift+E → "Exit"
+   
+   THEN INSTALL SDDM (Phase 2):
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   4. Once tested, run: ./install-sddm.sh
+   5. Follow prompts to install SDDM display manager
+   6. Reboot to get the themed login screen
+
+   💡 Why Two Phases?
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   • Phase 1 (This): Install user environment safely
+   • Phase 2 (Next): Install SDDM system-wide (requires reboot)
+   • This prevents issues switching display managers while running
 
 🔧 If something goes wrong:
-   • Use "BunkerOS Emergency Recovery" from login screen
+   • Emergency recovery: Select "BunkerOS Emergency Recovery" at login
    • Check the validation script: $SCRIPT_DIR/scripts/validate-installation.sh
    • View logs: $LOG_FILE
    • Rollback changes: $SCRIPT_DIR/scripts/rollback-installation.sh

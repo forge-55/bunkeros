@@ -1,6 +1,6 @@
 # BunkerOS Installation Guide
 
-Complete installation instructions for BunkerOS with robust error handling, automatic recovery, and checkpoint-based resumption.
+Complete installation instructions for BunkerOS with robust error handling, automatic recovery, and two-phase installation process.
 
 ## System Requirements
 
@@ -16,18 +16,26 @@ Complete installation instructions for BunkerOS with robust error handling, auto
 
 ## Installation Overview
 
-BunkerOS installation follows industry-standard practices for Linux desktop environment setup:
+BunkerOS uses a **two-phase installation** for maximum safety and reliability:
 
-1. **System Preparation**: Update system and verify prerequisites
-2. **Package Installation**: Install required packages from official repositories
-3. **Configuration Setup**: Deploy configuration files to user's home directory
-4. **System Integration**: Install session files and display manager theme
-5. **Service Configuration**: Enable required systemd user services
-6. **Validation**: Verify installation completeness and configuration validity
+### **Phase 1: User Environment** (`install.sh`)
+- System preparation and package installation
+- User configuration deployment
+- Service setup (PipeWire, etc.)
+- Configuration validation
+- **Safe to run while graphical session is active**
+
+### **Phase 2: SDDM Installation** (`install-sddm.sh`)
+- Display manager installation
+- SDDM theme installation
+- System-wide session files
+- **Requires reboot to take effect**
+
+This approach prevents issues with switching display managers mid-session and allows you to test BunkerOS before committing to SDDM.
 
 ## Quick Installation (Recommended)
 
-For most users, this is the easiest method:
+### Step 1: Install User Environment
 
 ```bash
 # Clone repository
@@ -38,22 +46,65 @@ cd bunkeros
 # Check system compatibility (recommended)
 ./scripts/check-compatibility.sh
 
-# Install with automatic error handling and recovery
+# Phase 1: Install user environment
 ./install.sh
 ```
 
-The installer features:
+The Phase 1 installer features:
 - ✅ **Preflight checks**: Verifies internet, disk space, and package database
 - ✅ **Checkpoint system**: Resume from interruptions automatically
 - ✅ **Automatic recovery**: Handles package conflicts intelligently
 - ✅ **Backup creation**: Saves existing configs before changes
 - ✅ **Configuration validation**: Tests Sway config before completion
-- ✅ **Emergency session**: Installs recovery mode accessible from login screen
 - ✅ **Detailed logging**: All operations logged to `/tmp/bunkeros-install.log`
-- ✅ **System services**: Automatically installs SDDM theme and session files
 - ✅ **User environment**: Configures PipeWire and other user services
 
 **If installation is interrupted**, simply re-run `./install.sh` and it will resume from the last successful checkpoint.
+
+### Step 2: Test BunkerOS
+
+Before installing SDDM, test that BunkerOS works:
+
+```bash
+# Launch BunkerOS directly
+sway
+```
+
+**What to test:**
+- Waybar appears at the top
+- Keybindings work (Super+Return for terminal)
+- Audio works (PipeWire running)
+- Displays configured correctly
+
+**Exit BunkerOS:**
+- Press `Super+Shift+E` → Click "Exit"
+- You'll return to your current desktop environment
+
+### Step 3: Install SDDM (Optional but Recommended)
+
+Once you've verified BunkerOS works:
+
+```bash
+# Phase 2: Install SDDM display manager
+./install-sddm.sh
+```
+
+The Phase 2 installer:
+- ✅ **Verifies Phase 1**: Checks user environment is installed
+- ✅ **Safe switching**: Doesn't interrupt your current session
+- ✅ **Smart detection**: Handles existing display managers intelligently
+- ✅ **SDDM theme**: Installs custom BunkerOS login screen
+- ✅ **Session files**: Makes BunkerOS available at login
+
+**After installation:**
+```bash
+sudo reboot
+```
+
+At the SDDM login screen, you'll see:
+- BunkerOS themed login screen
+- Session options in the menu
+- Select "BunkerOS" and log in
 
 ### Post-Installation
 
@@ -152,6 +203,48 @@ systemctl --user enable --now pipewire.service
 systemctl --user enable --now pipewire-pulse.service
 systemctl --user enable --now wireplumber.service
 ```
+
+## Why Two-Phase Installation?
+
+### The Problem with Single-Phase Installation
+
+Traditional desktop environment installers often try to:
+1. Install packages
+2. Configure user environment
+3. **Switch display managers** (GDM → SDDM, etc.)
+4. Enable system services
+
+All in one script, while you're logged into a graphical session.
+
+**This is risky** because:
+- Stopping the active display manager can kill your session → **blank screen**
+- You might get locked out without TTY access
+- System is in an unstable transition state
+- If anything fails mid-process, you're stuck
+
+### The BunkerOS Solution
+
+**Phase 1** (`install.sh`):
+- Runs safely in your current graphical environment
+- Installs all packages and user configurations
+- Sets up services (PipeWire, etc.)
+- Validates Sway configuration
+- **Doesn't touch your display manager**
+
+**Result**: You have a working BunkerOS environment you can test with `sway` command.
+
+**Phase 2** (`install-sddm.sh`):
+- Run this **after** you've tested BunkerOS
+- Installs SDDM theme and session files
+- Handles display manager switching safely
+- **Takes effect only after reboot**
+
+**Result**: If Phase 2 fails, you still have:
+- Working BunkerOS (launch with `sway`)
+- Your original display manager
+- A stable system
+
+This approach prioritizes **safety** and **testability** over convenience.
 
 ## Manual Installation
 

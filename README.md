@@ -881,7 +881,7 @@ The configuration uses MesloLGL Nerd Font by default. This can be changed in `wa
 
 ## Installation
 
-BunkerOS provides a robust, automated installation system with compatibility checking and error recovery.
+BunkerOS uses a **two-phase installation** for maximum safety and reliability.
 
 ### Quick Start
 
@@ -893,10 +893,33 @@ cd bunkeros
 # Check system compatibility (recommended)
 ./scripts/check-compatibility.sh
 
-# Install BunkerOS with robust error handling
-# Install with robust error handling
+# Phase 1: Install user environment
 ./install.sh
+
+# Test BunkerOS works
+sway
+# (Exit with Super+Shift+E)
+
+# Phase 2: Install SDDM (optional)
+./install-sddm.sh
+
+# Reboot to see SDDM themed login
+sudo reboot
 ```
+
+### Why Two Phases?
+
+**Phase 1** (`install.sh`):
+- Installs packages and user configurations
+- Safe to run in your current graphical session
+- Testable immediately with `sway` command
+
+**Phase 2** (`install-sddm.sh`):
+- Installs SDDM display manager and theme
+- Handles existing DM switching safely
+- Takes effect only after reboot
+
+This approach prevents session interruption and allows you to verify BunkerOS works before switching display managers.
 
 ### Alternative: Manual Setup
 
