@@ -160,6 +160,13 @@ if [ -f "$PROJECT_DIR/scripts/detect-display-hardware.sh" ]; then
             fi
         fi
         
+        # Apply application scaling (browsers, IDEs, etc.) for ultrawide and high-DPI displays
+        if [ "$DEVICE_TYPE" = "ultrawide-monitor" ] || [ "$DEVICE_TYPE" = "high-dpi-monitor" ] || [ "$DEVICE_TYPE" = "high-dpi-laptop" ]; then
+            if [ -f "$PROJECT_DIR/scripts/configure-application-scaling.sh" ]; then
+                "$PROJECT_DIR/scripts/configure-application-scaling.sh" >/dev/null 2>&1 &
+            fi
+        fi
+        
         # Restart Waybar to apply changes
         if pgrep waybar >/dev/null; then
             pkill waybar

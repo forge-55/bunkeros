@@ -129,9 +129,16 @@ get_scaling_config() {
         "ultrawide-monitor")
             # Ultrawide monitors (3440x1440, 3840x1600, etc.)
             local high_dpi_ultrawide=$(awk "BEGIN { print ($dpi > 110) ? 1 : 0 }")
+            local very_wide=$(awk "BEGIN { print ($width_px >= 3440) ? 1 : 0 }")
+            
             if [ "$high_dpi_ultrawide" = "1" ]; then
-                echo "scale=1.25 font_size=10 waybar_font=15 wofi_font=16 foot_font=10"
+                # High DPI ultrawide (>110 DPI)
+                echo "scale=1.25 font_size=12 waybar_font=18 wofi_font=19 foot_font=12"
+            elif [ "$very_wide" = "1" ]; then
+                # 34"+ ultrawide monitors - compact waybar but readable terminal
+                echo "scale=1.0 font_size=14 waybar_font=13 wofi_font=14 foot_font=14"
             else
+                # Smaller ultrawide monitors (29-32")
                 echo "scale=1.0 font_size=12 waybar_font=16 wofi_font=17 foot_font=12"
             fi
             ;;
