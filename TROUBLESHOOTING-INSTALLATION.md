@@ -4,14 +4,57 @@ This guide covers common installation issues and their solutions.
 
 ## Table of Contents
 
-1. [Black Screen on Login](#black-screen-on-login)
-2. [Atomic Operation Errors](#atomic-operation-errors)
-3. [Session Not Listed at Login](#session-not-listed-at-login)
-4. [Sway Configuration Errors](#sway-configuration-errors)
-5. [Audio Not Working](#audio-not-working)
-6. [Display Manager Issues](#display-manager-issues)
-7. [Environment Variables Not Set](#environment-variables-not-set)
-8. [Package Installation Failures](#package-installation-failures)
+1. [HDMI/DRM Atomic Commit Errors During Installation](#hdmidrm-atomic-commit-errors-during-installation)
+2. [Black Screen on Login](#black-screen-on-login)
+3. [Atomic Operation Errors](#atomic-operation-errors)
+4. [Session Not Listed at Login](#session-not-listed-at-login)
+5. [Sway Configuration Errors](#sway-configuration-errors)
+6. [Audio Not Working](#audio-not-working)
+7. [Display Manager Issues](#display-manager-issues)
+8. [Environment Variables Not Set](#environment-variables-not-set)
+9. [Package Installation Failures](#package-installation-failures)
+
+## HDMI/DRM Atomic Commit Errors During Installation
+
+### Symptoms
+- During installation, you see errors like:
+  ```
+  00:00:00.001 [ERROR] [wlr] [backend/drm/drm.c:464] Failed to open DRM device
+  00:00:00.002 [ERROR] [wlr] [types/wlr_output.c:689] Atomic commit failed
+  00:00:00.003 [ERROR] [wlr] [types/wlr_output.c:689] HDMI-A-1 connector: permission denied
+  ```
+- Hundreds of similar messages scroll by
+- Installation completes but you're worried
+
+### Cause
+These errors are **COMPLETELY NORMAL** and **HARMLESS** during installation. They occur when:
+- Running `sway --validate` to check configuration syntax
+- Sway tries to probe display hardware but you're not in a graphical session
+- The installer is run from a TTY or SSH session
+- SDDM is checking available sessions
+
+### Why This Happens
+Wayland compositors (like Sway) need direct access to display hardware (DRM devices). When validating configuration outside of an active graphical session:
+- The user doesn't have active access to `/dev/dri/cardX` 
+- Sway can still validate configuration syntax
+- But it can't initialize actual display output
+- These permission/atomic commit errors are expected
+
+### Solution
+**No action needed!** These errors are cosmetic and don't affect:
+- Configuration validation
+- Installation success  
+- Ability to login and use BunkerOS
+
+The installer now filters these out and only shows actual syntax errors.
+
+### Verification
+After installation, when you actually log into BunkerOS session:
+- Sway will have proper access to display hardware
+- No permission errors will occur
+- Display will work normally
+
+**Bottom line**: If installation completes and validation passes, ignore these DRM errors during installation.
 
 ## Black Screen on Login
 

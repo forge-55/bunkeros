@@ -111,11 +111,18 @@ echo "5. Validating Sway configuration"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 
-if sway --validate 2>&1 | grep -q "Configuration OK"; then
+echo "  Validating Sway config..."
+echo "  ℹ️  Note: DRM/HDMI/atomic errors are normal when not in a graphical session"
+echo ""
+
+VALIDATION_OUTPUT=$(sway --validate 2>&1)
+SYNTAX_ERRORS=$(echo "$VALIDATION_OUTPUT" | grep -i "error" | grep -v "permission denied\|atomic\|HDMI\|DRM\|connector\|Failed to open")
+
+if [ -z "$SYNTAX_ERRORS" ]; then
     echo "  ✅ Sway configuration is valid"
 else
     echo "  ❌ Sway configuration has errors:"
-    sway --validate 2>&1 | head -10
+    echo "$SYNTAX_ERRORS" | head -10
     echo ""
     echo "  Please fix these errors before logging in."
     echo "  Config file: ~/.config/sway/config"

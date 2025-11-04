@@ -23,60 +23,8 @@ window#waybar.hidden {
     margin: 0 0 0 12px;
 }
 
-#workspaces button {
-    padding: 2px 8px;
-    margin: 0 4px;
-    background-color: transparent;
-    color: #4A4E52;
-    border: none;
-    border-radius: 4px;
-    font-size: 14px;
-    min-width: 20px;
-}
+/* WORKSPACE_STYLE_PLACEHOLDER */
 
-#workspaces button:hover {
-    background-color: rgba(74, 78, 82, 0.3);
-    color: #D4A574;
-    border: none;
-}
-
-#workspaces button.active,
-#workspaces button.focused {
-    background-color: rgba(212, 165, 116, 0.4);
-    color: #D4A574;
-    border: 2px solid #D4A574;
-    border-radius: 4px;
-    font-weight: bold;
-    font-size: 14px;
-    padding: 3px 10px;
-}
-
-#workspaces button.active label,
-#workspaces button.focused label {
-    color: #D4A574;
-    font-weight: bold;
-    font-size: 14px;
-}
-
-#workspaces button.visible {
-    background-color: rgba(42, 45, 49, 0.3);
-    color: #5A5E62;
-}
-
-#workspaces button.urgent {
-    background-color: #E8B775;
-    border: 2px solid #E8B775;
-    animation: urgent-pulse 1s ease-in-out infinite alternate;
-}
-
-@keyframes urgent-pulse {
-    from {
-        box-shadow: 0 0 8px rgba(232, 183, 117, 0.4);
-    }
-    to {
-        box-shadow: 0 0 16px rgba(232, 183, 117, 0.8);
-    }
-}
 
 #mode {
     background-color: rgba(232, 183, 117, 0.2);

@@ -1,15 +1,18 @@
 # Workspace Button Styles
 
-BunkerOS now supports two different workspace button styles that you can switch between:
+BunkerOS supports two different workspace button styles that you can switch between.
+
+**Default Style**: Bottom Border (Minimal) - applied automatically on fresh installations.
 
 ## Available Styles
 
-### 1. Bottom Border (Minimal) - Default
+### 1. Bottom Border (Minimal) - ⭐ Default
 - Clean, minimal design with a bottom border highlight
 - Transparent background for active workspace
 - 2px solid bottom border in theme accent color
 - No rounded corners (border-radius: 0)
 - Smoother transitions
+- **This is the default style on fresh installations**
 
 ### 2. Box (Classic)
 - More visible design with background color and full border

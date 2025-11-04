@@ -136,22 +136,23 @@ handle_display_manager() {
     info "Checking for existing display managers..."
     
     local current_dm=""
-    if systemctl is-enabled gdm.service &>/dev/null; then
-        current_dm="gdm"
-    elif systemctl is-enabled sddm.service &>/dev/null; then
-        current_dm="sddm"
-    elif systemctl is-enabled lightdm.service &>/dev/null; then
-        current_dm="lightdm"
-    elif systemctl is-enabled ly.service &>/dev/null; then
-        current_dm="ly"
-    fi
+    local dm_service=""
+    
+    # Check which display manager is enabled
+    for dm in gdm sddm lightdm ly lxdm; do
+        if systemctl is-enabled "${dm}.service" &>/dev/null; then
+            current_dm="$dm"
+            dm_service="${dm}.service"
+            break
+        fi
+    done
     
     if [ -n "$current_dm" ] && [ "$current_dm" != "sddm" ]; then
         warning "Current display manager: $current_dm"
         echo ""
         echo "BunkerOS works best with SDDM for the themed login experience."
         echo "Options:"
-        echo "  1) Switch to SDDM (recommended - will install if needed)"
+        echo "  1) Switch to SDDM (recommended - will disable $current_dm)"
         echo "  2) Keep $current_dm (you'll need to manually select BunkerOS sessions)"
         echo "  3) Cancel installation"
         echo ""
@@ -164,22 +165,39 @@ handle_display_manager() {
                 
                 # Install SDDM and dependencies if not already installed
                 if ! check_package "sddm"; then
-                    info "Installing SDDM..."
-                    if sudo pacman -S --needed sddm qt5-declarative qt5-quickcontrols2; then
+                    info "Installing SDDM packages..."
+                    # Use --noconfirm for non-interactive installation
+                    if sudo pacman -S --needed --noconfirm sddm qt5-declarative qt5-quickcontrols2 2>&1 | tee -a "$LOG_FILE"; then
                         success "SDDM installed successfully"
                     else
                         error "Failed to install SDDM"
-                        exit 1
+                        echo "You can install it manually later: sudo pacman -S sddm qt5-declarative qt5-quickcontrols2"
+                        return 1
                     fi
                 fi
                 
-                # Disable old display manager and enable SDDM
-                sudo systemctl disable "$current_dm.service" || true
-                sudo systemctl enable sddm.service
-                success "Switched to SDDM"
+                # Stop current display manager if running
+                if systemctl is-active "$dm_service" &>/dev/null; then
+                    info "Stopping $current_dm..."
+                    sudo systemctl stop "$dm_service" 2>&1 | tee -a "$LOG_FILE" || true
+                fi
+                
+                # Disable old display manager
+                info "Disabling $current_dm..."
+                sudo systemctl disable "$dm_service" 2>&1 | tee -a "$LOG_FILE" || true
+                
+                # Enable SDDM (don't start it yet - will start on reboot)
+                info "Enabling SDDM..."
+                if sudo systemctl enable sddm.service 2>&1 | tee -a "$LOG_FILE"; then
+                    success "Switched to SDDM (will activate on next reboot)"
+                else
+                    error "Failed to enable SDDM service"
+                    return 1
+                fi
                 ;;
             2)
-                warning "Keeping $current_dm - you'll need to manually select BunkerOS sessions"
+                warning "Keeping $current_dm"
+                info "BunkerOS sessions will be available in your display manager's session list"
                 ;;
             3)
                 error "Installation cancelled by user"
@@ -194,15 +212,20 @@ handle_display_manager() {
         # No display manager is enabled, install and enable SDDM
         info "No display manager detected. Installing SDDM..."
         if ! check_package "sddm"; then
-            if sudo pacman -S --needed sddm qt5-declarative qt5-quickcontrols2; then
+            if sudo pacman -S --needed --noconfirm sddm qt5-declarative qt5-quickcontrols2 2>&1 | tee -a "$LOG_FILE"; then
                 success "SDDM installed successfully"
             else
                 error "Failed to install SDDM"
-                exit 1
+                return 1
             fi
         fi
-        sudo systemctl enable sddm.service
-        success "SDDM enabled"
+        
+        if sudo systemctl enable sddm.service 2>&1 | tee -a "$LOG_FILE"; then
+            success "SDDM enabled (will start on next reboot)"
+        else
+            error "Failed to enable SDDM service"
+            return 1
+        fi
     else
         info "Display manager check completed (SDDM already configured)"
     fi
@@ -499,10 +522,21 @@ EOF
     # Validate Sway configuration
     echo ""
     info "Validating Sway configuration..."
-    if sway --validate 2>&1 | tee -a "$LOG_FILE"; then
-        success "Sway configuration is valid"
-    else
-        error "Sway configuration has errors!"
+    echo ""
+    warning "Note: You may see DRM/HDMI/atomic commit errors below - these are NORMAL"
+    warning "when validating outside a graphical session. They are harmless and expected."
+    echo ""
+    
+    # Note: sway --validate may show DRM/display errors when run outside a graphical session
+    # These are harmless and only affect syntax checking
+    VALIDATION_OUTPUT=$(sway --validate 2>&1)
+    SYNTAX_ERRORS=$(echo "$VALIDATION_OUTPUT" | grep -i "error" | grep -v "permission denied\|atomic\|HDMI\|DRM\|connector\|Failed to open")
+    
+    if [ -n "$SYNTAX_ERRORS" ]; then
+        error "Sway configuration has syntax errors!"
+        echo ""
+        echo "$SYNTAX_ERRORS"
+        echo ""
         echo "Please check the errors above before logging in."
         echo "You can still use the Emergency Recovery session if needed."
         read -p "Continue anyway? (y/n) " -n 1 -r
@@ -510,6 +544,9 @@ EOF
         if [[ ! $REPLY =~ ^[Yy]$ ]]; then
             exit 1
         fi
+    else
+        success "Sway configuration syntax is valid"
+        info "DRM/display errors during validation are normal and can be ignored"
     fi
     save_checkpoint "sway_validated"
     

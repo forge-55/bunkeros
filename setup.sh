@@ -325,6 +325,10 @@ fi
 echo "Step 15: Applying default BunkerOS theme..."
 cd "$PROJECT_DIR"
 "$LOCAL_BIN/theme-switcher.sh" tactical 2>/dev/null || echo "  ℹ Theme will be applied on first Sway launch"
+
+# Apply default workspace style (bottom-border/underline)
+echo "  Applying default workspace style (underline)..."
+"$PROJECT_DIR/scripts/workspace-style-switcher.sh" apply bottom-border 2>/dev/null || echo "  ℹ Workspace style will be applied on first Sway launch"
 echo ""
 
 echo "Step 16: Setting up BunkerOS screensaver..."
