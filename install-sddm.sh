@@ -67,16 +67,56 @@ handle_display_manager() {
         echo "    Your current graphical session will NOT be interrupted."
         echo ""
         echo "Options:"
-        echo "  1) Switch to SDDM (recommended - will disable $current_dm after reboot)"
-        echo "  2) Keep $current_dm (you'll manually select BunkerOS from session menu)"
-        echo "  3) Cancel"
+        echo "  1) Switch to SDDM and remove $current_dm package (clean install)"
+        echo "  2) Switch to SDDM but keep $current_dm installed (disable only)"
+        echo "  3) Keep $current_dm (manually select BunkerOS from session menu)"
+        echo "  4) Cancel"
         echo ""
-        read -p "Choose option (1-3): " -n 1 -r
+        read -p "Choose option (1-4): " -n 1 -r
         echo
         
         case $REPLY in
             1)
-                info "Switching to SDDM (will take effect after reboot)..."
+                info "Switching to SDDM and removing $current_dm package..."
+                
+                # Install SDDM and dependencies if not already installed
+                if ! check_package "sddm"; then
+                    info "Installing SDDM packages..."
+                    if sudo pacman -S --needed --noconfirm sddm qt5-declarative qt5-quickcontrols2 2>&1 | tee -a "$LOG_FILE"; then
+                        success "SDDM installed successfully"
+                    else
+                        error "Failed to install SDDM"
+                        echo "You can install it manually later: sudo pacman -S sddm qt5-declarative qt5-quickcontrols2"
+                        return 1
+                    fi
+                fi
+                
+                # Disable old display manager first
+                info "Disabling $current_dm service..."
+                sudo systemctl disable "$dm_service" 2>&1 | tee -a "$LOG_FILE" || true
+                
+                # Remove old display manager package
+                info "Removing $current_dm package..."
+                if sudo pacman -Rns --noconfirm "$current_dm" 2>&1 | tee -a "$LOG_FILE"; then
+                    success "$current_dm package removed"
+                else
+                    warning "Could not remove $current_dm package (non-critical)"
+                    info "You can remove it manually later: sudo pacman -Rns $current_dm"
+                fi
+                
+                # Enable SDDM (will start on next boot)
+                info "Enabling SDDM (will start after reboot)..."
+                if sudo systemctl enable sddm.service 2>&1 | tee -a "$LOG_FILE"; then
+                    success "SDDM will be activated on next reboot"
+                else
+                    error "Failed to enable SDDM service"
+                    return 1
+                fi
+                
+                return 0
+                ;;
+            2)
+                info "Switching to SDDM (keeping $current_dm installed)..."
                 
                 # Install SDDM and dependencies if not already installed
                 if ! check_package "sddm"; then
@@ -106,12 +146,42 @@ handle_display_manager() {
                 return 0
                 ;;
             2)
+                info "Switching to SDDM (keeping $current_dm installed)..."
+                
+                # Install SDDM and dependencies if not already installed
+                if ! check_package "sddm"; then
+                    info "Installing SDDM packages..."
+                    if sudo pacman -S --needed --noconfirm sddm qt5-declarative qt5-quickcontrols2 2>&1 | tee -a "$LOG_FILE"; then
+                        success "SDDM installed successfully"
+                    else
+                        error "Failed to install SDDM"
+                        echo "You can install it manually later: sudo pacman -S sddm qt5-declarative qt5-quickcontrols2"
+                        return 1
+                    fi
+                fi
+                
+                # Disable old display manager (don't stop it - that would kill the session)
+                info "Disabling $current_dm (will take effect after reboot)..."
+                sudo systemctl disable "$dm_service" 2>&1 | tee -a "$LOG_FILE" || true
+                
+                # Enable SDDM (will start on next boot)
+                info "Enabling SDDM (will start after reboot)..."
+                if sudo systemctl enable sddm.service 2>&1 | tee -a "$LOG_FILE"; then
+                    success "SDDM will be activated on next reboot"
+                else
+                    error "Failed to enable SDDM service"
+                    return 1
+                fi
+                
+                return 0
+                ;;
+            3)
                 warning "Keeping $current_dm"
                 info "BunkerOS sessions will be available in your display manager's session menu"
                 info "SDDM theme will still be installed (available if you switch to SDDM later)"
                 return 0
                 ;;
-            3)
+            4)
                 error "Installation cancelled by user"
                 exit 1
                 ;;
