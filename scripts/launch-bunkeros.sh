@@ -27,10 +27,10 @@ fi
 # Check if sway config exists
 if [ ! -f "$HOME/.config/sway/config" ]; then
     echo "ERROR: Sway configuration not found at ~/.config/sway/config"
-    echo "Please run: cd ~/Projects/bunkeros && ./setup.sh"
+    echo "Please run the BunkerOS installer: ./install.sh"
     
     if command -v zenity &> /dev/null; then
-        zenity --error --text="Sway configuration missing!\n\nPlease run setup.sh first\n\nSee $LOG_FILE for details" --width=400
+        zenity --error --text="Sway configuration missing!\n\nPlease run: ./install.sh\n\nSee $LOG_FILE for details" --width=400
     fi
     exit 1
 fi

@@ -1,161 +1,134 @@
 # Vanilla Arch Linux Installation Guide for BunkerOS
 
-This guide walks you through installing vanilla Arch Linux from scratch as a foundation for BunkerOS. This is the **recommended** installation method for the cleanest, most reliable BunkerOS experience.
+This is the **definitive guide** for installing vanilla Arch Linux as the foundation for BunkerOS. Follow these exact steps for a perfect installation.
 
-## Why Vanilla Arch?
+## Critical Prerequisites
 
-- ✅ **Cleanest installation** - No pre-installed display managers or conflicting packages
-- ✅ **Single-phase install** - BunkerOS installer handles everything including SDDM
-- ✅ **No derivative quirks** - Avoid CachyOS/Manjaro-specific patches and assumptions
-- ✅ **Rolling release** - Latest packages, bleeding-edge Wayland support
-- ✅ **Full control** - You know exactly what's on your system
-
-## Prerequisites
-
-- USB drive (2GB+)
-- Bootable Arch Linux ISO ([download here](https://archlinux.org/download/))
-- Internet connection (ethernet recommended for initial install)
-- Basic terminal knowledge
+- USB drive (2GB+) with Arch ISO
+- Internet connection (ethernet strongly recommended for install)
+- Basic understanding of partitioning
 
 ---
 
-## Installation Steps
+## Part 1: Base Arch Installation
 
-### 1. Boot Arch Installation Media
+### 1. Boot Arch ISO
 
-1. Download the Arch Linux ISO from [archlinux.org](https://archlinux.org/download/)
-2. Create bootable USB with `dd` or [Etcher](https://etcher.balena.io/)
-3. Boot from USB
-4. You'll land in a root shell
+Boot from the Arch USB. You'll land in a root shell.
 
-### 2. Verify Boot Mode (UEFI vs BIOS)
+### 2. Connect to Internet
 
+**Ethernet (recommended):** Should work automatically. Test with:
 ```bash
-ls /sys/firmware/efi/efivars
+ping -c 3 archlinux.org
 ```
 
-- **Directory exists**: UEFI mode (modern, recommended)
-- **Directory doesn't exist**: BIOS mode (older systems)
-
-### 3. Connect to Internet
-
-**For WiFi:**
+**WiFi (if needed):**
 ```bash
 iwctl
 station wlan0 scan
 station wlan0 get-networks
 station wlan0 connect "YOUR_NETWORK_NAME"
 exit
-```
-
-**Test connection:**
-```bash
 ping -c 3 archlinux.org
 ```
 
-### 4. Partition the Disk
+### 3. Partition the Disk
 
 **List disks:**
 ```bash
 lsblk
 ```
 
-**Start partitioning** (replace `/dev/sda` with your disk):
+**Use cfdisk (easiest):**
 ```bash
-cfdisk /dev/sda
+cfdisk /dev/sda  # Replace sda with your disk
 ```
 
-**Recommended partition scheme (UEFI):**
-- `/dev/sda1`: 512MB - EFI System Partition
-- `/dev/sda2`: Rest of disk - Linux filesystem (ext4)
+**CRITICAL: Choose GPT partition table (for UEFI)**
 
-**For BIOS systems:**
-- `/dev/sda1`: Rest of disk - Linux filesystem (ext4)
+**Create these partitions:**
+1. **512MB** - Type: `EFI System`
+2. **Rest of disk** - Type: `Linux filesystem`
 
-**Create filesystems:**
+Write and quit.
 
-For UEFI:
+**Format partitions:**
 ```bash
-mkfs.fat -F32 /dev/sda1        # EFI partition
-mkfs.ext4 /dev/sda2            # Root partition
+mkfs.fat -F32 /dev/sda1     # EFI partition
+mkfs.ext4 /dev/sda2         # Root partition
 ```
 
-For BIOS:
-```bash
-mkfs.ext4 /dev/sda1            # Root partition
-```
-
-### 5. Mount Filesystems
-
-**For UEFI:**
+**Mount partitions:**
 ```bash
 mount /dev/sda2 /mnt
 mkdir -p /mnt/boot
 mount /dev/sda1 /mnt/boot
 ```
 
-**For BIOS:**
+### 4. Install Base System
+
+**CRITICAL: Install these exact packages (this is the minimal set for BunkerOS):**
+
 ```bash
-mount /dev/sda1 /mnt
+pacstrap /mnt base linux linux-firmware \
+  git sudo networkmanager base-devel \
+  grub efibootmgr \
+  nano vim
 ```
 
-### 6. Install Base System
-
-**Essential packages for BunkerOS:**
-```bash
-pacstrap /mnt base linux linux-firmware git sudo networkmanager vim nano
-```
-
-**What these packages do:**
-- `base` - Minimal Arch system
-- `linux` - Linux kernel
+**What each package does:**
+- `base` - Core Arch system
+- `linux` - Kernel
 - `linux-firmware` - Hardware drivers
 - `git` - Required to clone BunkerOS
 - `sudo` - Required for user permissions
-- `networkmanager` - Network management (WiFi support)
-- `vim/nano` - Text editors (choose one or both)
+- `networkmanager` - WiFi/network management (essential!)
+- `base-devel` - Build tools (required for AUR)
+- `grub` + `efibootmgr` - Bootloader
+- `nano` + `vim` - Text editors
 
-### 7. Generate Filesystem Table
+**DO NOT install a desktop environment, display manager, or window manager. BunkerOS will handle all of that.**
+
+### 5. Generate fstab
 
 ```bash
 genfstab -U /mnt >> /mnt/etc/fstab
 ```
 
-Verify it looks correct:
+Verify:
 ```bash
 cat /mnt/etc/fstab
 ```
 
-### 8. Chroot into New System
+### 6. Chroot into New System
 
 ```bash
 arch-chroot /mnt
 ```
 
-You're now inside your new Arch installation!
+### 7. Configure System
 
-### 9. Configure System
-
-**Set timezone:**
+**Timezone:**
 ```bash
-ln -sf /usr/share/zoneinfo/Region/City /etc/localtime
+ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
 hwclock --systohc
 ```
-Replace `Region/City` with your timezone (e.g., `America/New_York`, `Europe/London`)
+*Replace `America/New_York` with your timezone*
 
-**Set locale:**
+**Locale:**
 ```bash
 echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 locale-gen
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
 ```
 
-**Set hostname:**
+**Hostname:**
 ```bash
 echo "bunkeros" > /etc/hostname
 ```
 
-**Configure hosts file:**
+**Hosts file:**
 ```bash
 cat > /etc/hosts << EOF
 127.0.0.1   localhost
@@ -164,54 +137,28 @@ cat > /etc/hosts << EOF
 EOF
 ```
 
-**Set root password:**
+**Root password:**
 ```bash
 passwd
 ```
 
-### 10. Install Bootloader
+### 8. Install Bootloader (GRUB)
 
-**For UEFI (GRUB):**
 ```bash
-pacman -S grub efibootmgr
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
-**For BIOS (GRUB):**
-```bash
-pacman -S grub
-grub-install --target=i386-pc /dev/sda
-grub-mkconfig -o /boot/grub/grub.cfg
-```
+### 9. Enable NetworkManager
 
-**Alternative for UEFI (systemd-boot, simpler):**
-```bash
-bootctl --path=/boot install
-cat > /boot/loader/loader.conf << EOF
-default arch.conf
-timeout 3
-console-mode max
-editor no
-EOF
-
-cat > /boot/loader/entries/arch.conf << EOF
-title   Arch Linux
-linux   /vmlinuz-linux
-initrd  /initramfs-linux.img
-options root=/dev/sda2 rw
-EOF
-```
-*(Replace `/dev/sda2` with your root partition)*
-
-### 11. Enable NetworkManager
-
+**CRITICAL - Without this you'll have no internet after reboot:**
 ```bash
 systemctl enable NetworkManager
 ```
 
-### 12. Create User Account
+### 10. Create User Account
 
+**CRITICAL - Replace `yourusername` with your actual username:**
 ```bash
 useradd -m -G wheel -s /bin/bash yourusername
 passwd yourusername
@@ -222,85 +169,90 @@ passwd yourusername
 EDITOR=nano visudo
 ```
 
-Uncomment this line:
+**Uncomment this line (remove the #):**
 ```
 %wheel ALL=(ALL:ALL) ALL
 ```
 
-Save and exit (Ctrl+X, Y, Enter for nano)
+Save and exit (Ctrl+X, Y, Enter).
 
-### 13. Exit and Reboot
+### 11. Exit and Reboot
 
 ```bash
-exit                    # Exit chroot
-umount -R /mnt         # Unmount all partitions
-reboot                 # Reboot (remove USB drive)
+exit                 # Exit chroot
+umount -R /mnt      # Unmount
+reboot              # Remove USB and reboot
 ```
 
 ---
 
-## Post-Installation Setup
+## Part 2: Post-Reboot Configuration
 
-### 1. Login and Connect to Network
+### 1. Login as Your User
 
-**Login with your user account** (not root!)
+**DO NOT login as root**. Use the user account you created.
 
-**For WiFi:**
+### 2. Connect to Network
+
+**WiFi:**
 ```bash
 nmcli device wifi list
 nmcli device wifi connect "YOUR_NETWORK" password "YOUR_PASSWORD"
 ```
 
-### 2. Install BunkerOS
-
-**Clone the repository:**
+**Test internet:**
 ```bash
+ping -c 3 archlinux.org
+```
+
+### 3. Verify Your System
+
+```bash
+# You should see these packages:
+pacman -Q | grep -E "git|sudo|base-devel|networkmanager"
+```
+
+If any are missing, install them:
+```bash
+sudo pacman -S git sudo base-devel networkmanager
+```
+
+---
+
+## Part 3: Install BunkerOS
+
+Now your system is ready for BunkerOS!
+
+```bash
+# Clone BunkerOS
 cd ~
-git clone https://github.com/YOUR_USERNAME/bunkeros.git
+git clone https://github.com/forge-55/bunkeros.git
 cd bunkeros
-```
 
-**Run the installer:**
-```bash
+# Run the installer
 ./install.sh
+
+# When prompted, reboot
 ```
 
-That's it! The installer will:
-- ✅ Detect vanilla Arch
-- ✅ Install all BunkerOS dependencies
-- ✅ Configure user environment
-- ✅ Install and enable SDDM
-- ✅ Set up themed login screen
-
-**After installation completes:**
-```bash
-sudo reboot
-```
-
-At the SDDM login screen, select "BunkerOS" and log in!
+After reboot, you'll see the SDDM login screen with the BunkerOS tactical theme. Select "BunkerOS" from the session menu and log in!
 
 ---
 
-## Quick Installation (Using archinstall)
+## What NOT to Install
 
-For a faster installation, you can use the `archinstall` script:
+**DO NOT install these before BunkerOS:**
+- ❌ Any desktop environment (GNOME, KDE, XFCE, etc.)
+- ❌ Any display manager (GDM, SDDM, LightDM, ly, etc.)
+- ❌ Any window manager (i3, sway, etc.)
+- ❌ Xorg or X11 packages
+- ❌ PipeWire or PulseAudio
 
-```bash
-archinstall
-```
-
-**Recommended settings:**
-- Profile: `minimal`
-- Bootloader: `grub` or `systemd-boot`
-- Network: `NetworkManager`
-- Additional packages: `git sudo vim`
-- User: Create your user and add to `wheel` group
-
-After `archinstall` completes, reboot and follow **Post-Installation Setup** above.
+BunkerOS installer handles all of these automatically.
 
 ---
 
-## Troubleshooting
+## Troubleshooting Base Installation
 
 ### No Internet After Reboot
 ```bash
@@ -309,46 +261,32 @@ sudo systemctl enable NetworkManager
 ```
 
 ### Forgot to Create User
-Boot into installation media, mount partitions, chroot, then:
+Boot Arch USB, mount partitions, chroot:
 ```bash
+mount /dev/sda2 /mnt
+mount /dev/sda1 /mnt/boot
+arch-chroot /mnt
 useradd -m -G wheel -s /bin/bash yourusername
 passwd yourusername
 ```
 
-### Bootloader Issues (UEFI)
-Verify EFI partition is mounted:
-```bash
-mount /dev/sda1 /boot
-grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
-```
-
-### Screen Resolution Issues
-These will be handled by BunkerOS auto-scaling. If needed:
-```bash
-xrandr  # List available modes
-xrandr --output HDMI-1 --mode 1920x1080  # Set resolution
-```
+### Bootloader Doesn't Work
+Verify EFI partition is mounted at `/boot` before running `grub-install`.
 
 ---
 
-## Next Steps
+## Summary Checklist
 
-Once you have Arch installed and BunkerOS running:
+Before installing BunkerOS, verify:
+- ✅ Booted into your new Arch install (not the USB)
+- ✅ Logged in as regular user (not root)
+- ✅ Internet connection working
+- ✅ These packages installed: `git sudo base-devel networkmanager`
+- ✅ NO desktop environment or window manager installed
+- ✅ NO display manager installed
 
-1. ✅ Customize themes: See `QUICKREF.md`
-2. ✅ Configure multi-monitor: See `MULTI-MONITOR.md`
-3. ✅ Set up power management: See `POWER-MANAGEMENT.md`
-4. ✅ Explore keybindings: Super+Shift+/ (in BunkerOS)
-
----
-
-## Additional Resources
-
-- [Arch Installation Guide](https://wiki.archlinux.org/title/Installation_guide) (Official)
-- [Arch Wiki](https://wiki.archlinux.org/) (Comprehensive documentation)
-- [BunkerOS README](README.md) (Project overview)
-- [BunkerOS Installation](INSTALL.md) (Detailed installation options)
+If all checkboxes are ✅, you're ready to install BunkerOS!
 
 ---
 
-**Welcome to BunkerOS on vanilla Arch Linux!** 🎯
+**Next: Clone bunkeros and run `./install.sh`** 🎯

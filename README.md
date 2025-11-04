@@ -881,34 +881,64 @@ The configuration uses MesloLGL Nerd Font by default. This can be changed in `wa
 
 ## Installation
 
-BunkerOS is designed for **vanilla Arch Linux** and provides a streamlined single-command installation.
+BunkerOS requires **vanilla Arch Linux** with no desktop environment or window manager pre-installed.
 
-### Prerequisites
+### Quick Start (For Existing Arch Users)
 
-If you don't have Arch installed yet, see [ARCH-INSTALL.md](ARCH-INSTALL.md) for a complete installation guide.
-
-### Install BunkerOS
+If you already have vanilla Arch Linux installed:
 
 ```bash
-# Clone the repository
+# Clone BunkerOS
 cd ~
 git clone https://github.com/forge-55/bunkeros.git
 cd bunkeros
 
-# Check system compatibility (recommended)
-./scripts/check-compatibility.sh
-
-# Install everything (single command!)
+# Run installer
 ./install.sh
 
-# Reboot
-sudo reboot
+# Reboot when prompted
 ```
 
 That's it! Select "BunkerOS" at the SDDM login screen.
 
-📘 **New to Arch?** See [ARCH-INSTALL.md](ARCH-INSTALL.md) for full installation guide  
-📘 **Detailed instructions**: See [INSTALL.md](INSTALL.md) for troubleshooting and advanced options
+### Fresh Installation (No Arch Yet)
+
+If you're starting from scratch:
+
+1. **Install Vanilla Arch Linux** - Follow [ARCH-INSTALL.md](ARCH-INSTALL.md)
+   - Essential packages: `base linux linux-firmware git sudo networkmanager base-devel grub efibootmgr`
+   - Create user account and enable sudo
+   - **DO NOT** install any desktop environment, window manager, or display manager
+
+2. **Install BunkerOS** - Run the commands above
+
+**See [FRESH-INSTALL-CHECKLIST.md](FRESH-INSTALL-CHECKLIST.md) for detailed checklist**
+
+### Installation Time
+
+- Fresh Arch install: ~15 minutes
+- BunkerOS install: ~10-15 minutes  
+- **Total: ~30 minutes from blank drive to working BunkerOS**
+
+### What Gets Installed
+
+The `install.sh` script automatically:
+- ✅ Installs all required packages (Sway, Waybar, apps, fonts, etc.)
+- ✅ Builds and installs `yay` AUR helper
+- ✅ Installs AUR packages (swayosd-git)
+- ✅ Copies all configuration files
+- ✅ Enables user services (PipeWire audio)
+- ✅ Installs and enables SDDM display manager
+- ✅ Sets up themed login screen
+
+**No manual configuration needed** - just install and reboot!
+
+### Documentation
+
+- 📘 [ARCH-INSTALL.md](ARCH-INSTALL.md) - Complete Arch installation guide
+- 📘 [FRESH-INSTALL-CHECKLIST.md](FRESH-INSTALL-CHECKLIST.md) - Installation checklist
+- 📘 [INSTALL.md](INSTALL.md) - Detailed installation guide and troubleshooting
+- 📘 [QUICKREF.md](QUICKREF.md) - Quick reference for using BunkerOS
 
 
 This approach prevents session interruption and allows you to verify BunkerOS works before switching display managers.

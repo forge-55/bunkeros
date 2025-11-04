@@ -321,6 +321,43 @@ EOF
         exit 1
     fi
     
+    # Verify required base packages are installed
+    info "Verifying base system requirements..."
+    local missing_base_packages=()
+    
+    for pkg in git sudo base-devel networkmanager; do
+        if ! check_package "$pkg"; then
+            missing_base_packages+=("$pkg")
+        fi
+    done
+    
+    if [ ${#missing_base_packages[@]} -gt 0 ]; then
+        error "Missing required base packages: ${missing_base_packages[*]}"
+        echo ""
+        echo "Please install them first:"
+        echo "  sudo pacman -S ${missing_base_packages[*]}"
+        echo ""
+        echo "These packages should have been installed during Arch setup."
+        echo "See ARCH-INSTALL.md for the correct base installation."
+        exit 1
+    fi
+    
+    # Verify NetworkManager is enabled
+    if ! systemctl is-enabled NetworkManager.service &>/dev/null; then
+        warning "NetworkManager is not enabled"
+        echo ""
+        echo "Enabling NetworkManager now..."
+        if sudo systemctl enable NetworkManager.service; then
+            success "NetworkManager enabled"
+        else
+            error "Failed to enable NetworkManager"
+            echo "You may lose network connectivity after reboot!"
+        fi
+    fi
+    
+    success "Base system requirements verified"
+    echo ""
+    
     info "BunkerOS requires vanilla Arch Linux"
     echo ""
     
@@ -560,6 +597,20 @@ EOF
     
     # Display completion message
     display_completion_message
+    
+    # Prompt for reboot
+    echo ""
+    echo ""
+    read -p "Installation complete! Reboot now? (y/n) " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        info "Rebooting system..."
+        sudo reboot
+    else
+        echo ""
+        warning "Remember to REBOOT (not just log out) before using BunkerOS!"
+        echo ""
+    fi
 }
 
 # Completion message

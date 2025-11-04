@@ -96,7 +96,7 @@ generate_config_suggestion() {
             local secondary=$(swaymsg -t get_outputs | jq -r ".[] | select(.active == true) | select(.name != \"$primary\") | .name" | head -n1)
             echo "• Secondary: $secondary (Workspaces 6-10)"
             echo ""
-            echo "Run 'bash ~/Projects/bunkeros/scripts/setup-monitors.sh' to configure"
+            echo "Run 'setup-monitors.sh' to configure"
             ;;
         *)
             echo "Multi-monitor setup detected ($output_count displays)"
@@ -113,7 +113,7 @@ generate_config_suggestion() {
             fi
             
             echo ""
-            echo "Run 'bash ~/Projects/bunkeros/scripts/setup-monitors.sh' to configure"
+            echo "Run 'setup-monitors.sh' to configure"
             ;;
     esac
 }

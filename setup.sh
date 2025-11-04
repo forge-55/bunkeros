@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-set -e
+# BunkerOS Configuration Setup
+# Sets up user configuration files and symlinks
 
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CONFIG_DIR="$HOME/.config"
@@ -164,6 +165,21 @@ ln -sf "$PROJECT_DIR/themes" "$CONFIG_DIR/themes"
 backup_if_exists "$LOCAL_BIN/theme-switcher.sh"
 ln -sf "$PROJECT_DIR/scripts/theme-switcher.sh" "$LOCAL_BIN/theme-switcher.sh"
 chmod +x "$PROJECT_DIR/scripts/theme-switcher.sh"
+
+# Symlink auto-scaling service so it's in PATH
+backup_if_exists "$LOCAL_BIN/auto-scaling-service.sh"
+ln -sf "$PROJECT_DIR/scripts/auto-scaling-service.sh" "$LOCAL_BIN/auto-scaling-service.sh"
+chmod +x "$PROJECT_DIR/scripts/auto-scaling-service.sh"
+
+# Symlink monitor detection/setup scripts so they're in PATH
+backup_if_exists "$LOCAL_BIN/detect-monitors.sh"
+ln -sf "$PROJECT_DIR/scripts/detect-monitors.sh" "$LOCAL_BIN/detect-monitors.sh"
+chmod +x "$PROJECT_DIR/scripts/detect-monitors.sh"
+
+backup_if_exists "$LOCAL_BIN/setup-monitors.sh"
+ln -sf "$PROJECT_DIR/scripts/setup-monitors.sh" "$LOCAL_BIN/setup-monitors.sh"
+chmod +x "$PROJECT_DIR/scripts/setup-monitors.sh"
+
 echo "  ✓ Theme system symlinked"
 echo ""
 
