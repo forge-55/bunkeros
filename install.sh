@@ -369,7 +369,7 @@ EOF
     local core_packages=(
         sway autotiling-rs waybar wofi mako foot swaylock swayidle swaybg
         brightnessctl playerctl wl-clipboard grim slurp wlsunset
-        network-manager-applet blueman pavucontrol jq
+        network-manager-applet blueman pavucontrol jq btrfs-progs
     )
     
     local app_packages=(
