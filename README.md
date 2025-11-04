@@ -939,8 +939,14 @@ sudo pacman -S sway autotiling-rs waybar wofi mako foot nautilus \
 # Install SwayOSD for volume/brightness overlays
 yay -S swayosd-git
 
-# Run configuration setup
+# Install TerminalTextEffects
+pipx install terminaltexteffects
+
+# Run user configuration
 ./setup.sh
+
+# Install SDDM separately
+./install-sddm.sh
 ```
 
 **For detailed installation instructions, see [INSTALL.md](INSTALL.md)**

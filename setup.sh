@@ -309,20 +309,7 @@ echo "    • Archives → File Roller"
 echo "    • Directories → Nautilus"
 echo ""
 
-echo "Step 13: Installing SDDM theme..."
-echo "This step requires sudo privileges for system-wide theme installation."
-read -p "Install SDDM theme? (y/n) " -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-    cd "$PROJECT_DIR/sddm"
-    ./install-theme.sh
-    echo ""
-else
-    echo "  Skipping SDDM theme installation"
-    echo ""
-fi
-
-echo "Step 15: Applying default BunkerOS theme..."
+echo "Step 13: Applying default BunkerOS theme..."
 cd "$PROJECT_DIR"
 "$LOCAL_BIN/theme-switcher.sh" tactical 2>/dev/null || echo "  ℹ Theme will be applied on first Sway launch"
 

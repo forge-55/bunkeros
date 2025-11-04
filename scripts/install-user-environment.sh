@@ -5,6 +5,21 @@ PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 echo "=== BunkerOS User Environment Configuration ==="
 echo ""
 
+# Add user to input group for SwayOSD
+echo "Configuring user groups..."
+if ! groups | grep -q '\binput\b'; then
+    echo "  Adding user to 'input' group (required for SwayOSD)..."
+    if sudo usermod -a -G input "$USER" 2>/dev/null; then
+        echo "  ✓ User added to input group"
+        echo "  ⚠ You'll need to log out and back in for group changes to take effect"
+    else
+        echo "  ⚠ Failed to add user to input group (SwayOSD may not work)"
+    fi
+else
+    echo "  ✓ User already in input group"
+fi
+echo ""
+
 # PipeWire services
 echo "Enabling PipeWire audio services..."
 echo ""
