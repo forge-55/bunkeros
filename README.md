@@ -905,14 +905,14 @@ That's it! Select "BunkerOS" at the SDDM login screen.
 
 If you're starting from scratch:
 
-1. **Install Vanilla Arch Linux** - Follow [ARCH-INSTALL.md](ARCH-INSTALL.md)
+1. **Install Vanilla Arch Linux** - Follow [docs/installation/arch-setup.md](docs/installation/arch-setup.md)
    - Essential packages: `base linux linux-firmware git sudo networkmanager base-devel grub efibootmgr`
    - Create user account and enable sudo
    - **DO NOT** install any desktop environment, window manager, or display manager
 
 2. **Install BunkerOS** - Run the commands above
 
-**See [FRESH-INSTALL-CHECKLIST.md](FRESH-INSTALL-CHECKLIST.md) for detailed checklist**
+**See [docs/installation/checklist.md](docs/installation/checklist.md) for detailed checklist**
 
 ### Installation Time
 
@@ -935,10 +935,33 @@ The `install.sh` script automatically:
 
 ### Documentation
 
-- 📘 [ARCH-INSTALL.md](ARCH-INSTALL.md) - Complete Arch installation guide
-- 📘 [FRESH-INSTALL-CHECKLIST.md](FRESH-INSTALL-CHECKLIST.md) - Installation checklist
-- 📘 [INSTALL.md](INSTALL.md) - Detailed installation guide and troubleshooting
-- 📘 [QUICKREF.md](QUICKREF.md) - Quick reference for using BunkerOS
+#### Getting Started
+- 📘 [Installation Guide](INSTALL.md) - Complete installation instructions and troubleshooting
+- 📘 [Quick Reference](QUICKREF.md) - Keyboard shortcuts, commands, and quick tips
+- 📘 [Pre-installation: Arch Setup](docs/installation/arch-setup.md) - Vanilla Arch base requirements
+- 📘 [Installation Checklist](docs/installation/checklist.md) - Pre/post installation verification
+
+#### Features & Configuration
+- 🎨 [Adaptive Display Scaling](docs/features/adaptive-scaling.md) - Automatic DPI/font scaling
+- 🖥️ [Multi-Monitor Setup](docs/features/multi-monitor.md) - Configure multiple displays
+- 🔋 [Battery Profiles](docs/features/battery-profiles.md) - Laptop power management modes
+- ⚡ [Power Management](docs/features/power-management.md) - Auto-suspend, CPU scaling
+- 🌐 [Browser Configuration](docs/features/browser-config.md) - Wayland optimization
+- 📱 [Default Applications](docs/features/default-apps.md) - Customize default apps
+- 📹 [Video Conferencing](docs/features/videoconferencing.md) - Zoom, Meet, Teams setup
+
+#### Troubleshooting
+- 🔧 [General Issues](docs/troubleshooting/general.md) - Common problems and solutions
+- 🔐 [Login/SDDM Issues](docs/troubleshooting/sddm.md) - Login screen troubleshooting
+- � [DRM Errors Explained](docs/troubleshooting/drm-errors.md) - Understanding DRM warnings
+- 🚨 [Emergency Recovery](docs/troubleshooting/emergency-recovery.md) - Recovery mode usage
+
+#### Reference & Development
+- ❓ [FAQ](docs/reference/faq.md) - Frequently asked questions
+- 🔒 [Security](docs/reference/security.md) - Security features and best practices
+- 📖 [About BunkerOS](docs/reference/about.md) - Project background and philosophy
+- 🏗️ [Architecture](docs/development/architecture.md) - System design and components
+- 🗺️ [Development Roadmap](docs/development/roadmap.md) - Future plans and improvements
 
 
 This approach prevents session interruption and allows you to verify BunkerOS works before switching display managers.
