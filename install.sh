@@ -585,6 +585,8 @@ display_completion_message() {
 
    INSTALLATION COMPLETE ✓ - Everything installed!
    
+   ⚠️  IMPORTANT: You must reboot (not just log out) for everything to work:
+   
    1. Reboot your system: sudo reboot
    2. At SDDM login, select "BunkerOS" session
    3. Log in and enjoy your environment!

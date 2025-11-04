@@ -2,13 +2,15 @@
 # BunkerOS Theme Switcher
 # Manages and applies themes across all BunkerOS components
 
-# Use fixed config directory instead of relative path
-# This ensures the script works whether run from symlink or directly
 CONFIG_DIR="$HOME/.config/bunkeros"
-PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
-# If running from symlink (e.g., ~/.local/bin), use the real project directory
-if [[ "$(readlink -f "${BASH_SOURCE[0]}")" == *"/Projects/bunkeros/"* ]]; then
+# Find bunkeros directory - check common locations
+if [ -d "$HOME/bunkeros" ]; then
+    PROJECT_DIR="$HOME/bunkeros"
+elif [ -d "$HOME/Projects/bunkeros" ]; then
+    PROJECT_DIR="$HOME/Projects/bunkeros"
+else
+    # Try to find it from the script location
     PROJECT_DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/.." && pwd)"
 fi
 

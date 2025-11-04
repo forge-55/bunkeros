@@ -37,7 +37,7 @@ fi
 
 # Validate sway config syntax
 echo "Validating Sway configuration..."
-if ! sway --validate 2>&1 | tee -a "$LOG_FILE"; then
+if sway --validate 2>&1 | grep -qi "error"; then
     echo "ERROR: Sway configuration has syntax errors"
     echo "Please check ~/.config/sway/config"
     
@@ -45,6 +45,8 @@ if ! sway --validate 2>&1 | tee -a "$LOG_FILE"; then
         zenity --error --text="Sway configuration has errors!\n\nPlease check your config file\n\nSee $LOG_FILE for details" --width=400
     fi
     exit 1
+else
+    echo "✓ Sway configuration validated (warnings are normal)"
 fi
 
 echo "✓ Preflight checks passed"
