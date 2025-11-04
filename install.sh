@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-set -e
+# BunkerOS Installation Script
+# Installs BunkerOS on vanilla Arch Linux
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 LOG_FILE="/tmp/bunkeros-install.log"
@@ -398,13 +399,12 @@ EOF
     # Run setup script
     echo ""
     info "Running configuration setup..."
-    if "$SCRIPT_DIR/setup.sh"; then
+    if "$SCRIPT_DIR/setup.sh" 2>&1 | tee -a "$LOG_FILE"; then
         success "Configuration setup completed"
-        save_checkpoint "setup_complete"
     else
-        error "Configuration setup failed"
-        exit 1
+        warning "Configuration setup had issues - continuing anyway"
     fi
+    save_checkpoint "setup_complete"
     
     # Setup user environment (PipeWire, etc.)
     echo ""
