@@ -34,7 +34,8 @@ fi
 
 case $chosen in
     "󰌾  Screensaver")
-        ~/.config/sway-config/scripts/launch-screensaver.sh
+        # Launch screensaver in background (don't wait for it)
+        ~/.config/sway-config/scripts/launch-screensaver.sh &
         ;;
     "󰐥  Shutdown")
         systemctl poweroff
@@ -43,6 +44,9 @@ case $chosen in
         systemctl reboot
         ;;
     "󰤄  Suspend")
+        # Lock screen BEFORE suspend (Omarchy pattern)
+        swaylock -f &
+        sleep 0.5
         systemctl suspend
         ;;
     "󰍃  Logout")

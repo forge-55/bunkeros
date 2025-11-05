@@ -21,7 +21,8 @@ case $selected in
         ~/.config/waybar/scripts/screenshot-area.sh
         ;;
     "󰔎 Screensaver")
-        ~/.config/sway-config/scripts/launch-screensaver.sh
+        # Launch in background so menu doesn't hang
+        ~/.config/sway-config/scripts/launch-screensaver.sh &
         ;;
     "⬅️  Back")
         ~/.config/waybar/scripts/main-menu.sh
