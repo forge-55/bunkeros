@@ -2,11 +2,9 @@
 
 ## What is BunkerOS?
 
-**BunkerOS is a productivity-hardened, Arch-based Linux distribution built for mission-focused computing.**
+BunkerOS is a configuration layer for Arch Linux that provides a productivity-focused Sway desktop environment. Rather than being a standalone distribution, BunkerOS is installed on top of your existing Arch Linux (or Arch-based) system.
 
-## What is BunkerOS?
-
-Built on vanilla Arch Linux with custom optimizations, BunkerOS combines performance with disciplined productivity workflows. It delivers a distraction-free, tactical computing environment that values operational excellence over visual flourish.
+Built on vanilla Arch Linux with transparent, symlinked configurations, BunkerOS combines performance with disciplined productivity workflows. It delivers a distraction-free, tactical computing environment that values operational excellence over visual flourish.
 
 ## Our Mission
 
@@ -17,6 +15,65 @@ We believe:
 - **Professional tools should be efficient and reliable**
 - **Performance optimization enables, not constrains**
 - **Smart engineering leverages existing solutions**
+
+## Design Philosophy
+
+### Configuration Layer, Not Distribution
+
+BunkerOS is fundamentally a configuration layer rather than a standalone Linux distribution:
+
+**What this means:**
+- BunkerOS runs on top of vanilla Arch Linux or Arch-based distributions
+- Users install their preferred base system first
+- BunkerOS adds a curated Sway environment and productivity tools
+- Standard Arch package management and workflows remain unchanged
+- All configurations are transparent and user-auditable
+
+**Why this approach:**
+- **Respects Arch philosophy** - Users understand their base system
+- **Maximum flexibility** - Works on various Arch-based distributions
+- **Transparent changes** - All configs symlinked from git repo
+- **Easy maintenance** - Standard Arch tools for updates and troubleshooting
+- **Reversible** - Simple to modify or remove BunkerOS configurations
+
+### Transparent Configuration Management
+
+All BunkerOS configurations are symlinked from the git repository to your system:
+
+- See exactly what files are modified in your system
+- Configuration changes visible through git diffs
+- Easy to audit, fork, or customize
+- Update with a simple `git pull`
+- Remove symlinks to revert to vanilla Arch
+
+### Standard Package Management
+
+BunkerOS uses exclusively standard Arch tools:
+
+- **pacman** for official repository packages
+- **yay** or **paru** for AUR packages
+- No custom package managers or bash script installations
+- Follows Arch packaging standards (PKGBUILD when needed)
+- All dependencies visible in installation scripts
+
+### Compatibility with Arch-Based Distributions
+
+While designed for vanilla Arch Linux, BunkerOS can be installed on minimal Arch-based distributions:
+
+**Compatible base systems:**
+- Vanilla Arch Linux
+- CachyOS (minimal installation)
+- EndeavourOS (without desktop environment)
+- Manjaro (with caution - package versions may differ)
+- Other Arch derivatives using standard Arch repositories
+
+**Requirements for compatibility:**
+- Uses standard Arch repositories (core, extra, community)
+- No pre-installed desktop environment (or willing to replace it)
+- Standard Arch package management (pacman)
+- Systemd-based init system
+
+The installation scripts check for compatibility and warn about potential conflicts.
 
 ## What Makes BunkerOS Unique?
 
@@ -66,52 +123,54 @@ We believe:
 
 ```
 ┌─────────────────────────────────────────────────┐
-│   BunkerOS Experience Layer                     │
-│   • Vanilla Sway environment                    │
+│   BunkerOS Configuration Layer                  │
+│   • Sway environment configuration              │
 │   • Productivity automation                     │
 │   • Tactical theming                            │
+│   • Symlinked dotfiles from git repo            │
 │   • Custom workflows & tooling                  │
-├─────────────────────────────────────────────────┤
-│   BunkerOS Optimization Layer                   │
-│   • Custom kernel configurations                │
-│   • Performance tuning for productivity         │
-│   • Optimized package selection                 │
 ├─────────────────────────────────────────────────┤
 │   Arch Linux Foundation                         │
 │   • Rolling release model                       │
 │   • AUR access                                  │
-│   • Extensive documentation                     │
+│   • Extensive documentation (Arch Wiki)         │
 │   • Proven ecosystem                            │
+│   • Standard package management                 │
 └─────────────────────────────────────────────────┘
 ```
 
-### Why Vanilla Arch Foundation?
+### Why This Architecture?
 
-**Clean, controlled base**: Build on vanilla Arch for complete control over optimizations.
+**Transparent and Auditable:**
+- All configuration files symlinked from git repository
+- Users can see exactly what BunkerOS changes
+- Easy to review, modify, or remove configurations
+- Version-controlled dotfiles approach
 
-**Benefits**:
-- Full control over system configuration and optimization
-- Clean base without third-party modifications
-- Direct access to Arch's proven stability and ecosystem
-- Custom tuning for specific productivity workflows
+**Standard Arch Workflows:**
+- No custom package managers or installation methods
+- Standard `pacman` and AUR helper usage
+- Arch Wiki remains the primary documentation resource
+- Familiar troubleshooting and maintenance procedures
 
-**Focus**: BunkerOS concentrates on delivering the best Sway-based productivity experience with targeted performance optimizations.
+**Flexibility and Control:**
+- Install on existing Arch systems without reinstalling
+- Works on various Arch-based distributions
+- Easy to customize or extend configurations
+- Remove BunkerOS layer without affecting base system
 
 ## Who is BunkerOS For?
 
-### Ideal Users
-- Developers and engineers seeking distraction-free environments
-- Power users comfortable with keyboard-driven workflows
-- Anyone valuing productivity over visual excess
-- Users wanting Arch/AUR access with excellent defaults
-- ThinkPad enthusiasts and vintage hardware users
-- Professionals seeking operational discipline in their computing
+BunkerOS serves users who:
+- Want a productivity-focused Sway environment on Arch Linux
+- Value keyboard-driven workflows and tiling window managers
+- Appreciate curated configurations over building from scratch
+- Understand or want to learn Arch Linux fundamentals
+- Prefer distraction-free computing over visual effects
+- Value transparent, auditable system changes
+- Work with ThinkPads or other professional hardware
 
-### Not Recommended For
-- Users preferring traditional point-and-click desktop environments
-- Those requiring extensive hand-holding or beginner-focused tools
-- Users prioritizing flashy animations over efficiency
-- Anyone uncomfortable with tiling window managers
+BunkerOS provides a complete, polished Sway desktop environment while maintaining the transparency and control that Arch Linux users expect.
 
 ## Performance Profile
 
@@ -161,15 +220,38 @@ Significantly lighter than traditional desktop environments.
 
 ## Installation
 
-**Current Process**:
-1. Install vanilla Arch Linux base system
+**Quick Start: archinstall Profile**
+
+The fastest way to get started:
+
+```bash
+# Boot Arch Linux ISO
+curl -fsSL https://raw.githubusercontent.com/forge-55/bunkeros/main/archinstall/install-bunkeros.sh | bash
+```
+
+This automates Arch Linux installation and BunkerOS configuration in one process.
+
+**Manual Installation**
+
+If you already have Arch Linux or prefer to install it manually first:
+
+1. Install vanilla Arch Linux or an Arch-based distribution
 2. Clone BunkerOS repository
-3. Run `setup.sh` to install Sway environment and configuration
-4. Reboot and select BunkerOS session
+3. Run `install.sh` to install Sway environment and symlink configurations
+4. Reboot and select BunkerOS session at login
 
-**Future Goal**: Dedicated BunkerOS installer or installation profile.
+Manual installation offers deeper understanding of how your system is configured. See [INSTALL.md](../../INSTALL.md) for complete instructions.
 
-See [INSTALL.md](INSTALL.md) for complete installation instructions.
+**archinstall Details:** See [archinstall/README.md](../../archinstall/README.md)
+
+**What Gets Installed:**
+- Sway compositor and Wayland components
+- Productivity tools and applications
+- BunkerOS configurations (symlinked from git repo)
+- SDDM display manager with tactical theme
+- User environment setup (PipeWire, services, etc.)
+
+See [INSTALL.md](../../INSTALL.md) for complete installation instructions.
 
 ## Philosophy: Smart Engineering
 

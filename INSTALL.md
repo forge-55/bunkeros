@@ -1,6 +1,68 @@
 # BunkerOS Installation Guide
 
-Complete installation instructions for BunkerOS on vanilla Arch Linux.
+BunkerOS is a configuration layer that runs on top of Arch Linux or Arch-based distributions. This guide covers both installation methods.
+
+## Installation Methods
+
+### Method 1: archinstall Profile (Quick Start)
+
+The fastest way to install BunkerOS is using our archinstall profile, which automates both Arch Linux installation and BunkerOS configuration.
+
+**Quick Start:**
+```bash
+# Boot Arch Linux ISO and run:
+curl -fsSL https://raw.githubusercontent.com/forge-55/bunkeros/main/archinstall/install-bunkeros.sh | bash
+```
+
+→ See [archinstall/README.md](archinstall/README.md) for complete details.
+
+**What this does:**
+- Installs vanilla Arch Linux base system
+- Installs all BunkerOS packages and dependencies
+- Sets up BunkerOS configurations automatically
+- Configures SDDM display manager
+- Ready to use after reboot
+
+### Method 2: Manual Installation
+
+If you already have Arch Linux installed, or want to install Arch manually first, you can add BunkerOS to your existing system.
+
+**Benefits of manual installation:**
+- Learn how Arch Linux works
+- Understand exactly what BunkerOS installs and configures
+- Full control over the base system setup
+- Better troubleshooting knowledge
+
+→ Continue reading this guide for manual installation.
+
+---
+
+## Manual Installation Guide
+
+## Prerequisites
+
+You need a base Arch Linux installation before installing BunkerOS. This can be:
+- Vanilla Arch Linux (following the [official installation guide](https://wiki.archlinux.org/title/Installation_guide))
+- Minimal Arch-based distribution (CachyOS, EndeavourOS, etc.)
+
+**Important:** BunkerOS works best on minimal installations without a pre-installed desktop environment. If you have an existing DE/WM, BunkerOS will add its Sway configuration alongside it.
+
+BunkerOS will add the Sway window manager and productivity tools to your existing system.
+
+## What Gets Installed
+
+BunkerOS installs and configures:
+- Sway compositor and essential Wayland components
+- Terminal environment (Foot, Zsh, Tmux)
+- Application launcher (Wofi)
+- Status bar (Waybar)
+- Notification daemon (Mako)
+- Productivity tools (file manager, text editor, PDF viewer)
+- System utilities (network manager, audio control, etc.)
+
+Your base Arch installation remains intact - BunkerOS adds a layer on top.
+
+---
 
 ## System Requirements
 
@@ -10,26 +72,13 @@ Complete installation instructions for BunkerOS on vanilla Arch Linux.
 - CPU: x86-64 compatible (modern processors recommended)
 - Disk: 20GB free space (2GB minimum for installation)
 - Network: Active internet connection required
-- OS: Vanilla Arch Linux (required)
-
-## Prerequisites
-
-BunkerOS is designed for * Arch Linux**. If you don't have Arch installed yet, follow the guide below:
-
-**[Arch Installation Guide](ARCH-INSTALL.md)** - Complete step-by-step instructions
-
-**Quick summary:**
-1. Boot Arch ISO
-2. Partition disk and install base system
-3. Configure bootloader, network, user
-4. Reboot into fresh Arch installation
-5. Install BunkerOS (below)
+- OS: Arch Linux or minimal Arch-based distribution (required)
 
 ---
 
-## Installing BunkerOS
+## Installing BunkerOS on Existing Arch System
 
-Once you have a fresh Arch installation:
+If you already have a minimal Arch Linux installation (or Arch-based distribution), you can install BunkerOS directly:
 
 ```bash
 # Connect to internet (if WiFi)
@@ -47,10 +96,30 @@ cd bunkeros
 ./install.sh
 ```
 
+---
+
+## Installing Arch Linux First (New System)
+
+If you don't have Arch installed yet, follow the guide below:
+
+**[Arch Installation Guide](ARCH-INSTALL.md)** - Complete step-by-step instructions
+
+**Quick summary:**
+1. Boot Arch ISO
+2. Partition disk and install base system
+3. Configure bootloader, network, user
+4. Reboot into fresh Arch installation
+5. Install BunkerOS (using commands above)
+
+---
+
+## Installation Process
+
 **What happens:**
-- Installs all dependencies
-- Configures user environment
-- Installs and enables SDDM
+- Installs Sway and all required dependencies
+- Symlinks BunkerOS configurations to your system
+- Configures user environment (PipeWire, services, etc.)
+- Installs and enables SDDM display manager
 - Sets up themed login screen
 
 **After installation:**
@@ -62,7 +131,7 @@ Select "BunkerOS" at the SDDM login screen and enjoy!
 
 ---
 
-## What Gets Installed
+## What the Installer Does
 
 The installer features:
 - **Preflight checks**: Verifies internet, disk space, and package database

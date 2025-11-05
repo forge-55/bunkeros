@@ -1,0 +1,12 @@
+# User-specific configuration files
+user-config.json
+final-config.json
+
+# Test files
+test-*.qcow2
+*.iso
+*.img
+
+# Downloaded during testing
+bunkeros-config.json.backup
+post-install.sh.backup
