@@ -108,7 +108,7 @@ The installation scripts check for compatibility and warn about potential confli
 - Security serves productivity, not the other way around
 
 ### Comprehensive Theming
-- 5 curated themes (Tactical, Gruvbox, Nord, Everforest, Tokyo Night)
+- 5 curated themes (Tactical, Night-Ops, Sahara, Abyss, Winter)
 - System-wide consistency (Waybar, Wofi, Mako, terminals, applications)
 - Instant theme switching without logout
 
@@ -216,7 +216,7 @@ Significantly lighter than traditional desktop environments.
 - 5 curated themes with consistent styling
 - Custom GTK3/GTK4 themes
 - Tactical color palette
-- Professional Nord, Gruvbox, Everforest, Tokyo Night variants
+- Professional themes: Night-Ops, Sahara, Abyss, Winter
 
 ## Installation
 

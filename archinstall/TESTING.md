@@ -275,14 +275,28 @@ After boot into BunkerOS session:
 ```bash
 # Check RAM usage
 free -h
-# Should be around 300-400 MB used
+# Expected: ~280-400 MB used (varies by hardware and background processes)
 
-# Check running processes
+# More detailed memory info
+free -m | grep "Mem:" | awk '{print "Used: " $3 "MB / Total: " $2 "MB"}'
+
+# Check running processes by memory usage
 ps aux --sort=-%mem | head -20
 
-# Monitor with btop
+# Monitor with btop (real-time)
 btop
+
+# Quick memory check (excluding buffers/cache)
+free -m | awk 'NR==2{printf "Used: %.0f MB (%.1f%%)\n", $3, $3*100/$2}'
 ```
+
+**Note:** RAM usage varies based on:
+- Hardware capabilities
+- Background services enabled
+- Number of open applications
+- System caching behavior
+
+A fresh BunkerOS session with just Sway, Waybar, and Foot terminal typically uses 280-350 MB.
 
 ### Boot Time
 

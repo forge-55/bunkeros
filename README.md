@@ -62,13 +62,15 @@ See [INSTALL.md](INSTALL.md) for detailed instructions. This approach gives you 
 ## Features
 
 - Sway with intelligent autotiling
-- Multi-theme system (Tactical, Gruvbox, Nord)
+- 5 custom themes (Tactical, Night-Ops, Sahara, Abyss, Winter)
 - Adaptive display scaling for HiDPI
 - Multi-monitor support (1-5 displays)
 - Web app manager
 - Interactive keybinding manager
 - Video conferencing ready
-- ~280 MB RAM at idle
+- Lightweight resource usage (~280 MB RAM at idle)*
+
+*Resource usage may vary depending on hardware and running applications
 
 ## Documentation
 
