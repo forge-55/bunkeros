@@ -1,0 +1,56 @@
+# BunkerOS Swaylock Configuration
+# Tactical theme with clear visual feedback
+
+# Use blurred screenshot as background (set via command line)
+# This makes it obvious the screen is locked
+
+# Ring colors - tactical tan stands out clearly
+ring-color=3D3D3D
+key-hl-color=C3B091
+bs-hl-color=C3B091
+
+# Inside the ring - very dark for contrast
+inside-color=0a0a0a
+inside-clear-color=0a0a0a
+inside-caps-lock-color=0a0a0a
+inside-ver-color=1a1a1a
+inside-wrong-color=2a0a0a
+
+# Ring states - clear visual feedback
+ring-clear-color=C3B091
+ring-caps-lock-color=E5D5C5
+ring-ver-color=6B7A54
+ring-wrong-color=DD6666
+
+# Line between ring and inside
+line-color=C3B091
+line-clear-color=C3B091
+line-caps-lock-color=E5D5C5
+line-ver-color=6B7A54
+line-wrong-color=DD6666
+
+# Make separator invisible
+separator-color=00000000
+
+# Text - tactical tan for visibility
+text-color=C3B091
+text-clear-color=C3B091
+text-caps-lock-color=E5D5C5
+text-ver-color=E5D5C5
+text-wrong-color=DD6666
+
+# Larger indicator for visibility
+indicator-radius=150
+indicator-thickness=20
+
+# Show failed attempts
+show-failed-attempts
+
+# Font
+font=monospace
+font-size=18
+
+# Show caps lock warning
+indicator-caps-lock
+
+# Don't show keyboard layout (was confusing)
