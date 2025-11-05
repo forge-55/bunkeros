@@ -123,7 +123,7 @@ apply_theme() {
         local preferred_style=$(cat "$workspace_style_pref")
         if [ -x "$PROJECT_DIR/scripts/workspace-style-switcher.sh" ]; then
             # Don't restart waybar here - we'll do it below
-            "$PROJECT_DIR/scripts/workspace-style-switcher.sh" apply "$preferred_style" 2>/dev/null || true
+            "$PROJECT_DIR/scripts/workspace-style-switcher.sh" apply "$preferred_style" --no-restart 2>/dev/null || true
         fi
     fi
     

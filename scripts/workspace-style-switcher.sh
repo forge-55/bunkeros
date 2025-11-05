@@ -74,6 +74,7 @@ get_theme_colors() {
 
 apply_workspace_style() {
     local style=$1
+    local no_restart=$2
     local style_template="$WORKSPACE_STYLES_DIR/${style}.template"
     
     if [ ! -f "$style_template" ]; then
@@ -141,12 +142,13 @@ apply_workspace_style() {
     
     mv "$temp_file" "$waybar_style"
     
-    # Restart waybar to apply changes
-    killall -q waybar
-    sleep 0.5
-    swaymsg exec waybar &
-    
-    notify-send "BunkerOS" "Workspace style: $(get_style_name "$style")"
+    # Restart waybar to apply changes (unless --no-restart flag is set)
+    if [ "$no_restart" != "--no-restart" ]; then
+        killall -q waybar
+        sleep 0.5
+        swaymsg exec waybar &
+        notify-send "BunkerOS" "Workspace style: $(get_style_name "$style")"
+    fi
 }
 
 toggle_style() {
@@ -159,7 +161,7 @@ toggle_style() {
         new_style="bottom-border"
     fi
     
-    apply_workspace_style "$new_style"
+    apply_workspace_style "$new_style" ""
 }
 
 show_menu() {
@@ -211,10 +213,10 @@ case "${1:-toggle}" in
         ;;
     apply)
         if [ -z "$2" ]; then
-            echo "Usage: $0 apply STYLE_NAME"
+            echo "Usage: $0 apply STYLE_NAME [--no-restart]"
             exit 1
         fi
-        apply_workspace_style "$2"
+        apply_workspace_style "$2" "$3"
         ;;
     *)
         echo "Usage: $0 [toggle|menu|list|current|apply STYLE_NAME]"
