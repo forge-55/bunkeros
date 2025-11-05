@@ -68,9 +68,7 @@ See [INSTALL.md](INSTALL.md) for detailed instructions. This approach gives you 
 - Web app manager
 - Interactive keybinding manager
 - Video conferencing ready
-- Lightweight resource usage (~280 MB RAM at idle)*
-
-*Resource usage may vary depending on hardware and running applications
+- Lightweight and efficient resource usage
 
 ## Documentation
 

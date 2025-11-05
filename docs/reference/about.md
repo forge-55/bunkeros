@@ -92,7 +92,7 @@ The installation scripts check for compatibility and warn about potential confli
 - Keyboard-driven tiling window manager
 - Intelligent autotiling (COSMIC-like behavior)
 - Production-ready stability
-- Lightweight resource usage (~280 MB RAM)
+- Lightweight and efficient resource usage
 
 ### Tactical Discipline
 - Tactical color schemes and professional theming
@@ -174,12 +174,10 @@ BunkerOS provides a complete, polished Sway desktop environment while maintainin
 
 ## Performance Profile
 
-### Default Configuration (Minimal Effects)
-- **RAM**: ~332 MB at idle
 ## Resource Usage
 
 ### Vanilla Sway Configuration
-- **RAM**: ~280 MB at idle
+- **Memory**: Lightweight and efficient
 - **GPU**: Minimal overhead (~2-5%)
 - **Effects**: None - clean, flat design
 - **Target**: All hardware (2012+)

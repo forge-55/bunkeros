@@ -90,7 +90,7 @@ Key optimizations for productivity workflows:
 
 1. **Lightweight Environment**: Vanilla Sway is extremely efficient compared to traditional DEs
 2. **Optimized Configuration**: System tuned for productivity workflows and responsiveness
-3. **Minimal Resource Usage**: ~280 MB RAM at idle
+3. **Minimal Resource Usage**: Lightweight and efficient memory footprint
 4. **Curated Package Selection**: Only essential packages, reducing bloat
 
 These optimizations combine with BunkerOS's focused environment for exceptional performance.
@@ -103,12 +103,12 @@ These optimizations combine with BunkerOS's focused environment for exceptional 
 - 4GB+ RAM systems
 - Any Intel/AMD/NVIDIA GPU
 
-The vanilla Sway configuration (~280 MB RAM) works on essentially all hardware while maintaining a clean, professional appearance.
+The vanilla Sway configuration works on essentially all hardware while maintaining a clean, professional appearance with minimal resource usage.
 
 ### What's the resource usage?
 
 **BunkerOS (Vanilla Sway)**:
-- RAM: ~280 MB at idle
+- RAM: Lightweight and efficient
 - GPU: Minimal overhead (~2-5%)
 - Effects: None - clean, flat design
 - Behavior: Rock-solid stability, zero visual artifacts
