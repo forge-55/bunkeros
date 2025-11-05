@@ -191,27 +191,39 @@ show_quote() {
     done
 }
 
-# Display Tux with starfield
-show_tux() {
+# Display Arch Linux logo with starfield
+show_arch_tribute() {
     clear
     cols=$(tput cols)
     lines=$(tput lines)
     
-    declare -a tux_lines=(
-        '    .--.'
-        '   |o_o |'
-        '   |:_/ |'
-        '  //   \ \'
-        ' (|     | )'
-        '/'"'"'\_   _/`\'
-        '\___)=(___/'
+    declare -a arch_lines=(
+        '                   -`'
+        '                  .o+`'
+        '                 `ooo/'
+        '                `+oooo:'
+        '               `+oooooo:'
+        '               -+oooooo+:'
+        '             `/:-:++oooo+:'
+        '            `/++++/+++++++:'
+        '           `/++++++++++++++:'
+        '          `/+++ooooooooooooo/`'
+        '         ./ooosssso++osssssso+`'
+        '        .oossssso-````/ossssss+`'
+        '       -osssssso.      :ssssssso.'
+        '      :osssssss/        osssso+++.'
+        '     /ossssssss/        +ssssooo/-'
+        '   `/ossssso+/:-        -:/+osssso+-'
+        '  `+sso+:-`                 `.-/+oso:'
+        ' `++:.                           `-/+/'
+        ' .`                                 `/'
     )
     
-    content_height=$((${#tux_lines[@]} + 6))
+    content_height=$((${#arch_lines[@]} + 6))
     start_row=$(( (lines - content_height) / 2 ))
     end_row=$((start_row + content_height))
     
-    max_length=40
+    max_length=50
     content_left=$(( (cols - max_length) / 2 ))
     content_right=$((content_left + max_length))
     
@@ -238,9 +250,9 @@ show_tux() {
             fi
         done
         
-        # Redraw content
+        # Redraw content - Arch logo in Arch blue
         current_row=$start_row
-        for line in "${tux_lines[@]}"; do
+        for line in "${arch_lines[@]}"; do
             tput cup $current_row 0
             line_length=${#line}
             spaces=$(( (cols - line_length) / 2 ))
@@ -252,17 +264,17 @@ show_tux() {
         done
         
         current_row=$((current_row + 2))
-        timeline="LINUX: 1991 - $CURRENT_YEAR"
+        timeline="ARCH LINUX: 2002 - $CURRENT_YEAR"
         timeline_length=${#timeline}
         spaces=$(( (cols - timeline_length) / 2 ))
         tput cup $current_row 0
         if [[ $spaces -gt 0 ]]; then
             printf "%*s" $spaces ""
         fi
-        printf "%s%s%s" "$BRIGHT_GREEN" "$timeline" "$RESET"
+        printf "%s%s%s" "$BRIGHT_CYAN" "$timeline" "$RESET"
         
         ((current_row++))
-        tagline="Powering Freedom for Over 30 Years"
+        tagline="Built by Users, For Users"
         tagline_length=${#tagline}
         spaces=$(( (cols - tagline_length) / 2 ))
         tput cup $current_row 0
@@ -281,6 +293,6 @@ while true; do
     fade_transition
     show_quote
     fade_transition
-    show_tux
+    show_arch_tribute
     fade_transition
 done
