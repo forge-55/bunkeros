@@ -45,8 +45,10 @@ case $chosen in
         ;;
     "󰤄  Suspend")
         # Lock screen BEFORE suspend (Omarchy pattern)
-        swaylock -f &
-        sleep 0.5
+        # Script runs convert then swaylock -f daemonizes, so this returns immediately
+        ~/.local/bin/bunkeros-lock
+        # Brief pause to ensure lock is showing before suspend
+        sleep 0.2
         systemctl suspend
         ;;
     "󰍃  Logout")
