@@ -2,10 +2,6 @@
 # BunkerOS Screensaver - Linux is Freedom with starfield background
 # Multi-monitor safe: Each instance gets unique random seed
 
-# Debug logging
-LOGFILE="/tmp/screensaver-debug-$$.log"
-echo "$(date): Screensaver starting, PID=$$" >> "$LOGFILE"
-
 # Get a unique seed based on the terminal window ID or PID
 # This ensures each monitor gets different star positions
 RANDOM_SEED=$$
@@ -17,42 +13,19 @@ MAIN_PID=$$
 # Hide cursor and setup cleanup
 tput civis  # Hide terminal cursor
 printf '\033[?25l'  # Extra cursor hide escape sequence
-trap 'echo "$(date): EXIT trap triggered" >> "$LOGFILE"; tput cnorm; printf "\033[?25h"; clear; stty sane 2>/dev/null; exit' EXIT INT TERM
+trap 'tput cnorm; printf "\033[?25h"; clear; stty sane 2>/dev/null; exit' EXIT INT TERM
 
-# Set up terminal for input detection
+# Set up terminal for clean display
 # -echo: don't echo input
 # -icanon: read character by character  
-# Only set if we have a TTY
 if [ -t 0 ]; then
     stty -echo -icanon 2>/dev/null || true
-    echo "$(date): TTY detected, stty configured" >> "$LOGFILE"
-else
-    echo "$(date): No TTY on stdin!" >> "$LOGFILE"
 fi
 
-# Give the terminal a moment to fully initialize before monitoring input
-# This prevents the window opening event from triggering exit
-echo "$(date): Sleeping 1.5s..." >> "$LOGFILE"
-sleep 1.5
+# Give the terminal a moment to fully initialize
+sleep 2
 
-# Clear any buffered input that might have accumulated during launch
-echo "$(date): Clearing buffered input..." >> "$LOGFILE"
-while read -r -t 0.01 -n 1; do echo "$(date): Cleared a buffered char" >> "$LOGFILE"; done 2>/dev/null
-
-# Start input monitor using /dev/tty directly to avoid stdin issues
-echo "$(date): Starting input monitor on /dev/tty" >> "$LOGFILE"
-(
-    echo "$(date): Input monitor waiting for input..." >> "$LOGFILE"
-    # Read directly from /dev/tty to avoid stdin being closed
-    if read -r -n 1 < /dev/tty 2>/dev/null; then
-        echo "$(date): Input received! Killing $MAIN_PID" >> "$LOGFILE"
-        kill -TERM $MAIN_PID 2>/dev/null
-    else
-        echo "$(date): Read from /dev/tty failed" >> "$LOGFILE"
-    fi
-) &
-INPUT_MONITOR_PID=$!
-echo "$(date): Input monitor PID=$INPUT_MONITOR_PID" >> "$LOGFILE"
+# No input monitor needed - swayidle's resume action will kill us when user is active
 
 # Colors
 YELLOW=$(tput bold; tput setaf 3)
