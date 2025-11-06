@@ -4,7 +4,9 @@
 
 exec google-chrome-stable \
     --disable-features=WebUITabStrip,ChromeRefresh2023 \
+    --enable-features=UseOzonePlatform,WebUIDarkMode,WaylandWindowDecorations \
+    --ozone-platform=wayland \
+    --enable-wayland-ime \
     --force-dark-mode \
-    --enable-features=WebUIDarkMode \
-    --ozone-platform-hint=auto \
+    --gtk-version=4 \
     "$@"

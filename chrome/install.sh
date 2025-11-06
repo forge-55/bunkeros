@@ -23,10 +23,12 @@ done
 # Google Chrome - use chrome-flags.conf
 cat > "$CONFIG_DIR/chrome-flags.conf" << 'EOF'
 --disable-features=WebUITabStrip,ChromeRefresh2023
+--enable-features=UseOzonePlatform,WebUIDarkMode
+--ozone-platform=wayland
+--enable-wayland-ime
 --force-dark-mode
---enable-features=WebUIDarkMode
---ozone-platform-hint=auto
 --gtk-version=4
+--use-system-title-bar
 EOF
 
 echo "✓ Created $CONFIG_DIR/chrome-flags.conf"
@@ -34,10 +36,12 @@ echo "✓ Created $CONFIG_DIR/chrome-flags.conf"
 # Chromium - use chromium-flags.conf
 cat > "$CONFIG_DIR/chromium-flags.conf" << 'EOF'
 --disable-features=WebUITabStrip,ChromeRefresh2023
+--enable-features=UseOzonePlatform,WebUIDarkMode
+--ozone-platform=wayland
+--enable-wayland-ime
 --force-dark-mode
---enable-features=WebUIDarkMode
---ozone-platform-hint=auto
 --gtk-version=4
+--use-system-title-bar
 EOF
 
 echo "✓ Created $CONFIG_DIR/chromium-flags.conf"
@@ -45,10 +49,12 @@ echo "✓ Created $CONFIG_DIR/chromium-flags.conf"
 # Brave Browser (native package)
 cat > "$CONFIG_DIR/brave-flags.conf" << 'EOF'
 --disable-features=WebUITabStrip,ChromeRefresh2023
+--enable-features=UseOzonePlatform,WebUIDarkMode
+--ozone-platform=wayland
+--enable-wayland-ime
 --force-dark-mode
---enable-features=WebUIDarkMode
---ozone-platform-hint=auto
 --gtk-version=4
+--use-system-title-bar
 EOF
 
 echo "✓ Created $CONFIG_DIR/brave-flags.conf"
@@ -65,10 +71,12 @@ if command -v flatpak &> /dev/null && flatpak list | grep -q com.brave.Browser; 
     
     cat > "$BRAVE_FLATPAK_CONFIG/brave-flags.conf" << 'EOF'
 --disable-features=WebUITabStrip,ChromeRefresh2023
+--enable-features=UseOzonePlatform,WebUIDarkMode
+--ozone-platform=wayland
+--enable-wayland-ime
 --force-dark-mode
---enable-features=WebUIDarkMode
---ozone-platform-hint=auto
 --gtk-version=4
+--use-system-title-bar
 EOF
     
     echo "✓ Created $BRAVE_FLATPAK_CONFIG/brave-flags.conf (Flatpak)"
