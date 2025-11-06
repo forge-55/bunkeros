@@ -1,5 +1,19 @@
 /* Tactical Theme GTK 4.0 Overrides */
 
+/* Remove rounded corners from Chrome/Chromium browsers
+ * This fixes the visual mismatch between Sway's square borders
+ * and Chrome's rounded decorations
+ */
+decoration,
+window {
+    border-radius: 0 !important;
+}
+
+/* Ensure window decorations are also square */
+headerbar {
+    border-radius: 0 !important;
+}
+
 * {
     outline-color: #C3B091;
     outline-width: 2px;
