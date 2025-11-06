@@ -12,18 +12,24 @@ core.reload_module("colors.bunkeros-tactical")
 config.fps = 60
 config.max_log_items = 80
 config.message_timeout = 5
+config.animation_rate = 1.0  -- Default speed
+config.disabled_transitions = {
+  -- Disable only the slowest transitions, keep smooth scrolling
+  scroll = false,  -- Keep smooth scrolling (feels professional)
+  commandview = true,  -- Instant command palette
+  contextmenu = true,  -- Instant menus
+  logview = true,  -- Instant log
+}
 
 -- Editor preferences
 config.line_height = 1.4
 config.indent_size = 4
 config.tab_type = "soft"  -- Use spaces
 config.line_limit = 100
+config.scroll_past_end = true  -- Smooth scrolling to end of file
 
 -- Always show line numbers
 config.line_numbers = true
-
--- Disable animations for instant responsiveness (tactical discipline)
-config.transitions = false
 
 -- File browser (tree view)
 config.treeview_size = 200 * SCALE
