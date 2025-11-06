@@ -99,6 +99,44 @@ This directory contains all utility scripts for BunkerOS installation, configura
   - GPU information
   - Driver details
 
+## Power & Performance Optimization ⚡ NEW
+
+### Advanced Performance Suite
+- **`install-advanced-performance.sh`** ⭐ **ALL-IN-ONE OPTIMIZER**
+  - Runs all performance optimization scripts
+  - Configures GPU, I/O, and kernel parameters
+  - Interactive installer with verification
+  - **Use this to upgrade existing systems to full optimization**
+
+### Individual Optimization Scripts
+- **`configure-gpu-power.sh`** - GPU power management
+  - Auto-detects Intel/AMD/Nvidia GPUs
+  - Enables runtime power management
+  - Configures vendor-specific power features
+  - Saves 2-8W at idle
+
+- **`configure-io-scheduler.sh`** - I/O scheduler optimization
+  - Detects NVMe/SSD/HDD storage types
+  - Sets optimal I/O scheduler per device
+  - Configures read-ahead and queue depth
+  - Improves performance 15-25%
+
+- **`install-power-management.sh`** - Core power management (EXISTING)
+  - Installs auto-cpufreq
+  - Configures systemd-logind
+  - Sets up profile switching
+  - Base CPU frequency management
+
+### Power Analysis Tools
+- **`power-usage-report.sh`** - Power consumption diagnostics (PLANNED)
+- **`benchmark-power-performance.sh`** - Performance benchmarking (PLANNED)
+
+**Documentation:**
+- User Guide: `../docs/features/power-optimization.md`
+- Technical Details: `../docs/development/performance-optimization-plan.md`
+- Quick Reference: `../docs/PERFORMANCE-OPTIMIZATION.md`
+
+
 ### Display Scaling
 - **`configure-display-scaling.sh`** - Manual scaling configuration
 - **`auto-scaling-service-v2.sh`** - Automatic scaling (runs on login)

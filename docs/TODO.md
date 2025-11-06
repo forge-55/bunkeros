@@ -1,5 +1,15 @@
 #FEATURES
 1. Second private repository for specific apps apps and keybindings, with helper script in menu
+2. ✅ COMPLETED: Comprehensive performance optimization (Pop!_OS parity achieved)
+   - GPU power management (Intel/AMD/Nvidia)
+   - I/O scheduler optimization (NVMe/SSD/HDD)
+   - Kernel parameter tuning (sysctl)
+   - Network stack optimization (TCP BBR)
+   - See: docs/features/power-optimization.md
+3. Future: Per-application power profiles (auto-switch based on running apps) 
+
+#IMPROVEMENTS
+1. Better structure to project directories
 
 #DESIGN
 1. Improve wallpaper and design of all themes, with better color and brightness. Maybe opting for abstract style.
