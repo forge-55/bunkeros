@@ -65,6 +65,7 @@ See [INSTALL.md](INSTALL.md) for detailed instructions. This approach gives you 
 - 5 custom themes (Tactical, Night-Ops, Sahara, Abyss, Winter)
 - Adaptive display scaling for HiDPI
 - Multi-monitor support (1-5 displays)
+- MacBook-quality touchpad support (tap-to-click, gestures)
 - Web app manager
 - Interactive keybinding manager
 - Video conferencing ready
