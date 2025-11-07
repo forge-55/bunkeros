@@ -17,7 +17,8 @@ The archinstall profile will:
 3. Clone the BunkerOS repository to `~/.local/share/bunkeros`
 4. Set up all BunkerOS configurations with symlinks
 5. Install and configure SDDM display manager
-6. Enable necessary system and user services
+6. Configure Plymouth boot splash with official Arch Linux logo
+7. Enable necessary system and user services
 
 ## Files
 

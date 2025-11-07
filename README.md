@@ -63,6 +63,7 @@ See [INSTALL.md](INSTALL.md) for detailed instructions. This approach gives you 
 
 - Sway with intelligent autotiling
 - 5 custom themes (Tactical, Night-Ops, Sahara, Abyss, Winter)
+- Plymouth boot splash with official Arch Linux logo
 - Adaptive display scaling for HiDPI
 - Multi-monitor support (1-5 displays)
 - MacBook-quality touchpad support (tap-to-click, gestures)

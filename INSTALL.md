@@ -121,6 +121,7 @@ If you don't have Arch installed yet, follow the guide below:
 - Configures user environment (PipeWire, services, etc.)
 - Installs and enables SDDM display manager
 - Sets up themed login screen
+- Configures Plymouth boot splash with official Arch Linux logo
 
 **After installation:**
 ```bash
@@ -128,6 +129,27 @@ sudo reboot
 ```
 
 Select "BunkerOS" at the SDDM login screen and enjoy!
+
+### Boot Splash Configuration
+
+BunkerOS includes Plymouth boot splash with the official Arch Linux logo by default. During boot and encryption password entry, you'll see a professional animated logo instead of text messages.
+
+**Managing Plymouth:**
+```bash
+# Check status
+~/bunkeros/scripts/plymouth-toggle.sh status
+
+# Disable boot splash (faster boot)
+~/bunkeros/scripts/plymouth-toggle.sh disable
+
+# Re-enable boot splash
+~/bunkeros/scripts/plymouth-toggle.sh enable
+
+# Remove completely
+~/bunkeros/scripts/plymouth-toggle.sh remove
+```
+
+**Note:** Changes require a reboot to take effect.
 
 ---
 
@@ -143,6 +165,7 @@ The installer features:
 - **User environment**: Configures PipeWire and other user services
 - **SDDM installation**: Installs and configures display manager
 - **Theme setup**: Installs BunkerOS login screen theme
+- **Boot splash**: Configures Plymouth with official Arch Linux logo
 
 **If installation is interrupted**, simply re-run `./install.sh` and it will resume from the last successful checkpoint.
 

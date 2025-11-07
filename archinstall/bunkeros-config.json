@@ -59,6 +59,7 @@
     "qt5-declarative",
     "qt5-quickcontrols2",
     "ttf-meslo-nerd",
+    "plymouth",
     "xdg-desktop-portal",
     "xdg-desktop-portal-wlr",
     "xdg-desktop-portal-gtk",

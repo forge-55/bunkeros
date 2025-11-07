@@ -313,6 +313,74 @@ fix_current_session() {
     fi
 }
 
+# Configure Plymouth boot splash
+configure_plymouth_boot_splash() {
+    info "Configuring Plymouth boot splash with Arch Linux logo..."
+    
+    # Check if Plymouth theme is installed
+    if ! pacman -Q plymouth-theme-arch-charge &>/dev/null; then
+        warning "Plymouth theme not installed yet, skipping configuration"
+        return 0
+    fi
+    
+    # Set the arch-charge theme
+    info "Setting Plymouth theme to arch-charge..."
+    if sudo plymouth-set-default-theme arch-charge 2>&1 | tee -a "$LOG_FILE"; then
+        success "Plymouth theme set to arch-charge"
+    else
+        warning "Failed to set Plymouth theme"
+        return 1
+    fi
+    
+    # Regenerate initramfs for current kernel
+    info "Regenerating initramfs..."
+    if sudo mkinitcpio -p linux 2>&1 | tee -a "$LOG_FILE"; then
+        success "Initramfs regenerated for linux kernel"
+    else
+        warning "Failed to regenerate initramfs for linux kernel"
+    fi
+    
+    # Handle LTS kernel if present
+    if pacman -Q linux-lts &>/dev/null; then
+        info "LTS kernel detected, regenerating LTS initramfs..."
+        if sudo mkinitcpio -p linux-lts 2>&1 | tee -a "$LOG_FILE"; then
+            success "Initramfs regenerated for linux-lts kernel"
+        else
+            warning "Failed to regenerate LTS initramfs"
+        fi
+    fi
+    
+    # Add splash parameter to boot entries
+    info "Adding splash parameter to boot entries..."
+    local entries_updated=0
+    
+    for entry in /boot/loader/entries/*.conf; do
+        if [[ -f "$entry" ]]; then
+            # Check if splash is already in options
+            if ! grep -q "splash" "$entry"; then
+                # Add splash to kernel options
+                if sudo sed -i 's/options /options splash /' "$entry"; then
+                    info "Added 'splash' to $(basename "$entry")"
+                    ((entries_updated++))
+                else
+                    warning "Failed to update $(basename "$entry")"
+                fi
+            else
+                info "Splash already configured in $(basename "$entry")"
+            fi
+        fi
+    done
+    
+    if [[ $entries_updated -gt 0 ]]; then
+        success "Updated $entries_updated boot entries with splash parameter"
+    fi
+    
+    info "Plymouth boot splash configuration complete!"
+    info "The official Arch Linux logo will appear during boot and encryption prompts"
+    
+    return 0
+}
+
 # Main installation function
 main() {
     cat << "EOF"
@@ -404,7 +472,7 @@ EOF
     
     local system_packages=(
         sddm qt5-declarative qt5-quickcontrols2 ttf-meslo-nerd 
-        xdg-desktop-portal python-pipx
+        xdg-desktop-portal python-pipx plymouth
     )
     
     # Desktop portal packages (need special handling due to file conflicts)
@@ -415,6 +483,7 @@ EOF
     local aur_packages=(
         swayosd-git
         auto-cpufreq
+        plymouth-theme-arch-charge
     )
     
     # Install package groups
@@ -618,6 +687,16 @@ EOF
     
     save_checkpoint "sddm_installed"
     
+    # Configure Plymouth boot splash
+    echo ""
+    info "Configuring Plymouth boot splash..."
+    if configure_plymouth_boot_splash 2>&1 | tee -a "$LOG_FILE"; then
+        success "Plymouth boot splash configured"
+    else
+        warning "Plymouth configuration failed (non-critical)"
+    fi
+    save_checkpoint "plymouth_configured"
+    
     # Display completion message
     display_completion_message
     
@@ -654,6 +733,7 @@ display_completion_message() {
    • Configuration backup: $BACKUP_DIR
    • Installation log: $LOG_FILE
    • SDDM display manager: Installed
+   • Plymouth boot splash: Configured with Arch Linux logo
 
 🎯 Next Steps:
 

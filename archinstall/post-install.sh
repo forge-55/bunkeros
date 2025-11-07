@@ -76,6 +76,41 @@ arch-chroot "$INSTALL_ROOT" /bin/bash -c "
 echo "  ✓ User services enabled"
 echo ""
 
+echo "Step 6: Installing Plymouth boot splash..."
+# Install Plymouth theme from AUR and configure it
+arch-chroot "$INSTALL_ROOT" /bin/bash -c "
+    # Install yay if not present
+    if ! command -v yay &>/dev/null; then
+        cd /tmp
+        sudo -u $USERNAME git clone https://aur.archlinux.org/yay.git
+        cd yay
+        sudo -u $USERNAME makepkg -si --noconfirm
+        cd /
+        rm -rf /tmp/yay
+    fi
+    
+    # Install Plymouth theme
+    sudo -u $USERNAME yay -S --noconfirm plymouth-theme-arch-charge
+    
+    # Configure Plymouth
+    plymouth-set-default-theme arch-charge
+    mkinitcpio -p linux
+    
+    # Handle LTS kernel if present
+    if pacman -Q linux-lts &>/dev/null; then
+        mkinitcpio -p linux-lts
+    fi
+    
+    # Add splash to boot entries  
+    for entry in /boot/loader/entries/*.conf; do
+        if [[ -f \"\$entry\" ]] && ! grep -q \"splash\" \"\$entry\"; then
+            sed -i 's/options /options splash /' \"\$entry\"
+        fi
+    done
+"
+echo "  ✓ Plymouth boot splash configured"
+echo ""
+
 echo "=== BunkerOS Installation Complete ==="
 echo ""
 echo "Next steps:"
