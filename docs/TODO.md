@@ -19,3 +19,4 @@
 1. Screensaver and suspend logic
 2. Autoscaling for different resolutions
 3. All configuration working in a fresh install
+4. Arch Linux logo visible on boot
