@@ -6,10 +6,11 @@
    - Kernel parameter tuning (sysctl)
    - Network stack optimization (TCP BBR)
    - See: docs/features/power-optimization.md
-3. Future: Per-application power profiles (auto-switch based on running apps) 
+3. Future: Per-application power profiles (auto-switch based on running apps)
 
 #IMPROVEMENTS
 1. Better structure to project directories
+2. Multi-monitor support
 
 #DESIGN
 1. Improve wallpaper and design of all themes, with better color and brightness. Maybe opting for abstract style.
