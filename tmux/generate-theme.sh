@@ -81,35 +81,30 @@ cat > "$TMUX_THEME_FILE" << EOF
 # Auto-generated for theme: $BUNKEROS_THEME
 # Generated: $(date)
 
-# Theme color variables
-set -g @bunkeros_bg_main "$BG_MAIN"
-set -g @bunkeros_bg_secondary "$BG_SECONDARY"
-set -g @bunkeros_fg_primary "$FG_PRIMARY"
-set -g @bunkeros_accent_primary "$ACCENT_PRIMARY"
-set -g @bunkeros_accent_secondary "$ACCENT_SECONDARY"
-set -g @bunkeros_accent_muted "$ACCENT_MUTED"
-set -g @bunkeros_urgent "$URGENT"
-
-# Status bar colors
+# Override default colors with theme-specific colors
 set -g status-bg "$BG_MAIN"
 set -g status-fg "$FG_PRIMARY"
 
-# Window status colors
-setw -g window-status-style "fg=$ACCENT_MUTED"
-setw -g window-status-current-style "bg=$ACCENT_SECONDARY,fg=$FG_PRIMARY,bold"
+# Status bar with theme colors
+set -g status-left "#[bg=$ACCENT_SECONDARY,fg=$FG_PRIMARY,bold] ❯ #S #[bg=$BG_MAIN] "
+set -g status-right "#[fg=$ACCENT_MUTED]#{?client_prefix, PREFIX ,}#[fg=$FG_PRIMARY]#{?#{e|>:#{battery_percentage},0}, #[fg=$ACCENT_PRIMARY]⚡ #{battery_percentage}% ,}#[fg=$FG_PRIMARY]| #[fg=$ACCENT_PRIMARY]%Y-%m-%d #[fg=$FG_PRIMARY]| #[fg=$ACCENT_PRIMARY,bold]%H:%M "
 
-# Pane borders
+# Window status with theme colors
+setw -g window-status-format "#[fg=$ACCENT_MUTED] #I#[fg=$FG_PRIMARY]:#W#{?window_zoomed_flag, 🔍,}#F "
+setw -g window-status-current-format "#[bg=$ACCENT_SECONDARY,fg=$FG_PRIMARY,bold] #I:#W#{?window_zoomed_flag, 🔍,}#F #[bg=$BG_MAIN] "
+
+# Pane borders with theme colors
 set -g pane-border-style "fg=$ACCENT_MUTED"
 set -g pane-active-border-style "fg=$ACCENT_SECONDARY"
 
-# Message colors
+# Message colors with theme
 set -g message-style "bg=$ACCENT_SECONDARY,fg=$FG_PRIMARY,bold"
 set -g message-command-style "bg=$BG_SECONDARY,fg=$FG_PRIMARY"
 
-# Copy mode colors
+# Copy mode colors with theme
 set -g mode-style "bg=$ACCENT_SECONDARY,fg=$FG_PRIMARY"
 
-# Clock color
+# Clock color with theme
 set -g clock-mode-colour "$ACCENT_PRIMARY"
 EOF
 
