@@ -4,11 +4,11 @@
 
 ### What is BunkerOS?
 
-BunkerOS is a productivity-hardened, vanilla Arch-based Linux distribution with custom optimizations for a tactical, Sway-based computing environment. It's designed for users seeking distraction-free, mission-focused productivity.
+BunkerOS is a productivity-hardened configuration layer for Arch Linux that provides a tactical, Sway-based computing environment. It's designed for users seeking distraction-free, mission-focused productivity.
 
 ### Is BunkerOS based on Arch Linux?
 
-**Yes**. BunkerOS is a vanilla Arch-based distribution with custom optimizations.
+**Yes**. BunkerOS is a configuration layer that runs on minimal Arch Linux with custom optimizations.
 
 Think of it in layers:
 - **Foundation**: Arch Linux (rolling release, AUR, proven ecosystem)
@@ -29,7 +29,7 @@ This allows BunkerOS to implement targeted performance enhancements specifically
 
 **Vanilla Arch** is a minimal, do-it-yourself distribution that gives you a blank slate.
 
-**BunkerOS** is a productivity-focused distribution that:
+**BunkerOS** is a productivity-focused configuration layer that:
 - Uses only Sway compositor (no traditional DEs)
 - Emphasizes distraction-free, keyboard-driven workflows
 - Features tactical theming and discipline
@@ -39,7 +39,7 @@ This allows BunkerOS to implement targeted performance enhancements specifically
 
 ### Do I get access to the AUR?
 
-**Yes**. As an Arch-based distribution, BunkerOS has full access to the Arch User Repository (AUR) and all standard Arch packages.
+**Yes**. Since BunkerOS runs on Arch Linux, you have full access to the Arch User Repository (AUR) and all standard Arch packages.
 
 ### What's BunkerOS's relationship with Arch Linux?
 
@@ -247,7 +247,7 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for detailed technical roadmap.
 
 ### Can I use BunkerOS configuration on vanilla Arch?
 
-**Yes**. The BunkerOS environment (Sway config, themes, scripts) is designed for vanilla Arch and can be installed on any standard Arch-based system following the installation guide.
+**Yes**. The BunkerOS environment (Sway config, themes, scripts) is designed specifically for minimal Arch Linux installations following the installation guide.
 
 ---
 

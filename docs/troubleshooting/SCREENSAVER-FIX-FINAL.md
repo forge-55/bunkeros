@@ -42,7 +42,7 @@
    - Removed `sticky` from initial window rules (applied after positioning)
 
 2. **`~/Projects/bunkeros/scripts/launch-screensaver.sh`**
-   - Complete rewrite using Omarchy-inspired simple approach
+   - Complete rewrite using simplified multi-monitor approach
    - Multi-monitor support via output enumeration
    - Unique app_id per output
    - Background launching with proper wait
@@ -121,9 +121,9 @@ This is **by design** and is **NOT a problem** because:
 - `man swayidle` section on `-w` flag
 - `man logind.conf` section on `InhibitDelayMaxSec`
 
-### Why Omarchy's Approach Works
+### Why This Approach Works
 
-Omarchy uses **hypridle** (Hyprland's equivalent of swayidle) with this pattern:
+Modern compositors use dedicated idle managers with this pattern:
 
 ```
 listener {
@@ -191,7 +191,7 @@ After applying these fixes:
 
 ## 📚 References
 
-- Omarchy screensaver implementation (GitHub)
+- Modern compositor idle management patterns
 - Hyprland hypridle documentation
 - swayidle man pages
 - systemd-logind inhibitor system

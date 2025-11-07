@@ -1,6 +1,6 @@
 # BunkerOS Installation Guide
 
-BunkerOS is a configuration layer that runs on top of Arch Linux or Arch-based distributions. This guide covers both installation methods.
+BunkerOS is a configuration layer that runs on top of minimal Arch Linux. This guide covers both installation methods.
 
 ## Installation Methods
 
@@ -41,11 +41,11 @@ If you already have Arch Linux installed, or want to install Arch manually first
 
 ## Prerequisites
 
-You need a base Arch Linux installation before installing BunkerOS. This can be:
+You need a minimal Arch Linux installation before installing BunkerOS:
 - Vanilla Arch Linux (following the [official installation guide](https://wiki.archlinux.org/title/Installation_guide))
-- Minimal Arch-based distribution (CachyOS, EndeavourOS, etc.)
+- Arch Linux installed via archinstall with minimal profile
 
-**Important:** BunkerOS works best on minimal installations without a pre-installed desktop environment. If you have an existing DE/WM, BunkerOS will add its Sway configuration alongside it.
+**Important:** BunkerOS is designed for minimal Arch installations without a pre-installed desktop environment. If you have an existing DE/WM, BunkerOS will add its Sway configuration alongside it, but this is not the intended experience.
 
 BunkerOS will add the Sway window manager and productivity tools to your existing system.
 
@@ -72,13 +72,13 @@ Your base Arch installation remains intact - BunkerOS adds a layer on top.
 - CPU: x86-64 compatible (modern processors recommended)
 - Disk: 20GB free space (2GB minimum for installation)
 - Network: Active internet connection required
-- OS: Arch Linux or minimal Arch-based distribution (required)
+- OS: Minimal Arch Linux (required)
 
 ---
 
 ## Installing BunkerOS on Existing Arch System
 
-If you already have a minimal Arch Linux installation (or Arch-based distribution), you can install BunkerOS directly:
+If you already have a minimal Arch Linux installation, you can install BunkerOS directly:
 
 ```bash
 # Connect to internet (if WiFi)

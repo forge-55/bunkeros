@@ -1,5 +1,5 @@
 #!/bin/bash
-# BunkerOS Screensaver Launch Script - Omarchy-Inspired Simple Approach
+# BunkerOS Screensaver Launch Script
 
 # Path to screensaver command script
 SCREENSAVER_CMD="$HOME/.config/sway-config/scripts/bunkeros-screensaver.sh"

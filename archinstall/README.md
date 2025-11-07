@@ -214,5 +214,5 @@ You maintain full control and transparency at every step.
 
 - [BunkerOS Installation Guide](../INSTALL.md) - Manual installation process
 - [BunkerOS Architecture](../docs/development/architecture.md) - How BunkerOS works
-- [Configuration Layer Philosophy](../docs/reference/vs-omarchy.md) - Our design approach
+- [BunkerOS Architecture](../docs/development/architecture.md) - Our design approach
 - [Arch Wiki: archinstall](https://wiki.archlinux.org/title/Archinstall) - Official documentation

@@ -130,7 +130,7 @@ seat * hide_cursor 3000
 
 ### Idle configuration
 #
-# Following Omarchy's three-stage approach:
+# Three-stage security approach:
 # Stage 1: Screensaver (visual only) - 5 minutes
 # Stage 2: Lock screen (security) - automatically before suspend
 # Stage 3: Suspend - 10 minutes
@@ -203,7 +203,7 @@ input type:touchpad {
 
     # Quick actions menu
     bindsym $mod+m exec ~/.config/waybar/scripts/main-menu.sh
-    bindsym $mod+Mod1+space exec ~/.config/waybar/scripts/main-menu.sh  # Alternative (Omarchy-style)
+    bindsym $mod+Mod1+space exec ~/.config/waybar/scripts/main-menu.sh  # Alternative shortcut
 
     # Launch terminal
     bindsym $mod+t exec $term

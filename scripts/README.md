@@ -51,7 +51,7 @@ This directory contains all utility scripts for BunkerOS installation, configura
 
 ### Diagnostic Tools
 - **`check-compatibility.sh`** - Pre-installation check
-  - Verifies Arch-based system
+  - Verifies Arch Linux system
   - Checks disk space
   - Validates internet connection
 

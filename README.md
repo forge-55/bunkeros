@@ -8,11 +8,11 @@ Read more at [bunkeros.com](https://bunkeros.com).
 
 ## What is BunkerOS?
 
-BunkerOS is a configuration layer for Arch Linux that provides a productivity-focused Sway desktop environment. Rather than being a standalone distribution, BunkerOS is installed on top of your existing Arch Linux (or Arch-based) system.
+BunkerOS is a configuration layer for Arch Linux that provides a productivity-focused Sway desktop environment. Rather than being a standalone distribution, BunkerOS is installed on top of your minimal Arch Linux system.
 
 ### How It Works
 
-1. You install vanilla Arch Linux or an Arch-based distribution (like CachyOS, EndeavourOS, etc.)
+1. You install minimal Arch Linux (using archinstall or manual installation)
 2. You run the BunkerOS installation scripts
 3. BunkerOS symlinks its configurations to your system (visible in the git repo)
 4. You get a complete Sway environment with curated productivity tools

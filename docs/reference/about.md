@@ -2,7 +2,7 @@
 
 ## What is BunkerOS?
 
-BunkerOS is a configuration layer for Arch Linux that provides a productivity-focused Sway desktop environment. Rather than being a standalone distribution, BunkerOS is installed on top of your existing Arch Linux (or Arch-based) system.
+BunkerOS is a configuration layer for Arch Linux that provides a productivity-focused Sway desktop environment. Rather than being a standalone distribution, BunkerOS is installed on top of your minimal Arch Linux system.
 
 Built on vanilla Arch Linux with transparent, symlinked configurations, BunkerOS combines performance with disciplined productivity workflows. It delivers a distraction-free, tactical computing environment that values operational excellence over visual flourish.
 
@@ -23,15 +23,15 @@ We believe:
 BunkerOS is fundamentally a configuration layer rather than a standalone Linux distribution:
 
 **What this means:**
-- BunkerOS runs on top of vanilla Arch Linux or Arch-based distributions
-- Users install their preferred base system first
+- BunkerOS runs on top of minimal Arch Linux installations
+- Users install Arch Linux first (via archinstall or manual installation)
 - BunkerOS adds a curated Sway environment and productivity tools
 - Standard Arch package management and workflows remain unchanged
 - All configurations are transparent and user-auditable
 
 **Why this approach:**
 - **Respects Arch philosophy** - Users understand their base system
-- **Maximum flexibility** - Works on various Arch-based distributions
+- **Maximum flexibility** - Works on minimal Arch Linux installations
 - **Transparent changes** - All configs symlinked from git repo
 - **Easy maintenance** - Standard Arch tools for updates and troubleshooting
 - **Reversible** - Simple to modify or remove BunkerOS configurations
@@ -56,28 +56,26 @@ BunkerOS uses exclusively standard Arch tools:
 - Follows Arch packaging standards (PKGBUILD when needed)
 - All dependencies visible in installation scripts
 
-### Compatibility with Arch-Based Distributions
+### System Requirements
 
-While designed for vanilla Arch Linux, BunkerOS can be installed on minimal Arch-based distributions:
+BunkerOS is designed exclusively for minimal Arch Linux installations:
 
-**Compatible base systems:**
-- Vanilla Arch Linux
-- CachyOS (minimal installation)
-- EndeavourOS (without desktop environment)
-- Manjaro (with caution - package versions may differ)
-- Other Arch derivatives using standard Arch repositories
+**Installation methods:**
+- Vanilla Arch Linux (manual installation)
+- Arch Linux via archinstall (minimal profile)
+- Fresh Arch Linux without pre-installed desktop environments
 
-**Requirements for compatibility:**
+**Requirements:**
 - Uses standard Arch repositories (core, extra, community)
-- No pre-installed desktop environment (or willing to replace it)
+- No pre-installed desktop environment
 - Standard Arch package management (pacman)
 - Systemd-based init system
 
-The installation scripts check for compatibility and warn about potential conflicts.
+The installation scripts verify Arch Linux compatibility during setup.
 
 ## What Makes BunkerOS Unique?
 
-### Arch-Based Excellence
+### Arch Linux Excellence
 - Full access to Arch ecosystem (AUR, rolling release, extensive documentation)
 - Custom performance optimizations for productivity workflows
 - Smart architecture: build on solid Arch foundation with targeted enhancements
@@ -155,7 +153,7 @@ The installation scripts check for compatibility and warn about potential confli
 
 **Flexibility and Control:**
 - Install on existing Arch systems without reinstalling
-- Works on various Arch-based distributions
+- Works on minimal Arch Linux installations
 - Easy to customize or extend configurations
 - Remove BunkerOS layer without affecting base system
 
@@ -233,7 +231,7 @@ This automates Arch Linux installation and BunkerOS configuration in one process
 
 If you already have Arch Linux or prefer to install it manually first:
 
-1. Install vanilla Arch Linux or an Arch-based distribution
+1. Install minimal Arch Linux
 2. Clone BunkerOS repository
 3. Run `install.sh` to install Sway environment and symlink configurations
 4. Reboot and select BunkerOS session at login

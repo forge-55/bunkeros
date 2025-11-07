@@ -53,7 +53,7 @@ BunkerOS takes a fundamentally different approach from standalone Linux distribu
 - Easy to review before installation
 
 ### Flexibility
-- Works on various Arch-based systems (CachyOS, EndeavourOS, etc.)
+- Designed for minimal Arch Linux systems
 - Install on existing systems without reinstalling
 - Compatible with different hardware configurations
 - Easy to customize or extend
@@ -93,7 +93,7 @@ BunkerOS serves users who:
 
 ### BunkerOS Configuration Layer Approach
 ```
-1. Install Arch Linux (or Arch-based distro)
+1. Install minimal Arch Linux
 2. Clone BunkerOS git repository
 3. Run installation script
 4. Script installs packages and symlinks configs
@@ -144,18 +144,15 @@ BunkerOS serves users who:
 - Leverage Arch's existing infrastructure
 - Minimal maintenance overhead
 
-## Compatibility with Arch-Based Distributions
+## System Requirements
 
-BunkerOS works on various Arch-based distributions:
+BunkerOS is designed exclusively for minimal Arch Linux:
 
-### Fully Compatible
-- **Vanilla Arch Linux** - Primary target, best experience
-- **CachyOS** (minimal) - Excellent performance with optimized kernels
-- **EndeavourOS** (minimal) - Works well without pre-installed DE
-
-### Compatible with Caution
-- **Manjaro** - Different package versions may cause conflicts
-- Other Arch derivatives - Check repository compatibility
+### Installation Prerequisites
+- **Minimal Arch Linux** - Primary and only supported target
+- Fresh installation without pre-installed desktop environment
+- Standard Arch repositories (core, extra, multilib)
+- Systemd-based init system
 
 ### Requirements
 - Standard Arch repositories (core, extra, community)

@@ -128,7 +128,6 @@ swaymsg reload
 ## Testing Checklist
 
 Before deploying:
-- [ ] Fresh CachyOS install
 - [ ] Fresh Arch Linux install
 - [ ] Installation with interruption
 - [ ] Emergency recovery boots
@@ -137,11 +136,11 @@ Before deploying:
 
 ## Next Steps
 
-1. Test on fresh CachyOS (X1 Carbon Gen9)
+1. Test on fresh Arch Linux installation
 2. Report any issues
 3. Refine based on feedback
 4. Deploy to production
 
 ---
 
-**Ready to test? Reinstall CachyOS and run ./install.sh**
+**Ready to test? Install minimal Arch Linux and run ./install.sh**

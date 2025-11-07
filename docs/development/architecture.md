@@ -4,7 +4,7 @@ Technical documentation of BunkerOS design decisions, architecture, and future r
 
 ## Overview
 
-**BunkerOS** is a vanilla Arch-based Linux distribution with custom optimizations. This architectural decision enables BunkerOS to maintain full control over the system while delivering an exceptional Sway-based productivity environment.
+**BunkerOS** is a configuration layer for Arch Linux with custom optimizations. This architectural decision enables BunkerOS to maintain full control over the system while delivering an exceptional Sway-based productivity environment.
 
 ### Technical Stack
 
@@ -311,7 +311,7 @@ The launcher is installed to `/usr/local/bin/` during setup and referenced by th
 #### Rationale
 
 **Web App Feature Compatibility**:
-- BunkerOS's Web App Manager (Omarchy-style containerized web apps) provides critical productivity features
+- BunkerOS's Web App Manager provides containerized web apps for critical productivity features
 - Chromium-based browsers support proper app mode (`--app=URL`) with chrome-less windows
 - Firefox's app mode implementation lacks feature parity (no proper window isolation, limited PWA support)
 - This ensures the "Install Web App" feature works seamlessly out of the box

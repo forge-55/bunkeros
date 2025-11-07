@@ -16,7 +16,7 @@ BunkerOS ships with **Brave** as the default browser, with **Firefox** also pre-
 
 ### 1. Web App Manager Compatibility
 
-BunkerOS's Web App Manager is a core productivity feature that allows users to install any website as a containerized desktop application (Omarchy-style). This feature requires:
+BunkerOS's Web App Manager is a core productivity feature that allows users to install any website as a containerized desktop application. This feature requires:
 
 - Proper app mode with window isolation
 - Custom window titles and classes

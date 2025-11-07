@@ -54,9 +54,9 @@ get_checkpoint() {
 preflight_checks() {
     info "Running pre-flight checks..."
     
-    # Check if running on Arch-based system
+    # Check if running on Arch Linux
     if ! command -v pacman &>/dev/null; then
-        error "This installer requires an Arch-based system with pacman"
+        error "This installer requires Arch Linux with pacman"
         exit 1
     fi
     
@@ -398,9 +398,9 @@ EOF
     info "Log file: $LOG_FILE"
     echo ""
     
-    # Check if we're on Arch-based system
+    # Check if we're on Arch Linux
     if ! command -v pacman &>/dev/null; then
-        error "This installer requires an Arch-based system with pacman"
+        error "This installer requires Arch Linux with pacman"
         exit 1
     fi
     
@@ -472,6 +472,7 @@ EOF
     
     local system_packages=(
         sddm qt5-declarative qt5-quickcontrols2 ttf-meslo-nerd 
+        ttf-dejavu noto-fonts cantarell-fonts
         xdg-desktop-portal python-pipx plymouth
     )
     

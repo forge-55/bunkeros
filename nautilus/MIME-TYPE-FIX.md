@@ -2,7 +2,7 @@
 
 ## Background
 
-Many Linux distributions (like Omarchy) encounter a bug where double-clicking files in Nautilus does nothing, and right-click "Open With" menus fail silently. This is caused by missing MIME type associations - the system doesn't know which application should handle which file types.
+Many Linux distributions encounter a bug where double-clicking files in Nautilus does nothing, and right-click "Open With" menus fail silently. This is caused by missing MIME type associations - the system doesn't know which application should handle which file types.
 
 **Common symptoms:**
 - Double-clicking files does nothing
@@ -177,8 +177,8 @@ With comprehensive MIME associations:
 ## Related Issues
 
 This fix prevents bugs similar to:
-- Omarchy Issue (referenced in ticket)
-- Various "Nautilus doesn't open files" reports across Arch-based distros
+- Common Linux distribution issue
+- Various "Nautilus doesn't open files" reports across Linux distributions
 - GNOME/GTK file association issues on minimal installations
 
 ## Future Considerations

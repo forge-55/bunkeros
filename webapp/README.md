@@ -1,11 +1,11 @@
 # Web App Manager
 
-A browser-agnostic web app installation system for Sway, inspired by Omarchy. Install any website as a containerized desktop application with custom icons in just a few steps.
+A browser-agnostic web app installation system for Sway. Install any website as a containerized desktop application with custom icons in just a few steps.
 
 ## Features
 
 - **Browser Detection** - Automatically uses your default browser (Chrome, Chromium, Brave, Firefox)
-- **Seamless Login Experience** - Uses your main browser's login sessions (like Omarchy)
+- **Seamless Login Experience** - Uses your main browser's login sessions
 - **Instant Access** - Already signed in if you're signed in to your main browser
 - **Custom Icons** - Download icons from dashboardicons.com or use local files
 - **App Mode** - Clean, chrome-less windows that integrate perfectly with Sway
@@ -161,7 +161,7 @@ This approach provides maximum convenience (instant login) while maintaining bro
 
 ### Why Main Profile?
 
-Following Omarchy's design, web apps use your main browser profile because:
+Web apps use your main browser profile because:
 1. **Instant access** - Already signed in to all your accounts
 2. **No friction** - Zero re-authentication needed
 3. **Realistic use case** - If you're signed into GitHub/Gmail in your browser, you want to be signed in everywhere

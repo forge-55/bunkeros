@@ -58,7 +58,18 @@ check "SDDM installed" "command -v sddm"
 
 echo ""
 echo "═══════════════════════════════════════════════════════════════"
-echo "2. Desktop Portal Support"
+echo "2. Font Packages"
+echo "═══════════════════════════════════════════════════════════════"
+echo ""
+
+check "Meslo Nerd Font" "pacman -Q ttf-meslo-nerd"
+check "DejaVu fonts" "pacman -Q ttf-dejavu"
+check "Noto fonts" "pacman -Q noto-fonts"
+check "Cantarell fonts" "pacman -Q cantarell-fonts"
+
+echo ""
+echo "═══════════════════════════════════════════════════════════════"
+echo "3. Desktop Portal Support"
 echo "═══════════════════════════════════════════════════════════════"
 echo ""
 
@@ -68,7 +79,7 @@ check "xdg-desktop-portal-gtk" "pacman -Q xdg-desktop-portal-gtk"
 
 echo ""
 echo "═══════════════════════════════════════════════════════════════"
-echo "3. Configuration Files"
+echo "4. Configuration Files"
 echo "═══════════════════════════════════════════════════════════════"
 echo ""
 
@@ -81,7 +92,7 @@ check "Desktop portal config exists" "test -f ~/.config/xdg-desktop-portal/porta
 
 echo ""
 echo "═══════════════════════════════════════════════════════════════"
-echo "4. SDDM Configuration"
+echo "5. SDDM Configuration"
 echo "═══════════════════════════════════════════════════════════════"
 echo ""
 
@@ -92,7 +103,7 @@ check "Launch script is executable" "test -x /usr/local/bin/launch-bunkeros.sh"
 
 echo ""
 echo "═══════════════════════════════════════════════════════════════"
-echo "5. Environment Variables (if in Sway session)"
+echo "6. Environment Variables (if in Sway session)"
 echo "═══════════════════════════════════════════════════════════════"
 echo ""
 
@@ -115,7 +126,7 @@ fi
 
 echo ""
 echo "═══════════════════════════════════════════════════════════════"
-echo "6. Audio System"
+echo "7. Audio System"
 echo "═══════════════════════════════════════════════════════════════"
 echo ""
 
@@ -131,7 +142,7 @@ fi
 
 echo ""
 echo "═══════════════════════════════════════════════════════════════"
-echo "7. Sway Configuration Validation"
+echo "8. Sway Configuration Validation"
 echo "═══════════════════════════════════════════════════════════════"
 echo ""
 
@@ -163,7 +174,7 @@ fi
 
 echo ""
 echo "═══════════════════════════════════════════════════════════════"
-echo "8. BunkerOS Project"
+echo "9. BunkerOS Project"
 echo "═══════════════════════════════════════════════════════════════"
 echo ""
 
@@ -188,7 +199,7 @@ fi
 
 echo ""
 echo "═══════════════════════════════════════════════════════════════"
-echo "9. Optional: Electron Apps"
+echo "10. Optional: Electron Apps"
 echo "═══════════════════════════════════════════════════════════════"
 echo ""
 

@@ -9,7 +9,7 @@ This document outlines planned improvements and long-term goals for BunkerOS.
 
 ## Overview
 
-This document describes the comprehensive improvements made to the BunkerOS installation process to ensure reliability across all Arch-based distributions.
+This document describes the comprehensive improvements made to the BunkerOS installation process to ensure reliability on minimal Arch Linux installations.
 
 ## Issues Addressed
 
@@ -78,7 +78,7 @@ This document describes the comprehensive improvements made to the BunkerOS inst
 Before installation begins, the script now validates:
 
 - **Internet Connectivity:** Ping test to archlinux.org
-- **Pacman Availability:** Verify on Arch-based system
+- **Pacman Availability:** Verify on Arch Linux system
 - **Package Database:** Update with `pacman -Sy`
 - **Pacman Locks:** Detect and remove stale lock files
 - **Disk Space:** Ensure at least 2GB free space
@@ -317,7 +317,7 @@ This architectural decision provides:
 - **Reversibility** - No vendor lock-in or proprietary dependencies
 
 **Current Installation Model:**
-1. User has existing Arch-based system (Arch, CachyOS, EndeavourOS, etc.)
+1. User has existing minimal Arch Linux system
 2. Runs `install.sh` to install packages and symlink configurations
 3. BunkerOS provides complete Sway environment on top of base system
 4. Standard Arch tools and workflows remain unchanged
@@ -344,7 +344,7 @@ This architectural decision provides:
 - Users learn standard Arch workflows
 - Compatible with various Arch-based distributions
 
-See [docs/reference/vs-omarchy.md](../reference/vs-omarchy.md) for detailed explanation of this design philosophy.
+This configuration layer approach provides flexibility and transparency while maintaining system stability.
 
 ## Future Possibility: Optional ISO Distribution
 

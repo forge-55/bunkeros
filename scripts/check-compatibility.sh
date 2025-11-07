@@ -46,7 +46,7 @@ echo "System Compatibility:"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 
-check "Arch-based system (pacman)" "command -v pacman"
+check "Arch Linux (pacman)" "command -v pacman"
 check "Systemd" "command -v systemctl"
 check "Wayland support" "[ -n \"\$WAYLAND_DISPLAY\" ] || command -v weston"
 check "User in wheel group" "groups | grep -q wheel" "false"

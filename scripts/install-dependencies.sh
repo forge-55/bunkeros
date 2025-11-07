@@ -63,7 +63,10 @@ MEDIA_PACKAGES=(
 
 # Fonts
 FONT_PACKAGES=(
-    ttf-meslo-nerd
+    ttf-meslo-nerd      # Primary Nerd Font for icons and UI elements
+    ttf-dejavu          # Fallback font used in all theme templates
+    noto-fonts          # Unicode coverage for international text
+    cantarell-fonts     # Default GNOME font for GTK applications
 )
 
 # Display manager

@@ -59,7 +59,14 @@ DM_PACKAGES=(
     sddm                   # Display manager
     qt5-declarative        # Qt QML support for SDDM theme
     qt5-quickcontrols2     # Qt Quick Controls for SDDM theme
-    ttf-meslo-nerd         # Nerd Font for icons in Waybar
+)
+
+# Fonts
+FONT_PACKAGES=(
+    ttf-meslo-nerd         # Nerd Font for icons in Waybar/Wofi
+    ttf-dejavu             # Fallback font used in all theme templates
+    noto-fonts             # Unicode coverage for international text
+    cantarell-fonts        # Default GNOME font for GTK applications
 )
 
 # Desktop integration
@@ -86,6 +93,7 @@ ALL_OFFICIAL_PACKAGES=(
     "${SYSTEM_PACKAGES[@]}"
     "${APP_PACKAGES[@]}"
     "${MEDIA_PACKAGES[@]}"
+    "${FONT_PACKAGES[@]}"
     "${DM_PACKAGES[@]}"
     "${DESKTOP_PACKAGES[@]}"
 )
@@ -104,6 +112,10 @@ echo ""
 
 echo "Audio/Video System (${#MEDIA_PACKAGES[@]} packages):"
 printf '  • %s\n' "${MEDIA_PACKAGES[@]}"
+echo ""
+
+echo "Font Packages (${#FONT_PACKAGES[@]} packages):"
+printf '  • %s\n' "${FONT_PACKAGES[@]}"
 echo ""
 
 echo "Display Manager & Theming (${#DM_PACKAGES[@]} packages):"
