@@ -188,9 +188,8 @@ All operations logged to timestamped file:
 
 Before considering this stable, test on:
 
-- [ ] Fresh CachyOS installation
-- [ ] Fresh EndeavourOS installation
-- [ ] Fresh Arch Linux installation
+- [ ] Fresh Arch Linux installation (archinstall minimal)
+- [ ] Fresh Arch Linux installation (manual)
 - [ ] System with existing Sway config
 - [ ] System without AUR helper
 - [ ] Installation with interruption (test resume)
@@ -234,12 +233,10 @@ If installation fails or produces broken system:
 
 These improvements were modeled after best practices from:
 
-### EndeavourOS
+### Arch Linux Testing Scenarios
 - Package conflict handling with --overwrite
 - Individual package retry logic
 - Comprehensive logging
-
-### ArchCraft
 - Preflight system checks
 - Service verification
 - Post-install validation
@@ -295,11 +292,11 @@ Consider adding:
 ## Credits
 
 Improvements designed to match the robustness of:
-- EndeavourOS installer team
+- Arch Linux community
 - ArchCraft project
 - SwayFX project
 
-Testing and bug reports by: Ryan (X1 Carbon Gen9, CachyOS)
+Testing and bug reports by: Ryan (X1 Carbon Gen9, Arch Linux)
 
 ---
 
@@ -361,7 +358,7 @@ While BunkerOS operates as a configuration layer, a standalone ISO could be prov
 **Technical Benefits:**
 - Predictable base configuration
 - Easier to troubleshoot common issues
-- Could include optimized kernel (CachyOS-style)
+- Could include optimized kernel configuration
 - Single-phase installation process
 
 ### Important Clarifications
