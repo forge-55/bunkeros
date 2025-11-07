@@ -49,6 +49,7 @@ APP_PACKAGES=(
     mate-calc
     zenity
     libreoffice-fresh
+    tmux
 )
 
 # Audio/Video

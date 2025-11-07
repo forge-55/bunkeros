@@ -6,7 +6,13 @@
    - Kernel parameter tuning (sysctl)
    - Network stack optimization (TCP BBR)
    - See: docs/features/power-optimization.md
-3. Future: Per-application power profiles (auto-switch based on running apps)
+3. ✅ COMPLETED: Tmux terminal multiplexer integration (default installation)
+   - Productivity-focused configuration with Ctrl+a prefix
+   - Mouse support and intuitive keybindings
+   - BunkerOS tactical theme integration
+   - Automatic installation with default configuration
+   - See: tmux/README.md
+4. Future: Per-application power profiles (auto-switch based on running apps)
 
 #IMPROVEMENTS
 1. Better structure to project directories

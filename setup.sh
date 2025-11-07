@@ -125,6 +125,22 @@ else
 fi
 echo ""
 
+echo "Step 6.5: Setting up Tmux terminal multiplexer..."
+if [ ! -f "$HOME/.tmux.conf" ]; then
+    cp "$PROJECT_DIR/tmux/tmux.conf.default" "$HOME/.tmux.conf"
+    echo "  ✓ Tmux configuration installed with BunkerOS defaults"
+    
+    # Generate theme configuration
+    bash "$PROJECT_DIR/tmux/generate-theme.sh" 2>/dev/null || true
+    echo "  ✓ Theme configuration generated"
+    
+    echo "  ℹ Features: Ctrl+a prefix, plugins, theme integration, session persistence"
+else
+    echo "  ℹ Tmux config already exists, keeping user version"
+    echo "  ℹ See tmux/README.md for BunkerOS tmux features"
+fi
+echo ""
+
 echo "Step 7: Setting up btop configuration..."
 backup_if_exists "$CONFIG_DIR/btop/btop.conf"
 ln -sf "$PROJECT_DIR/btop/btop.conf" "$CONFIG_DIR/btop/btop.conf"
@@ -404,7 +420,7 @@ echo "                  playerctl pavucontrol network-manager-applet \\"
 echo "                  blueman mate-calc zenity sddm wlsunset swaylock \\"
 echo "                  swayidle python-pipx pipewire pipewire-pulse \\"
 echo "                  pipewire-alsa pipewire-jack wireplumber v4l-utils \\"
-echo "                  jq"
+echo "                  jq tmux"
 echo ""
 echo "2. Install SwayOSD from AUR:"
 echo "   yay -S swayosd-git"

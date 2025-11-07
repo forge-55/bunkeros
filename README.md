@@ -62,6 +62,7 @@ See [INSTALL.md](INSTALL.md) for detailed instructions. This approach gives you 
 ## Features
 
 - Sway with intelligent autotiling
+- Terminal environment with tmux multiplexer (Ctrl+a prefix)
 - 5 custom themes (Tactical, Night-Ops, Sahara, Abyss, Winter)
 - Plymouth boot splash with official Arch Linux logo
 - Adaptive display scaling for HiDPI

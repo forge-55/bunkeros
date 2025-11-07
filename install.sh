@@ -463,7 +463,7 @@ EOF
     )
     
     local app_packages=(
-        nautilus sushi eog evince lite-xl btop mate-calc zenity
+        nautilus sushi eog evince lite-xl btop mate-calc zenity tmux
     )
     
     local media_packages=(

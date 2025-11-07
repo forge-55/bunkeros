@@ -1,0 +1,214 @@
+# BunkerOS Tmux Configuration
+# Developer-focused tmux configuration with BunkerOS tactical theming
+# Optimized for Arch Linux users focused on development and productivity
+
+# ==============================================================================
+# GENERAL SETTINGS
+# ==============================================================================
+
+# Use Ctrl+a as prefix (like GNU Screen, better ergonomics)
+set -g prefix C-a
+unbind C-b
+bind C-a send-prefix
+
+# Enable mouse support for easier pane/window management
+set -g mouse on
+
+# Increase scrollback buffer for long session output (100k for development)
+set -g history-limit 100000
+
+# Use 256-color terminal for modern apps/tools
+set -g default-terminal "screen-256color"
+set-option -sa terminal-overrides ",xterm*:Tc"
+
+# Start windows and panes at 1, not 0 (more logical)
+set -g base-index 1
+set -g pane-base-index 1
+set-window-option -g pane-base-index 1
+set-option -g renumber-windows on
+
+# Faster command sequences (reduce escape time for vim)
+set -s escape-time 0
+
+# Display messages for 4 seconds
+set -g display-time 4000
+
+# Refresh status bar every 5 seconds
+set -g status-interval 5
+
+# Focus events enabled for terminals that support them
+set -g focus-events on
+
+# Super useful when using "grouped sessions" and multi-monitor setup
+setw -g aggressive-resize on
+
+# Don't exit tmux when a session is destroyed
+set -g detach-on-destroy off
+
+# ==============================================================================
+# KEYBINDINGS - DEVELOPER OPTIMIZED
+# ==============================================================================
+
+# Quality-of-life: easy pane splitting and config reload
+bind | split-window -h -c "#{pane_current_path}"
+bind - split-window -v -c "#{pane_current_path}"
+bind r source-file ~/.tmux.conf \; display "BunkerOS tmux config reloaded!"
+unbind '"'
+unbind %
+
+# Switch panes using Alt+arrow without prefix (fast navigation)
+bind -n M-Left select-pane -L
+bind -n M-Right select-pane -R
+bind -n M-Up select-pane -U
+bind -n M-Down select-pane -D
+
+# Shift arrow to switch windows (quick window switching)
+bind -n S-Left  previous-window
+bind -n S-Right next-window
+
+# Vim-style pane switching (for vim users)
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+
+# Pane resizing with vi-style keys (hold prefix)
+bind -r H resize-pane -L 5
+bind -r J resize-pane -D 5
+bind -r K resize-pane -U 5
+bind -r L resize-pane -R 5
+
+# Use Vi mode for copy mode
+setw -g mode-keys vi
+
+# Vi-style copy mode keybindings (essential for developers)
+bind-key -T copy-mode-vi v send-keys -X begin-selection
+bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
+bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
+
+# Open new windows in current path (development workflow)
+bind c new-window -c "#{pane_current_path}"
+
+# Quick session navigation
+bind C-f command-prompt -p find-session 'switch-client -t %%'
+
+# ==============================================================================
+# BUNKEROS THEME INTEGRATION
+# ==============================================================================
+
+# Read BunkerOS theme colors (if available)
+%if #{==:#{host},#{?#{!=:#{BUNKEROS_THEME},},#{host},}}
+    # Use detected theme colors
+    source-file ~/.config/bunkeros/tmux-theme.conf
+%endif
+
+# Default tactical theme colors (fallback)
+%if #{==:#{e|+:#{s/tactical.*/:/:#{BUNKEROS_THEME}}tactical},tactical}
+    # Tactical Theme (Default BunkerOS)
+    TMUX_BG_MAIN="#0A0F0D"          # Deep Black
+    TMUX_BG_SECONDARY="#1A2822"     # Dark Green-Gray  
+    TMUX_FG_PRIMARY="#C8D5C7"       # Light Gray-Green
+    TMUX_ACCENT_PRIMARY="#E8D5B7"   # Vintage Lume
+    TMUX_ACCENT_SECONDARY="#2D4A3E" # Deep Forest Green
+    TMUX_ACCENT_MUTED="#1E3A2F"     # Muted Deep Green
+    TMUX_URGENT="#D4A574"           # Bronze/Gold
+%endif
+
+# Night-Ops Theme
+%if #{==:#{BUNKEROS_THEME},night-ops}
+    TMUX_BG_MAIN="#0D0E10"          # Deep Space Black
+    TMUX_BG_SECONDARY="#1C1E21"     # Dark Charcoal
+    TMUX_FG_PRIMARY="#E8E6E1"       # Warm Lume White
+    TMUX_ACCENT_PRIMARY="#D4A574"   # Rose Gold
+    TMUX_ACCENT_SECONDARY="#4A4E52" # Meteorite Gray
+    TMUX_ACCENT_MUTED="#2A2D31"     # Muted Charcoal
+    TMUX_URGENT="#E8B775"           # Bright Gold
+%endif
+
+# Abyss Theme  
+%if #{==:#{BUNKEROS_THEME},abyss}
+    TMUX_BG_MAIN="#0A1628"          # Deep Ocean Black
+    TMUX_BG_SECONDARY="#152844"     # Dark Navy Blue
+    TMUX_FG_PRIMARY="#E8E6DC"       # Cream Lume
+    TMUX_ACCENT_PRIMARY="#7BA5D4"   # Sky Blue
+    TMUX_ACCENT_SECONDARY="#1E3A5F" # Deep Navy
+    TMUX_ACCENT_MUTED="#1A2F4A"     # Muted Navy
+    TMUX_URGENT="#D4A574"           # Gold
+%endif
+
+# ==============================================================================
+# STATUS BAR - TACTICAL & INFORMATIVE
+# ==============================================================================
+
+# Status bar colors (using BunkerOS theme variables)
+set -g status-bg "#{?TMUX_BG_MAIN,#{TMUX_BG_MAIN},#0A0F0D}"
+set -g status-fg "#{?TMUX_FG_PRIMARY,#{TMUX_FG_PRIMARY},#C8D5C7}"
+
+# Status bar configuration
+set -g status-left-length 50
+set -g status-right-length 100
+
+# Left: Session name with tactical styling
+set -g status-left "#[bg=#{?TMUX_ACCENT_SECONDARY,#{TMUX_ACCENT_SECONDARY},#2D4A3E},fg=#{?TMUX_FG_PRIMARY,#{TMUX_FG_PRIMARY},#C8D5C7},bold] ❯ #S #[bg=#{?TMUX_BG_MAIN,#{TMUX_BG_MAIN},#0A0F0D}] "
+
+# Right: System info optimized for laptops and development
+set -g status-right "#[fg=#{?TMUX_ACCENT_MUTED,#{TMUX_ACCENT_MUTED},#1E3A2F}]#{?#{!=:#{client_prefix},},, PREFIX}#[fg=#{?TMUX_FG_PRIMARY,#{TMUX_FG_PRIMARY},#C8D5C7}] #{?#{||:#{!=:#{battery_percentage},},#{==:#{battery_percentage},}},#[fg=#{?TMUX_ACCENT_PRIMARY,#{TMUX_ACCENT_PRIMARY},#E8D5B7}]⚡ #{battery_percentage} ,}#[fg=#{?TMUX_FG_PRIMARY,#{TMUX_FG_PRIMARY},#C8D5C7}]| #[fg=#{?TMUX_ACCENT_PRIMARY,#{TMUX_ACCENT_PRIMARY},#E8D5B7}]%Y-%m-%d #[fg=#{?TMUX_FG_PRIMARY,#{TMUX_FG_PRIMARY},#C8D5C7}]| #[fg=#{?TMUX_ACCENT_PRIMARY,#{TMUX_ACCENT_PRIMARY},#E8D5B7},bold]%H:%M "
+
+# Center window list
+set -g status-justify centre
+
+# Window status format (clean, informative)
+setw -g window-status-format "#[fg=#{?TMUX_ACCENT_MUTED,#{TMUX_ACCENT_MUTED},#1E3A2F}] #I#[fg=#{?TMUX_FG_PRIMARY,#{TMUX_FG_PRIMARY},#C8D5C7}]:#W#{?window_zoomed_flag, 🔍,}#F "
+setw -g window-status-current-format "#[bg=#{?TMUX_ACCENT_SECONDARY,#{TMUX_ACCENT_SECONDARY},#2D4A3E},fg=#{?TMUX_FG_PRIMARY,#{TMUX_FG_PRIMARY},#C8D5C7},bold] #I:#W#{?window_zoomed_flag, 🔍,}#F #[bg=#{?TMUX_BG_MAIN,#{TMUX_BG_MAIN},#0A0F0D}] "
+
+# Pane border colors (tactical theme integration)
+set -g pane-border-style "fg=#{?TMUX_ACCENT_MUTED,#{TMUX_ACCENT_MUTED},#1E3A2F}"
+set -g pane-active-border-style "fg=#{?TMUX_ACCENT_SECONDARY,#{TMUX_ACCENT_SECONDARY},#2D4A3E}"
+
+# Message colors
+set -g message-style "bg=#{?TMUX_ACCENT_SECONDARY,#{TMUX_ACCENT_SECONDARY},#2D4A3E},fg=#{?TMUX_FG_PRIMARY,#{TMUX_FG_PRIMARY},#C8D5C7},bold"
+set -g message-command-style "bg=#{?TMUX_BG_SECONDARY,#{TMUX_BG_SECONDARY},#1A2822},fg=#{?TMUX_FG_PRIMARY,#{TMUX_FG_PRIMARY},#C8D5C7}"
+
+# Copy mode colors
+set -g mode-style "bg=#{?TMUX_ACCENT_SECONDARY,#{TMUX_ACCENT_SECONDARY},#2D4A3E},fg=#{?TMUX_FG_PRIMARY,#{TMUX_FG_PRIMARY},#C8D5C7}"
+
+# Clock mode color (Ctrl+a t)
+set -g clock-mode-colour "#{?TMUX_ACCENT_PRIMARY,#{TMUX_ACCENT_PRIMARY},#E8D5B7}"
+
+# ==============================================================================
+# TMUX PLUGIN MANAGER (TPM) & PLUGINS
+# ==============================================================================
+
+# Plugin manager installation
+# Note: TPM auto-installed by BunkerOS tmux installer
+
+# List of plugins (developer-focused)
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+set -g @plugin 'tmux-plugins/tmux-battery'
+
+# Plugin configurations
+set -g @resurrect-capture-pane-contents 'on'
+set -g @resurrect-strategy-vim 'session'
+set -g @resurrect-strategy-nvim 'session'
+set -g @continuum-restore 'on'
+set -g @continuum-boot 'on'
+set -g @continuum-save-interval '15'
+
+# Initialize TMUX plugin manager (keep this line at the very bottom)
+run '~/.tmux/plugins/tpm/tpm'
+
+# ==============================================================================
+# BUNKEROS INTEGRATION NOTES
+# ==============================================================================
+
+# This configuration integrates with:
+# - BunkerOS theme system (5 themes)  
+# - Foot terminal emulator
+# - Sway window manager
+# - Development workflows
+# - Session persistence across reboots
+# - Battery monitoring for laptops
+# - Keyboard-driven productivity focus

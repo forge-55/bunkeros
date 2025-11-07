@@ -42,6 +42,7 @@ APP_PACKAGES=(
     lite-xl                # Lightweight text editor for notes
     btop                   # System monitor
     mate-calc              # Calculator
+    tmux                   # Terminal multiplexer for session management
 )
 
 # Audio/Video system
