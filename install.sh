@@ -472,7 +472,7 @@ EOF
     
     local system_packages=(
         sddm qt5-declarative qt5-quickcontrols2 ttf-meslo-nerd 
-        ttf-dejavu noto-fonts cantarell-fonts
+        ttf-dejavu noto-fonts noto-fonts-emoji cantarell-fonts
         xdg-desktop-portal python-pipx plymouth
     )
     

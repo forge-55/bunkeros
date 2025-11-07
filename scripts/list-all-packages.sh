@@ -66,6 +66,7 @@ FONT_PACKAGES=(
     ttf-meslo-nerd         # Nerd Font for icons in Waybar/Wofi
     ttf-dejavu             # Fallback font used in all theme templates
     noto-fonts             # Unicode coverage for international text
+    noto-fonts-emoji       # Color emoji support
     cantarell-fonts        # Default GNOME font for GTK applications
 )
 

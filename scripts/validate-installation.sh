@@ -65,6 +65,7 @@ echo ""
 check "Meslo Nerd Font" "pacman -Q ttf-meslo-nerd"
 check "DejaVu fonts" "pacman -Q ttf-dejavu"
 check "Noto fonts" "pacman -Q noto-fonts"
+check "Noto emoji fonts" "pacman -Q noto-fonts-emoji"
 check "Cantarell fonts" "pacman -Q cantarell-fonts"
 
 echo ""
