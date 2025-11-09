@@ -276,6 +276,27 @@ alias df='df -h'
 alias du='du -h'
 alias free='free -h'
 
+# Modern CLI tool shortcuts (enhanced alternatives, keeping originals intact)
+if command -v rg &> /dev/null; then
+    alias search='rg --color=always'
+    alias rg='rg --color=always'
+fi
+
+if command -v fd &> /dev/null; then
+    alias findf='fd'
+    alias files='fd'
+fi
+
+if command -v bat &> /dev/null; then
+    alias view='bat'
+    alias preview='bat'
+    alias less='bat'  # Enhanced pager experience
+fi
+
+if command -v fzf &> /dev/null; then
+    alias fuzzy='fzf'
+fi
+
 alias sway-reload='swaymsg reload'
 alias waybar-reload='pkill waybar && swaymsg exec waybar'
 

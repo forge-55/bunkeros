@@ -476,6 +476,25 @@ EOF
         xdg-desktop-portal python-pipx plymouth
     )
     
+    local development_packages=(
+        # Core programming languages & runtimes
+        python python-pip nodejs npm
+        # Container technologies  
+        docker docker-compose
+        # Compiled languages
+        rust go jdk-openjdk
+        # Version control & build tools
+        git-lfs
+        # System development tools
+        gdb strace ltrace valgrind
+        # Network & system utilities
+        curl wget tree unzip zip tar
+        # Text processing for development
+        ripgrep fd bat fzf
+        # Development databases
+        sqlite
+    )
+    
     # Desktop portal packages (need special handling due to file conflicts)
     local portal_packages=(
         xdg-desktop-portal-wlr xdg-desktop-portal-gtk
@@ -507,6 +526,27 @@ EOF
     info "Installing system packages..."
     install_packages "${system_packages[@]}"
     save_checkpoint "system_packages_installed"
+    
+    echo ""
+    info "Installing development packages..."
+    install_packages "${development_packages[@]}"
+    save_checkpoint "development_packages_installed"
+    
+    # Enable Docker service
+    echo ""
+    info "Configuring Docker service..."
+    if sudo systemctl enable docker.service 2>&1 | tee -a "$LOG_FILE"; then
+        success "Docker service enabled"
+        info "Adding current user to docker group..."
+        if sudo usermod -aG docker "$USER" 2>&1 | tee -a "$LOG_FILE"; then
+            success "User added to docker group (reboot required for effect)"
+        else
+            warning "Failed to add user to docker group"
+        fi
+    else
+        warning "Failed to enable Docker service"
+    fi
+    save_checkpoint "docker_configured"
     
     echo ""
     info "Installing desktop portal packages (may have file conflicts)..."

@@ -85,6 +85,51 @@ PORTAL_PACKAGES=(
     xdg-desktop-portal-gtk
 )
 
+# Development tools
+DEVELOPMENT_PACKAGES=(
+    # Core programming languages & runtimes
+    python                  # Python interpreter
+    python-pip             # Python package manager
+    nodejs                 # JavaScript runtime
+    npm                    # Node.js package manager
+    
+    # Container technologies
+    docker                 # Container engine
+    docker-compose         # Multi-container applications
+    
+    # Compiled languages
+    rust                  # Rust programming language & cargo
+    go                    # Go programming language
+    jdk-openjdk          # Java Development Kit
+    
+    # Version control & build tools
+    git-lfs              # Git Large File Storage
+    
+    # System development tools
+    gdb                  # GNU debugger
+    strace               # System call tracer
+    ltrace               # Library call tracer
+    valgrind             # Memory debugging and profiling
+    
+    # Network & system utilities for development
+    curl                 # HTTP client
+    wget                 # File downloader
+    tree                 # Directory visualization
+    unzip                # Archive extraction
+    zip                  # Archive creation
+    tar                  # Archive utility
+    jq                   # JSON processor (already included but ensuring it's here)
+    
+    # Text processing for development
+    ripgrep              # Fast grep alternative (rg command)
+    fd                   # Fast find alternative
+    bat                  # Enhanced cat with syntax highlighting
+    fzf                  # Fuzzy finder for command-line (used by BunkerOS scripts)
+    
+    # Development databases (lightweight)
+    sqlite               # Embedded database for development
+)
+
 # Python tools
 PYTHON_PACKAGES=(
     python-pipx
@@ -99,6 +144,7 @@ ALL_PACKAGES=(
     "${FONT_PACKAGES[@]}"
     "${DM_PACKAGES[@]}"
     "${PORTAL_PACKAGES[@]}"
+    "${DEVELOPMENT_PACKAGES[@]}"
     "${PYTHON_PACKAGES[@]}"
 )
 
@@ -125,6 +171,9 @@ printf '  • %s\n' "${DM_PACKAGES[@]}"
 echo ""
 echo "Desktop Portals:"
 printf '  • %s\n' "${PORTAL_PACKAGES[@]}"
+echo ""
+echo "Development Tools:"
+printf '  • %s\n' "${DEVELOPMENT_PACKAGES[@]}"
 echo ""
 echo "Python Tools:"
 printf '  • %s\n' "${PYTHON_PACKAGES[@]}"
