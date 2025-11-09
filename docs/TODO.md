@@ -19,7 +19,7 @@
 2. Multi-monitor support (Pop!_OS/Fedora/Ubuntu quality). Current experience is terrible.
 #DESIGN
 1. Improve wallpaper and design of all themes, with better color and brightness. Maybe opting for abstract style.
-2. Improve battery indicator of T480 to account for second external battery life
+2. ✅ Improve battery indicator of T480 to account for second external battery life
 
 #BUG FIXES
 1. Screensaver and suspend logic

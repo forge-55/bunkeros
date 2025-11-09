@@ -15,20 +15,16 @@ if ! command -v auto-cpufreq &>/dev/null; then
     exit 0
 fi
 
-# Get battery status
-battery_path="/sys/class/power_supply/BAT0"
-[ ! -d "$battery_path" ] && battery_path="/sys/class/power_supply/BAT1"
+# Get battery status using dual-battery-aware helper
+script_dir="$(dirname "$0")"
+battery_info=$("$script_dir/dual-battery-helper.sh")
+
+# Parse the battery info (format: capacity|status|type|bat0_cap|bat1_cap)
+IFS='|' read -r capacity status battery_type bat0_cap bat1_cap <<< "$battery_info"
 
 # Check if this is a desktop system (no battery) or laptop
-has_battery=false
-if [ -d "$battery_path" ]; then
-    capacity=$(cat "$battery_path/capacity" 2>/dev/null || echo "0")
-    status=$(cat "$battery_path/status" 2>/dev/null || echo "Unknown")
-    has_battery=true
-else
-    # Desktop/PC system - no battery
-    capacity="100"
-    status="AC Power"
+has_battery=true
+if [ "$battery_type" = "desktop" ]; then
     has_battery=false
 fi
 
@@ -50,17 +46,21 @@ esac
 
 # Determine power icon based on system type and status
 if [ "$has_battery" = false ]; then
-    # Desktop/PC system - show desktop icon
+        # Desktop/PC system - show desktop icon
     battery_icon="󰍹"  # Desktop/monitor icon
     status_class="desktop"
 elif [ "$status" = "Charging" ]; then
     battery_icon="󰂄"
     status_class="charging"
-elif [ "$status" = "Full" ] || [ "$status" = "Not charging" ]; then
+elif [ "$status" = "Full" ]; then
+    battery_icon="󰚥"
+    status_class="plugged"
+elif [ "$status" = "Not charging" ] && [ "$capacity" -ge 95 ]; then
+    # Only show plugged icon if battery is nearly full
     battery_icon="󰚥"
     status_class="plugged"
 else
-    # Battery level icons for laptops
+    # Battery level icons for laptops (including "Not charging" at lower levels)
     if [ "$capacity" -ge 90 ]; then battery_icon="󰁹"
     elif [ "$capacity" -ge 80 ]; then battery_icon="󰂂"
     elif [ "$capacity" -ge 70 ]; then battery_icon="󰂁"
@@ -73,16 +73,26 @@ else
     else battery_icon="󰁺"
     fi
     
-    if [ "$capacity" -le 15 ]; then status_class="critical"
-    elif [ "$capacity" -le 30 ]; then status_class="warning"
-    else status_class="good"
+    # Set status class based on capacity and charging state
+    if [ "$capacity" -le 15 ]; then 
+        status_class="critical"
+    elif [ "$capacity" -le 30 ]; then 
+        status_class="warning"
+    elif [ "$status" = "Not charging" ]; then
+        status_class="plugged"  # Not charging but not critical
+    else 
+        status_class="good"
     fi
 fi
 
 # Create appropriate tooltip based on system type
 if [ "$has_battery" = false ]; then
     tooltip="Power: ${status}\\nProfile: ${mode_label}\\n\\nClick to select profile"
+elif [ "$battery_type" != "single" ] && [ "$bat1_cap" != "0" ]; then
+    # Dual battery system (like T480 PowerBridge)
+    tooltip="Combined Battery: ${capacity}%\\nInternal (BAT0): ${bat0_cap}%\\nExternal (BAT1): ${bat1_cap}%\\nStatus: ${status}\\nProfile: ${mode_label}\\n\\nClick to select profile"
 else
+    # Single battery system
     tooltip="Battery: ${capacity}%\\nStatus: ${status}\\nProfile: ${mode_label}\\n\\nClick to select profile"
 fi
 
