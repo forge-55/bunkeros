@@ -38,6 +38,7 @@ SYSTEM_PACKAGES=(
     pavucontrol
     pulsemixer          # Terminal-based audio mixer for waybar menu
     wdisplays           # GUI display manager for Wayland
+    imagemagick         # For enhanced lock screen styling
 )
 
 # Applications

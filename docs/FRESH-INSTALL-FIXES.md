@@ -1,17 +1,50 @@
 # BunkerOS Fresh Installation Fixes
 
-This document summarizes the fixes applied to resolve broken menu features on a fresh BunkerOS installation.
+## ✅ FULLY VERIFIED - All Issues Fixed
 
-## ✅ All Issues Fixed for Future Installations
+**Last Verified:** November 13, 2025  
+**Status:** All fixes integrated and tested. Future BunkerOS installations work perfectly out of the box.
 
-**Status:** All fixes have been integrated into the main installation scripts. Future BunkerOS installations will have all these features working out of the box.
+### 🔒 Suspend + Lock Screen Logic - CONFIRMED WORKING
 
-## Fixed Issues
+The automatic lock and suspend system works correctly:
+
+- **swayidle** auto-starts with Sway (configured in `sway/config.default`)
+- **Battery-aware timeouts:**
+  - On Battery: Lock after 3min, Suspend 5sec later
+  - Plugged In: Lock after 5min, Suspend 5sec later
+- **Lock before sleep:** Automatically locks before any system sleep (lid close, manual suspend)
+- **BunkerOS theming:** Uses `bunkeros-lock` script with tactical color scheme
+- **Smart fallback:** Works without ImageMagick (solid color), enhanced with it (custom background)
+
+### 📦 Installation Process - CONFIRMED COMPLETE
+
+The installation scripts now handle everything automatically:
+
+**install.sh → install-dependencies.sh:**
+- ✅ pulsemixer (terminal audio mixer)
+- ✅ wdisplays (GUI display manager)
+- ✅ imagemagick (enhanced lock screen styling)
+- ✅ fzf (package installer tool)
+
+**install.sh → setup.sh:**
+- ✅ Step 8.5: Installs swaylock config and bunkeros-lock script
+- ✅ Step 16: Installs swayidle launcher
+- ✅ All symlinks created automatically
+
+**Result:** Fresh installations have all features working immediately.
+
+---
+
+## Fixed Issues (Detailed)
 
 ### 1. ✅ Workspace Style Button
-**Problem:** Path hardcoded to `~/Projects/bunkeros` instead of dynamic detection.  
-**Fix:** Updated `waybar/scripts/appearance-menu.sh` to use `$PROJECT_DIR` variable.  
-**Installation Fix:** ✅ Uses dynamic path detection - works regardless of install location.
+**Problem:** Path hardcoded to `~/Projects/bunkeros` instead of dynamic detection. Also, when scripts are symlinked, `${BASH_SOURCE[0]}` points to the symlink location, not the actual file.  
+**Fix:** 
+- Updated `waybar/scripts/appearance-menu.sh` to use `readlink -f` to resolve the actual script path
+- This ensures `$PROJECT_DIR` resolves correctly even when scripts are symlinked
+
+**Installation Fix:** ✅ Uses `readlink` for symlink-aware path detection - works regardless of install location.
 
 ### 2. ✅ Display Menu Option
 **Problem:** Required `wdisplays` which wasn't installed.  
@@ -32,9 +65,9 @@ This document summarizes the fixes applied to resolve broken menu features on a 
 **Installation Fix:** ✅ `pulsemixer` now installed automatically during setup.
 
 ### 4. ✅ Display Scaling
-**Problem:** Path hardcoded to `$HOME/Projects/bunkeros` instead of dynamic detection.  
-**Fix:** Updated `waybar/scripts/system-menu.sh` to use `$PROJECT_DIR` variable.  
-**Installation Fix:** ✅ Uses dynamic path detection - works regardless of install location.
+**Problem:** Path hardcoded to `$HOME/Projects/bunkeros` instead of dynamic detection. Also needed symlink-aware path resolution.  
+**Fix:** Updated `waybar/scripts/system-menu.sh` to use `readlink -f` for symlink-aware `$PROJECT_DIR` resolution.  
+**Installation Fix:** ✅ Uses `readlink` for symlink-aware path detection - works regardless of install location.
 
 ### 5. ✅ Monitor Option Removed
 **Problem:** `btop` requires full screen and doesn't work well in tiled layouts on laptops.  
@@ -58,13 +91,20 @@ This document summarizes the fixes applied to resolve broken menu features on a 
 
 **Installation Fix:** ✅ Works with either `yay` or `paru`, `fzf` installed during setup.
 
-### 8. ✅ Power >> Lock
-**Problem:** `bunkeros-lock` script not installed to `~/.local/bin/`.  
-**Fix:** 
-- Added swaylock configuration and lock script installation to `setup.sh`
-- Lock script now symlinked automatically during installation
+### 8. ✅ Power >> Lock (and Swaylock Styling)
+**Problem:** 
+- `bunkeros-lock` script not installed to `~/.local/bin/`
+- Lock screen showed white background instead of BunkerOS tactical theming
+- Required ImageMagick but didn't gracefully fallback without it
 
-**Installation Fix:** ✅ `bunkeros-lock` now installed automatically in Step 8.5 of setup.sh.
+**Fix:** 
+- Added swaylock configuration and lock script installation to `setup.sh` (Step 8.5)
+- Lock script now symlinked automatically during installation
+- Updated `swaylock/lock.sh` to gracefully fallback to solid color if ImageMagick not available
+- Added `imagemagick` to system dependencies for enhanced styling
+- Swaylock config provides tactical color scheme (tan/green indicators, dark background)
+
+**Installation Fix:** ✅ `bunkeros-lock` installed automatically in Step 8.5, swaylock styled, works with or without ImageMagick.
 
 ### 9. ✅ Back Button Icon (Appearance Menu)
 **Problem:** Icon displayed as broken character (�).  
@@ -102,34 +142,17 @@ This document summarizes the fixes applied to resolve broken menu features on a 
    - Support for both `yay` and `paru`
    - Better handling of missing `fzf` with auto-install offer
 
-### New Files
-
-- **`scripts/install-missing-tools.sh`** - Helper script for existing installations to install missing optional tools
-
 ## For Existing Installations
 
-If you installed BunkerOS before these fixes, you have two options:
+If you installed BunkerOS before these fixes:
 
-### Option 1: Install Missing Tools Only
-```bash
-~/bunkeros/scripts/install-missing-tools.sh
-```
-
-This will install:
-- `fzf` (required for package installers)
-- `pulsemixer` (terminal audio mixer)
-- `wdisplays` (GUI display manager)
-
-The menu scripts already have the fixes, so after installing the tools, everything will work.
-
-### Option 2: Re-run Setup (Recommended)
 ```bash
 cd ~/bunkeros
 git pull
 ./setup.sh
 ```
 
-This will update all your symlinks and install the lock script automatically.
+This will update all your symlinks and configurations with the fixes.
 
 ## Testing
 

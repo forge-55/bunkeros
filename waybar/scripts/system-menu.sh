@@ -1,7 +1,9 @@
 #!/bin/bash
 # BunkerOS System Menu
 
-PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+# Resolve PROJECT_DIR from the actual script location (follow symlinks)
+SCRIPT_PATH="$(readlink -f "${BASH_SOURCE[0]}")"
+PROJECT_DIR="$(cd "$(dirname "$SCRIPT_PATH")/../.." && pwd)"
 
 # Accept position parameter (default: top_right for waybar button)
 POSITION=${1:-top_right}
