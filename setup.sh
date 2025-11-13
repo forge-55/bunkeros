@@ -173,6 +173,19 @@ else
 fi
 echo ""
 
+echo "Step 8.5: Setting up Swaylock configuration and lock script..."
+mkdir -p "$CONFIG_DIR/swaylock"
+backup_if_exists "$CONFIG_DIR/swaylock/config"
+ln -sf "$PROJECT_DIR/swaylock/config" "$CONFIG_DIR/swaylock/config"
+echo "  ✓ Swaylock config symlinked"
+
+# Install bunkeros-lock script to local bin
+backup_if_exists "$LOCAL_BIN/bunkeros-lock"
+ln -sf "$PROJECT_DIR/swaylock/lock.sh" "$LOCAL_BIN/bunkeros-lock"
+chmod +x "$PROJECT_DIR/swaylock/lock.sh"
+echo "  ✓ Lock script installed to $LOCAL_BIN/bunkeros-lock"
+echo ""
+
 echo "Step 9: Installing theme system..."
 backup_if_exists "$CONFIG_DIR/themes"
 rm -f "$CONFIG_DIR/themes"

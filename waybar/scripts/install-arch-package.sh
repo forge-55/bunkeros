@@ -4,7 +4,8 @@
 
 # Check if fzf is installed
 if ! command -v fzf &> /dev/null; then
-    notify-send "Error" "fzf is not installed. Install with: sudo pacman -S fzf"
+    notify-send "Missing Dependency" "fzf is required. Installing..."
+    foot -T "Installing fzf" -e bash -c 'sudo pacman -S --noconfirm fzf && echo "✅ fzf installed! Please try again." && sleep 2'
     exit 1
 fi
 

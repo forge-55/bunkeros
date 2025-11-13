@@ -6,7 +6,7 @@ PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 # Accept position parameter (default: top_right for waybar button)
 POSITION=${1:-top_right}
 
-options="󰏘  Theme\n󰨀  Workspace Style\n󰸉  Wallpaper\n󰖔  Night Mode\n󰹑  Window Gaps\n󰂚  Opacity\n��  Back"
+options="󰏘  Theme\n󰨀  Workspace Style\n󰸉  Wallpaper\n󰖔  Night Mode\n󰹑  Window Gaps\n󰂚  Opacity\n󰌑  Back"
 num_items=7
 
 # Set location based on position parameter
@@ -33,7 +33,7 @@ case $selected in
         ~/.local/bin/theme-switcher.sh menu "$POSITION"
         ;;
     "󰨀  Workspace Style")
-        ~/Projects/bunkeros/scripts/workspace-style-switcher.sh menu
+        "$PROJECT_DIR/scripts/workspace-style-switcher.sh" menu
         ;;
     "󰸉  Wallpaper")
         ~/.config/waybar/scripts/wallpaper-manager.sh

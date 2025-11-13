@@ -1,11 +1,13 @@
 #!/bin/bash
 # BunkerOS System Menu
 
+PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+
 # Accept position parameter (default: top_right for waybar button)
 POSITION=${1:-top_right}
 
-options="󰖩  Network\n󰂯  Bluetooth\n󰕾  Audio\n󰍹  Display\n󰹑  Display Scaling\n󰍛  Monitor\n󰌑  Back"
-num_items=7
+options="󰖩  Network\n󰂯  Bluetooth\n󰕾  Audio\n󰍹  Display\n󰹑  Display Scaling\n󰌑  Back"
+num_items=6
 
 # Set location based on position parameter
 if [ "$POSITION" = "center" ]; then
@@ -34,20 +36,29 @@ case $selected in
         ~/.config/waybar/scripts/bluetooth-manager.sh &
         ;;
     "󰕾  Audio")
-        foot -e pulsemixer &
+        if command -v pulsemixer &> /dev/null; then
+            foot -e pulsemixer &
+        elif command -v pavucontrol &> /dev/null; then
+            pavucontrol &
+        else
+            notify-send "BunkerOS" "No audio mixer found. Install pulsemixer or pavucontrol"
+        fi
         ;;
     "󰍹  Display")
-        wdisplays &
+        if command -v wdisplays &> /dev/null; then
+            wdisplays &
+        elif command -v wlr-randr &> /dev/null; then
+            foot -e wlr-randr &
+        else
+            notify-send "BunkerOS" "No display manager found. Install wdisplays or wlr-randr"
+        fi
         ;;
     "󰹑  Display Scaling")
-        if [ -f "$HOME/Projects/bunkeros/scripts/configure-display-scaling.sh" ]; then
-            foot -T "BunkerOS Display Scaling" -e "$HOME/Projects/bunkeros/scripts/configure-display-scaling.sh" --interactive &
+        if [ -f "$PROJECT_DIR/scripts/configure-display-scaling.sh" ]; then
+            foot -T "BunkerOS Display Scaling" -e "$PROJECT_DIR/scripts/configure-display-scaling.sh" --interactive &
         else
             notify-send "BunkerOS" "Display scaling script not found"
         fi
-        ;;
-    "󰍛  Monitor")
-        foot -e btop &
         ;;
     "󰌑  Back")
         if [ "$POSITION" = "center" ]; then

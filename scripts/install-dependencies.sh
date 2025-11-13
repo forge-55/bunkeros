@@ -36,6 +36,8 @@ SYSTEM_PACKAGES=(
     network-manager-applet
     blueman
     pavucontrol
+    pulsemixer          # Terminal-based audio mixer for waybar menu
+    wdisplays           # GUI display manager for Wayland
 )
 
 # Applications
