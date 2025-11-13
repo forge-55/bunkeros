@@ -22,7 +22,7 @@
 2. ✅ Improve battery indicator of T480 to account for second external battery life
 
 #BUG FIXES
-1. Screensaver and suspend logic
+1. ✅ COMPLETED: Screensaver and suspend logic - Simplified to use swayidle with battery-aware auto-lock/suspend
 2. Autoscaling for different resolutions
 3. All configuration working in a fresh install
 4. Arch Linux logo visible on boot

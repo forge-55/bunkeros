@@ -621,16 +621,6 @@ EOF
     fi
     save_checkpoint "sway_validated"
     
-    # Install Python tools
-    echo ""
-    info "Installing Python tools..."
-    if pipx install terminaltexteffects &>/dev/null; then
-        success "Installed TerminalTextEffects"
-    else
-        warning "Failed to install TerminalTextEffects (optional)"
-    fi
-    save_checkpoint "python_tools_installed"
-    
     # Verify services
     verify_services
     save_checkpoint "services_verified"

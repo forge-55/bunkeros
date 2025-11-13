@@ -1,6 +1,6 @@
 # BunkerOS Power Management
 
-BunkerOS uses the standard Linux power management system: **systemd-logind**. This is the same approach used by GNOME, KDE, and most modern Linux distributions.
+BunkerOS uses a simple, reliable approach to power management: **swayidle** for automatic lock and suspend, with battery-aware timeouts.
 
 ## Architecture
 
@@ -8,25 +8,31 @@ BunkerOS uses the standard Linux power management system: **systemd-logind**. Th
 
 | Component | Responsibility | Configuration |
 |-----------|---------------|---------------|
-| **systemd-logind** | System suspend/hibernate | `/etc/systemd/logind.conf.d/` |
-| **swayidle** | Screensaver activation | `~/.config/sway/config` |
+| **swayidle** | Automatic lock & suspend | `~/.config/sway/config` |
+| **systemd-logind** | Hardware events (lid, power button) | `/etc/systemd/logind.conf.d/` |
 | **Sway compositor** | Idle inhibition (fullscreen apps) | Window rules in Sway config |
 | **auto-cpufreq** or **TLP** | CPU frequency & power (optional) | Systemd service |
 
 ### Why This Approach?
 
-- **Standard**: Same system used across all major Linux distributions
-- **Reliable**: systemd-logind has proper idle detection and power management
-- **Compatible**: Works with system-wide inhibitor locks (video players, updates, etc.)
-- **Battery-aware**: Can have different settings for AC vs battery power
-- **Laptop-optimized**: Optional CPU power management tools extend battery life
+- **Simple**: One component (swayidle) handles idle timeout → lock → suspend
+- **Reliable**: Direct control flow without complex interactions
+- **Battery-aware**: Different timeouts when on battery vs plugged in
+- **Predictable**: Clear, linear progression from idle to suspend
 
 ## Default Settings
 
-```
-5 minutes  → Screensaver activates (swayidle)
-10 minutes → System suspends (systemd-logind)
-```
+**On Battery (power saving):**
+- 3 minutes idle → Lock screen
+- 5 seconds later → Suspend
+
+**Plugged In (convenience):**
+- 5 minutes idle → Lock screen
+- 5 seconds later → Suspend
+
+**Hardware Events:**
+- Lid close → Suspend immediately (with lock)
+- Power button → Power off
 
 ## CPU Power Management (Laptops)
 
@@ -93,64 +99,41 @@ sudo tlp-stat
 
 ## Installation
 
-```bash
-cd ~/Projects/bunkeros
-./scripts/install-power-management.sh
-```
-
-**Note**: This will require logging out or rebooting to take effect.
+The power management system is automatically configured during BunkerOS setup. No manual installation needed.
 
 ## Configuration
 
-### Adjusting Suspend Timeout
+### Adjusting Lock and Suspend Timeouts
 
-Edit `/etc/systemd/logind.conf.d/bunkeros-power.conf`:
-
-```ini
-[Login]
-# Change from 10min to your preferred timeout
-IdleActionSec=15min  # or 5min, 20min, etc.
-```
-
-Then restart logind (will log you out):
-```bash
-sudo systemctl restart systemd-logind.service
-```
-
-Or just reboot:
-```bash
-sudo reboot
-```
-
-### Adjusting Screensaver Timeout
-
-Edit `~/.config/sway/config`:
+Edit `~/Projects/bunkeros/scripts/launch-swayidle.sh`:
 
 ```bash
-# Find the swayidle line and change timeout value
-timeout 300  # Change to 180 (3min), 600 (10min), etc.
+# For battery power (default: 3 minutes lock, then suspend)
+LOCK_TIMEOUT=180   # Change to desired seconds
+SUSPEND_TIMEOUT=185  # Usually LOCK_TIMEOUT + 5
+
+# For plugged in (default: 5 minutes lock, then suspend)
+LOCK_TIMEOUT=300   # Change to desired seconds
+SUSPEND_TIMEOUT=305  # Usually LOCK_TIMEOUT + 5
 ```
 
-Then reload Sway:
+Then reload Sway configuration:
 ```
 Super+Shift+R
 ```
 
-### Disable Auto-Suspend (Keep Screensaver)
+### Disable Auto-Suspend (Keep Auto-Lock Only)
 
-Edit `/etc/systemd/logind.conf.d/bunkeros-power.conf`:
+Edit `~/Projects/bunkeros/scripts/launch-swayidle.sh` and comment out the suspend timeout:
 
-```ini
-[Login]
-# Set action to ignore
-IdleAction=ignore
+```bash
+exec swayidle -w \
+    timeout $LOCK_TIMEOUT "$HOME/.local/bin/bunkeros-lock" \
+    # timeout $SUSPEND_TIMEOUT 'systemctl suspend' \
+    before-sleep "$HOME/.local/bin/bunkeros-lock"
 ```
 
-Restart logind or reboot.
-
-### Different Settings for Laptop Battery
-
-systemd-logind supports different timeouts based on power state, but this requires more advanced configuration. See `man logind.conf` for details.
+Then reload Sway: `Super+Shift+R`
 
 ## Inhibiting Suspend
 
@@ -198,36 +181,17 @@ IdleAction=suspend
 ps aux | grep swayidle
 ```
 
-You should see swayidle running with your timeout values.
+You should see swayidle running with your configured timeout values.
 
 ### Test the system
 
-1. Let system idle for 5 minutes → screensaver should activate
-2. Let system idle for 10 minutes total → system should suspend
-3. Press any key → system wakes up, screensaver dismissed
+1. Let system idle for the configured timeout → lock screen appears
+2. A few seconds later → system suspends
+3. Wake the system → you're at the lock screen (enter password to unlock)
 
 ## Troubleshooting
 
-### System doesn't suspend after 10 minutes
-
-**Check if logind settings are active:**
-```bash
-loginctl show-session $(loginctl | grep $(whoami) | awk '{print $1}') | grep IdleAction
-```
-
-If it shows `IdleAction=ignore`, the configuration didn't load. Reboot or restart logind.
-
-**Check for inhibitors:**
-```bash
-systemd-inhibit --list
-```
-
-Common culprits:
-- Browser tabs with active media
-- System updates in progress
-- Applications with "prevent sleep" features enabled
-
-### Screensaver doesn't activate
+### System doesn't suspend after idle timeout
 
 **Check swayidle is running:**
 ```bash
@@ -236,21 +200,32 @@ ps aux | grep swayidle
 
 If not running, reload Sway: `Super+Shift+R`
 
-### Suspend happens too quickly
-
-Increase `IdleActionSec` in `/etc/systemd/logind.conf.d/bunkeros-power.conf`
-
-### Want suspend without screensaver
-
-Set screensaver timeout higher than suspend timeout:
-
+**Check for inhibitors:**
 ```bash
-# In sway/config
-timeout 900  # 15 minutes for screensaver
-
-# In /etc/systemd/logind.conf.d/bunkeros-power.conf
-IdleActionSec=10min  # 10 minutes for suspend
+systemd-inhibit --list
 ```
+
+Common culprits:
+- Browser tabs with active media or fullscreen videos
+- System updates in progress
+- Applications with "prevent sleep" features enabled
+- Fullscreen applications (this is by design - see Sway config)
+
+### Lock screen doesn't appear
+
+**Verify the lock script exists:**
+```bash
+ls -l ~/.local/bin/bunkeros-lock
+```
+
+**Test manually:**
+```bash
+~/.local/bin/bunkeros-lock
+```
+
+### Suspend happens too quickly/slowly
+
+Edit the timeouts in `~/Projects/bunkeros/scripts/launch-swayidle.sh` as described in the Configuration section above.
 
 ## Comparison with Other Approaches
 
@@ -262,25 +237,35 @@ swayidle timeout 600 'systemctl suspend'
 **Problems:**
 - swayidle has no authority over system power
 - Conflicts with systemd-logind's own idle detection
-- Doesn't respect system inhibitor locks
-- Not the standard Linux approach
 
-### systemd-logind Approach (current)
-```ini
-[Login]
-IdleAction=suspend
-IdleActionSec=10min
-```
 
-**Advantages:**
-- Standard across all Linux distributions
-- Properly integrates with system components
-- Respects inhibitor locks from all applications
-- Can be battery-aware
-- Managed by the init system (systemd)
+## How It Works
+
+BunkerOS uses swayidle to handle the complete idle management workflow:
+
+1. **Idle Detection**: swayidle monitors keyboard/mouse activity
+2. **Lock Screen**: After timeout, launches `bunkeros-lock` to secure the system
+3. **Suspend**: A few seconds later, triggers system suspend
+4. **Before Sleep**: Always locks before any sleep event (lid close, manual suspend, etc.)
+
+The `-w` flag tells swayidle to wait for commands to complete before considering the timeout satisfied. This ensures the lock screen is fully displayed before suspend.
+
+### Battery-Aware Behavior
+
+The launch script automatically detects whether you're on battery or plugged in:
+- **Battery**: Shorter timeout (3 min) to conserve power
+- **Plugged In**: Longer timeout (5 min) for convenience
+
+### Inhibitors
+
+Fullscreen applications automatically prevent idle detection. This means:
+- Videos playing fullscreen won't trigger auto-lock/suspend
+- Presentations won't be interrupted
+- Gaming sessions continue uninterrupted
 
 ## Further Reading
 
-- `man logind.conf` - Full logind configuration documentation
+- `man swayidle` - Full swayidle documentation
 - `man systemd-inhibit` - How to prevent/delay system suspend
 - [Arch Wiki: Power Management](https://wiki.archlinux.org/title/Power_management)
+

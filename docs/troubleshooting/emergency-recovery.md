@@ -65,20 +65,22 @@ This is NOT related to our changes, but here's how to fix:
    sudo systemctl start sddm
    ```
 
-## Disable Auto-Suspend (if needed)
+## Disable Auto-Lock and Auto-Suspend (if needed)
 
-If you just want to disable the auto-suspend feature:
+If you want to disable the automatic lock and suspend features:
 
 ```bash
-# From TTY or terminal
-sudo rm /etc/systemd/logind.conf.d/bunkeros-power.conf
-sudo systemctl restart systemd-logind
+# From TTY or terminal - kill swayidle
+killall swayidle
 ```
 
-This will:
-- ✓ Keep screensaver working (5 min)
-- ✗ Disable auto-suspend
-- ✓ System will work normally otherwise
+To permanently disable, edit `~/.config/sway/config` and comment out the swayidle launch line:
+
+```bash
+# exec_always --no-startup-id ~/.config/sway-config/scripts/launch-swayidle.sh
+```
+
+Then reload Sway: `Super+Shift+R`
 
 ## Verify Sway Config
 

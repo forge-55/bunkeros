@@ -54,10 +54,10 @@ User preferences and system configuration:
 
 ### 󰐥 Power Menu (`power-menu.sh`)
 Power management:
-- **󰔎 Screensaver** - Lock screen with screensaver
-- **󰐥 Shutdown** - Power off system
+- ** Shutdown** - Power off system
 - **󰜉 Reboot** - Restart system
-- **󰤄 Suspend** - Suspend to RAM
+- **󰤄 Suspend** - Suspend to RAM (with lock screen)
+- **󰷛 Lock** - Lock screen immediately
 - **󰍃 Logout** - Exit Sway session
 
 ## Design Principles

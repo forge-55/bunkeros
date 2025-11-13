@@ -86,7 +86,7 @@ AUR_PACKAGES=(
 
 # Python packages (installed via pipx)
 PYTHON_PACKAGES=(
-    terminaltexteffects    # Terminal text effects for screensaver
+    # None currently required
 )
 
 # Combine all official packages

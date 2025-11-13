@@ -3,14 +3,11 @@
 
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 
-options="󰔎 Screensaver\n󰐥 Power\n󰏘 Change Theme\n🖼️ Wallpaper\n󰃟 Theme\n󰒓 System\n⌨️ Keybindings\n󰖔 Night Mode\n󰄀 Screenshot\n📱 Web Apps\n󰍃 File Manager\n󰠮 Notes\n󰃬 Calculator\n 󰊶 Terminal"
+options=" Power\n󰏘 Change Theme\n🖼️ Wallpaper\n󰃟 Theme\n󰒓 System\n⌨️ Keybindings\n󰖔 Night Mode\n󰄀 Screenshot\n📱 Web Apps\n󰍃 File Manager\n󰠮 Notes\n󰃬 Calculator\n 󰊶 Terminal"
 
 selected=$(echo -e "$options" | wofi --dmenu --prompt "BunkerOS Quick Actions" --width 400 --height 740)
 
 case $selected in
-    "󰔎 Screensaver")
-        ~/.config/sway-config/scripts/launch-screensaver.sh
-        ;;
     "󰐥 Power")
         ~/.config/waybar/scripts/power-menu.sh
         ;;

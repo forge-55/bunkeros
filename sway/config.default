@@ -112,46 +112,24 @@ for_window [app_id=".*"] opacity $opacity
 # Screenshot dialog - floating and centered
 for_window [app_id="screenshot-dialog"] floating enable, resize set 600 300, move position center, opacity 1
 
-# Screensaver window rules
-for_window [app_id="^BunkerOS-Screensaver.*"] {
-    floating enable
-    fullscreen enable
-    move position center
-    opacity 1.0
-    focus
-    # Do NOT inhibit idle - we want suspend to work after screensaver starts
-    inhibit_idle none
-    # Note: sticky is enabled AFTER positioning to avoid conflicts
-}
-
-# Hide mouse cursor during screensaver
+# Hide mouse cursor after inactivity
 seat * hide_cursor when-typing enable
 seat * hide_cursor 3000
 
 ### Idle configuration
 #
-# Three-stage security approach:
-# Stage 1: Screensaver (visual only) - 5 minutes
-# Stage 2: Lock screen (security) - automatically before suspend
-# Stage 3: Suspend - 10 minutes
+# Simple, reliable approach:
+# - Automatically lock screen after idle timeout
+# - Automatically suspend shortly after lock
+# - Battery-aware timeouts (3min on battery, 5min when plugged in)
+# - Lock screen before any system sleep (lid close, manual suspend, etc.)
 #
-# This prevents the security gap where suspend happens before lock engages
-#
-# Press any key to exit screensaver and return to work
-#
-# NOTE: Do NOT use -w flag! It creates a delay inhibitor that prevents suspend
-exec_always --no-startup-id sh -c 'killall swayidle 2>/dev/null; sleep 0.5; swayidle \
-    timeout 300 "swaymsg seat seat0 hide_cursor 0; ~/.config/sway-config/scripts/launch-screensaver.sh" \
-    timeout 600 "$HOME/.local/bin/bunkeros-lock &" \
-    timeout 605 "systemctl suspend" \
-    resume "swaymsg \"[app_id=BunkerOS-Screensaver-*]\" kill 2>/dev/null; pkill -f \"foot.*Screensaver\" 2>/dev/null; swaymsg seat seat0 hide_cursor 3000" \
-    before-sleep "$HOME/.local/bin/bunkeros-lock"'
+# The swayidle launcher script handles battery detection and timeout selection
+exec_always --no-startup-id ~/.config/sway-config/scripts/launch-swayidle.sh
 
-# Prevent screensaver during fullscreen applications (videos, presentations)
-# BUT: Allow BunkerOS screensaver to NOT inhibit idle (so swayidle can progress to lock/suspend)
+# Prevent idle during fullscreen applications (videos, presentations)
 for_window [class=".*"] inhibit_idle fullscreen
 for_window [app_id=".*"] inhibit_idle fullscreen
-for_window [app_id="^BunkerOS-Screensaver-.*"] inhibit_idle none
 
 ### Input configuration
 #

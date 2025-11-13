@@ -219,8 +219,6 @@ echo "Installing Python tools..."
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 
-echo "Installing TerminalTextEffects for screensaver..."
-pipx install terminaltexteffects 2>/dev/null || echo "  (Already installed or error - continuing...)"
 echo "✓ Python tools configured"
 
 echo ""

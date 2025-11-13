@@ -192,6 +192,7 @@ Tmux works seamlessly with the default Foot terminal and can be configured to:
 - **Foot terminal**: Optimized for the default BunkerOS terminal
 - **Sway workspace**: Integrates smoothly with tiling window management
 - **Power efficiency**: Battery status visible, session saving reduces resource usage
+- **Auto-lock respect**: Won't prevent idle timeout (sessions persist through suspend)
 
 ## Troubleshooting
 

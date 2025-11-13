@@ -1,7 +1,7 @@
 #!/bin/bash
 # BunkerOS Actions Menu - Quick actions
 
-options="󰄀 Screenshot\n󰔎 Screensaver\n⬅️  Back"
+options="󰄀 Screenshot\n󰷛 Lock Screen\n⬅️  Back"
 
 # Calculate height dynamically
 item_height=40
@@ -20,9 +20,9 @@ case $selected in
     "󰄀 Screenshot")
         ~/.config/waybar/scripts/screenshot-area.sh
         ;;
-    "󰔎 Screensaver")
-        # Launch in background so menu doesn't hang
-        ~/.config/sway-config/scripts/launch-screensaver.sh &
+    "󰷛 Lock Screen")
+        # Lock screen immediately
+        ~/.local/bin/bunkeros-lock &
         ;;
     "⬅️  Back")
         ~/.config/waybar/scripts/main-menu.sh

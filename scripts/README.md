@@ -180,12 +180,12 @@ This directory contains all utility scripts for BunkerOS installation, configura
   - Sets up screen timeout
   - Installs systemd-logind config
 
-## Screensaver
+## Idle Management
 
-- **`bunkeros-screensaver.sh`** - Terminal screensaver
-  - Matrix effect with TerminalTextEffects
-  
-- **`launch-screensaver.sh`** - Screensaver launcher
+- **`launch-swayidle.sh`** - Battery-aware automatic lock and suspend
+  - 3 min (battery) / 5 min (plugged in) idle timeout
+  - Locks screen then suspends automatically
+  - Prevents suspend during fullscreen apps
 
 ## Waybar Integration
 

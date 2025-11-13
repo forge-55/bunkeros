@@ -10,7 +10,7 @@ fi
 # Accept position parameter (default: top_right for waybar button)
 POSITION=${1:-top_right}
 
-options="󰌾  Screensaver\n󰐥  Shutdown\n󰜉  Reboot\n󰤄  Suspend\n󰍃  Logout\n󰌑  Back"
+options="󰐥  Shutdown\n󰜉  Reboot\n󰤄  Suspend\n󰷛  Lock\n󰍃  Logout\n󰌑  Back"
 num_items=6
 
 # Set location based on position parameter
@@ -33,10 +33,6 @@ else
 fi
 
 case $chosen in
-    "󰌾  Screensaver")
-        # Launch screensaver in background (don't wait for it)
-        ~/.config/sway-config/scripts/launch-screensaver.sh &
-        ;;
     "󰐥  Shutdown")
         systemctl poweroff
         ;;
@@ -50,6 +46,10 @@ case $chosen in
         # Brief pause to ensure lock is showing before suspend
         sleep 0.2
         systemctl suspend
+        ;;
+    "󰷛  Lock")
+        # Lock screen immediately
+        ~/.local/bin/bunkeros-lock
         ;;
     "󰍃  Logout")
         swaymsg exit
