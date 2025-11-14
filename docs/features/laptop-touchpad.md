@@ -17,6 +17,8 @@ BunkerOS provides touchpad support out of the box, making laptop usage smooth an
 - MacBook-style reverse scrolling is enabled by default
 - To disable: Comment out `natural_scroll enabled` in `~/.config/sway/config`
 
+**Note:** Natural scrolling applies only to the touchpad. TrackPoint uses traditional scrolling by default (like a mouse), as these are different input paradigms. You can configure each independently if desired.
+
 ### Middle-Click Emulation
 - Click left and right buttons simultaneously for middle-click
 - Useful for opening links in new tabs
