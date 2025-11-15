@@ -44,6 +44,7 @@ echo ""
 AUR_PACKAGES=(
     swayosd-git
     auto-cpufreq
+    localsend-bin
 )
 
 echo "Installing AUR packages: ${AUR_PACKAGES[*]}"
@@ -57,3 +58,4 @@ echo ""
 echo "Note: These packages are optional but recommended for full BunkerOS experience:"
 echo "  - swayosd-git: On-screen display for volume/brightness"
 echo "  - auto-cpufreq: Automatic CPU frequency scaling for battery life"
+echo "  - localsend-bin: Local network file sharing (AirDrop alternative)"

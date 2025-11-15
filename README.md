@@ -71,6 +71,7 @@ See [INSTALL.md](INSTALL.md) for detailed instructions. This approach gives you 
 - Web app manager
 - Interactive keybinding manager
 - Video conferencing ready
+- Local file sharing with LocalSend (AirDrop alternative)
 - Lightweight and efficient resource usage
 
 ## Documentation
