@@ -51,7 +51,6 @@ APP_PACKAGES=(
     btop
     mate-calc
     zenity
-    libreoffice-fresh
     tmux
 )
 
