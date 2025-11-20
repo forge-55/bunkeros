@@ -14,14 +14,14 @@ get_current_style() {
     if [ -f "$STYLE_PREFERENCE_FILE" ]; then
         cat "$STYLE_PREFERENCE_FILE"
     else
-        echo "dots"  # Default style
+        echo "bottom-border"  # Default style
     fi
 }
 
 list_styles() {
-    echo "dots"
     echo "bottom-border"
     echo "box"
+    echo "dots"
 }
 
 get_style_name() {
@@ -157,9 +157,9 @@ apply_workspace_style() {
             cp "$PROJECT_DIR/waybar/config.abstract" "$waybar_config"
         fi
     else
-        # Use standard config with numbered workspaces
-        if [ -f "$PROJECT_DIR/waybar/config" ]; then
-            cp "$PROJECT_DIR/waybar/config" "$waybar_config"
+        # Use numbered config with numbered workspaces
+        if [ -f "$PROJECT_DIR/waybar/config.numbered" ]; then
+            cp "$PROJECT_DIR/waybar/config.numbered" "$waybar_config"
         fi
     fi
     
@@ -177,12 +177,12 @@ toggle_style() {
     local new_style
     
     # Cycle through all three styles
-    if [ "$current" = "dots" ]; then
-        new_style="bottom-border"
-    elif [ "$current" = "bottom-border" ]; then
+    if [ "$current" = "bottom-border" ]; then
         new_style="box"
-    else
+    elif [ "$current" = "box" ]; then
         new_style="dots"
+    else
+        new_style="bottom-border"
     fi
     
     apply_workspace_style "$new_style" ""
@@ -214,12 +214,12 @@ show_menu() {
     
     if [ -n "$selected" ]; then
         # Extract style from selection
-        if echo "$selected" | grep -q "Abstract"; then
-            apply_workspace_style "dots"
-        elif echo "$selected" | grep -q "Numbered (Underline)"; then
+        if echo "$selected" | grep -q "Numbered (Underline)"; then
             apply_workspace_style "bottom-border"
         elif echo "$selected" | grep -q "Numbered (Border)"; then
             apply_workspace_style "box"
+        elif echo "$selected" | grep -q "Abstract"; then
+            apply_workspace_style "dots"
         fi
     fi
 }
