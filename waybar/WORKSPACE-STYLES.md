@@ -1,6 +1,6 @@
 # Workspace Button Styles
 
-BunkerOS supports two different workspace button styles that you can switch between.
+BunkerOS supports three different workspace button styles that you can switch between.
 
 **Default Style**: Bottom Border (Minimal) - applied automatically on fresh installations.
 
@@ -21,6 +21,16 @@ BunkerOS supports two different workspace button styles that you can switch betw
 - Rounded corners (border-radius: 4px)
 - Includes urgent state with pulse animation
 
+### 3. Abstract
+- Minimalist abstract design inspired by ArchCraft  
+- Circular dot indicators (○ and ●) instead of numbers
+- Clean, GNOME-style abstract pattern
+- Empty circles (○) for inactive workspaces with low opacity
+- Filled circle (●) for active workspace with larger size
+- No workspace numbers - pure visual indicators
+- Uses a separate Waybar config with icon-based format
+- Perfect for users who prefer clean, minimal visual indicators
+
 ## How to Switch Styles
 
 ### Via Appearance Menu (Recommended)
@@ -37,6 +47,7 @@ BunkerOS supports two different workspace button styles that you can switch betw
 # Or apply a specific style
 ~/Projects/bunkeros/scripts/workspace-style-switcher.sh apply bottom-border
 ~/Projects/bunkeros/scripts/workspace-style-switcher.sh apply box
+~/Projects/bunkeros/scripts/workspace-style-switcher.sh apply dots
 
 # Show menu to select style
 ~/Projects/bunkeros/scripts/workspace-style-switcher.sh menu

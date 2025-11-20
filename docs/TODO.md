@@ -13,6 +13,7 @@
    - Automatic installation with default configuration
    - See: tmux/README.md
 4. Future: Per-application power profiles (auto-switch based on running apps)
+5. Fix auto-lock/suspend behavior after implementing simplified workflow without screensaver
 
 #IMPROVEMENTS
 1. Better structure to project directories
@@ -20,6 +21,7 @@
 #DESIGN
 1. Improve wallpaper and design of all themes, with better color and brightness. Maybe opting for abstract style.
 2. ✅ Improve battery indicator of T480 to account for second external battery life
+3. Make brightness and volume change indicator less transparent so they're easier to see
 
 #BUG FIXES
 1. ✅ COMPLETED: Screensaver and suspend logic - Simplified to use swayidle with battery-aware auto-lock/suspend

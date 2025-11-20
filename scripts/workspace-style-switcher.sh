@@ -14,11 +14,12 @@ get_current_style() {
     if [ -f "$STYLE_PREFERENCE_FILE" ]; then
         cat "$STYLE_PREFERENCE_FILE"
     else
-        echo "bottom-border"  # Default style
+        echo "dots"  # Default style
     fi
 }
 
 list_styles() {
+    echo "dots"
     echo "bottom-border"
     echo "box"
 }
@@ -26,11 +27,14 @@ list_styles() {
 get_style_name() {
     local style=$1
     case "$style" in
+        dots)
+            echo "Abstract"
+            ;;
         bottom-border)
-            echo "Bottom Border"
+            echo "Numbered (Underline)"
             ;;
         box)
-            echo "Box"
+            echo "Numbered (Border)"
             ;;
         *)
             echo "Unknown"
@@ -115,11 +119,11 @@ apply_workspace_style() {
             }
             {print}
         ' "$waybar_style" > "$temp_file"
-    elif grep -q "#workspaces button {" "$waybar_style"; then
+    elif grep -q "#workspaces button" "$waybar_style"; then
         # Replace existing workspace button styles
         awk -v ws="$workspace_css" '
             BEGIN { in_workspace=0; printed=0 }
-            /^#workspaces button/ { 
+            /^\/\* Workspace Button Style:/ { 
                 if (!printed) {
                     print ws
                     printed=1
@@ -127,8 +131,11 @@ apply_workspace_style() {
                 in_workspace=1
                 next
             }
-            /^#mode {|^#clock,/ { 
-                in_workspace=0 
+            /^#workspaces button/ && in_workspace { 
+                next
+            }
+            /^#mode |^#clock|^window#waybar/ { 
+                in_workspace=0
             }
             !in_workspace { print }
         ' "$waybar_style" > "$temp_file"
@@ -141,6 +148,20 @@ apply_workspace_style() {
     fi
     
     mv "$temp_file" "$waybar_style"
+    
+    # Switch waybar config for abstract style (uses icons instead of numbers)
+    local waybar_config="$HOME/.config/waybar/config"
+    if [ "$style" = "dots" ]; then
+        # Use abstract config with icon-based workspaces
+        if [ -f "$PROJECT_DIR/waybar/config.abstract" ]; then
+            cp "$PROJECT_DIR/waybar/config.abstract" "$waybar_config"
+        fi
+    else
+        # Use standard config with numbered workspaces
+        if [ -f "$PROJECT_DIR/waybar/config" ]; then
+            cp "$PROJECT_DIR/waybar/config" "$waybar_config"
+        fi
+    fi
     
     # Restart waybar to apply changes (unless --no-restart flag is set)
     if [ "$no_restart" != "--no-restart" ]; then
@@ -155,10 +176,13 @@ toggle_style() {
     local current=$(get_current_style)
     local new_style
     
-    if [ "$current" = "bottom-border" ]; then
+    # Cycle through all three styles
+    if [ "$current" = "dots" ]; then
+        new_style="bottom-border"
+    elif [ "$current" = "bottom-border" ]; then
         new_style="box"
     else
-        new_style="bottom-border"
+        new_style="dots"
     fi
     
     apply_workspace_style "$new_style" ""
@@ -184,15 +208,17 @@ show_menu() {
         --dmenu \
         --prompt "Workspace Style" \
         --width 280 \
-        --height 150 \
+        --height 180 \
         --cache-file=/dev/null \
         --insensitive)
     
     if [ -n "$selected" ]; then
         # Extract style from selection
-        if echo "$selected" | grep -q "Bottom Border"; then
+        if echo "$selected" | grep -q "Abstract"; then
+            apply_workspace_style "dots"
+        elif echo "$selected" | grep -q "Numbered (Underline)"; then
             apply_workspace_style "bottom-border"
-        elif echo "$selected" | grep -q "Box"; then
+        elif echo "$selected" | grep -q "Numbered (Border)"; then
             apply_workspace_style "box"
         fi
     fi
