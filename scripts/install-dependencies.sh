@@ -103,6 +103,8 @@ DEVELOPMENT_PACKAGES=(
     rust                  # Rust programming language & cargo
     go                    # Go programming language
     jdk-openjdk          # Java Development Kit
+    jre-openjdk          # Java Runtime Environment (for JetBrains IDEs)
+    jre-openjdk-headless # Headless Java runtime
     
     # Version control & build tools
     git-lfs              # Git Large File Storage
@@ -135,6 +137,7 @@ DEVELOPMENT_PACKAGES=(
 # Python tools
 PYTHON_PACKAGES=(
     python-pipx
+    python-setuptools    # Required for PyCharm and Python development
 )
 
 # Combine all packages
