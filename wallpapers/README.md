@@ -19,7 +19,7 @@ cd ~/bunkeros
 ./setup.sh
 ```
 
-The setup script creates a symlink from `~/.local/share/bunkeros/wallpapers/` to this directory.
+The setup script **copies** the wallpapers to `~/.local/share/bunkeros/wallpapers/`. This means your customizations won't be affected by git pulls or updates.
 
 ## How It Works
 
@@ -73,7 +73,7 @@ nano ~/bunkeros/themes/tactical/theme.conf
 ```
 bunkeros/
 ├── wallpapers/                    # This directory (in git repo)
-│   ├── tactical.jpg
+│   ├── tactical.jpg               # Original wallpapers (tracked by git)
 │   ├── abyss.jpg
 │   ├── night-ops.jpg
 │   ├── sahara.jpg
@@ -83,16 +83,21 @@ bunkeros/
     ├── abyss/theme.conf
     └── ...
 
-# After setup:
+# After setup (user's local directory):
 ~/.local/share/bunkeros/
-└── wallpapers/                    # Symlink → ~/bunkeros/wallpapers/
+└── wallpapers/                    # Copied from repo (your customizations here)
+    ├── tactical.jpg               # Safe to replace - won't be overwritten by git pull
+    ├── abyss.jpg
+    ├── night-ops.jpg
+    ├── sahara.jpg
+    └── winter.jpg
 ```
 
 ## Why This Structure?
 
 1. **Follows XDG Standards**: Uses `~/.local/share/` for user data
-2. **Always In Sync**: Symlink means wallpapers auto-update with git pulls
-3. **Easy Distribution**: Wallpapers ship with BunkerOS repository
-4. **User Customizable**: Users can replace/add images in the repo directory
-5. **Automatic Theme Switching**: Each theme automatically loads its wallpaper
+2. **Safe Customization**: Your wallpaper changes won't be overwritten by git updates
+3. **Easy Distribution**: Default wallpapers ship with BunkerOS repository
+4. **Git-Friendly**: Customizations don't show up in `git status`
+5. **Automatic Theme Switching**: Each theme automatically loads its wallpaper from your local directory
 

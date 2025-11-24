@@ -218,11 +218,14 @@ echo "  ✓ Theme system symlinked"
 echo ""
 
 echo "Step 10: Installing wallpapers..."
-mkdir -p "$HOME/.local/share/bunkeros"
+mkdir -p "$HOME/.local/share/bunkeros/wallpapers"
 backup_if_exists "$HOME/.local/share/bunkeros/wallpapers"
-rm -f "$HOME/.local/share/bunkeros/wallpapers"
-ln -sf "$PROJECT_DIR/wallpapers" "$HOME/.local/share/bunkeros/wallpapers"
-echo "  ✓ Wallpapers symlinked (5 theme wallpapers included)"
+
+# Copy wallpapers to user's local directory (not symlink)
+# This allows users to customize without affecting the git repo
+cp -n "$PROJECT_DIR/wallpapers"/*.jpg "$HOME/.local/share/bunkeros/wallpapers/" 2>/dev/null || true
+echo "  ✓ Wallpapers installed (5 theme wallpapers)"
+echo "  ℹ  Customize by replacing files in ~/.local/share/bunkeros/wallpapers/"
 echo ""
 
 echo "Step 11: Installing Web App Manager..."

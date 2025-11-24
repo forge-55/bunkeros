@@ -183,11 +183,12 @@ cp ~/Projects/bunkeros/bunkeros/defaults.conf ~/.config/bunkeros/
 
 #### Wallpaper Path Issues
 ```bash
-# Check wallpaper exists
+# Check wallpapers exist
 ls -l ~/.local/share/bunkeros/wallpapers/
 
-# If missing
-ln -sf ~/Projects/bunkeros/wallpapers ~/.local/share/bunkeros/wallpapers
+# If missing, copy from repo
+mkdir -p ~/.local/share/bunkeros/wallpapers
+cp ~/bunkeros/wallpapers/*.jpg ~/.local/share/bunkeros/wallpapers/
 ```
 
 #### Missing Config Includes
