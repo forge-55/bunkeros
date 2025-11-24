@@ -39,7 +39,7 @@ swaymsg -t get_tree | jq -r '
 ' > "$window_file"
 
 # Build workspace overview
-for ws_num in $(seq 1 9); do
+for ws_num in $(seq 1 10); do
     windows=$(grep "|$ws_num|" "$window_file")
     
     if [ -z "$windows" ]; then
@@ -169,7 +169,7 @@ if [ -n "$selected" ]; then
                 --height 350 \
                 --cache-file=/dev/null)
             
-            if [ -n "$destination" ] && [ "$destination" -ge 1 ] && [ "$destination" -le 9 ] 2>/dev/null; then
+            if [ -n "$destination" ] && [ "$destination" -ge 1 ] && [ "$destination" -le 10 ] 2>/dev/null; then
                 if move_workspace "$ws_num" "$destination"; then
                     # Reopen reorder mode for multiple operations
                     rm -f "$temp_file" "$window_file"
