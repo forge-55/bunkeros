@@ -113,7 +113,7 @@ The installation scripts verify Arch Linux compatibility during setup.
 ### Productivity Automation
 - Custom keybinding manager with GUI
 - Web app installation system
-- Smart wallpaper management
+- Five beautiful themes with matching wallpapers
 - Network and Bluetooth managers
 - Quick actions menu
 
@@ -204,7 +204,7 @@ Significantly lighter than traditional desktop environments.
 - Interactive keybinding manager (GUI)
 - Web app installation system
 - Multi-theme switcher
-- Wallpaper manager
+- Theme switcher with automatic wallpaper matching
 - Network/Bluetooth managers
 - Quick actions menu
 

@@ -1,21 +1,21 @@
 # BunkerOS Wallpapers
 
-This directory contains the official wallpapers for each BunkerOS theme.
+This directory contains the default wallpaper for each BunkerOS theme.
 
 ## Included Wallpapers
 
-- **tactical.jpg** - Default BunkerOS (Tactical) theme wallpaper
-- **gruvbox.jpg** - Gruvbox Dark theme wallpaper
-- **nord.jpg** - Nord theme wallpaper
-- **everforest.jpg** - Everforest theme wallpaper
-- **tokyo-night.jpg** - Tokyo Night theme wallpaper
+- **tactical.jpg** - Tactical (Default) theme wallpaper
+- **abyss.jpg** - Abyss theme wallpaper
+- **night-ops.jpg** - Night Ops theme wallpaper
+- **sahara.jpg** - Sahara theme wallpaper
+- **winter.jpg** - Winter theme wallpaper
 
 ## Installation
 
 Wallpapers are automatically installed during BunkerOS setup:
 
 ```bash
-cd ~/Projects/bunkeros
+cd ~/bunkeros
 ./setup.sh
 ```
 
@@ -29,23 +29,44 @@ Each theme's `theme.conf` file specifies its wallpaper:
 WALLPAPER="$HOME/.local/share/bunkeros/wallpapers/tactical.jpg"
 ```
 
-When you switch themes (Super+m → Theme → Change Theme), the theme switcher automatically:
+When you switch themes, the wallpaper automatically changes to match. The theme switcher:
 1. Reads the WALLPAPER path from the theme's config
 2. Kills the existing swaybg process
 3. Launches swaybg with the new wallpaper
 
-## Adding Custom Wallpapers
+## Customizing Wallpapers
 
-To use a custom wallpaper for a theme:
+To replace a theme's wallpaper with your own image:
 
-1. Add your image to this directory
-2. Edit the theme's `theme.conf` file
-3. Update the WALLPAPER line:
+1. **Choose which theme to customize** (e.g., `tactical`)
+2. **Replace the wallpaper file:**
    ```bash
-   WALLPAPER="$HOME/.local/share/bunkeros/wallpapers/your-image.jpg"
+   cp ~/Downloads/my-wallpaper.jpg ~/.local/share/bunkeros/wallpapers/tactical.jpg
+   ```
+3. **Switch to that theme** to see your custom wallpaper:
+   ```bash
+   ~/bunkeros/scripts/theme-switcher.sh tactical
    ```
 
-The theme switcher supports any image format that swaybg supports (JPG, PNG, etc.).
+**Tips:**
+- Use high-resolution images (1920x1080 or higher) for best results
+- JPG and PNG formats are supported
+- Keep the same filename as the original to avoid changing theme configs
+- Make a backup of the original wallpaper if you want to restore it later
+
+**Example - Adding a new wallpaper:**
+```bash
+# Add your custom image
+cp ~/Downloads/my-custom-wallpaper.jpg ~/.local/share/bunkeros/wallpapers/my-wallpaper.jpg
+
+# Edit the theme config to use it
+nano ~/bunkeros/themes/tactical/theme.conf
+# Change: WALLPAPER="$HOME/.local/share/bunkeros/wallpapers/tactical.jpg"
+# To:     WALLPAPER="$HOME/.local/share/bunkeros/wallpapers/my-wallpaper.jpg"
+
+# Apply the theme
+~/bunkeros/scripts/theme-switcher.sh tactical
+```
 
 ## Directory Structure
 
@@ -53,18 +74,18 @@ The theme switcher supports any image format that swaybg supports (JPG, PNG, etc
 bunkeros/
 ├── wallpapers/                    # This directory (in git repo)
 │   ├── tactical.jpg
-│   ├── gruvbox.jpg
-│   ├── nord.jpg
-│   ├── everforest.jpg
-│   └── tokyo-night.jpg
+│   ├── abyss.jpg
+│   ├── night-ops.jpg
+│   ├── sahara.jpg
+│   └── winter.jpg
 └── themes/
     ├── tactical/theme.conf        # Contains: WALLPAPER="$HOME/.local/share/bunkeros/wallpapers/tactical.jpg"
-    ├── gruvbox/theme.conf
+    ├── abyss/theme.conf
     └── ...
 
 # After setup:
 ~/.local/share/bunkeros/
-└── wallpapers/                    # Symlink → /home/user/Projects/bunkeros/wallpapers/
+└── wallpapers/                    # Symlink → ~/bunkeros/wallpapers/
 ```
 
 ## Why This Structure?
@@ -73,9 +94,5 @@ bunkeros/
 2. **Always In Sync**: Symlink means wallpapers auto-update with git pulls
 3. **Easy Distribution**: Wallpapers ship with BunkerOS repository
 4. **User Customizable**: Users can replace/add images in the repo directory
-5. **No Manual Management**: Automatic installation and theme switching
-
-## File Sizes
-
-The wallpapers total approximately 20MB. They are stored in the git repository to ensure they're always available with BunkerOS installations.
+5. **Automatic Theme Switching**: Each theme automatically loads its wallpaper
 

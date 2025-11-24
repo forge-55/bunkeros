@@ -341,14 +341,13 @@ browse_theme_actions() {
 ➕ Increase Gaps  │  gaps inner all plus 2
 ➖ Decrease Gaps  │  gaps outer all plus 2
 🔄 Reload Sway Config  │  reload
-🖼️  Change Wallpaper  │  exec killall swaybg; swaybg -i ~/Pictures/wallpaper.jpg -m fill
 ⬅️  Back" | \
     wofi --dmenu \
         --prompt "🎨 Select Theme/Appearance Action" \
         --width 550 \
         --height 350 \
         --cache-file=/dev/null \
-        --lines 7)
+        --lines 6)
     
     if [[ "$action" == "⬅️  Back" ]] || [ -z "$action" ]; then
         browse_action_category

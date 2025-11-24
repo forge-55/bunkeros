@@ -3,7 +3,7 @@
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 
 show_menu() {
-    options="󰏘 Change Theme\n󰹑 Toggle Gaps\n󰙵 Increase Gaps\n󰙴 Decrease Gaps\n󰂚 Increase Opacity\n󰂙 Decrease Opacity\n󰸉 Wallpaper\n󰆊 Reload Config\n⬅️  Back"
+    options="󰏘 Change Theme\n󰹑 Toggle Gaps\n󰙵 Increase Gaps\n󰙴 Decrease Gaps\n󰂚 Increase Opacity\n󰂙 Decrease Opacity\n󰆊 Reload Config\n⬅️  Back"
 
     selected=$(echo -e "$options" | wofi --dmenu --prompt "Theme Options" --width 400 --height 550)
 
@@ -42,14 +42,6 @@ case $selected in
         swaymsg '[app_id=".*"]' opacity minus 0.05
         swaymsg '[class=".*"]' opacity minus 0.05
         notify-send "Opacity Decreased" "Window opacity decreased"
-        ;;
-    "󰸉 Wallpaper")
-        wallpaper=$(find ~/Pictures -type f \( -iname "*.jpg" -o -iname "*.png" \) | wofi --dmenu --prompt "Select Wallpaper")
-        if [ -n "$wallpaper" ]; then
-            killall swaybg 2>/dev/null
-            swaybg -i "$wallpaper" -m fill &
-            notify-send "Wallpaper Changed" "$(basename "$wallpaper")"
-        fi
         ;;
     "󰆊 Reload Config")
         swaymsg reload

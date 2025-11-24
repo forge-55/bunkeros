@@ -27,7 +27,6 @@ BunkerOS uses a **consistent, professional icon system** based on Nerd Fonts. Th
 | Icon | Label | Meaning |
 |------|-------|---------|
 | 󰏘 | Theme | Color scheme selection |
-| 󰸉 | Wallpaper | Background image manager |
 | 󰖔 | Night Mode | Blue light filter toggle |
 | 󰹑 | Window Gaps | Spacing between windows |
 | 󰂚 | Opacity | Window transparency control |
@@ -127,10 +126,10 @@ BunkerOS uses a **consistent, professional icon system** based on Nerd Fonts. Th
 
 ```bash
 # Correct format
-options="󰏘  Theme\n󰸉  Wallpaper\n󰖔  Night Mode"
+options="󰏘  Theme\n󰖔  Night Mode\n󰹑  Window Gaps"
 
 # Wrong format (inconsistent spacing)
-options="󰏘 Theme\n󰸉  Wallpaper\n󰖔   Night Mode"
+options="󰏘 Theme\n󰖔   Night Mode\n󰹑  Window Gaps"
 ```
 
 ### Width Guidelines
@@ -184,11 +183,11 @@ As BunkerOS grows, maintain this icon system by:
 
 ```
 󰏘 Theme      󰒓 System     󰏖 Install
-󰸉 Wallpaper  󰖩 Network    󰀉 Prefs
-󰖔 Night      󰂯 Bluetooth  󰖟 Web Apps
-󰹑 Gaps       󰕾 Audio      󰌌 Keybinds
-󰂚 Opacity    󰍹 Display    󰄬 Selected
-󰐥 Power      󰍛 Monitor    󰌑 Back
+󰖔 Night      󰖩 Network    󰀉 Prefs
+󰹑 Gaps       󰂯 Bluetooth  󰖟 Web Apps
+󰂚 Opacity    󰕾 Audio      󰌌 Keybinds
+󰐥 Power      󰍹 Display    󰄬 Selected
+             󰍛 Monitor    󰌑 Back
 ```
 
 ---

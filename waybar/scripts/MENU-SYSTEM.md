@@ -17,8 +17,7 @@ The primary entry point accessed from waybar or keybindings (Super+M or Super+Al
 
 ### 🎨 Appearance Menu (`appearance-menu.sh`)
 Visual customization and theming:
-- **󰏘 Theme** - Switch between BunkerOS themes (Tactical, Gruvbox, Nord, Everforest, Tokyo Night)
-- **󰸉 Wallpaper** - Manage wallpapers with graphical selector
+- **󰏘 Theme** - Switch between BunkerOS themes (Tactical, Abyss, Night Ops, Sahara, Winter)
 - **󰖔 Night Mode** - Toggle color temperature (one-click blue light filter)
 - **󰹑 Window Gaps** - Submenu for gap controls
   - Toggle Gaps (0px ↔ 8px)
@@ -137,7 +136,7 @@ bindsym $mod+m exec ~/.config/waybar/scripts/main-menu.sh
 
 The old `quick-menu.sh` is preserved but no longer used. The new system provides:
 - Better organization with clear categories
-- Eliminated redundancy (removed duplicate Theme/Wallpaper entries)
+- Eliminated redundancy and removed wallpaper management UI
 - Added missing features (Reload Config)
 - Removed clutter (moved apps to Launch menu)
 
