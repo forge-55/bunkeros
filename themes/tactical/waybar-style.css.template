@@ -146,7 +146,7 @@ window#waybar.hidden {
 #custom-night-mode {
     color: #3D5A4E;
     font-size: 14px;
-    padding: 0 8px;
+    padding: 0 12px;
 }
 
 #custom-night-mode.active {
