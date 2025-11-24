@@ -33,6 +33,47 @@ BunkerOS includes development tools and programming languages that **most Linux 
 - Industry standard for development workflows
 - Extensive Docker Compose support
 
+## Text Editors
+
+### Pre-installed Editors
+- **code (VS Code OSS)** - Full-featured code editor (Super+e)
+- **lite-xl** - Lightweight GUI editor for quick edits
+- **micro** - Modern terminal editor with mouse support
+- **nano** - Classic terminal editor
+
+### Why These Four?
+
+**Code (VS Code OSS)** is the primary code editor:
+- Industry standard for development
+- Super+e keybinding works immediately
+- Extensions, debugging, git integration
+- Users can install their preferred IDE (Cursor, VS Codium, JetBrains, etc.)
+
+**Lite-xl** provides a lightweight alternative:
+- Fast startup for quick config edits
+- Minimal resource usage
+- Clean, distraction-free interface
+
+**Micro** for terminal editing:
+- Modern UX with familiar keybindings (Ctrl+S, Ctrl+Q)
+- Mouse support and syntax highlighting
+
+**Nano** as safety net:
+- Universally expected on Linux systems
+- Critical for SSH and recovery scenarios
+- Tiny footprint (~500KB)
+
+### Why Not Vim/Neovim?
+
+While vim-style navigation is used throughout BunkerOS (hjkl keybindings in Sway), vim/neovim are **not pre-installed** by design:
+
+- Not personally used or tested by the maintainer
+- Steep learning curve for new users
+- Users who prefer vim will install it themselves
+- BunkerOS ships only software the maintainer actively uses
+
+**Philosophy**: Ship curated, tested tools rather than trying to please everyone. Advanced users will customize anyway.
+
 ## Development Tools
 
 ### System Monitoring
