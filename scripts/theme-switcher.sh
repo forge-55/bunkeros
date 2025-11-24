@@ -72,7 +72,37 @@ apply_theme() {
     
     # Update active config locations ONLY (not project directory)
     # This keeps the git repository clean while applying themes to user configs
-    cp "$theme_dir/waybar-style.css.template" "$HOME/.config/waybar/style.css"
+    
+    # Process waybar template to replace color placeholders
+    if [ -f "$theme_dir/theme.conf" ]; then
+        # Read theme colors
+        local PRIMARY=$(grep "^PRIMARY=" "$theme_dir/theme.conf" | cut -d'=' -f2 | tr -d ' "' | cut -d'#' -f2)
+        local SECONDARY=$(grep "^SECONDARY=" "$theme_dir/theme.conf" | cut -d'=' -f2 | tr -d ' "' | cut -d'#' -f2)
+        local ACCENT_MUTED=$(grep "^ACCENT_MUTED=" "$theme_dir/theme.conf" | cut -d'=' -f2 | tr -d ' "' | cut -d'#' -f2)
+        local ACCENT_DIM=$(grep "^ACCENT_DIM=" "$theme_dir/theme.conf" | cut -d'=' -f2 | tr -d ' "' | cut -d'#' -f2)
+        
+        # Convert hex to rgb for alpha versions
+        hex_to_rgb() {
+            local hex=$1
+            printf "%d, %d, %d" 0x${hex:0:2} 0x${hex:2:2} 0x${hex:4:2}
+        }
+        
+        local ACCENT_MUTED_RGB=$(hex_to_rgb "$ACCENT_MUTED")
+        local ACCENT_DIM_RGB=$(hex_to_rgb "$ACCENT_DIM")
+        
+        # Process waybar template and replace placeholders
+        cat "$theme_dir/waybar-style.css.template" | \
+            sed "s|__PRIMARY__|#$PRIMARY|g" | \
+            sed "s|__SECONDARY__|#$SECONDARY|g" | \
+            sed "s|__ACCENT_MUTED__|#$ACCENT_MUTED|g" | \
+            sed "s|__ACCENT_DIM__|#$ACCENT_DIM|g" | \
+            sed "s|__ACCENT_MUTED_ALPHA__|rgba($ACCENT_MUTED_RGB, 0.3)|g" | \
+            sed "s|__ACCENT_DIM_ALPHA__|rgba($ACCENT_DIM_RGB, 0.3)|g" \
+            > "$HOME/.config/waybar/style.css"
+    else
+        cp "$theme_dir/waybar-style.css.template" "$HOME/.config/waybar/style.css"
+    fi
+    
     cp "$theme_dir/wofi-style.css.template" "$HOME/.config/wofi/style.css"
     cp "$theme_dir/mako-config" "$HOME/.config/mako/config"
     cp "$theme_dir/swayosd-style.css" "$HOME/.config/swayosd/style.css"
@@ -116,16 +146,6 @@ apply_theme() {
     fi
     
     echo "$theme" > "$CURRENT_THEME_FILE"
-    
-    # Apply user's workspace style preference (if set) - AFTER saving current theme
-    local workspace_style_pref="$CONFIG_DIR/workspace-style"
-    if [ -f "$workspace_style_pref" ]; then
-        local preferred_style=$(cat "$workspace_style_pref")
-        if [ -x "$PROJECT_DIR/scripts/workspace-style-switcher.sh" ]; then
-            # Don't restart waybar here - we'll do it below
-            "$PROJECT_DIR/scripts/workspace-style-switcher.sh" apply "$preferred_style" --no-restart 2>/dev/null || true
-        fi
-    fi
     
     # Simply restart waybar to apply new CSS
     killall -q waybar
@@ -176,6 +196,8 @@ apply_theme() {
         killall swaybg 2>/dev/null
         sleep 0.2
         swaymsg exec "swaybg -i $wallpaper_path -m fill" &
+        # Save the wallpaper path for session persistence
+        echo "$wallpaper_path" > "$CONFIG_DIR/last-wallpaper"
     fi
     
     notify-send "BunkerOS Theme Applied" "Now using $theme theme"

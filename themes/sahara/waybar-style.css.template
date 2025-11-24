@@ -23,14 +23,17 @@ window#waybar.hidden {
     margin: 0 0 0 12px;
 }
 
+
+/* Workspace Button Styles - Bottom Border (Underline) */
+
 #workspaces button {
     padding: 4px 10px;
     margin: 0 4px;
     background-color: transparent;
-    color: #A07856;
+    color: __SECONDARY__;
     border: none;
     border-radius: 0;
-    border-bottom: 2px solid transparent;
+    border-bottom: 3px solid transparent;
     font-size: 14px;
     font-weight: normal;
     min-width: 24px;
@@ -38,17 +41,17 @@ window#waybar.hidden {
 }
 
 #workspaces button:hover {
-    background-color: rgba(160, 120, 86, 0.3);
-    color: #D79921;
+    background-color: __ACCENT_MUTED_ALPHA__;
+    color: __PRIMARY__;
 }
 
 #workspaces button.active,
 #workspaces button.focused {
     background-color: transparent;
-    color: #D79921;
+    color: __PRIMARY__;
     border: none;
     border-radius: 0;
-    border-bottom: 2px solid #D79921;
+    border-bottom: 3px solid __PRIMARY__;
     font-weight: bold;
     font-size: 14px;
     padding: 4px 10px;
@@ -56,16 +59,15 @@ window#waybar.hidden {
 
 #workspaces button.active label,
 #workspaces button.focused label {
-    color: #D79921;
+    color: __PRIMARY__;
     font-weight: bold;
     font-size: 14px;
 }
 
 #workspaces button.visible {
-    background-color: rgba(60, 56, 54, 0.3);
-    color: #665C54;
+    background-color: __ACCENT_DIM_ALPHA__;
+    color: __ACCENT_DIM__;
 }
-
 #mode {
     background-color: rgba(251, 73, 52, 0.2);
     color: #FB4934;

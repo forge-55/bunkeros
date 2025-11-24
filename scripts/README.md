@@ -160,7 +160,8 @@ This directory contains all utility scripts for BunkerOS installation, configura
   - 5 themes available: tactical, night-ops, sahara, abyss, winter
   - Updates all components (Waybar, Wofi, Mako, etc.)
 
-- **`workspace-style-switcher.sh`** - Waybar workspace styles
+- **`theme-switcher.sh`** - Theme management
+- **`wallpaper-manager.sh`** - Wallpaper selection
   - Changes workspace indicator appearance
 
 ## Application Management

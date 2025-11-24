@@ -109,8 +109,8 @@ apply_workspace_style() {
     local waybar_style="$HOME/.config/waybar/style.css"
     local temp_file=$(mktemp)
     
-    # Check if there's a placeholder or existing workspace styles
-    if grep -q "/* WORKSPACE_STYLE_PLACEHOLDER */" "$waybar_style"; then
+    # Check if placeholder exists
+    if grep -q "WORKSPACE_STYLE_PLACEHOLDER" "$waybar_style"; then
         # Replace placeholder with actual styles
         awk -v ws="$workspace_css" '
             /\/\* WORKSPACE_STYLE_PLACEHOLDER \*\// {
@@ -119,31 +119,21 @@ apply_workspace_style() {
             }
             {print}
         ' "$waybar_style" > "$temp_file"
-    elif grep -q "#workspaces button" "$waybar_style"; then
-        # Replace existing workspace button styles
-        awk -v ws="$workspace_css" '
-            BEGIN { in_workspace=0; printed=0 }
-            /^\/\* Workspace Button Style:/ { 
-                if (!printed) {
-                    print ws
-                    printed=1
-                }
-                in_workspace=1
-                next
-            }
-            /^#workspaces button/ && in_workspace { 
-                next
-            }
-            /^#mode |^#clock|^window#waybar/ { 
-                in_workspace=0
-            }
-            !in_workspace { print }
-        ' "$waybar_style" > "$temp_file"
     else
-        # No workspace styles found, append at the end of workspaces section
+        # Placeholder already replaced - replace existing workspace button styles
         awk -v ws="$workspace_css" '
-            /^#workspaces {/ { print; getline; print; print ""; print ws; next }
-            {print}
+            BEGIN { in_workspace=0; skip_until_mode=0 }
+            /^\/\* Workspace Button Style:/ {
+                if (!skip_until_mode) {
+                    print ws
+                    skip_until_mode=1
+                }
+                next
+            }
+            skip_until_mode && /^#mode / {
+                skip_until_mode=0
+            }
+            !skip_until_mode {print}
         ' "$waybar_style" > "$temp_file"
     fi
     

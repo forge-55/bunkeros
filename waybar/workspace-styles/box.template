@@ -21,7 +21,7 @@
 #workspaces button.focused {
     background-color: __PRIMARY_ALPHA__;
     color: __PRIMARY__;
-    border: 2px solid __PRIMARY__;
+    border: 1px solid __PRIMARY__;
     border-radius: 4px;
     font-weight: bold;
     font-size: 14px;
@@ -42,7 +42,7 @@
 
 #workspaces button.urgent {
     background-color: __URGENT__;
-    border: 2px solid __URGENT__;
+    border: 1px solid __URGENT__;
     animation: urgent-pulse 1s ease-in-out infinite alternate;
 }
 

@@ -125,7 +125,7 @@ The installation scripts now handle everything automatically:
    - Automatically symlinks `bunkeros-lock` to `~/.local/bin/`
 
 3. **`waybar/scripts/appearance-menu.sh`**
-   - Uses `$PROJECT_DIR` for workspace-style-switcher.sh path
+   - Removed workspace style switching feature (now uses hardcoded underline style)
    - Fixed Back button icon
 
 4. **`waybar/scripts/system-menu.sh`**

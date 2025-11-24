@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """
-Fix all theme templates to use WORKSPACE_STYLE_PLACEHOLDER
-instead of hardcoded workspace button styles
+Fix all theme templates to use hardcoded workspace button styles
 """
 
 import re
@@ -12,13 +11,13 @@ THEMES_DIR = PROJECT_DIR / "themes"
 
 # Pattern to match the entire workspace button section
 WORKSPACE_SECTION_PATTERN = re.compile(
-    r'(#workspaces \{[^}]*\})\s*'  # Match #workspaces { ... }
-    r'(#workspaces button \{.*?'    # Start of button styles
-    r'@keyframes urgent-pulse \{.*?\}\s*\})',  # End with @keyframes
-    re.DOTALL
+    r'(#workspaces \{[^}]*\}\s*)'  # Match #workspaces { ... } with trailing whitespace
+    r'((?:#workspaces button[^}]*\}[\s\n]*)+)'  # Match all #workspaces button blocks
+    r'(?=\n*#mode\s)',  # Stop before #mode
+    re.DOTALL | re.MULTILINE
 )
 
-REPLACEMENT = r'\1\n\n/* WORKSPACE_STYLE_PLACEHOLDER */\n'
+REPLACEMENT = r'\1\n/* Workspace Button Styles - Underline */\n'
 
 def fix_template(template_path):
     """Replace workspace button styles with placeholder"""
@@ -53,7 +52,7 @@ def main():
             fixed_count += 1
     
     print(f"\n✓ Fixed {fixed_count} theme templates")
-    print("Workspace button styles will now be managed by workspace-style-switcher.sh")
+    print("Workspace button styles are now hardcoded with underline style")
 
 if __name__ == "__main__":
     main()

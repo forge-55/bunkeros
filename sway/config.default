@@ -24,6 +24,9 @@ set $BUNKEROS_NOTES lite-xl
 # These can be customized via: Super+m → Preferences → Default Apps
 include ~/.config/bunkeros/defaults.conf
 
+# Load BunkerOS appearance settings (borders, gaps, fonts)
+include ~/.config/bunkeros/appearance.conf
+
 # Set convenient short variables from user defaults
 set $term $BUNKEROS_TERM
 set $menu $BUNKEROS_MENU
@@ -57,7 +60,7 @@ set $notes $BUNKEROS_NOTES
 #
 # Note: exec (not exec_always) ensures wallpaper only loads on Sway startup,
 # allowing theme switches to persist across Sway reloads (Super+Shift+R)
-exec "killall swaybg 2>/dev/null; sleep 0.2; if ! pgrep -x swaybg; then swaybg -i ~/.local/share/bunkeros/wallpapers/tactical.jpg -m fill; fi"
+exec ~/.config/sway-config/scripts/load-wallpaper.sh
 
 ### Status Bar
 #
@@ -93,21 +96,20 @@ exec "swaymsg 'workspace 1; workspace 2; workspace 3; workspace 4; workspace 5; 
 ### Appearance
 #
 # Window gaps (always visible like Hyprland/COSMIC)
-gaps inner 8
-gaps outer 8
+gaps inner $BUNKEROS_GAPS_INNER
+gaps outer $BUNKEROS_GAPS_OUTER
 smart_gaps off
 
 # Window border colors are managed by the theme system
 # See the THEME COLORS section at the end of this file
 
 # Font for window titles
-font pango:monospace 10
+font pango:$BUNKEROS_FONT_FAMILY $BUNKEROS_FONT_SIZE
 
 # Window transparency (disabled for performance - prevents flicker)
 # Opacity calculations during workspace switching can cause visual artifacts
-set $opacity 1.0
-for_window [class=".*"] opacity $opacity
-for_window [app_id=".*"] opacity $opacity
+for_window [class=".*"] opacity $BUNKEROS_OPACITY
+for_window [app_id=".*"] opacity $BUNKEROS_OPACITY
 
 # Screenshot dialog - floating and centered
 for_window [app_id="screenshot-dialog"] floating enable, resize set 600 300, move position center, opacity 1
@@ -486,8 +488,8 @@ include ~/.config/sway/config.d/*.conf
 # Khaki/Olive/Charcoal tactical aesthetic
 
 # 3px borders - balanced between visibility and screen space
-default_border pixel 3
-default_floating_border pixel 3
+default_border pixel 2
+default_floating_border pixel 2
 
 # Client color scheme (border, background, text, indicator, child_border)
 # Using brighter tactical tan for focused window to increase contrast

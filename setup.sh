@@ -27,7 +27,7 @@ mkdir -p "$LOCAL_BIN"
 echo "  ✓ Directories created"
 echo ""
 
-echo "Step 1.5: Setting up default applications configuration..."
+echo "Step 1.5: Setting up BunkerOS configuration files..."
 if [ ! -f "$CONFIG_DIR/bunkeros/defaults.conf" ]; then
     echo "  Creating defaults.conf with fallback applications..."
     cp "$PROJECT_DIR/bunkeros/defaults.conf" "$CONFIG_DIR/bunkeros/defaults.conf"
@@ -35,6 +35,11 @@ if [ ! -f "$CONFIG_DIR/bunkeros/defaults.conf" ]; then
 else
     echo "  ℹ defaults.conf already exists, keeping user preferences"
 fi
+
+# Always copy appearance.conf (styling should be consistent across updates)
+echo "  Installing appearance.conf (styling settings)..."
+cp "$PROJECT_DIR/bunkeros/appearance.conf" "$CONFIG_DIR/bunkeros/appearance.conf"
+echo "  ✓ Appearance settings installed"
 echo ""
 
 echo "Step 2: Setting up Sway configuration..."
@@ -357,10 +362,6 @@ echo ""
 echo "Step 13: Applying default BunkerOS theme..."
 cd "$PROJECT_DIR"
 "$LOCAL_BIN/theme-switcher.sh" tactical 2>/dev/null || echo "  ℹ Theme will be applied on first Sway launch"
-
-# Apply default workspace style (bottom-border/underline)
-echo "  Applying default workspace style (underline)..."
-"$PROJECT_DIR/scripts/workspace-style-switcher.sh" apply bottom-border 2>/dev/null || echo "  ℹ Workspace style will be applied on first Sway launch"
 echo ""
 
 echo "Step 16: Setting up swayidle for automatic lock and suspend..."
@@ -370,7 +371,13 @@ backup_if_exists "$CONFIG_DIR/sway-config/scripts/launch-swayidle.sh"
 ln -sf "$PROJECT_DIR/scripts/launch-swayidle.sh" "$CONFIG_DIR/sway-config/scripts/launch-swayidle.sh"
 chmod +x "$PROJECT_DIR/scripts/launch-swayidle.sh"
 
+# Symlink wallpaper loader script
+backup_if_exists "$CONFIG_DIR/sway-config/scripts/load-wallpaper.sh"
+ln -sf "$PROJECT_DIR/sway/scripts/load-wallpaper.sh" "$CONFIG_DIR/sway-config/scripts/load-wallpaper.sh"
+chmod +x "$PROJECT_DIR/sway/scripts/load-wallpaper.sh"
+
 echo "  ✓ swayidle configuration symlinked"
+echo "  ✓ wallpaper loader symlinked"
 echo "  ℹ Automatic lock and suspend enabled (battery-aware timeouts)"
 echo ""
 

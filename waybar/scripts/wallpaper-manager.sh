@@ -5,7 +5,17 @@
 WALLPAPER_DIR="$HOME/.local/share/bunkeros/wallpapers"
 CUSTOM_WALLPAPER_DIR="$HOME/Pictures/Wallpapers"
 CONFIG_FILE="$HOME/.config/bunkeros/wallpaper-mode"
-CURRENT_THEME_FILE="$HOME/.config/bunkeros/current-theme"
+
+# Find bunkeros directory
+if [ -d "$HOME/bunkeros" ]; then
+    PROJECT_DIR="$HOME/bunkeros"
+elif [ -d "$HOME/Projects/bunkeros" ]; then
+    PROJECT_DIR="$HOME/Projects/bunkeros"
+else
+    PROJECT_DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/../.." && pwd)"
+fi
+
+CURRENT_THEME_FILE="$PROJECT_DIR/.current-theme"
 
 # Ensure directories exist
 mkdir -p "$CUSTOM_WALLPAPER_DIR"
@@ -39,6 +49,8 @@ apply_wallpaper() {
     local wallpaper="$1"
     killall swaybg 2>/dev/null
     swaymsg exec "swaybg -i \"$wallpaper\" -m fill" &
+    # Save the wallpaper path for session persistence
+    echo "$wallpaper" > "$HOME/.config/bunkeros/last-wallpaper"
 }
 
 # Main menu
@@ -77,7 +89,7 @@ enable_theme_wallpapers() {
     
     # Apply current theme's wallpaper
     local theme=$(get_current_theme)
-    local theme_conf="$HOME/.config/themes/$theme/theme.conf"
+    local theme_conf="$PROJECT_DIR/themes/$theme/theme.conf"
     
     if [ -f "$theme_conf" ]; then
         # Source the theme config to get WALLPAPER path
