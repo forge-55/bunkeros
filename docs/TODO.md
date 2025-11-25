@@ -21,6 +21,7 @@
 #DESIGN
 2. ✅ Improve battery indicator of T480 to account for second external battery life
 3. Make brightness and volume change indicator less transparent so they're easier to see
+4. New more intuitive screenshot system
 
 #BUG FIXES
 1. ✅ COMPLETED: Screensaver and suspend logic - Simplified to use swayidle with battery-aware auto-lock/suspend
