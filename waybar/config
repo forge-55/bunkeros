@@ -6,7 +6,7 @@
     
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["clock"],
-    "modules-right": ["network", "bluetooth", "pulseaudio", "custom/battery-profile", "custom/night-mode", "custom/power"],
+    "modules-right": ["network", "bluetooth", "pulseaudio", "custom/battery-profile", "custom/power"],
     
     "sway/workspaces": {
         "disable-scroll": false,

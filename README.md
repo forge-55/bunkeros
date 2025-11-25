@@ -39,7 +39,7 @@ The fastest way to get BunkerOS up and running:
 curl -fsSL https://raw.githubusercontent.com/forge-55/bunkeros/main/archinstall/install-bunkeros.sh | bash
 ```
 
-This automates the entire process: Arch Linux installation + BunkerOS configuration.
+This streamlines the installation by pre-configuring BunkerOS packages in archinstall. You'll still configure disk partitioning, timezone, and user accounts through archinstall's guided interface.
 
 See [archinstall/README.md](archinstall/README.md) for details.
 
@@ -67,7 +67,7 @@ See [INSTALL.md](INSTALL.md) for detailed instructions. This approach gives you 
 - Plymouth boot splash with official Arch Linux logo
 - Adaptive display scaling for HiDPI
 - Multi-monitor support (1-5 displays)
-- MacBook-quality touchpad support (tap-to-click, gestures)
+- Touchpad support (tap-to-click, gestures)
 - Web app manager
 - Interactive keybinding manager
 - Video conferencing ready

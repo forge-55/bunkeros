@@ -319,9 +319,8 @@ mode "resize" {
     bindsym Ctrl+Print exec $grimshot --notify copy area
     bindsym Ctrl+Shift+Print exec $grimshot --notify save active
 
-    # Night mode toggle (available via Waybar and Quick Menu - Super+m)
-    # bindsym $mod+n exec ~/.config/waybar/scripts/night-mode-toggle.sh
-    # Note: Super+n is now used for note-taking (Lite XL)
+    # Night mode toggle (available via Quick Menu - Super+m or Super+Shift+n)
+    bindsym $mod+Shift+n exec ~/.config/waybar/scripts/night-mode-toggle.sh
 
 
 #
