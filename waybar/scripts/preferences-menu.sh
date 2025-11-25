@@ -4,15 +4,8 @@
 # Accept position parameter (default: top_right for waybar button)
 POSITION=${1:-top_right}
 
-# Check autotiling status for display
-if pgrep -x autotiling-rs > /dev/null; then
-    autotiling_status="󰹳 Autotiling: ON"
-else
-    autotiling_status="󰹳 Autotiling: OFF"
-fi
-
-options="󰒓  Default Apps\n󰌌  Keybindings\n${autotiling_status}\n󰑓  Reload Config\n󰌑  Back"
-num_items=5
+options="󰒓  Default Apps\n󰌌  Keybindings\n󰌑  Back"
+num_items=3
 
 # Set location based on position parameter
 if [ "$POSITION" = "center" ]; then
@@ -39,16 +32,6 @@ case $selected in
         ;;
     "󰌌  Keybindings")
         ~/.config/waybar/scripts/keybinding-manager.sh
-        ;;
-    "󰹳 Autotiling: ON")
-        ~/.config/waybar/scripts/toggle-autotiling.sh
-        ;;
-    "󰹳 Autotiling: OFF")
-        ~/.config/waybar/scripts/toggle-autotiling.sh
-        ;;
-    "󰑓  Reload Config")
-        swaymsg reload
-        notify-send "BunkerOS" "Configuration reloaded"
         ;;
     "󰌑  Back")
         if [ "$POSITION" = "center" ]; then

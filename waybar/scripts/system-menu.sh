@@ -8,8 +8,8 @@ PROJECT_DIR="$(cd "$(dirname "$SCRIPT_PATH")/../.." && pwd)"
 # Accept position parameter (default: top_right for waybar button)
 POSITION=${1:-top_right}
 
-options="󰖩  Network\n󰂯  Bluetooth\n󰕾  Audio\n󰍹  Display\n󰹑  Display Scaling\n󰌑  Back"
-num_items=6
+options="󰖩  Network\n󰂯  Bluetooth\n󰕾  Audio\n󰍹  Display\n󰹑  Display Scaling\n󰖔  Night Mode\n󰌑  Back"
+num_items=7
 
 # Set location based on position parameter
 if [ "$POSITION" = "center" ]; then
@@ -61,6 +61,10 @@ case $selected in
         else
             notify-send "BunkerOS" "Display scaling script not found"
         fi
+        ;;
+    "󰖔  Night Mode")
+        ~/.config/waybar/scripts/night-mode-toggle.sh
+        notify-send "Night Mode" "Toggled color temperature"
         ;;
     "󰌑  Back")
         if [ "$POSITION" = "center" ]; then

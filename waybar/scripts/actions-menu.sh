@@ -1,30 +1,55 @@
 #!/bin/bash
 # BunkerOS Actions Menu - Quick actions
 
-options="󰄀 Screenshot\n󰷛 Lock Screen\n⬅️  Back"
+# Accept position parameter (default: top_right for waybar button)
+POSITION=${1:-top_right}
 
-# Calculate height dynamically
-item_height=40
-num_items=3
-total_height=$((num_items * item_height + 50))
+# Check autotiling status for display
+if pgrep -x autotiling-rs > /dev/null; then
+    autotiling_status="󰹳  Autotiling: ON"
+else
+    autotiling_status="󰹳  Autotiling: OFF"
+fi
 
-selected=$(echo -e "$options" | wofi --dmenu \
-    --prompt "Actions" \
-    --width 180 \
-    --height "$total_height" \
-    --location top_right \
-    --xoffset -10 \
-    --yoffset 40)
+options="󰄀  Screenshot\n${autotiling_status}\n󰑓  Reload Config\n󰌑  Back"
+num_items=4
+
+# Set location based on position parameter
+if [ "$POSITION" = "center" ]; then
+    selected=$(echo -e "$options" | wofi --dmenu \
+        --prompt "Actions" \
+        --width 220 \
+        --lines "$num_items" \
+        --location center \
+        --cache-file=/dev/null)
+else
+    selected=$(echo -e "$options" | wofi --dmenu \
+        --prompt "Actions" \
+        --width 220 \
+        --lines "$num_items" \
+        --location top_right \
+        --xoffset -10 \
+        --yoffset 40 \
+        --cache-file=/dev/null)
+fi
 
 case $selected in
-    "󰄀 Screenshot")
+    "󰄀  Screenshot")
         ~/.config/waybar/scripts/screenshot-area.sh
         ;;
-    "󰷛 Lock Screen")
-        # Lock screen immediately
-        ~/.local/bin/bunkeros-lock &
+    "󰹳  Autotiling: ON")
+        ~/.config/waybar/scripts/toggle-autotiling.sh
         ;;
-    "⬅️  Back")
-        ~/.config/waybar/scripts/main-menu.sh
+    "󰹳  Autotiling: OFF")
+        ~/.config/waybar/scripts/toggle-autotiling.sh
+        ;;
+    "󰑓  Reload Config")
+        swaymsg reload
+        notify-send "BunkerOS" "Configuration reloaded"
+        ;;
+    "󰌑  Back")
+        if [ "$POSITION" = "center" ]; then
+            ~/.config/waybar/scripts/main-menu.sh
+        fi
         ;;
 esac

@@ -7,7 +7,7 @@ if pgrep -x wofi > /dev/null 2>&1; then
     exit 0
 fi
 
-options="󰏘  Appearance\n󰒓  System\n󰏖  Install\n󰄀  Screenshot\n󰀉  Preferences\n󰐥  Power"
+options="󰒓  System\n󱐋  Actions\n󰏘  Theme\n󰀉  Preferences\n󰏖  Install\n󰐥  Power"
 
 # Count number of items
 num_items=6
@@ -22,20 +22,20 @@ selected=$(echo -e "$options" | wofi --dmenu \
     --cache-file=/dev/null)
 
 case $selected in
-    "󰏘  Appearance")
-        ~/.config/waybar/scripts/appearance-menu.sh center
-        ;;
     "󰒓  System")
         ~/.config/waybar/scripts/system-menu.sh center
         ;;
-    "󰏖  Install")
-        ~/.config/waybar/scripts/install-menu.sh center
+    "󱐋  Actions")
+        ~/.config/waybar/scripts/actions-menu.sh center
         ;;
-    "󰄀  Screenshot")
-        ~/.config/waybar/scripts/screenshot-area.sh
+    "󰏘  Theme")
+        ~/.local/bin/theme-switcher.sh menu center
         ;;
     "󰀉  Preferences")
         ~/.config/waybar/scripts/preferences-menu.sh center
+        ;;
+    "󰏖  Install")
+        ~/.config/waybar/scripts/install-menu.sh center
         ;;
     "󰐥  Power")
         ~/.config/waybar/scripts/power-menu.sh center
