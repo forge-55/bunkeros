@@ -14,7 +14,7 @@ if [ "$POSITION" = "center" ]; then
         --width 220 \
         --lines "$num_items" \
         --location center \
-        --no-cache)
+        --cache-file=/dev/null)
 else
     selected=$(echo -e "$options" | wofi --dmenu \
         --prompt "Preferences" \
@@ -23,7 +23,7 @@ else
         --location top_right \
         --xoffset -10 \
         --yoffset 40 \
-        --no-cache)
+        --cache-file=/dev/null)
 fi
 
 case $selected in

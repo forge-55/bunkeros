@@ -13,15 +13,13 @@ options="󰒓  System\n󱐋  Actions\n󰏘  Theme\n󰀉  Preferences\n󰏖  Inst
 num_items=6
 
 # Main menu always appears centered
-# Use --no-cache to prevent menu items from reordering
-# Print each option on its own line to preserve exact order
+# Use cache-file=/dev/null to prevent menu items from reordering based on frequency
 selected=$(printf "%b" "$options" | wofi --dmenu \
     --prompt "Search..." \
     --width 220 \
     --lines "$num_items" \
     --location center \
-    --no-cache \
-    --define=matching=contains)
+    --cache-file=/dev/null)
 
 case $selected in
     "󰒓  System")
